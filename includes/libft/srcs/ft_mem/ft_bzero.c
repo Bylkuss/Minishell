@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 11:44:21 by loadjou           #+#    #+#             */
-/*   Updated: 2022/04/23 18:46:42 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/14 20:17:47 by gehebert          #+#    #+#             */
+/*   Updated: 2021/09/17 06:40:44 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned char	*str;
+	unsigned char	*d;
 
-	str = s;
-	if (n > 0)
+	d = (unsigned char *)s;
+	while (n > 0)
 	{
-		while (n--)
-			*str++ = '\0';
+		*d = '\0';
+		d++;
+		n--;
 	}
 }

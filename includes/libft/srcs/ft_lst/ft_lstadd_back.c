@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/20 10:06:12 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/10/06 09:08:26 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/07 06:25:00 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list	*aneggaru;
+	t_list	*last;
 
-	if (*lst)
+	if (lst != NULL && *lst != NULL)
 	{
-		aneggaru = ft_lstlast(*lst);
-		aneggaru->next = new;
+		last = *lst;
+		last = ft_lstlast(*lst);
+		last->next = new;
+		return ;
 	}
-	else
-		*lst = new;
+	*lst = new;
 }

@@ -3,19 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/12 12:48:12 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/29 11:02:19 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 06:40:39 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
-	if (fd)
-	{
-		write(fd, &c, 1);
-	}
+	write (fd, &c, 1);
 }

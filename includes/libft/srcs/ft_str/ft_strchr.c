@@ -3,47 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 11:30:08 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/15 12:28:39 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 10:22:25 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 char	*ft_strchr(const char *s, int c)
 {
-	char	*str;
+	size_t	i;
+	size_t	len;
 
-	str = (char *)s;
-	while (*str || c == '\0')
-	{
-		if (*(str++) == (char)c)
-			return (--str);
-	}
+	i = -1;
+	len = ft_strlen(s);
+	while (++i < len + 1)
+		if (s[i] == (char)c)
+			return (((void *)&((char *)s)[i]));
 	return (NULL);
 }
-/*
-int	main(void)
-{
-	char	*p2;
-	char	*p1;
-
-	p2 = "1";
-	p1 = "2";
-	if (p1 > p2)
-	{
-		printf("P1 is greater than p2");
-	}
-	else if (p1 == p2)
-	{
-		printf("P1 equals p2");
-	}
-	else
-	{
-		printf("P2 is greater than p1");
-	}
-	return (0);
-}
-*/

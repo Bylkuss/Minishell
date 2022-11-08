@@ -1,46 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft.atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/09 17:59:59 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/07/22 05:58:38 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/06 09:06:12 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 int	ft_atoi(const char *str)
 {
-	size_t	i;
+	int		i;
+	int		num;
 	int		sign;
-	size_t	result;
 
 	i = 0;
+	num = 0;
 	sign = 1;
-	result = 0;
-	while (str[i] == ' ' || (str[i] <= 13 && str[i] >= 9))
+	while (*(str + i) == '\n' || \
+		*(str + i) == '\t' || \
+		*(str + i) == '\r' || \
+		*(str + i) == '\v' || \
+		*(str + i) == '\f' || \
+		*(str + i) == ' ')
 		i++;
-	if (str[i] == '+' || str[i] == '-')
-	{
-		if (str[i] == '-')
-			sign *= -1;
+	if (*(str + i) == '-')
+		sign = -1;
+	if (*(str + i) == '-' || *(str + i) == '+')
 		i++;
-	}
-	while (str[i] >= '0' && str[i] <= '9')
-	{
-		result = (result * 10) + (str[i] - '0');
-		i++;
-	}
-	return (result * sign);
+	while (*(str + i) && *(str + i) >= '0' && *(str + i) <= '9')
+		num = num * 10 + (*(str + i++) - '0');
+	return (num * sign);
 }
-/*
-#include <stdlib.h>
-int	main(void)
-{
-	printf("%d\n", ft_atoi("        \v\n\b          -1234fsd"));
-	printf("%d\n", atoi("        \v\n\b      -1234fsd"));
-}
-*/

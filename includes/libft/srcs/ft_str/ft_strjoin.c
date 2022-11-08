@@ -3,49 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 14:01:49 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/21 06:10:42 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 07:09:34 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/libft.h"
-
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	size_t	len;
-	size_t	i;
-	size_t	j;
-	char	*str;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	stot;
+	char	*new;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
+		return (ft_strdup(""));
+	if (s1 && !s2)
+		return (ft_strdup(s1));
+	if (!s1 && s2)
+		return (ft_strdup(s2));
+	s1_len = (ft_strlen((char *) s1));
+	s2_len = (ft_strlen((char *) s2));
+	stot = s1_len + s2_len + 1;
+	new = malloc(sizeof(char) * stot + 1);
+	if (!new)
 		return (NULL);
-	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2[j])
-		str[i++] = s2[j++];
-	str[i] = '\0';
-	return (str);
+	ft_memmove(new, s1, s1_len);
+	ft_memmove(new + s1_len, s2, s2_len);
+	new[stot - 1] = '\0';
+	return (new);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	*s1;
-	char	*s2;
-
-    s1 = "yalalaw ";
-    s2 = "yalala";
-    printf("%s", ft_strjoin(s1, s2));
-}
-*/

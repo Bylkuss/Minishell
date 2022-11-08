@@ -1,58 +1,63 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: gehebert <gehebert@42quebec.com>           +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/09/15 06:36:32 by gehebert          #+#    #+#              #
+#    Updated: 2022/02/02 10:39:59 by gehebert         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+# _*_ Makefile _*_
+
 NAME = libft.a
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c
-RM = rm -f
-AR = ar rcs
 
-HEADER = $(addsuffix .h, $(addprefix include/, ))
-SRCS_PATH = srcs/
-EXPANSION = python3 srcs/
+DIR_SRCS	= srcs
+DIR_OBJS	= objs
+SUBDIRS		= ft_is ft_to ft_mem ft_str ft_put ft_lst ft_arr ft_mx 
 
+SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_SRCS)/, $(dir)))
+OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_OBJS)/, $(dir)))
+SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
+OBJS		= $(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
 
-FTIS = ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint
-FTSKIP = space spacenl char chars
-FTLST = ft_lstadd_back ft_lstadd_front ft_lstclear ft_lstdelone ft_lstiter \
-		ft_lstlast ft_lstmap ft_lstnew ft_lstsize
-FTMATH = abs nbrlen hexlen baselen power
-FTMEM = ft_bzero ft_calloc ft_memcpy ft_memchr ft_memcmp ft_memcpy ft_memmove ft_memset
-FTPUT = ft_putchar_fd ft_putendl_fd ft_putnbr_fd ft_putstr_fd
-FTSTR = ft_strchr ft_strncmp ft_strdup ft_strjoin ft_strlcat \
-		ft_strlcpy ft_strlen ft_strmapi ft_strncmp ft_strnstr \
-		ft_strrchr ft_strtrim 
-FTSUB = ft_substr ft_split
-FTTO = ft_tolower ft_toupper ft_atoi ft_itoa
+INCLUDES	= -I includes
 
-SRCS = $(addsuffix .c, $(addprefix $(SRCS_PATH)ft_is/, $(FTIS))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_lst/, $(FTLST))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_mem/, $(FTMEM))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_put/, $(FTPUT))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_str/, $(FTSTR))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_sub/, $(FTSUB))) \
-		$(addsuffix .c, $(addprefix $(SRCS_PATH)ft_to/, $(FTTO)))
+CC 			= gcc
+CFLAGS 		= -Wall -Wextra -Werror  
+RM 			= /bin/rm -rf
 
+# Color Aliases
+DEFAULT = \033[0;39m
+GRAY = \033[0;90m
+RED = \033[0;91m
+GREEN = \033[0;92m
+YELLOW = \033[0;93m
+BLUE = \033[0;94m
+MAGENTA = \033[0;95m
+CYAN = \033[0;96m
+WHITE = \033[0;97m
 
-OBJS		= $(SRCS:.c=.o)
-BONUS_OBJS		= $(BONUS_SRCS:.c=.o)
-
-$(FORMAT): $(OBJS)
-	$(shell c_formatter_42 $(SRCS) $(BONUS_SRCS))
-	$(shell norminette $(SRCS) $(BONUS_SRCS))
-
-$(NAME):	$(OBJS)
-			-@$(AR) $(NAME) $(OBJS) $(FORMAT)
+# Make variables
+$(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
+			@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
+			@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 all:		$(NAME)
 
-bonus:		$(OBJS) $(BONUS_OBJS)
-			-@$(AR) $(NAME) $(OBJ) $(BONUS_OBJS)
+$(NAME):	$(OBJS)
+			@ar -rcs $(NAME) $(OBJS)
+			@ranlib $(NAME)
 
 clean:
-			-@$(RM) $(OBJS) $(BONUS_OBJS)
+			@$(RM) $(OBJS)
+			@$(RM) -r $(DIR_OBJS)
 
 fclean:		clean
-			-@$(RM) $(NAME)
+			@$(RM) $(NAME)
 
 re:			fclean all
 
-.PHONY:		all bonus clean fclean re
+.PHONY:		all clean fclean re

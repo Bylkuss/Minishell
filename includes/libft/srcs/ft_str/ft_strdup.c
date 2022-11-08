@@ -1,45 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   strdup.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 12:23:41 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/17 06:46:03 by gehebert          #+#    #+#             */
+/*   Updated: 2021/09/24 07:47:35 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/libft.h"
-
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(const char *s)
 {
 	char	*str;
 	int		i;
-	size_t	len;
 
 	i = 0;
-	str = (char *)s1;
-	len = ft_strlen(str);
-	str = malloc(sizeof(char) * len + 1);
-	if (!(str))
+	while (s[i])
+		i++;
+	str = malloc(sizeof(char) * (i + 1));
+	if (!str)
 		return (NULL);
-	while (s1[i] != '\0')
+	i = 0;
+	while (s[i])
 	{
-		str[i] = s1[i];
+		str[i] = s[i];
 		i++;
 	}
 	str[i] = '\0';
 	return (str);
 }
-/*
-int	main(void)
-{
-	char	*source;
-
-	source = ". | .";
-	ft_strdup(source);
-	printf("%s", ft_strdup(source));
-	return (0);
-}
-*/

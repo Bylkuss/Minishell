@@ -3,40 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 18:04:50 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/15 07:04:33 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/18 14:34:01 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	size_t			i;
-	unsigned char	*dest;
-	unsigned char	*src1;
+	 size_t	i;
 
-	dest = (unsigned char *)dst;
-	src1 = (unsigned char *)src;
+	 if (!dst && !src)
+		return (0);
 	i = 0;
-	if (!dest && !src1)
-		return (NULL);
 	while (i < n)
 	{
-		dest[i] = src1[i];
+		*((char *)(dst + i)) = *((char *)(src + i));
 		i++;
 	}
-	return ((void *)dest);
+	return (dst);
 }
-
-/*
-int	main(void)
-{
-	int	dest[50 ]= {4, 3, 2, 1};
-	int	src[50]= {1, 2, 3, 4};
-    ft_memcpy(dest, src, 4);
-    printf("%d", dest[3]);
-}
-*/

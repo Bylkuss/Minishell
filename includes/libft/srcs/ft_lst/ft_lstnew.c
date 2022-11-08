@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 16:10:34 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/10/06 08:56:54 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/06 13:53:58 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*new_content;
+	t_list	*new;
 
-	new_content = NULL;
-	new_content = malloc(sizeof(t_list));
-	if (!new_content)
+	new = (t_list *)malloc(sizeof(t_list));
+	if (new == NULL)
 		return (NULL);
-	new_content->next = NULL;
-	new_content->content = content;
-	return (new_content);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }
