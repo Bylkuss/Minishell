@@ -31,7 +31,7 @@ all: 	$(NAME)
 
 $(NAME): $(OBJS)
 	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+	-@$(CC) $(CFLAGS) $(LIBFT) -lcurses -lreadline -o $(NAME) 
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 
