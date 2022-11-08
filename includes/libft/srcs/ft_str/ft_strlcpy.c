@@ -3,38 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 11:35:32 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/15 10:20:52 by gehebert          #+#    #+#             */
+/*   Updated: 2021/09/30 10:47:08 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/libft.h"
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 {
 	size_t	i;
 
-	i = ft_strlen(src);
-	if (dstsize == 0)
+	i = 0;
+	if (n == 0)
+	{
+		while (src[i])
+			i++;
 		return (i);
-	while (*src && --dstsize)
-		*dst++ = *src++;
-	*dst = '\0';
+	}
+	while (i < n - 1 && src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	if (i < n)
+		dest[i] = '\0';
+	while (src[i] != '\0')
+		i++;
 	return (i);
 }
-/*
-int	main(void)
-{
-	char	dest[];
-	char	src[];
-
-	dest[] = "Hello";
-	src[] = " World";
-	printf("function return:    %lu\n", strlcpy(dest, src, 0));
-	printf("my function return: %zu\n", ft_strlcpy(dest, src, 0));
-	ft_strlcpy(dest, src, 0);
-	printf("%s\n", dest);
-}
-*/

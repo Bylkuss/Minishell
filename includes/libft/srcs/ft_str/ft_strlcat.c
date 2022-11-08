@@ -3,52 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/29 11:15:59 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/16 13:54:31 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/05 14:14:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/libft.h"
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
-	size_t	j;
-	size_t	src_len;
-	size_t	dst_len;
+	size_t	s1_end;
 
-	dst_len = ft_strlen(dst);
-	src_len = ft_strlen(src);
-	i = dst_len;
-	if (dstsize == 0)
-		return (src_len);
-	if (dstsize < i)
-		return (src_len + dstsize);
-	j = 0;
-	while (src[j] && i < (dstsize - 1))
-	{
-		dst[i] = src[j];
+	i = 0;
+	if (size == 0)
+		return (ft_strlen(src));
+	while (dst[i] && i < size)
 		i++;
-		j++;
+	s1_end = i;
+	while (src[i - s1_end] && i < size - 1)
+	{
+		dst[i] = src[i - s1_end];
+		i++;
 	}
-	dst[i] = '\0';
-	return (src_len + dst_len);
+	if (s1_end < size)
+		dst[i] = '\0';
+	return (s1_end + ft_strlen(src));
 }
-/*
-#include <string.h>
-int	main(void)
-{
-	char	dest[50];
-	char	*src;
-
-	dest[50] = "Azul ";
-    src = "fell-awen";
-    // printf("function return: %lu\n", strlcat(dest, src, 0));
-    printf("my function return: %lu\n", ft_strlcat(dest, src, 10));
-	printf("   function return: %lu\n", strlcat(dest, src, 10));
-    // ft_strlcat(dest, src, 15);
-    // printf("%s", dest);
-}
-*/

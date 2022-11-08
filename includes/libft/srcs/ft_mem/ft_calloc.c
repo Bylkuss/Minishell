@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 11:44:48 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/17 07:06:20 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 11:15:16 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t n, size_t size)
 {
-	char	*ptr;
+	char	*new;
+	size_t	tmp;
 
-	ptr = malloc(nmemb * size);
-	if (!(ptr))
-		return (NULL);
-	if (nmemb == SIZE_MAX && size == SIZE_MAX)
-		return (NULL);
-	ft_bzero(ptr, (nmemb * size));
-	return (ptr);
+	tmp = size * n;
+	new = malloc(tmp);
+	if (!(new))
+		return (0);
+	ft_memset(new, 0, tmp);
+	return (new);
 }

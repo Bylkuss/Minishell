@@ -3,42 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 14:37:47 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/21 10:15:57 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/04 14:34:51 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-#include "../../include/libft.h"
-
-char	*ft_strtrim(char const *s1, char const *set)
+static int	ischar(char c, const char *set)
 {
-	char	*str;
-	size_t	deb;
-	size_t	fin;
+	size_t	i;
 
-	if (!set || !s1)
-		return (NULL);
-	deb = 0;
-	fin = ft_strlen(s1);
-	while (s1[deb] && ft_strchr(set, s1[deb]))
-		deb++;
-	while (s1[fin - 1] && ft_strchr(set, s1[fin - 1]) && fin > deb)
-		fin--;
-	str = (char *)malloc(sizeof(char) * (fin - deb) + 1);
-	if (!str)
-		return (NULL);
-	ft_strlcpy(str, &s1[deb], fin - deb + 1);
-	return (str);
+	i = 0;
+	while (*(set + i))
+		if (*(set + i++) == c)
+			return (1);
+	return (0);
 }
 
-/*
-int	main(void)
+static char	*trimming(const char *s1, const char *set, size_t *k, size_t i)
 {
-	char const	*set;
+	size_t	j;
+	size_t	len;
+	char	*dst;
 
-	set = "21";
-	printf("%s\n", ft_strtrim("121ay idurar n gerger1111121111", set));
+	len = ft_strlen(s1);
+	j = 0;
+	while (ischar(*(s1 + len - j - 1), set))
+		j++;
+	dst = ft_calloc(sizeof(char), len - (j + i) + 1);
+	if (dst == NULL)
+		return (NULL);
+	while (*k < len - (j + i))
+	{
+		*(dst + *k) = *(s1 + i + *k);
+		*k += 1;
+	}
+	return (dst);
 }
-*/
+
+char	*ft_strtrim(const char *s1, const char *set)
+{
+	size_t	i;
+	size_t	k;
+	size_t	len;
+	char	*dst;
+
+	if (s1 == NULL)
+		return (NULL);
+	i = 0;
+	len = ft_strlen(s1);
+	while (ischar(*(s1 + i), set))
+		i++;
+	k = 0;
+	if (i == len)
+		dst = malloc(1);
+	else
+		dst = trimming(s1, set, &k, i);
+	if (dst != NULL)
+		*(dst + k) = '\0';
+	return (dst);
+}

@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 11:05:47 by loadjou           #+#    #+#             */
-/*   Updated: 2022/04/09 18:02:12 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/14 09:06:14 by gehebert          #+#    #+#             */
+/*   Updated: 2021/09/14 09:29:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//
+//ft_isdigit  by germ
+//
+
+#include "libft.h"
+
 int	ft_isdigit(int c)
 {
-	return ((c >= 48 && c <= 57));
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

@@ -3,38 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/04 11:49:05 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/07 10:28:40 by loadjou          ###   ########.fr       */
+/*   Created: 2021/09/15 12:35:14 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 12:16:40 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../../include/libft.h"
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	int				i;
+	unsigned char	uc;
+	char			*str;
 
-	i = ft_strlen(s);
-	if (c == 0)
-		return (((char *)s) + i);
+	i = 0;
+	str = (char *)s;
+	uc = (unsigned char)c;
+	while (s[i])
+		i++;
+	if (!c)
+		return (str + i);
+	i--;
 	while (i >= 0)
 	{
-		if (s[i] == (char)c)
-			return (((char *)s) + i);
+		if (uc == str[i])
+			return (str + i);
 		i--;
 	}
 	return (NULL);
 }
-/*
-int	main(int argc, char *argv[])
-{
-    if (argc == 3)
-    {
-        printf("ft_strchr:: %s \n", ft_strrchr(argv[1], argv[2][0]));
-        printf("ft_strchr:: %p \n", ft_strrchr(argv[1], argv[2][0]));
-    }
-    return (0);
-}
-*/
