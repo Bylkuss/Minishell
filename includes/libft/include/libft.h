@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/08 17:58:08 by loadjou           #+#    #+#             */
-/*   Updated: 2022/04/24 14:39:55 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/08 18:11:33 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-
+#include <stdint.h> /*for limits in Linux*/
 typedef struct s_list
 {
 	void			*content;

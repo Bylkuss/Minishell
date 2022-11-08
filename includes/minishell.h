@@ -5,8 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
+// #include "includes/libft/include/libft.h"
+// #include <readline.h>
+// #include <history.h>
 #include <unistd.h>
 
 /************PROTOTYPES************/
