@@ -10,6 +10,8 @@ LIBFT = includes/libft/libft.a
 
 LIBFT_PATH = includes/libft/
 
+RDPATH = includes/readline/
+
 SRCS_PATH = src/
 
 BUILTINS = cd
@@ -31,7 +33,7 @@ all: 	$(NAME)
 
 $(NAME): $(OBJS)
 	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) 
+	-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -L $(RDPATH) -lreadline -o $(NAME) 
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 
