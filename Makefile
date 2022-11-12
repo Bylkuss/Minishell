@@ -1,55 +1,63 @@
-NAME = minishell
+NAME 	=	minishell
 
-CC = gcc
+CC 		= 	gcc
+CFLAGS 	=	-Wall -Wextra -Werror
+RM 		=	rm -rf
 
-CFLAGS = -Wall -Werror -Wextra -g
+H_SRC 	=	minishell.h 
+H_DIR	= 	includes/
+HEADER	=	$(addprefix $(H_DIR), $(H_SRC))
 
-RM = rm -f
+SRCS 	=	main.c #check.c signal.c
 
-LIBFT = includes/libft/libft.a
+#prompt.c signal.c parse.c subsplit.c check.c \
+			get_next_line.c get_next_line_utils.c #main.c 
+S_DIR	= 	srcs/
+S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))
+OBJ_S 	=	$(S_PTH:.c=.o)
 
-LIBFT_PATH = includes/libft/
+
+# SRCF	= 	
+# F_DIR	=	libft/
+# F_PTH	= 	$(addprefix $(F_DIR), $(SRCF))
+# OBJ_F	= 	$(F_PTH:.c=.o)
+
+F_DIR = libft/
+
+LIBFT = libft/libft.a
+
+O_DIR = libft/objs/
+
+RDPATH = readline/libreadline.a readline/libhistory.a
 
 SRCS_PATH = src/
 
-BUILTINS = cd
-PARSING = checks
+
+# %.o: %.c $(HEADER) Makefile
+# 				@$(CC) $(CFLAGS)  -I$(F_DIR) -I$(H_DIR) -c $< -o $@
+
+# $(NAME)	:	$(OBJ_S)
+# 				$(CC)  $(OBJ_S) -o $(NAME)  -lcurses -lreadline  libft/libft.a 
+
+# OBJS = $(SRCS_FILES:.c=.o)
+
+$(NAME): 	$(OBJ_S)
+	-@$(MAKE) -C $(F_DIR) 
+	-@$(CC) $(CFLAGS) $(OBJ_S) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 
 
+all		:	$(NAME)
 
-SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_PATH)builtins/, $(BUILTINS))) \
-			$(addsuffix .c, $(addprefix $(SRCS_PATH)parsing/, $(checks)))
+clean	:
+				$(RM) $(OBJ_F) 
+				$(RM) $(OBJ_S) 
+				$(RM) $(O_DIR)
 
+fclean	:	clean
+				$(RM) $(NAME)
 
+re		:	fclean all
 
-OBJS = $(SRCS_FILES:.c=.o)
+.PHONY	:	clean fclean re bonus
 
-all: 	$(NAME)
-	@echo "BOOM 💥💥💥💥💥 $(NAME) Compiled! 💯 $(DEFAULT)"
-
-
-$(NAME): $(OBJS)
-	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(LIBFT) -lcurses -lreadline -o $(NAME) 
-	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
-
-
-clean:
-			-@$(RM) $(OBJS)
-
-fclean:		clean
-			-@$(RM) $(NAME)
-
-re:			fclean all
-
-.PHONY:		all clean fclean re
-
-
-
-#COLORS
-RED = \033[1;31m
-GREEN = \033[1;32m
-YELLOW = \033[1;33m
-DEFAULT = \033[0m
-COMMIT = $(shell date "+%d %B %T")
