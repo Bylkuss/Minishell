@@ -6,23 +6,15 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:05:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/10 22:00:31 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:48:55 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../includes/minishell.h"
-# include "../libft/incs/libft.h"
+#include "../includes/minishell.h"
 
-extern int g_status;
-
-static int ft_count_words(const char *s, char *c, int i[2])
+static int word_count(const char *s, char *c, int i[2])
 {
-    int     q[2];
+    int     q[2];   // quotes match delimter
 
     q[0] = 0;
     q[1] = 0;
@@ -51,7 +43,7 @@ static int ft_count_words(const char *s, char *c, int i[2])
 static char **ft_fill_array(char **aux, const char *s, char *set, int i[3])
 {
     int     len;
-    int     q[2];
+    int     q[2];       // quotes match
 
     q[0] = 0;
     q[1] = 0;
@@ -79,8 +71,8 @@ char **ft_cmdtrim(const char *s, char *set)
 {
     char    **aux;
     int     nwords;
-    int     i[3];
-    int     count[2];
+    int     i[3];       //state pos: start, sub-end, end
+    int     count[2];   // str sub len [0:start/1:end]
 
     i[0] = 0;
     i[1] = 0;
@@ -89,7 +81,7 @@ char **ft_cmdtrim(const char *s, char *set)
     count[1] = 0;
     if (!s)
         return (NULL);
-    nwords = ft_count_words(s, set, count);
+    nwords = word_count(s, set, count);
     if (nwords == -1)
         return (NULL);
     aux = malloc(sizeof(char *) * (nwords + 1));

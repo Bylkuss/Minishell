@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "get_next_line.h"
+#include "../includes/get_next_line.h"
 
 char	*ft_read(int fd)  // , char *line) // remove in transition
 {
@@ -98,10 +98,10 @@ char	 *ft_saved(char *line) // get the first line incl \n
 	int		i;  // index
 	unsigned int 	j;	//passed index
 	size_t 	k;	//len
-	char	*rtn;  // associated str...
+	// char	*rtn;  // associated str...
 	char 	*box;	// transport var
 
-	rtn = NULL;	
+	// rtn = NULL;	
 	i = ft_find(line);
 	j = i + 1;
 	while (line[i] != '\0')

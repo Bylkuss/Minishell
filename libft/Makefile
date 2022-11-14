@@ -16,7 +16,7 @@ NAME = libft.a
 
 DIR_SRCS	= srcs
 DIR_OBJS	= objs
-SUBDIRS		= ft_is ft_to ft_mem ft_str ft_put ft_lst ft_arr ft_mx 
+SUBDIRS		= ft_is ft_to ft_mem ft_str ft_put ft_lst ft_arr ft_mx files 
 
 SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_SRCS)/, $(dir)))
 OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_OBJS)/, $(dir)))
@@ -48,7 +48,7 @@ $(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ar -rcs $(NAME) $(OBJS)
+			@ar -r $(NAME) $(OBJS)
 			@ranlib $(NAME)
 
 clean:

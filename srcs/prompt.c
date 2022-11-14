@@ -6,21 +6,15 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/10 21:58:25 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/13 19:45:42 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../includes/minishell.h"
-// # include "../libft/incs/libft.h"
+#include "../includes/minishell.h"
 
 extern int g_status;
 
-static char *get_home(t_prompt prompt)
+static char *get_home(t_dot p)
 {
     char *tmp;
     char *pwd;
@@ -29,7 +23,7 @@ static char *get_home(t_prompt prompt)
     pwd = getcwd(NULL, 0);                                        
     if (!pwd)
         pwd = ft_strdup("@ ");
-    home = mini_getenv("HOME", prompt.envp, 4);
+    home = ms_getenv("HOME", p.envp, 4);
     if (home && home[0] && ft_strnstr(pwd, home,ft_strlen(pwd)))  
     {
         tmp = pwd;
@@ -44,7 +38,7 @@ static char *get_home(t_prompt prompt)
     return(pwd); 
 }
 
-static char *get_user(t_prompt prompt)
+static char *get_user(t_dot p)
 {
     char **user;
     char *tmp;
@@ -69,23 +63,23 @@ static char *get_user(t_prompt prompt)
     else 
         tmp2 = ft_strjoin(NULL, YELLOW);
     tmp = ft_strjoin(tmp2, *user);
-    if (!(prompt.envp))
+    if (!(p.envp))
         return (tmp);
     free(tmp2);
     ft_mx_free(&user);
     return (tmp); 
 }
 
-char    *mini_getprompt(t_prompt prompt)
+char    *getprompt(t_dot p)
 {
     char *tmp;
     char *tmp2;
     char *aux;
 
-    tmp = get_user(prompt);                          
+    tmp = get_user(p);                          
     tmp2 = ft_strjoin(tmp, "@mishell");
     free(tmp);
-    aux = get_home(prompt);                   
+    aux = get_home(p);                   
     tmp = ft_strjoin(tmp2, aux);
     free(aux);
     free(tmp2);

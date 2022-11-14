@@ -6,82 +6,28 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/11 02:08:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/13 23:23:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../includes/minishell.h"
-# include "../libft/incs/libft.h"
+#include "../includes/minishell.h"
 
 extern int g_status;
 
 
-
-// static void update_output(char **mx, int fd) {
-    //     char **aux;
-    //     char *tmp;
-    //     char *line;
-
-    //     aux = NULL;
-    //     line = NULL;
-    //     while(1)
-    //     {
-    //         line = get_next_line(fd);                      
-    //         if(!line)
-    //             break;
-    //         tmp = ft_strtrim(line, "\n");                       
-    //         free(line);
-    //         aux = ft_mx_ext(aux, tmp);                       
-    //         free(tmp);
-    //     }
-    //     ft_mx_free(*mx);
-    //     *mx = aux; 
-// }
-
-// void    exec_custom(char **out, char *full, char *args, char **envp) 
-    // {
-    //     pid_t   pid;
-    //     int     fd[2];
-    //     char    **mx;
-
-    //     pipe(fd);                                             
-    //     pid = fork();                                          
-    //     if(!pid)
-    //     {
-    //         close(fd[READ_END]);
-    //         mx = ft_split(args, ' ');                          
-    //         dup2(fd[WRITE_END], STDOUT_FILENO);
-    //         close(fd[WRITE_END]);
-    //         if(!access(full, F_OK))
-    //             execve(full, mx, envp);
-    //         exit(1);
-    //     }
-    //     close(fd[WRITE_END]);
-    //     waitpid(pid, NULL, 0);
-    //     // update_output(out, fd[READ_END]);                      
-    //     close(fd[READ_END]); 
-// }
-
-static char **split_all(char **args, t_dot p)
+static char **split_all(char **args, t_dot *p)
 {
     char **subsplit;
     int i;
-    // int quotes[2];
+    int quotes[2];
 
     (void) p;
     i = -1;
     while (args && args[++i])
     {
-        // args[i] = expand_vars(args[i], -1, quotes, p);       
-        // args[i] = expand_path(args[i], -1, quotes, \
-        //     mini_getenv("HOME", prompt->envp, 4));              
-        subsplit = ft_cmdsubsplit(args[i], "<|>");              
+        args[i] = expand_vars(args[i], -1, quotes, p);       
+        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", p->envp, 4));              
+        subsplit = ft_cmd_div(args[i], "<|>");              
         ft_mx_rpl(&args, subsplit, i);                           
         i += ft_mx_len(subsplit) - 1;                          
         ft_mx_free(&subsplit);                                 
@@ -89,25 +35,24 @@ static char **split_all(char **args, t_dot p)
     return (args); 
 }
 
-static t_dot parse_args(char **args, t_dot p)
+static void *parse_args(char **args, t_dot *p)
 {
-    t_mini m;
-    int is_exit;
+    // int is_exit;
     int i;
 
-    is_exit = 0;
-    m.full_cmd  = split_all(args, p);              
-    if (!m.full_cmd)
+    // is_exit = 0;
+    p->cmds = fill_nodes(split_all(args, p), -1);              
+    if (!p->cmds)
         return (p);
-    // i = ft_lstsize(m.full_cmd);
+    i = ft_lstsize(p->cmds);
     // g_status = builtin(p, p->cmds, &is_exit, 0);             
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
-    // if (!is_exit && &g_status == 13)
-    //     g_status = 0;
     if (g_status > 255)
         g_status = g_status / 255;
+    // if (!is_exit && &g_status == 13)
+    //     g_status = 0;
     // if (args && is_exit)
     // {
     //     ft_lstclear(&p->cmds, free_content);
@@ -116,29 +61,29 @@ static t_dot parse_args(char **args, t_dot p)
     return (p);
 }
 
-t_dot check_args(char *out, t_dot p) 
+void *check_args(char *out, t_dot *p) 
 {
-    char    **a;
-    t_mini  m;
+    char    **tab;
+    t_mini  *m;
 
     if (!out)
     {
         printf("exit\n");
-        return (p);
+        return (NULL);
     }
     if (out[0] != '\0')
         add_history(out);                                 
-    m.full_cmd = ft_cmdtrim(out, " ");                               
+    tab = ft_cmdtrim(out, " ");           //input divided by space  **tab              
     free(out);
-    // if (!a)
-    //     return ("");
-    p = parse_args(m.full_cmd, p);                                    
-    // if (p && p->cmds)
-        // n = p->cmds->content;
-    // if (p && p->cmds && n && n->full_cmd && ft_lstsize(p->cmds) == 1)
-        // p->envp = mini_setenv("_", n->full_cmd[ft_mx_len(n->full_cmd) - 1], p->envp, 1);                                         --
+    if (!tab)
+        return ("");
+    p = parse_args(tab, p);                                    
+    if (p && p->cmds)
+        m = p->cmds->content;
+    if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
+        p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd) - 1],\
+            p->envp, 1);                                  
     // if (p && p->cmds)
     //     ft_lstclear(&p->cmds, free_content);
     return (p); 
 }
-

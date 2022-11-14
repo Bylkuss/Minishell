@@ -6,19 +6,14 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/11 02:39:16 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/14 00:13:42 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "../includes/minishell.h"
-# include "../libft/incs/libft.h"
 
-extern int g_status;
+#include "../includes/minishell.h"
+
+int g_status;
 
 void    handle_sigint(int sig)
 {
@@ -26,12 +21,12 @@ void    handle_sigint(int sig)
     {
         g_status = 130;
         ioctl(STDIN_FILENO, TIOCSTI, "\n");                           
-        // rl_replace_line("", 0);                                    
+        rl_replace_line("", 0);                                    
         rl_on_new_line();                                          
     } 
 }
 
-char    *mini_getenv(char *var, char **envp, int n)
+char    *ms_getenv(char *var, char **envp, int n)
 {
     int i;
     int n2;
@@ -51,7 +46,7 @@ char    *mini_getenv(char *var, char **envp, int n)
     return (NULL);  
 }
  
-char    **mini_setenv(char *var, char *value, char **envp, int n)
+char    **ms_setenv(char *var, char *value, char **envp, int n)
 {
     int i[2];
     char *aux[2];
