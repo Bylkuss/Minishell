@@ -26,7 +26,7 @@ static t_mini	*mx_init(void)
 	return (m);
 }
 
-static t_mini	*endtype_params(t_mini *node, char **a[2], int *i)
+static t_mini	*endtype_token(t_mini *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
@@ -63,7 +63,7 @@ static char	**get_trimmed(char **args)
 	temp = ft_mx_dup(args);
 	while (temp && temp[++j])
 	{
-		aux = ft_strtrim_all(temp[j], 0, 0);
+		aux = ft_strtrim_all(temp[j], 0, 0); // s/d quotes rules
 		free(temp[j]);
 		temp[j] = aux;
 	}
@@ -85,18 +85,18 @@ t_list	*fill_nodes(char **args, int i)
 	char	**temp[2];
 
 	cmds[0] = NULL;
-	temp[1] = get_trimmed(args); /* */
+	temp[1] = get_trimmed(args); /* clean cut token_part */
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);
 		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
 		{
 			i += args[i][0] == '|';
-			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));
+			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
 			cmds[1] = ft_lstlast(cmds[0]);
 		}
 		temp[0] = args;
-		cmds[1]->content = endtype_params(cmds[1]->content, temp, &i);
+		cmds[1]->content = endtype_token(cmds[1]->content, temp, &i);  /* wrap token */
 		if (i < 0)
 			return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])

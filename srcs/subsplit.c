@@ -40,7 +40,7 @@ static int word_count(const char *s, char *c, int i[2])
     return (i[1]);
 }
 
-static char **ft_fill_array(char **aux, const char *s, char *set, int i[3])
+static char **ft_fill_array(char **aux, const char *s, char *set, int i[3]) /* fram _Form_ */
 {
     int     len;
     int     q[2];       // quotes match
@@ -67,7 +67,7 @@ static char **ft_fill_array(char **aux, const char *s, char *set, int i[3])
     return (aux);
 }
 
-char **ft_cmdtrim(const char *s, char *set)
+char **subsplit(const char *s, char *set) /* cmd trim into token_part */
 {
     char    **aux;
     int     nwords;

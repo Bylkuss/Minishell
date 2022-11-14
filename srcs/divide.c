@@ -66,7 +66,7 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 }
 
 
-char    **ft_cmd_div(char const *s, char *set)
+char    **div_token(char const *s, char *set)
 {
     char    **aux;
     int     wnum;

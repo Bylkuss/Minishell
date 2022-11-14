@@ -28,8 +28,8 @@ static int  malloc_len(const char *s)
     while (s)
     {
         squote = (squote + (!dquote && s[i] == '\'')) % 2;
-        dquote = (dquote + (!squote && s[i] == '\"')) % 2; //"
-        if ((s[i] == '\"' && !squote) || (s[i] == '\'' && !dquote)) // "
+        dquote = (dquote + (!squote && s[i] == '\"')) % 2; 
+        if ((s[i] == '\"' && !squote) || (s[i] == '\'' && !dquote)) 
             count++;
     }
     if (squote || dquote)

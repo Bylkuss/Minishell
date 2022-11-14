@@ -97,9 +97,9 @@ char   	*getprompt(t_dot p);
 //parse
 void	*check_args(char *out, t_dot *p);
 //subsplit
-char 	**ft_cmdtrim(const char *s, char *set);
+char 	**subsplit(const char *s, char *set);
 //divide
-char	**ft_cmd_div(char const *s, char *set);
+char	**div_token(char const *s, char *set);
 //update
 void    exec_custom(char ***out, char *full, char *args, char **envp) ;
 //expand
