@@ -15,7 +15,7 @@ void mx_display_tab(char **tab)
 
 void mx_display_str(char *str)
 {
-    printf("\n %s ++++  \n", str);
+    printf(" %s ++++  \n", str);
 }
 
 void mx_display_tkn(t_token *token)

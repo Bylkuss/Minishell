@@ -114,31 +114,31 @@ t_mini	*get_infile1(t_mini *m, char **args, int *i)
 	return (m);
 }
 
-t_mini	*get_infile2(t_mini *m, char **args, int *i)
-{
-	char	*aux[2];
-	char	*nl;
-	char	*str[2];
+// t_mini	*get_infile2(t_mini *m, char **args, int *i)
+// {
+// 	char	*aux[2];
+// 	char	*nl;
+// 	char	*str[2];
 
-	str[0] = NULL;
-	str[1] = NULL;
-	aux[0] = NULL;
-	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error near unexpected token `newline'";
-	(*i)++;
-	if (args[++(*i)])
-	{
-		aux[0] = args[*i];
-		//token->infile = get_here_doc(str, aux);  /*later */
-	}
-	if (!args[*i] || m->infile == -1)
-	{
-		*i = -1;
-		if (m->infile != -1)
-		{
-			ft_putendl_fd(nl, 2);
-			g_status = 2;
-		}
-	}
-	return (m);
-}
+// 	str[0] = NULL;
+// 	str[1] = NULL;
+// 	aux[0] = NULL;
+// 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
+// 	nl = "minishell: syntax error near unexpected token `newline'";
+// 	(*i)++;
+// 	if (args[++(*i)])
+// 	{
+// 		aux[0] = args[*i];
+// 		//token->infile = get_here_doc(str, aux);  /*later */
+// 	}
+// 	if (!args[*i] || m->infile == -1)
+// 	{
+// 		*i = -1;
+// 		if (m->infile != -1)
+// 		{
+// 			ft_putendl_fd(nl, 2);
+// 			g_status = 2;
+// 		}
+// 	}
+// 	return (m);
+// }

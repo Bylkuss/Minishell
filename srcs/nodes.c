@@ -26,11 +26,7 @@ static t_mini	*mx_init(void)
 	return (m);
 }
 
-<<<<<<< HEAD
-static t_mini	*endtype_token(t_mini *node, char **a[2], int *i)
-=======
 static t_mini	*get_params(t_mini *m, char **a[2], int *i)
->>>>>>> 0d13ec682b0a3a063dba915085e73ed38623ac74
 {
 	if (a[0][*i])
 	{
@@ -38,9 +34,9 @@ static t_mini	*get_params(t_mini *m, char **a[2], int *i)
 			m = get_outfile2(m, a[1], i);
 		else if (a[0][*i][0] == '>')
 			m = get_outfile1(m, a[1], i);
-		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
 			a[0][*i + 1][0] == '<')
-			m = get_infile2(m, a[1], i);
+			m = get_infile2(m, a[1], i);*/
 		else if (a[0][*i][0] == '<')
 			m = get_infile1(m, a[1], i);
 		else if (a[0][*i][0] != '|')
@@ -91,11 +87,7 @@ t_list	*fill_nodes(char **args, int i)
 	
 	// token = init_token()
 	cmds[0] = NULL;
-<<<<<<< HEAD
-	temp[1] = get_trimmed(args); /* clean cut token_part */
-=======
 	temp[1] = get_trimmed(args);
->>>>>>> 0d13ec682b0a3a063dba915085e73ed38623ac74
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);
@@ -106,14 +98,10 @@ t_list	*fill_nodes(char **args, int i)
 			cmds[1] = ft_lstlast(cmds[0]);
 		}
 		temp[0] = args;
-<<<<<<< HEAD
-		cmds[1]->content = endtype_token(cmds[1]->content, temp, &i);  /* wrap token */
-=======
 		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
 		token->cmd = cmds[1]->content;
 		token->arg = *temp[1];
 		// token->endtype = cmds[1]->content;
->>>>>>> 0d13ec682b0a3a063dba915085e73ed38623ac74
 		if (i < 0)
 			return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])

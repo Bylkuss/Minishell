@@ -76,23 +76,15 @@ void *check_args(char *out, t_dot *p)
     }
     if (out[0] != '\0')
         add_history(out);                                 
-<<<<<<< HEAD
-    tab = subsplit(out, " ");  /*  **tab => spaceless  cmd_token part  subsplit.c */
-    free(out);
-    if (!tab)
-        return ("");
-    p = parse_args(tab, p);   /*    split_all  ->  fill_node    -> token */
-=======
-    tab = ft_cmdtrim(out, " ");           //input divided by space  **tab    
+    tab = subsplit(out, " ");           //input divided by space  **tab    
     mx_display_tab(tab);
     free(out);
     if (!tab)
         return ("");
     p = parse_args(tab, p);     
     // token = init_token(p); 
+    mx_display_tab(token->table);
     mx_display_str(token->cmd);
-    // mx_display_tkn(token);
->>>>>>> 0d13ec682b0a3a063dba915085e73ed38623ac74
     if (p && p->cmds)
         m = p->cmds->content;
     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
