@@ -13,13 +13,11 @@ LIBFT_PATH = includes/libft/
 SRCS_PATH = src/
 
 BUILTINS = cd
-PARSING = checks
-
-
+PARSING = 
 
 
 SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_PATH)builtins/, $(BUILTINS))) \
-			$(addsuffix .c, $(addprefix $(SRCS_PATH)parsing/, $(checks)))
+				$(addsuffix .c, $(addprefix $(SRCS_PATH)parsing/, $(PARSING)))
 
 
 
@@ -31,7 +29,7 @@ all: 	$(NAME)
 
 $(NAME): $(OBJS)
 	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(LIBFT) -lcurses -lreadline -o $(NAME) 
+	-@$(CC) $(CFLAGS) $(LIBFT)  -o $(NAME) -lcurses -lreadline
 	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 
