@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/13 23:34:13 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:22:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int main(int ac, char **av, char **envp)
     t_dot p;
 
     p = init_prompt(av, envp);                   
-    while (av && ac) {
+    while (av && ac) 
+    {
         signal(SIGINT, handle_sigint);               
         signal(SIGQUIT, SIG_IGN);                    
         str = getprompt(p);                
@@ -92,6 +93,8 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");     
         free(str);
+        mx_display_str(input);
+        // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;
   

@@ -17,7 +17,7 @@ H_PTH	=	$(addprefix $(H_DIR), $(H_SRC))
 
 SRCS 	=	check.c signal.c parse.c prompt.c \
 			subsplit.c divide.c update.c nodes.c \
-			expand.c trimm_all.c redir.c \
+			expand.c trimm_all.c redir.c display.c \
 			get_next_line.c get_next_line_utils.c 
 S_DIR	= 	srcs/
 S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))

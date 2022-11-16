@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:05:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/13 19:48:55 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/15 22:18:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char **subsplit(const char *s, char *set) /* cmd trim into token_part */
     nwords = word_count(s, set, count);
     if (nwords == -1)
         return (NULL);
+    printf(": %d :",nwords);
     aux = malloc(sizeof(char *) * (nwords + 1));
     if (aux == NULL)
         return (NULL);

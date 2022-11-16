@@ -82,6 +82,7 @@ struct s_mini 	 	/*	MATRIX COMMAND TABLE */
 
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
+	char **table;
 	char *cmd;
 	char *arg;
 	int	endtype;
@@ -94,7 +95,7 @@ char	*ms_getenv(char *var, char **envp, int n);
 char	**ms_setenv(char *var, char *value, char **envp, int n);
 // //prompt 
 char   	*getprompt(t_dot p);
-//parse
+//parse3
 void	*check_args(char *out, t_dot *p);
 //subsplit
 char 	**subsplit(const char *s, char *set);
@@ -111,12 +112,18 @@ t_list	*fill_nodes(char **args, int i);
 t_mini *get_outfile1(t_mini *token, char **args, int *i);
 t_mini *get_outfile2(t_mini *token, char **args, int *i);
 t_mini *get_infile1(t_mini *token, char **args, int *i);
-// t_mini *get_infile2(t_mini *token, char **args, int *i);
+t_mini *get_infile2(t_mini *token, char **args, int *i);
 int	get_fd(int oldfd, char *path, int flags[2]);
 //trimm_all
 char        *ft_strtrim_all(const char *s, int squote, int dquote);
 //display
-void display_form(t_mini *mx);
+void		mx_display_tnk(t_token *token);
+void		mx_display_tab(char **tab);
+void		mx_display_str(char *str);
+t_token		*init_token(t_dot *p);
 
-
+	//  static t_dot	init_vars(t_dot prompt, char *str, char **av);
+	//  static t_dot	init_prompt(char **av, char **envp); 
+	// static char **split_all(char **args, t_dot p);
+	// static t_dot 	parse_args(char **args, t_dot p);
 #endif
