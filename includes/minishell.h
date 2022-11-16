@@ -49,16 +49,6 @@ enum TokenType{
 	TOKEN = -1,
 };
 
-<<<<<<< HEAD
-typedef struct s_prompt t_prompt;
-typedef struct s_token t_token;
-typedef struct s_lexer t_lexer; 
-typedef struct s_mini t_mini;
-
-struct s_prompt
-{
-	char *cmds;
-=======
 /* Token's end type */
 enum EndType{
 	ERR_END   = 0,
@@ -78,41 +68,21 @@ typedef struct s_token t_token;
 struct s_dot		/*  ENVP BUILDER */
 {
 	t_list *cmds;
->>>>>>> 89f56f90562a37e480241920f90b194aa06a640f
 	char **envp;
 	pid_t	pid;
 };
 
-<<<<<<< HEAD
-struct s_token
-{
-	char *data;
-	int type;
-	t_token *next;
-};
-
-
-struct s_lexer
-{
-	t_token *listok;
-	int  ntok;
-};
-
-struct s_mini
-=======
 struct s_mini 	 	/*	MATRIX COMMAND TABLE */
->>>>>>> 89f56f90562a37e480241920f90b194aa06a640f
 {
 	char **full_cmd;
 	char *full_path;
 	int infile;
 	int outfile;
 };
-<<<<<<< HEAD
-=======
 
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
+	char **table;
 	char *cmd;
 	char *arg;
 	int	endtype;
@@ -125,7 +95,7 @@ char	*ms_getenv(char *var, char **envp, int n);
 char	**ms_setenv(char *var, char *value, char **envp, int n);
 // //prompt 
 char   	*getprompt(t_dot p);
-//parse
+//parse3
 void	*check_args(char *out, t_dot *p);
 //subsplit
 char 	**ft_cmdtrim(const char *s, char *set);
@@ -142,13 +112,18 @@ t_list	*fill_nodes(char **args, int i);
 t_mini *get_outfile1(t_mini *token, char **args, int *i);
 t_mini *get_outfile2(t_mini *token, char **args, int *i);
 t_mini *get_infile1(t_mini *token, char **args, int *i);
-// t_mini *get_infile2(t_mini *token, char **args, int *i);
+t_mini *get_infile2(t_mini *token, char **args, int *i);
 int	get_fd(int oldfd, char *path, int flags[2]);
 //trimm_all
 char        *ft_strtrim_all(const char *s, int squote, int dquote);
 //display
-void display_form(t_mini *mx);
->>>>>>> 89f56f90562a37e480241920f90b194aa06a640f
+void		mx_display_tnk(t_token *token);
+void		mx_display_tab(char **tab);
+void		mx_display_str(char *str);
+t_token		*init_token(t_dot *p);
 
-
+	//  static t_dot	init_vars(t_dot prompt, char *str, char **av);
+	//  static t_dot	init_prompt(char **av, char **envp); 
+	// static char **split_all(char **args, t_dot p);
+	// static t_dot 	parse_args(char **args, t_dot p);
 #endif

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/13 23:23:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/16 00:04:35 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,14 @@ static char **split_all(char **args, t_dot *p)
 static void *parse_args(char **args, t_dot *p)
 {
     // int is_exit;
+    // t_token	*token;
     int i;
 
     // is_exit = 0;
     p->cmds = fill_nodes(split_all(args, p), -1);              
     if (!p->cmds)
         return (p);
+  
     i = ft_lstsize(p->cmds);
     // g_status = builtin(p, p->cmds, &is_exit, 0);             
     i = 0;
@@ -54,9 +56,9 @@ static void *parse_args(char **args, t_dot *p)
     // if (!is_exit && &g_status == 13)
     //     g_status = 0;
     // if (args && is_exit)
-    // {
-    //     ft_lstclear(&p->cmds, free_content);
-    //     return (NULL);
+        // {
+        //     ft_lstclear(&p->cmds, free_content);
+        //     return (NULL);
     // }
     return (p);
 }
@@ -64,8 +66,9 @@ static void *parse_args(char **args, t_dot *p)
 void *check_args(char *out, t_dot *p) 
 {
     char    **tab;
+    t_token	*token = NULL;
     t_mini  *m;
-
+    
     if (!out)
     {
         printf("exit\n");
@@ -73,17 +76,25 @@ void *check_args(char *out, t_dot *p)
     }
     if (out[0] != '\0')
         add_history(out);                                 
-    tab = ft_cmdtrim(out, " ");           //input divided by space  **tab              
+    tab = ft_cmdtrim(out, " ");           //input divided by space  **tab    
+    mx_display_tab(tab);
     free(out);
     if (!tab)
         return ("");
-    p = parse_args(tab, p);                                    
+    p = parse_args(tab, p);     
+    // token = init_token(p); 
+    mx_display_str(token->cmd);
+    // mx_display_tkn(token);
     if (p && p->cmds)
         m = p->cmds->content;
     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd) - 1],\
             p->envp, 1);                                  
-    // if (p && p->cmds)
+    // if (p->cmds->content)
+    // {
+    //     mx_display(p);
+    //     exit(g_status);
+    // }
     //     ft_lstclear(&p->cmds, free_content);
     return (p); 
 }

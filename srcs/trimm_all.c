@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:33 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/14 00:16:50 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/15 23:27:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ char        *ft_strtrim_all(const char *s, int squote, int dquote)
     while( s[i[0]])
     {
         squote = (squote + (!dquote && s[i[0]] == '\'')) % 2;
-        dquote = (dquote + (!squote && s[i[0]] == '\"')) % 2; //" 
+        dquote = (dquote + (!squote && s[i[0]] == '\"')) % 2; 
         if ((s[i[0]] != '\"' || squote) && (s[i[0]] != '\'' || dquote) \
             && ++i[1] >= 0)
-            trimmed[i[1]] = s[i[0]]; // "
+            trimmed[i[1]] = s[i[0]]; 
         i[0]++;
     }
     trimmed[++i[1]] = '\0';

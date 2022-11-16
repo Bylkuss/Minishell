@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/14 00:15:59 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/16 00:08:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,31 @@ static t_mini	*mx_init(void)
 	return (m);
 }
 
-static t_mini	*endtype_params(t_mini *node, char **a[2], int *i)
+static t_mini	*get_params(t_mini *m, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
 		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
-			node = get_outfile2(node, a[1], i);
+			m = get_outfile2(m, a[1], i);
 		else if (a[0][*i][0] == '>')
-			node = get_outfile1(node, a[1], i);
+			m = get_outfile1(m, a[1], i);
 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
 			a[0][*i + 1][0] == '<')
-		// 	node = get_infile2(node, a[1], i);
-		// else if (a[0][*i][0] == '<')
-			node = get_infile1(node, a[1], i);
+			m = get_infile2(m, a[1], i);
+		else if (a[0][*i][0] == '<')
+			m = get_infile1(m, a[1], i);
 		else if (a[0][*i][0] != '|')
-			node->full_cmd = ft_mx_ext(node->full_cmd, a[1][*i]);
+			m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
 		else
 		{
 			//mini_perror(PIPENDERR, NULL, 2);
 			*i = -2;
 		}
-		return (node);
+		return (m);
 	}
 	//mini_perror(PIPENDERR, NULL, 2);
 	*i = -2;
-	return (node);
+	return (m);
 }
 
 static char	**get_trimmed(char **args)
@@ -81,11 +81,13 @@ static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
 
 t_list	*fill_nodes(char **args, int i)
 {
+	t_token	*token = NULL;
 	t_list	*cmds[2];
 	char	**temp[2];
-
+	
+	// token = init_token()
 	cmds[0] = NULL;
-	temp[1] = get_trimmed(args); /* */
+	temp[1] = get_trimmed(args);
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);
@@ -96,7 +98,10 @@ t_list	*fill_nodes(char **args, int i)
 			cmds[1] = ft_lstlast(cmds[0]);
 		}
 		temp[0] = args;
-		cmds[1]->content = endtype_params(cmds[1]->content, temp, &i);
+		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
+		token->cmd = cmds[1]->content;
+		token->arg = *temp[1];
+		// token->endtype = cmds[1]->content;
 		if (i < 0)
 			return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])
