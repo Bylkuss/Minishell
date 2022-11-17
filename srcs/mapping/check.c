@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:15:42 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/17 18:54:43 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static t_dot init_vars(t_dot p, char *str, char **av)
         return (p); 
 }
 
-static t_dot init_prompt(char **av, char **envp) 
+t_dot init_prompt(char **av, char **envp) 
 {
     t_dot p;
     // t_mini m;
@@ -80,6 +80,7 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
+    // char **test_cd = NULL;
     t_dot p;
 
     p = init_prompt(av, envp);                   
@@ -91,13 +92,24 @@ int main(int ac, char **av, char **envp)
         if (str)
             input = readline(str);                    
         else
-            input = readline("guest@minishell $ ");     
+            input = readline("guest@minishell $ ");
+        if(ft_strcmp(input, "quit") == 0)
+            exit(0);
+        if (ft_strlen(input) > 0)
+            add_history(input);
+        if(ft_strnstr(input, "cd", 10))
+            cd(ft_split(input, ' '), envp);
+        else if (strnstr(input, "pwd", 10))
+            pwd();
+        else if(strnstr(input, "echo", 10))
+            echo(ft_split(input, ' '));
+        // echo(&input[4], "-n");     
+        // cd(test_cd);
         free(str);
         // mx_display_str(input);
         // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;
-  
     }
     exit(g_status); 
 }

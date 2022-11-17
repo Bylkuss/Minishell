@@ -1,18 +1,11 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-<<<<<<< HEAD
 /************INCLUDES************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
-// #include "includes/libft/include/libft.h"
-// #include <readline.h>
-// #include <history.h>
 #include <unistd.h>
-=======
->>>>>>> defdeb7b1653c5fbd26b6e45e4acd53ea4a5c1ad
-
 # include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
 # include <fcntl.h>
@@ -30,6 +23,10 @@
 /* fd Refs*/
 # define READ_END 0
 # define WRITE_END 1
+
+/*PATH*/
+# define PATH "[user@minishell ~]#"
+
 
 /* Colors Defined*/
 # define DEFAULT "\001\033[0;39m\002"
@@ -71,6 +68,8 @@ enum EndType{
 	DEAD_END  = 6
 };
 
+/******		STRUCTS		*******/
+
 typedef struct s_dot t_dot;
 typedef struct s_mini t_mini;
 typedef struct s_token t_token;
@@ -78,28 +77,37 @@ typedef struct s_token t_token;
 
 struct s_dot		/*  ENVP BUILDER */
 {
-	t_list *cmds;
-	char **envp;
+	t_list	*cmds;
+	char	**envp;
 	pid_t	pid;
 };
 
 struct s_mini 	 	/*	MATRIX COMMAND TABLE */
 {
-	char **full_cmd;
-	char *full_path;
-	int infile;
-	int outfile;
+	char	**full_cmd;
+	char	*full_path;
+	int		infile;
+	int		outfile;
 };
 
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
-	char **table;
-	char *cmd;
-	char *arg;
-	int	endtype;
+	char	**table;
+	char	*cmd;
+	char	*arg;
+	int		endtype;
 	t_token *next;
 };
 
+
+
+
+
+
+
+
+
+/*******	PROTOTYPES	*******/
 //signal
 void    	handle_sigint(int sig);
 char	*ms_getenv(char *var, char **envp, int n);
@@ -132,6 +140,14 @@ void		mx_display_tnk(t_token *token);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
 t_token		*init_token(t_dot *p);
+
+
+
+
+/*******	BUILTINS	******/
+void    echo(char **cmd);
+void    cd(char **cmd, char **envp);
+void    pwd(void);
 
 	//  static t_dot	init_vars(t_dot prompt, char *str, char **av);
 	//  static t_dot	init_prompt(char **av, char **envp); 
