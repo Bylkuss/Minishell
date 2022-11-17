@@ -51,32 +51,5 @@ fclean	:	clean
 
 re		:	fclean all
 
-<<<<<<< HEAD
 
-$(NAME): $(OBJS)
-	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME) 
-	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
-
-
-clean:
-			-@$(RM) $(OBJS)
-
-fclean:		clean
-			-@$(RM) $(NAME)
-
-re:			fclean all
-
-.PHONY:		all clean fclean re
-
-
-
-#COLORS
-RED = \033[1;31m
-GREEN = \033[1;32m
-YELLOW = \033[1;33m
-DEFAULT = \033[0m
-COMMIT = $(shell date "+%d %B %T")
-=======
 .PHONY	:	clean fclean re bonus
->>>>>>> defdeb7b1653c5fbd26b6e45e4acd53ea4a5c1ad
