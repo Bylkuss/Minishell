@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/14 00:16:35 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static void update_output(char ***mx, int fd)
 {

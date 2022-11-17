@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/13 22:16:00 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 extern int g_status;
 
 int	get_fd(int oldfd, char *path, int flags[2])

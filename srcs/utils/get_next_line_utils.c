@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 20:36:16 by gehebert          #+#    #+#             */
-/*   Updated: 2021/11/02 08:28:23 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:03:08 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "../../includes/get_next_line.h"
 
 size_t	ft_strlen(const char *str)
 {

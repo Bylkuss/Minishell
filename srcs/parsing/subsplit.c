@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   subsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:05:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/15 22:18:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 static int word_count(const char *s, char *c, int i[2])
 {

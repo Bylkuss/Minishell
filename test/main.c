@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 #include "../libft/incs/libft.h"
 
 int main(int ac, char **av, char **envp) 

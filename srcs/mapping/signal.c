@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/14 00:13:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int g_status;
 

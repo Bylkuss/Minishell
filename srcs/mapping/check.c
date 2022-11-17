@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/15 23:22:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:15:42 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 extern int g_status;
 
@@ -93,7 +93,7 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");     
         free(str);
-        mx_display_str(input);
+        // mx_display_str(input);
         // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;

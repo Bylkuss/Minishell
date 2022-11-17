@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 20:36:06 by gehebert          #+#    #+#             */
-/*   Updated: 2021/11/03 08:45:20 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:03:02 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/get_next_line.h"
+#include "../../includes/get_next_line.h"
 
 char	*ft_read(int fd)  // , char *line) // remove in transition
 {

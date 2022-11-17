@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/16 00:04:35 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/17 14:18:58 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 extern int g_status;
 
@@ -66,7 +66,7 @@ static void *parse_args(char **args, t_dot *p)
 void *check_args(char *out, t_dot *p) 
 {
     char    **tab;
-    t_token	*token = NULL;
+    // t_token	*token = NULL;
     t_mini  *m;
     
     if (!out)
@@ -77,14 +77,14 @@ void *check_args(char *out, t_dot *p)
     if (out[0] != '\0')
         add_history(out);                                 
     tab = subsplit(out, " ");           //input divided by space  **tab    
-    mx_display_tab(tab);
+    // mx_display_tab(tab);
     free(out);
     if (!tab)
         return ("");
     p = parse_args(tab, p);     
     // token = init_token(p); 
-    mx_display_tab(token->table);
-    mx_display_str(token->cmd);
+    // mx_display_tab(token->table);
+    // mx_display_str(token->cmd);
     if (p && p->cmds)
         m = p->cmds->content;
     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)

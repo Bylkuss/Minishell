@@ -11,23 +11,33 @@ F_PTH	= 	$(addprefix $(F_DIR), $(FSRC))
 O_DIR 	= 	libft/objs/
 LIBFT	= 	libft/libft.a
 
+#DIR_OBJS = objs
+
 H_SRC 	=	minishell.h 
-H_DIR	= 	includes/
+H_DIR	= 	-I includes/
 H_PTH	=	$(addprefix $(H_DIR), $(H_SRC))
 
-SRCS 	=	check.c signal.c parse.c prompt.c \
-			subsplit.c divide.c update.c nodes.c \
-			expand.c trimm_all.c redir.c display.c \
-			get_next_line.c get_next_line_utils.c 
-S_DIR	= 	srcs/
-S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))
+SUBDIRS		=	builtins mapping operators parsing utils
+
+
+SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(S_DIR)/, $(dir)))
+OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_OBJS)/, $(dir)))
+SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
+OBJS		= $(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
+
+S_DIR	= 	srcs
+#S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))
 OBJ_S 	=	$(S_PTH:.c=.o)
 
 RDPATH = readline/libreadline.a readline/libhistory.a
 
-$(NAME): 	$(OBJ_S)
-	-@$(MAKE) -C $(F_DIR) 
-	-@$(CC) $(CFLAGS) $(OBJ_S) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+$(NAME): 	$(OBJS)
+			-@$(MAKE) -C $(F_DIR) 
+			-@$(CC) $(CFLAGS) $(OBJS) $(OBJ_S) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+
+$(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
+			@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
+			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 all		:	$(NAME)
 
