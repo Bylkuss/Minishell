@@ -1,6 +1,17 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+<<<<<<< HEAD
+/************INCLUDES************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+// #include "includes/libft/include/libft.h"
+// #include <readline.h>
+// #include <history.h>
+#include <unistd.h>
+=======
+>>>>>>> defdeb7b1653c5fbd26b6e45e4acd53ea4a5c1ad
 
 # include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
