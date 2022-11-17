@@ -1,55 +1,55 @@
-NAME = minishell
 
-CC = gcc
+NAME 	=	minishell
 
-CFLAGS = -Wall -Werror -Wextra -g
+CC 		= 	gcc
+CFLAGS 	=	-Wall -Wextra -Werror ${HEADER}
+RM 		=	rm -rf
 
-RM = rm -f
+FSRC	=	
+F_DIR 	= 	libft/
+F_PTH	= 	$(addprefix $(F_DIR), $(FSRC))
+O_DIR 	= 	libft/objs/
+LIBFT	= 	libft/libft.a
 
-LIBFT = includes/libft/libft.a
+#DIR_OBJS = objs
 
-LIBFT_PATH = includes/libft/
+H_SRC 	=	minishell.h 
+H_DIR	= 	-I includes/
+H_PTH	=	$(addprefix $(H_DIR), $(H_SRC))
 
-SRCS_PATH = src/
-
-BUILTINS = cd
-PARSING = checks
-
-
-
-
-SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_PATH)builtins/, $(BUILTINS))) \
-			$(addsuffix .c, $(addprefix $(SRCS_PATH)parsing/, $(checks)))
+SUBDIRS		=	builtins mapping operators parsing utils
 
 
+SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(S_DIR)/, $(dir)))
+OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(DIR_OBJS)/, $(dir)))
+SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
+OBJS		= $(subst $(DIR_SRCS), $(DIR_OBJS), $(SRCS:.c=.o))
 
-OBJS = $(SRCS_FILES:.c=.o)
+S_DIR	= 	srcs
+#S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))
+OBJ_S 	=	$(S_PTH:.c=.o)
 
-all: 	$(NAME)
-	@echo "BOOM 💥💥💥💥💥 $(NAME) Compiled! 💯 $(DEFAULT)"
+RDPATH = readline/libreadline.a readline/libhistory.a
+
+$(NAME): 	$(OBJS)
+			-@$(MAKE) -C $(F_DIR) 
+			-@$(CC) $(CFLAGS) $(OBJS) $(OBJ_S) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+
+$(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
+			@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
+			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
+
+all		:	$(NAME)
+
+clean	:
+				$(RM) $(OBJ_F) 
+				$(RM) $(OBJ_S) 
+				
+fclean	:	clean
+				$(RM) $(O_DIR)
+				$(RM) $(NAME)
+
+re		:	fclean all
 
 
-$(NAME): $(OBJS)
-	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(LIBFT) -lcurses -lreadline -o $(NAME) 
-	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
-
-
-clean:
-			-@$(RM) $(OBJS)
-
-fclean:		clean
-			-@$(RM) $(NAME)
-
-re:			fclean all
-
-.PHONY:		all clean fclean re
-
-
-
-#COLORS
-RED = \033[1;31m
-GREEN = \033[1;32m
-YELLOW = \033[1;33m
-DEFAULT = \033[0m
-COMMIT = $(shell date "+%d %B %T")
+.PHONY	:	clean fclean re bonus
