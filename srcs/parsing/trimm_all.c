@@ -63,3 +63,9 @@ char        *ft_strtrim_all(const char *s, int squote, int dquote)
     trimmed[++i[1]] = '\0';
     return (trimmed);
 }
+
+/*
+from nodes.c (str_trim_all)
+    ft_trimm_all    => malloc every chunk itself (malloc_machine_last)s
+    malloc_len      => chunk len to be malloc
+*/

@@ -25,7 +25,7 @@ static int word_count(const char *s, char *c, int i[2])
             i[1]++;
             while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
             {
-                if(!q[1] && (s[i[0]] == '\"' || s[i[0]] != '\0')) //"
+                if(!q[1] && (s[i[0]] == '\"' || s[i[0]] != '\0')) 
                     q[1] = s[i[0]];
                 q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
                 q[1] *= q[0] != 0;
@@ -56,7 +56,7 @@ static char **ft_fill_array(char **aux, const char *s, char *set, int i[3]) /* f
         while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
         {
             q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-            q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; //"
+            q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
             i[0]++;
         }
         if (i[1] >= len)
@@ -84,7 +84,7 @@ char **subsplit(const char *s, char *set) /* cmd trim into token_part */
     nwords = word_count(s, set, count);
     if (nwords == -1)
         return (NULL);
-    printf(": %d :",nwords);
+    printf(": %d :: chunk :",nwords);
     aux = malloc(sizeof(char *) * (nwords + 1));
     if (aux == NULL)
         return (NULL);
@@ -92,3 +92,10 @@ char **subsplit(const char *s, char *set) /* cmd trim into token_part */
     aux[nwords] = NULL;
     return (aux);   
 }
+
+/*
+from parse.c
+    subsplit => split *str by space only (quote rule (ok if both))
+    word_count + ft_fill_array ... ... seems legit!
+    *** subsplit: trunk at space to make token part
+*/

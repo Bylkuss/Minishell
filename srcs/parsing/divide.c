@@ -28,7 +28,7 @@ static int	word_count(char *s, char *set, int count)
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
 			{
 				q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; // "
+				q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
 				i++;
 			}
 			if (q[0] || q[1])
@@ -65,7 +65,6 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 	return (aux);
 }
 
-
 char    **div_token(char const *s, char *set)
 {
     char    **aux;
@@ -87,3 +86,10 @@ char    **div_token(char const *s, char *set)
     aux[wnum] = NULL;
     return (aux);    
 }
+
+/*
+from parse.c
+	div_token 	=> token spliter by ending char (<,>,|)
+	word_count & ft_fill_array ... no comment!
+	*** return table_command : called token !
+*/

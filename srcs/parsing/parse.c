@@ -27,7 +27,7 @@ static char **split_all(char **args, t_dot *p)  /* token chunk*/
     {
         args[i] = expand_vars(args[i], -1, quotes, p);       
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", p->envp, 4));              
-        aux = div_token(args[i], "<|>");              
+        aux = div_token(args[i], "<|>");         /* token divider */     
         ft_mx_rpl(&args, aux, i);                           
         i += ft_mx_len(aux) - 1;                          
         ft_mx_free(&aux);                                 
@@ -98,12 +98,15 @@ void *check_args(char *out, t_dot *p)
     //     ft_lstclear(&p->cmds, free_content);
     return (p); 
 }
+
 /*
 from check.c
     check_args  => take input to be space_split to build table command
-    subsplit    => will do that space_split into a tab **   ==> subsplit.c
-    parse_args  => call fill_node  returning *p  & (list-> p.cmds)
-    split_all   =>  token_maker to be knowing how to finish it! 
+    subsplit    => will do that space_split into a tab **       ==> subsplit.c
+    parse_args  => call fill_node  return *p (list-> p.cmds)    ==> nodes.c
+    split_all   =>  token's alternate end if it's not! 
+                    div_token  ('<','>','|')                    ==> divide.c
+                    expand_vars & expand_path                   ==> expand.c
     *** so in my mind a token is : CMD + ARG + END 
     *** in fact ARG is facultative
 */
