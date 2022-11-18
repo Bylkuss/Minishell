@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 18:54:43 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/17 19:40:51 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
-        if(ft_strcmp(input, "quit") == 0)
+        if(ft_strcmp(input, "exit") == 0)
             exit(0);
         if (ft_strlen(input) > 0)
             add_history(input);
@@ -103,11 +103,7 @@ int main(int ac, char **av, char **envp)
             pwd();
         else if(strnstr(input, "echo", 10))
             echo(ft_split(input, ' '));
-        // echo(&input[4], "-n");     
-        // cd(test_cd);
         free(str);
-        // mx_display_str(input);
-        // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;
     }
