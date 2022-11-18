@@ -98,3 +98,12 @@ void *check_args(char *out, t_dot *p)
     //     ft_lstclear(&p->cmds, free_content);
     return (p); 
 }
+/*
+from check.c
+    check_args  => take input to be space_split to build table command
+    subsplit    => will do that space_split into a tab **   ==> subsplit.c
+    parse_args  => call fill_node  returning *p  & (list-> p.cmds)
+    split_all   =>  token_maker to be knowing how to finish it! 
+    *** so in my mind a token is : CMD + ARG + END 
+    *** in fact ARG is facultative
+*/

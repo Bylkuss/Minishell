@@ -101,4 +101,12 @@ int main(int ac, char **av, char **envp)
     }
     exit(g_status); 
 }
-
+/*
+main :  init_prompt => get user info to be stock into *p {struct t_dot}   
+        signal      => Global variable to be access anywhere ...
+                getmypid    => fork process for multiple cmd.
+        init_vars   => split envp.args to stock into p.envp 
+                ms_setenv, ms_getenv   ==> signal.c      
+        getprompt   => prompt.c
+        check_args  => parse.c    
+*/

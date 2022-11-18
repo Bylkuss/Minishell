@@ -94,3 +94,10 @@ char    *getprompt(t_dot p)
     free(tmp);
     return (tmp2); 
 }
+
+/*
+from check.c
+        getprompt   => build ID prompt return char*
+        get_user    => strjoin user data
+        get_home    => strjoin folder data
+*/
