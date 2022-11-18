@@ -17,12 +17,6 @@ OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(S_OBJ)/, $(dir)))
 SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
 OBJS		= $(subst $(S_DIR), $(S_OBJ), $(SRCS:.c=.o))
 
-# H_SRC 	=	minishell.h 
-# H_PTH	=	$(addprefix $(H_DIR), $(H_SRC))
-#	OBJ_BUILD
-#S_PTH	= 	$(addprefix $(S_DIR), $(SRCS))
-#OBJ_S 	=	$(S_PTH:.c=.o)
-
 #	READLINE HEADER
 RDPATH 		= readline/libreadline.a readline/libhistory.a
 #	HEADER
