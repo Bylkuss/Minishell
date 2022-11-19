@@ -76,10 +76,38 @@ static t_dot init_prompt(char **av, char **envp)
     return (p); 
 }
 
+// int main(int ac, char **av, char **envp) 
+// {
+//     char *str;
+//     char *input;
+//     t_dot p;
+
+//     p = init_prompt(av, envp);                   
+//     while (av && ac) 
+//     {
+//         signal(SIGINT, handle_sigint);               
+//         signal(SIGQUIT, SIG_IGN);                    
+//         str = getprompt(p);                
+//         if (str)
+//             input = readline(str);                    
+//         else
+//             input = readline("guest@minishell $ ");     
+//         free(str);
+//         // mx_display_str(input);
+//         // printf ("%s\n", input);
+//         if (!check_args(input, &p))
+//             break;
+  
+//     }
+//     exit(g_status); 
+// }
+
+
 int main(int ac, char **av, char **envp) 
 {
     char *str;
     char *input;
+    // char **test_cd = NULL;
     t_dot p;
 
     p = init_prompt(av, envp);                   
@@ -91,16 +119,25 @@ int main(int ac, char **av, char **envp)
         if (str)
             input = readline(str);                    
         else
-            input = readline("guest@minishell $ ");     
+            input = readline("guest@minishell $ ");
+        if(ft_strcmp(input, "exit") == 0)
+            exit(0);
+        if (ft_strlen(input) > 0)
+            add_history(input);
+        if(ft_strnstr(input, "cd", 10))
+            cd(ft_split(input, ' '), envp);
+        else if (ft_strnstr(input, "pwd", 10))
+            pwd();
+        else if(ft_strnstr(input, "echo", 10))
+            echo(ft_split(input, ' '));
         free(str);
-        // mx_display_str(input);
-        // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;
-  
     }
     exit(g_status); 
 }
+
+
 /*
 main :  init_prompt => get user info to be stock into *p {struct t_dot}   
         signal      => Global variable to be access anywhere ...
