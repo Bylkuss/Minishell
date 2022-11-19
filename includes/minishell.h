@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+
 # include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
 # include <readline/readline.h>
@@ -14,6 +15,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stddef.h>
 
 /* fd Refs*/
 # define READ_END 0
