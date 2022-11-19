@@ -1,49 +1,52 @@
-NAME = minishell
 
-CC = gcc
+NAME 	=	minishell
 
-CFLAGS = -Wall -Werror -Wextra -g
+#	LIBFT
+FSRC	=	
+F_DIR	=	libft/
+F_PTH	=	$(addprefix $(F_DIR), $(FSRC))
+O_DIR 	=	libft/objs/
+LIBFT	=	libft/libft.a
 
-RM = rm -f
+S_DIR	=	srcs
+S_OBJ	=	objs
+SUBDIRS		= builtins mapping operators parsing utils
 
-LIBFT = includes/libft/libft.a
+SRCS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(S_DIR)/, $(dir)))
+OBJS_DIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(S_OBJ)/, $(dir)))
+SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
+OBJS		= $(subst $(S_DIR), $(S_OBJ), $(SRCS:.c=.o))
 
-LIBFT_PATH = includes/libft/
-
-RDPATH = includes/readline/
+#	READLINE HEADER
+RDPATH 		= readline/libreadline.a readline/libhistory.a
+#	HEADER
+H_DIR		= -I includes
 
 SRCS_PATH = src/
 
-BUILTINS = cd
-PARSING = checks
+#	BUILD FOLDER
+$(S_OBJ)/%.o :	$(S_DIR)/%.c
+			@mkdir -p $(S_OBJ) $(OBJS_DIRS)
+			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
+all		:	$(NAME)
+			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
+$(NAME): 	$(OBJS)
+		-@$(MAKE) -C $(F_DIR) 
+		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
+clean	:
+				@$(RM) $(OBJ_F) 
+				@$(RM) -rf $(S_OBJ)
+				@echo "$(RED)$(S_OBJ) deleted!$(DEFAULT)"
+				
+fclean	:	clean
+				@$(RM) -rf $(O_DIR)
+				@$(RM) $(NAME)
+				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
-SRCS_FILES = $(addsuffix .c, $(addprefix $(SRCS_PATH)builtins/, $(BUILTINS))) \
-			$(addsuffix .c, $(addprefix $(SRCS_PATH)parsing/, $(checks)))
-
-
-
-OBJS = $(SRCS_FILES:.c=.o)
-
-all: 	$(NAME)
-	@echo "BOOM 💥💥💥💥💥 $(NAME) Compiled! 💯 $(DEFAULT)"
-
-
-$(NAME): $(OBJS)
-	-@$(MAKE) -C $(LIBFT_PATH)
-	-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -L $(RDPATH) -lreadline -o $(NAME) 
-	@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
-
-
-clean:
-			-@$(RM) $(OBJS)
-
-fclean:		clean
-			-@$(RM) $(NAME)
-
-re:			fclean all
+re		:	fclean all
 
 .PHONY:		all clean fclean re
 
@@ -54,4 +57,3 @@ RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 DEFAULT = \033[0m
-COMMIT = $(shell date "+%d %B %T")

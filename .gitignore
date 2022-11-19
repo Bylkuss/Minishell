@@ -1,3 +1,6 @@
 
 
-.vscode
+.vscode/
+libft/objs/
+minshell
+.DS_Store

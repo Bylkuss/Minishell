@@ -1,0 +1,123 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nodes.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../includes/minishell.h"
+
+static t_mini	*mx_init(void)
+{
+	t_mini	*m;
+
+	m = malloc(sizeof(t_mini));
+	if (!m)
+		return (NULL);
+	m->full_cmd = NULL;
+	m->full_path = NULL;
+	m->infile = STDIN_FILENO;
+	m->outfile = STDOUT_FILENO;
+	return (m);
+}
+
+static t_mini	*get_params(t_mini *m, char **a[2], int *i)
+{
+	if (a[0][*i])
+	{
+		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
+			m = get_outfile2(m, a[1], i);
+		else if (a[0][*i][0] == '>')
+			m = get_outfile1(m, a[1], i);
+		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+			a[0][*i + 1][0] == '<')
+			m = get_infile2(m, a[1], i);*/
+		else if (a[0][*i][0] == '<')
+			m = get_infile1(m, a[1], i);
+		else if (a[0][*i][0] != '|')
+			m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+		else
+		{
+			//mini_perror(PIPENDERR, NULL, 2);
+			*i = -2;
+		}
+		return (m);
+	}
+	//mini_perror(PIPENDERR, NULL, 2);
+	*i = -2;
+	return (m);
+}
+
+static char	**get_trimmed(char **args)
+{
+	char	**temp;
+	char	*aux;
+	int		j;
+
+	j = -1;
+	temp = ft_mx_dup(args);
+	while (temp && temp[++j])
+	{
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
+		free(temp[j]);
+		temp[j] = aux;
+	}
+	return (temp);
+}
+
+static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
+{
+	(void)  &cmds;
+	// ft_lstclear(&cmdc, free_content);
+	ft_mx_free(&temp);
+	ft_mx_free(&args);
+	return (NULL);
+}
+
+t_list	*fill_nodes(char **args, int i)
+{
+	t_token	*token = NULL;
+	t_list	*cmds[2];
+	char	**temp[2];
+	
+	// token = init_token()
+	cmds[0] = NULL;
+	temp[1] = get_trimmed(args); /* malloc_machine twin part */
+	while (args[++i])
+	{
+		cmds[1] = ft_lstlast(cmds[0]);
+		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
+		{
+			i += args[i][0] == '|';
+			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
+			cmds[1] = ft_lstlast(cmds[0]);
+		}
+		temp[0] = args;
+		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
+		token->cmd = cmds[1]->content;
+		token->arg = *temp[1];
+		// token->endtype = cmds[1]->content;
+		if (i < 0)
+			return (stop_fill(cmds[0], args, temp[1]));
+		if (!args[i])
+			break ;
+	}
+	ft_mx_free(&temp[1]);
+	ft_mx_free(&args);
+	return (cmds[0]);
+}
+
+/*
+from parse.c
+	fill_node 	=> t_list builder 
+		get_trimmed		=> multiple cmd list
+				str_trimm_all 	(malloc_machine)	==> trimm_all.c
+		mx_init 		=> matrix start
+		get_params		=> token_end part (struct mx)
+		stop_fill		=> t_list (wrap + free)
+*/
