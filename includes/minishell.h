@@ -76,22 +76,6 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 
 }			t_token;
 
-// struct s_dot		/*  ENVP BUILDER */
-// {
-// 	char 	**cmds;
-// 	char 	**envp;
-// 	pid_t	pid;
-// 	t_token token;
-// };
-
-// struct s_mini 	 	/*	MATRIX COMMAND TABLE */
-{
-	char **t_cmd;
-	char *path;
-	int infile;
-	int outfile;
-};
-
 typedef struct s_table
 {
 	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
@@ -101,6 +85,22 @@ typedef struct s_table
 	pid_t	pid;	//	fork dup wait 
 	t_token	token;	//	multi_referenciels
 }			t_table;
+
+// struct s_dot		/*  ENVP BUILDER */  t_table
+// {
+// 	char 	**cmds;
+// 	char 	**envp;
+// 	pid_t	pid;
+// 	t_token token;
+// };
+
+// struct s_mini 	 	/*	MATRIX COMMAND TABLE */  repl token
+// {
+// 	char **t_cmd;
+// 	char *path;
+// 	int infile;
+// 	int outfile;
+// };
 
 
 //builtins

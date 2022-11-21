@@ -81,11 +81,11 @@ static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
 
 char	**fill_nodes(char **args, int i)
 {
-	t_token	**token;
+	// t_token	**token;
 	t_list	*cmds[2];
 	char	**temp[2];
 		
-	token = init_token()
+	// token = init_token()
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args); /* malloc_machine twin part */
 	while (args[++i])

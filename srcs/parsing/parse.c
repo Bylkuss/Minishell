@@ -14,6 +14,16 @@
 
 extern int g_status;
 
+// static t_token *init_token(t_dot *p)
+// {
+//     t_token *token = NULL;
+//     token->table = p->envp;
+//     token->cmd = NULL;//p->cmds;//>content;
+//     token->arg = NULL;//p->cmds->next->content;
+//     token->endtype = DEAD_END;
+
+//     return (token);   
+// }
 
 static char **split_all(char **args, t_dot *p)  /* token chunk*/
 {
@@ -35,10 +45,9 @@ static char **split_all(char **args, t_dot *p)  /* token chunk*/
     return (args); 
 }
 
-static void *parse_args(char **args, t_dot *p)
+static void *parse_args(char **args, t_dot *p, t_token token)
 {
     // int is_exit;
-    // t_token	*token;
     int i;
 
     // is_exit = 0;
@@ -66,7 +75,7 @@ static void *parse_args(char **args, t_dot *p)
 void *check_args(char *out, t_dot *p) 
 {
     char    **tab;
-    // t_token	*token;
+    t_token	*token;
     t_mini  *m;
     
     if (!out)
@@ -82,7 +91,7 @@ void *check_args(char *out, t_dot *p)
     free(out);
     if (!tab)
         return ("");
-    p = parse_args(tab, p);     
+    p = parse_args(tab, p, token);     
     
     if (p && p->cmds)
         m = p->cmds->content;
@@ -92,7 +101,6 @@ void *check_args(char *out, t_dot *p)
          - 1], p->envp, 1);                                  
             //     ft_lstclear(&p->cmds, free_content);
     }
-    // token = init_token(p); 
     // mx_display_tkn(token);
     return (p); 
 }
