@@ -12,19 +12,23 @@
 
 #include "../../includes/minishell.h"
 
-static t_mini	*mx_init(void)
-{
-	t_mini	*m;
+/*
 
-	m = malloc(sizeof(t_mini));
-	if (!m)
-		return (NULL);
-	m->full_cmd = NULL;
-	m->full_path = NULL;
-	m->infile = STDIN_FILENO;
-	m->outfile = STDOUT_FILENO;
-	return (m);
-}
+
+	// static t_mini	*mx_init(void)
+	// {
+	// 	t_mini	*m;
+
+	// 	m = malloc(sizeof(t_mini));
+	// 	if (!m)
+	// 		return (NULL);
+	// 	m->full_cmd = NULL;
+	// 	m->full_path = NULL;
+	// 	m->infile = STDIN_FILENO;
+	// 	m->outfile = STDOUT_FILENO;
+	// 	return (m);
+	// }
+*/
 
 static t_mini	*get_params(t_mini *m, char **a[2], int *i) // endtype (int)
 {
@@ -70,14 +74,19 @@ static char	**get_trimmed(char **args)
 	return (temp);
 }
 
-static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-{
-	(void)  &cmds;
-	// ft_lstclear(&cmdc, free_content);
-	ft_mx_free(&temp);
-	ft_mx_free(&args);
-	return (NULL);
-}
+/*
+	// static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
+	// {
+	// 	(void)  &cmds;
+	// 	// ft_lstclear(&cmdc, free_content);
+	// 	ft_mx_free(&temp);
+	// 	ft_mx_free(&args);
+	// 	return (NULL);
+	// } 
+
+*/
+
+/*					arg[][] from splitt_all (token chunk)	*/
 
 char	**fill_nodes(char **args, int i)
 {
@@ -90,6 +99,11 @@ char	**fill_nodes(char **args, int i)
 	temp[1] = get_trimmed(args); /* malloc_machine twin part */
 	while (args[++i])
 	{
+		// revert from list 
+		// need to set first arg => cmd 
+		// 			set last arg => endtype
+		//	middle arg (if so!) 
+		
 		cmds[1] = ft_lstlast(cmds[0]);
 		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
 		{

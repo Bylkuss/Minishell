@@ -24,19 +24,25 @@ extern int g_status;
 //     return (token);   
 // }
 
-static char **split_all(char **args, t_table tab)  /* token chunk*/
+/*   char **args = tab->cmds  :  token chunk */
+static char **split_all(char **args, t_table tab)  
 {
     char **aux;
-    int i;
+    int i;  //token->id 
     int quotes[2];
 
-    (void) p;
     i = -1;
+    // args = tab->cmds[id]
     while (args && args[++i])
     {
+        //expand_var
+        //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
+        //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]]
         args[i] = expand_vars(args[i], -1, quotes, tab);       
+        //expand_path
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
-        aux = div_token(args[i], "<|>");         /* token divider */     
+        //
+        tab->node = div_token(args[i], "<|>", tab);         /* token divider */     
         ft_mx_rpl(&args, aux, i);                           
         i += ft_mx_len(aux) - 1;                          
         ft_mx_free(&aux);                                 
@@ -44,24 +50,32 @@ static char **split_all(char **args, t_table tab)  /* token chunk*/
     return (args); 
 }
 
-static void *parse_args(char **args, t_table tab)
+static void *parse_args(t_table tab)
 {
-    // int is_exit;
-    int i;
+    // int i; // int is_exit; // is_exit = 0;
 
-    // is_exit = 0;
-    tab->cmds = fill_nodes(split_all(args, tab), -1);  
-          /* args breaker => cmd_token*/ 
-    if (!tab->cmds)
-        return (p);
-  
-    i = ft_lstsize(tab->cmds);
+    /*  args =>                              */
+    char **args;
+    args = tab->cmds;
+    tab->node = fill_nodes(split_all(args, tab), -1);  //split_arg 
+
+    /*                   args breaker => cmd_token*/ 
+
+    if (!tab->node)
+        return (tab);
+    /*   tab->node [*str]  sep.space. node -ID.less
+
+        // tab->
+        // i = ft_lstsize(tab->cmds);
         // g_status = builtin(p, p->cmds, &is_exit, 0);             
+    */
+    
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
+    /*
     // if (!is_exit && &g_status == 13)
     //     g_status = 0;
     // if (args && is_exit)
@@ -69,10 +83,11 @@ static void *parse_args(char **args, t_table tab)
         //     ft_lstclear(&p->cmds, free_content);
         //     return (NULL);
     // }
-    return (p);
+    */
+    return (tab);
 }
 
-void *check_args(char *out, t_table tab) 
+void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
 {
     char    **arr;
     
@@ -90,16 +105,18 @@ void *check_args(char *out, t_table tab)
     free(out);
     if (!tab)
         return ("");
+    // tab->token  ... 
     tab->token = parse_args(tab);    
-    //
-
-    //
-    if (tab && tab->cmds)
+    if (tab && tab->token)
         tab->attr = ;
+    /*
+       token need to be ID _cmd, _attr, _end   
+    */
     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
     {
         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-         - 1], p->envp, 1);                                  
+         - 1], p->envp, 1);           
+                                
             //     ft_lstclear(&p->cmds, free_content);
     }
     // mx_display_tkn(token);

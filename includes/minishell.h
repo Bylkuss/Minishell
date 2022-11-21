@@ -72,6 +72,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
+	int 	cmd_len;	// how many node by token (min 2)
 	t_table	*table;		// *ptr -> 
 
 }			t_token;
@@ -80,9 +81,10 @@ typedef struct s_table
 {
 	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char **cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
-	char **attr;	//	[id][*str]	: linked attrib.	ATTR[#_id]["-l"]
+	char **node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
 	pid_t	pid;	//	fork dup wait 
+	int token_len;	// 	how many tokens
 	t_token	token;	//	multi_referenciels
 }			t_table;
 

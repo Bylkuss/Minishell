@@ -67,11 +67,11 @@ static t_table init_prompt(char **av, char **envp)
         char *str;
 
         str = NULL;
-        tab->envp = ft_mx_dup(envp); 
-        tab->token = malloc(t_token);
+        tab->envp = ft_mx_dup(envp); //envp stk ref
+        tab->token = malloc(t_token);   
         g_status = 0;
         getmypid(&tab);                          
-        tab = init_vars(tab, str, av);            
+        tab = init_vars(tab, str, av);  //set envp. vars. frame
         return (tab); 
 }
 
@@ -82,8 +82,8 @@ int main(int ac, char **av, char **envp)
     t_token *token;
     t_table tab;
 
-    tab = init_prompt(av, envp);      
-    init_token(tab);
+    tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
+    init_token(tab);                // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -93,20 +93,23 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
-            // 
-        if(ft_strcmp(input, "exit") == 0)
-            exit(0);
-        if (ft_strlen(input) > 0)
-            add_history(input);
-        if(ft_strnstr(input, "cd", 10))
-            cd(ft_split(input, ' '), envp);
-        else if (ft_strnstr(input, "pwd", 10))
-            pwd();
-        else if(ft_strnstr(input, "echo", 10))
-            echo(ft_split(input, ' '));
-            // 
-        free(str);
         // 
+            //fonction on his own { built_outs }
+            //
+            if(ft_strcmp(input, "exit") == 0)
+                exit(0);
+            if (ft_strlen(input) > 0)
+                add_history(input);
+            if(ft_strnstr(input, "cd", 10))
+                cd(ft_split(input, ' '), envp);
+            else if (ft_strnstr(input, "pwd", 10))
+                pwd();
+            else if(ft_strnstr(input, "echo", 10))
+                echo(ft_split(input, ' '));
+        // 
+        free(str);
+        /*
+        */
         if (!check_args(input, &p))
             break;
         // else 

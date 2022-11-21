@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	word_count(char *s, char *set, int count)
+// set = endtype*char	count 0++; 
+static int	token_count(char *s, char *set, int count)
 {
 	int		q[2];
 	int		i;
@@ -40,7 +40,7 @@ static int	word_count(char *s, char *set, int count)
 	return (count);
 }
 
-static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
+static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {
 	int		q[2];
 
@@ -62,33 +62,49 @@ static char	**ft_fill_array(char **aux, char *s, char *set, int i[3])
 			i[0]++;
 		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 	}
-	return (aux);
+	tab->token
+	return (tab);
 }
 
-char    **div_token(char const *s, char *set)
+// 	set = {"<",">","|"} :: if(!set) ? end : err
+//	s = 
+t_token div_token(char const *s, char *set, t_table tab) // call by parse>split_all
 {
-    char    **aux;
-    int     wnum;
-    int     i[3];
+		///*
+			char    **aux;
+			int     tknum; // token->len = how many node into token
+			int 	nb;
+			int     i[3];
 
-    i[0] = 0;
-    i[1] = 0;
-    i[2] = 0;
-    if (!s)
+			nb = 0;
+			i[0] = 0;
+			i[1] = 0;
+			i[2] = 0;
+			if (!s)
+				return (NULL);
+		//*/
+    tknum = token_count((char *)s, set, 0);
+    if (tknum == -1)
         return (NULL);
-    wnum = word_count((char *)s, set, 0);
-    if (wnum == -1)
-        return (NULL);
-    aux = malloc(sizeof(char *) * (wnum + 1)) ;
+    aux = malloc(sizeof(char *) * (tknum + 1)) ;
+	tab->token->id = tknum;
     if (aux == NULL)
         return (NULL);
-    aux = ft_fill_array(aux, (char *)s, set, i);
+    aux = token_fill(aux, (char *)s, set, i);
+	tab->node = aux;
+	while (nb < tknum)
+	{
+		token->id = nb;
+		token->cmd = aux[0];
+		token->endtype = 
+	}
+	// aux ** == tab->node[id][str]] 
     aux[wnum] = NULL;
-    return (aux);    
+    return (token);    
 }
 
 /*
-from parse.c
+from parse.c /split_all ->
 	div_token 	=> token spliter by ending char (<,>,|)
 	word_count & ft_fill_array ... no comment!
 	*** return table_command : called token !
