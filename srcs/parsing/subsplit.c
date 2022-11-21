@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   subsplit.c                                         :+:      :+:    :+:   */
+/*   space_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int word_count(const char *s, char *c, int i[2])
+static int node_count(const char *s, char *c, int i[2]) // 
 {
     int     q[2];   // quotes match delimter
 
@@ -40,7 +40,8 @@ static int word_count(const char *s, char *c, int i[2])
     return (i[1]);
 }
 
-static char **ft_fill_array(char **aux, const char *s, char *set, int i[3]) /* fram _Form_ */
+/* Space_Split_Form_ */
+static char **ft_fill_array(char **aux, const char *s, char *set, int i[3]) 
 {
     int     len;
     int     q[2];       // quotes match
@@ -67,10 +68,13 @@ static char **ft_fill_array(char **aux, const char *s, char *set, int i[3]) /* f
     return (aux);
 }
 
-char **subsplit(const char *s, char *set) /* cmd trim into token_part */
+/*
+    cmd space_trim :: token_part   
+*/
+char **space_split(const char *s, char *set)
 {
-    char    **aux;
-    int     nwords;
+    char    **arr;
+    int     nodes;
     int     i[3];       //state pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
 
@@ -81,21 +85,21 @@ char **subsplit(const char *s, char *set) /* cmd trim into token_part */
     count[1] = 0;
     if (!s)
         return (NULL);
-    nwords = word_count(s, set, count);
+    nodes = nodes_count(s, set, count);     // chumk
     if (nwords == -1)
         return (NULL);
-    printf(": %d :: chunk :",nwords);
-    aux = malloc(sizeof(char *) * (nwords + 1));
+    printf(": %d :: chunk :",nodes);
+    aux = malloc(sizeof(char *) * (nodes + 1));
     if (aux == NULL)
         return (NULL);
-    aux = ft_fill_array(aux, s, set, i);
+    aux = ft_fill_array(aux, s, set, i);    // 
     aux[nwords] = NULL;
     return (aux);   
 }
 
 /*
 from parse.c
-    subsplit => split *str by space only (quote rule (ok if both))
+    space_split => split *str by space only (quote rule (ok if both))
     word_count + ft_fill_array ... ... seems legit!
-    *** subsplit: trunk at space to make token part
+    *** space_split: trunk at space to make token part
 */

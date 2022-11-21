@@ -27,7 +27,7 @@
 # 			parsing/expand.c \
 # 			parsing/nodes.c \
 # 			parsing/parse.c \
-# 			parsing/subsplit.c \
+# 			parsing/space_split.c \
 # 			parsing/trimm_all.c \
 # 			operators/redir.c \
 # 			utils/display.c \

@@ -118,7 +118,7 @@ char   		*getprompt(t_dot p);
 void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
 //parsing
 void		*check_args(char *out, t_dot *p);
-char 		**subsplit(const char *s, char *set);
+char 		**space_split(const char *s, char *set);
 char		**div_token(char const *s, char *set);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_dot *p);

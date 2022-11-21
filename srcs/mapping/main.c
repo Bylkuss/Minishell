@@ -88,7 +88,7 @@ int main(int ac, char **av, char **envp)
     {
         signal(SIGINT, handle_sigint);               
         signal(SIGQUIT, SIG_IGN);                    
-        str = getprompt(p);                
+        str = getprompt(tab);                
         if (str)
             input = readline(str);                    
         else
@@ -106,6 +106,7 @@ int main(int ac, char **av, char **envp)
             echo(ft_split(input, ' '));
             // 
         free(str);
+        // 
         if (!check_args(input, &p))
             break;
         // else 

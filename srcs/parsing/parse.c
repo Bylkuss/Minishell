@@ -21,11 +21,10 @@ extern int g_status;
 //     token->cmd = NULL;//p->cmds;//>content;
 //     token->arg = NULL;//p->cmds->next->content;
 //     token->endtype = DEAD_END;
-
 //     return (token);   
 // }
 
-static char **split_all(char **args, t_dot *p)  /* token chunk*/
+static char **split_all(char **args, t_table tab)  /* token chunk*/
 {
     char **aux;
     int i;
@@ -35,8 +34,8 @@ static char **split_all(char **args, t_dot *p)  /* token chunk*/
     i = -1;
     while (args && args[++i])
     {
-        args[i] = expand_vars(args[i], -1, quotes, p);       
-        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", p->envp, 4));              
+        args[i] = expand_vars(args[i], -1, quotes, tab);       
+        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         aux = div_token(args[i], "<|>");         /* token divider */     
         ft_mx_rpl(&args, aux, i);                           
         i += ft_mx_len(aux) - 1;                          
@@ -45,18 +44,19 @@ static char **split_all(char **args, t_dot *p)  /* token chunk*/
     return (args); 
 }
 
-static void *parse_args(char **args, t_dot *p, t_token token)
+static void *parse_args(char **args, t_table tab)
 {
     // int is_exit;
     int i;
 
     // is_exit = 0;
-    p->cmds = fill_nodes(split_all(args, p), -1);    /* args breaker => cmd_token*/ 
-    if (!p->cmds)
+    tab->cmds = fill_nodes(split_all(args, tab), -1);  
+          /* args breaker => cmd_token*/ 
+    if (!tab->cmds)
         return (p);
   
-    i = ft_lstsize(p->cmds);
-    // g_status = builtin(p, p->cmds, &is_exit, 0);             
+    i = ft_lstsize(tab->cmds);
+        // g_status = builtin(p, p->cmds, &is_exit, 0);             
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
@@ -72,11 +72,9 @@ static void *parse_args(char **args, t_dot *p, t_token token)
     return (p);
 }
 
-void *check_args(char *out, t_dot *p) 
+void *check_args(char *out, t_table tab) 
 {
-    char    **tab;
-    t_token	*token;
-    t_mini  *m;
+    char    **arr;
     
     if (!out)
     {
@@ -84,17 +82,20 @@ void *check_args(char *out, t_dot *p)
         return (NULL);
     }
     if (out[0] != '\0')
-        add_history(out);                                 
-    tab = subsplit(out, " ");           //input divided by space  **tab    
-    if (tab)
-        mx_display_tab(tab);
+        add_history(out);                           
+    tab->cmds = space_split(out, " ");  
+                 //input divided by space  **tab    
+                // if (tab)
+                //     mx_display_tab(tab->cmds);
     free(out);
     if (!tab)
         return ("");
-    p = parse_args(tab, p, token);     
-    
-    if (p && p->cmds)
-        m = p->cmds->content;
+    tab->token = parse_args(tab);    
+    //
+
+    //
+    if (tab && tab->cmds)
+        tab->attr = ;
     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
     {
         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
@@ -108,7 +109,7 @@ void *check_args(char *out, t_dot *p)
 /*
 from check.c
     check_args  => take input to be space_split to build table command
-    subsplit    => will do that space_split into a tab **       ==> subsplit.c
+    space_split    => will do that space_split into a tab **       ==> space_split.c
     parse_args  => call fill_node  return *p (list-> p.cmds)    ==> nodes.c
     split_all   =>  token's alternate end if it's not! 
                     div_token  ('<','>','|')                    ==> divide.c
