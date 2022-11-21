@@ -14,7 +14,7 @@
 
 extern int g_status;
 
-static char *get_home(t_table tab)
+static char *get_home(t_table *tab)
 {
         char *tmp;
         char *pwd;
@@ -38,7 +38,7 @@ static char *get_home(t_table tab)
         return(pwd); 
 }
 
-static char *get_user(t_table tab)
+static char *get_user(t_table *tab)
 {
     char **user;
     char *tmp;
@@ -70,7 +70,7 @@ static char *get_user(t_table tab)
         return (tmp); 
 }
 
-char    *getprompt(t_table tab)
+char    *getprompt(t_table *tab)
 {
         char *tmp;
         char *tmp2;

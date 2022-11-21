@@ -1,19 +1,63 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   check.c                                            :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-// /*   Updated: 2022/11/17 14:15:42 by loadjou          ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/17 14:15:42 by loadjou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// #include "../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-// extern int g_status;
+extern int g_status;
 
+
+// t_table  *check_args(char *out, t_table tab)  // maybe needed to return (tab)
+// {
+//     char    **arr;
+    
+//     if (!out)
+//     {
+//         printf("exit\n");
+//         return (NULL);
+//     }
+//     if (out[0] != '\0')
+//         add_history(out);
+//     //
+//     tab->cmds = space_split(out, " ");  
+//                 //input divided by space  **tab    
+//                 // if (tab)
+//                 //     mx_display_tab(tab->cmds);
+//     // free(out);
+//     if (!tab)
+//         return ("");
+//     // tab->token  ... 
+//     tab->token = parse_args(tab);    
+//     if (tab && tab->token)
+//         tab->attr = ;
+//     /*
+//        token need to be ID _cmd, _attr, _end   
+//     */
+
+//     if (tab && tab->cmds && tab->token && tab->token_len > 0)
+//     {
+//         // display_tkn(token);
+//         mx_display_tab(tab->cmds);
+//         /*
+//         // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+//         //  - 1], p->envp, 1);           
+                                
+//             //     ft_lstclear(&p->cmds, free_content);
+
+//             */
+//     }
+//     return (tab); 
+// }
+
+/*
 // static void getmypid(t_dot *p) 
 // {
 //     pid_t   pid;
@@ -124,7 +168,7 @@
 //     }
 //     exit(g_status); 
 // }
-
+*/
 
 // /*
 // main :  init_prompt => get user info to be stock into *p {struct t_dot}   

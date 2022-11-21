@@ -3,7 +3,7 @@
 
 extern int g_status;
 
-    static void getmypid(t_table *tab) 
+static void getmypid(t_table *tab) 
     {
         pid_t   pid;
 
@@ -23,18 +23,19 @@ extern int g_status;
         tab->pid = pid - 1; 
     }
 
-static t_token *init_token(t_table tab)
+t_table *init_token(t_table *tab)
 {
-        t_token *token;
-        token = table->token;
-        token->cmd = NULL;  
-        token->arg = NULL;  
-        token->table = NULL;
-        token->endtype = DEAD_END;
-        return (token);   
+        // t_token *token = NULL;
+        tab->token = tab->token;
+        tab->token->cmd = NULL;  
+        tab->token->arg = NULL;  
+        tab->token->table = NULL;
+        tab->token->endtype = DEAD_END;
+
+        return (tab);   
 }
 
-static t_table init_vars(t_table tab, char *str, char **av)
+static t_table *init_vars(t_table *tab, char *str, char **av)
 {
         char *num;
 
@@ -60,17 +61,17 @@ static t_table init_vars(t_table tab, char *str, char **av)
             return (tab); 
 }
 
-static t_table init_prompt(char **av, char **envp) 
+static t_table *init_prompt(char **av, char **envp) 
 {
-        t_table tab;
-        
+        t_table *tab;      
         char *str;
 
+        tab = malloc(sizeof(t_table *));
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        tab->token = malloc(t_token);   
+        tab->token = malloc(sizeof(t_token));   
         g_status = 0;
-        getmypid(&tab);                          
+        getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
         return (tab); 
 }
@@ -79,11 +80,11 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
-    t_token *token;
-    t_table tab;
+    // t_token token;
+    t_table *tab;
 
     tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
-    init_token(tab);                // token frame
+    tab = init_token(tab);                // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -110,7 +111,7 @@ int main(int ac, char **av, char **envp)
         free(str);
         /*
         */
-        if (!check_args(input, &p))
+        tab = check_args(input, tab);
             break;
         // else 
         //     mx_display_tkn(token); 

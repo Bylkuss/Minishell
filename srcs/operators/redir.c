@@ -119,7 +119,6 @@ t_mini	*get_infile1(t_mini *m, char **args, int *i)
 // 	char	*aux[2];
 // 	char	*nl;
 // 	char	*str[2];
-
 // 	str[0] = NULL;
 // 	str[1] = NULL;
 // 	aux[0] = NULL;

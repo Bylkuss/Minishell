@@ -50,7 +50,7 @@ static char **split_all(char **args, t_table tab)
     return (args); 
 }
 
-static void *parse_args(t_table tab)
+static t_token *parse_args(t_table tab)
 {
     // int i; // int is_exit; // is_exit = 0;
 
@@ -84,10 +84,10 @@ static void *parse_args(t_table tab)
         //     return (NULL);
     // }
     */
-    return (tab);
+    return (tab->token);
 }
 
-void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
+t_table  *check_args(char *out, t_table *tab)  // maybe needed to return (tab)
 {
     char    **arr;
     
@@ -97,12 +97,13 @@ void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
         return (NULL);
     }
     if (out[0] != '\0')
-        add_history(out);                           
+        add_history(out);
+    //
     tab->cmds = space_split(out, " ");  
-                 //input divided by space  **tab    
+                //input divided by space  **tab    
                 // if (tab)
                 //     mx_display_tab(tab->cmds);
-    free(out);
+    // free(out);
     if (!tab)
         return ("");
     // tab->token  ... 
@@ -112,16 +113,58 @@ void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
     /*
        token need to be ID _cmd, _attr, _end   
     */
-    if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)
+
+    if (tab && tab->cmds && tab->token && tab->token_len > 0)
     {
-        p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-         - 1], p->envp, 1);           
+        // display_tkn(token);
+        mx_display_tab(tab->cmds);
+        /*
+        // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+        //  - 1], p->envp, 1);           
                                 
             //     ft_lstclear(&p->cmds, free_content);
+
+            */
     }
-    // mx_display_tkn(token);
-    return (p); 
+    return (tab); 
 }
+//
+
+/* void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
+// {
+//     char    **arr;
+    
+//     if (!out)
+//     {
+//         printf("exit\n");
+//         return (NULL);
+//     }
+//     if (out[0] != '\0')
+//         add_history(out);
+//     //
+//     tab->cmds = space_split(out, " ");  
+//                 //input divided by space  **tab    
+//                 // if (tab)
+//                 //     mx_display_tab(tab->cmds);
+//     // free(out);
+//     if (!tab)
+//         return ("");
+//     // tab->token  ... 
+//     tab->token = parse_args(tab);    
+//     if (tab && tab->token)
+//         tab->attr = ;
+//     /*
+//        token need to be ID _cmd, _attr, _end   
+//     */
+//     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)    
+//     {
+//         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+//          - 1], p->envp, 1);                    
+//             //     ft_lstclear(&p->cmds, free_content);
+//     }
+//     // mx_display_tkn(token);
+//     return (p); 
+// }*/
 
 /*
 from check.c
