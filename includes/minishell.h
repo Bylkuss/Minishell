@@ -59,34 +59,49 @@ enum EndType{
 	DEAD_END  = 6
 };
 
-typedef struct s_dot t_dot;
-typedef struct s_mini t_mini;
+// typedef struct s_dot t_dot;
+// typedef struct s_mini t_mini;
 typedef struct s_token t_token;
-// typedef struct s_lexer t_lexer; 
+typedef struct s_table t_table;
 
-struct s_dot		/*  ENVP BUILDER */
+struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
-	t_list *cmds;
-	char **envp;
-	pid_t	pid;
-};
+	int 	id;			//	# command id 
+	char	*cmd;		//	... cmd[id]
+	char	*arg;		// *str of all frm cmd to end
+	int		endtype;	// enum endtype : err, end, redir
+	int 	infile;		// staring [fd] : arg/file "<" cmd 
+ 	int		outfile;	// resultd [fd] : arg/file ">" endtype
+	t_table	*table;		// *ptr -> 
 
-struct s_mini 	 	/*	MATRIX COMMAND TABLE */
+}			t_token;
+
+// struct s_dot		/*  ENVP BUILDER */
+// {
+// 	char 	**cmds;
+// 	char 	**envp;
+// 	pid_t	pid;
+// 	t_token token;
+// };
+
+// struct s_mini 	 	/*	MATRIX COMMAND TABLE */
 {
-	char **full_cmd;
-	char *full_path;
+	char **t_cmd;
+	char *path;
 	int infile;
 	int outfile;
 };
 
-struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
+typedef struct s_table
 {
-	char **table;
-	char *cmd;
-	char *arg;
-	int	endtype;
-	t_token *next;
-};
+	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	char **cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
+	char **attr;	//	[id][*str]	: linked attrib.	ATTR[#_id]["-l"]
+	char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
+	pid_t	pid;	//	fork dup wait 
+	t_token	token;	//	multi_referenciels
+}			t_table;
+
 
 //builtins
 // cd 
@@ -108,7 +123,7 @@ char		**div_token(char const *s, char *set);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_dot *p);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-t_list		*fill_nodes(char **args, int i);
+char		**fill_nodes(char **args, int i);
 //operators
 t_mini 		*get_outfile1(t_mini *token, char **args, int *i);
 t_mini 		*get_outfile2(t_mini *token, char **args, int *i);
@@ -116,7 +131,7 @@ t_mini 		*get_infile1(t_mini *token, char **args, int *i);
 t_mini 		*get_infile2(t_mini *token, char **args, int *i);
 int			get_fd(int oldfd, char *path, int flags[2]);
 //utils
-void		mx_display_tnk(t_token *token);
+void		mx_display_tkn(t_token *token);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
 t_token		*init_token(t_dot *p);

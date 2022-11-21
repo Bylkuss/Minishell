@@ -26,7 +26,7 @@ static t_mini	*mx_init(void)
 	return (m);
 }
 
-static t_mini	*get_params(t_mini *m, char **a[2], int *i)
+static t_mini	*get_params(t_mini *m, char **a[2], int *i) // endtype (int)
 {
 	if (a[0][*i])
 	{
@@ -79,13 +79,13 @@ static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
 	return (NULL);
 }
 
-t_list	*fill_nodes(char **args, int i)
+char	**fill_nodes(char **args, int i)
 {
-	t_token	*token = NULL;
+	t_token	**token;
 	t_list	*cmds[2];
 	char	**temp[2];
-	
-	// token = init_token()
+		
+	token = init_token()
 	cmds[0] = NULL;
 	temp[1] = get_trimmed(args); /* malloc_machine twin part */
 	while (args[++i])
@@ -101,7 +101,7 @@ t_list	*fill_nodes(char **args, int i)
 		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
 		token->cmd = cmds[1]->content;
 		token->arg = *temp[1];
-		// token->endtype = cmds[1]->content;
+		token->endtype = cmds[1]->content;
 		if (i < 0)
 			return (stop_fill(cmds[0], args, temp[1]));
 		if (!args[i])
@@ -109,7 +109,7 @@ t_list	*fill_nodes(char **args, int i)
 	}
 	ft_mx_free(&temp[1]);
 	ft_mx_free(&args);
-	return (cmds[0]);
+	return (token);
 }
 
 /*

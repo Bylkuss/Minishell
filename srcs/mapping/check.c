@@ -34,10 +34,19 @@ static void getmypid(t_dot *p)
     p->pid = pid - 1; 
 }
 
+static t_token *init_token(t_dot *p)
+{
+    t_token *token = NULL;
+    token->table = p->envp;
+    token->cmd = NULL;  //p->cmds;//>content;
+    token->arg = NULL;  //p->cmds->next->content;
+    token->endtype = DEAD_END;
+    return (token);   
+}
+
 static t_dot init_vars(t_dot p, char *str, char **av)
 {
     char *num;
-    // t_mini m;
 
     str = getcwd(NULL, 0);                                            
     p.envp = ms_setenv("PWD", str, p.envp, 3);          // 
@@ -64,12 +73,12 @@ static t_dot init_vars(t_dot p, char *str, char **av)
 static t_dot init_prompt(char **av, char **envp) 
 {
     t_dot p;
-    // t_mini m;
     char *str;
 
     str = NULL;
     p.cmds = NULL;
-    p.envp = ft_mx_dup(envp);                              
+    p.envp = ft_mx_dup(envp); 
+    p.token = malloc(t_token);
     g_status = 0;
     getmypid(&p);                          
     p = init_vars(p, str, av);            
@@ -80,11 +89,13 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
+    t_token *token;
     // char **test_cd = NULL;
     t_dot p;
 
     p = init_prompt(av, envp);      // 
-    mx_display_tab(p.envp);
+    init_token(p);
+    // mx_display_tab(p.envp);
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -107,6 +118,9 @@ int main(int ac, char **av, char **envp)
         free(str);
         if (!check_args(input, &p))
             break;
+        // else 
+        //     mx_display_tkn(token); 
+
     }
     exit(g_status); 
 }

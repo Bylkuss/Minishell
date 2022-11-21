@@ -1,6 +1,7 @@
 #include "../../includes/minishell.h"
 
 
+
 void mx_display_tab(char **tab)
 {
     int i = -1;
@@ -9,7 +10,6 @@ void mx_display_tab(char **tab)
         while(*tab[++i])
             printf ("%s :: \n", tab[i]);
         printf (" :: \n" );
-
     }
 }
 
@@ -20,18 +20,10 @@ void mx_display_str(char *str)
 
 void mx_display_tkn(t_token *token)
 {
-    printf("\n %s ==  \n", token->cmd);
-    printf("%s == \n", token->arg);   
+    if (token)
+        exit(0);
+    printf("\nCMD== %s ==  \t", token->cmd);
+    printf("ARG == %s == \t", token->arg);   
+    printf("END_TYPE == %d == \n", token->endtype);   
 
-}
-
-t_token *init_token(t_dot *p)
-{
-    t_token *token = NULL;
-    token->table = p->envp;
-    token->cmd = p->cmds->content;
-    token->arg = p->cmds->next->content;
-    token->endtype = DEAD_END;
-
-    return (token);   
 }
