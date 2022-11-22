@@ -104,7 +104,6 @@ t_table  *check_args(char *out, t_table *tab)
     if (tab && tab->cmds && tab->token && tab->token_len > 0)
     {
         // mx_display_tab(tab->cmds);
-        /*
         // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
         //  - 1], p->envp, 1);                                    
             //     ft_lstclear(&p->cmds, free_content);
