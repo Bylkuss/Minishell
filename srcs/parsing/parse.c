@@ -44,7 +44,7 @@ static char **split_all(char **args, t_table *tab)
         //
         tab = div_token(args[i], "<|>", tab);         /* token divider */     
         // ft_mx_rpl(&args, aux, i);                           
-        i += ft_mx_len(aux) - 1;                          
+        // i += ft_mx_len(aux) - 1;                          
         ft_mx_free(&aux);                                 
     }
     return (args); 
