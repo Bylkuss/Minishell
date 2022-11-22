@@ -12,10 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-/*
-
-
-	// static t_mini	*mx_init(void)
+/*	// static t_mini	*mx_init(void)
 	// {
 	// 	t_mini	*m;
 
@@ -71,29 +68,23 @@ static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int
 }
 
 
-	// static char	**get_trimmed(char **args)
-		// {
-		// 	char	**temp;
-		// 	char	*aux;
-		// 	int		j;
-		// 	j = -1;
-		// 	temp = ft_mx_dup(args);
-		// 	while (temp && temp[++j])
-		// 	{
-		// 		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
-		// 		free(temp[j]);
-		// 		temp[j] = aux;
-		// 	}
-		// 	return (temp);
-		// }
-		// static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-		// {
-		// 	(void)  &cmds;
-		// 	// ft_lstclear(&cmdc, free_content);
-		// 	ft_mx_free(&temp);
-		// 	ft_mx_free(&args);
-		// 	return (NULL);
-	// } 
+static t_table	*get_trimmed(t_table *tab)
+{
+	char	**temp;
+	char	*aux;
+	int		j;
+	
+	j = -1;
+	temp = ft_mx_dup(tab->cmdsargs);
+	while (temp && temp[++j])
+	{
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
+		free(temp[j]);
+		temp[j] = aux;
+	}
+	return (temp);
+}
+	
 	
 
 
