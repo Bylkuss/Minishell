@@ -3,7 +3,7 @@
 
 extern int g_status;
 
-static char *get_substr_var(char *str, int i, t_table tab)
+static char *get_substr_var(char *str, int i, t_table *tab)
 {
     char *aux;  // result str
     int pos;    // where to cut
@@ -57,7 +57,7 @@ char    *expand_path(char *str, int i, int quotes[2], char *var)
     return (str);
 }
 
-char    *expand_vars(char *str, int i, int quotes[2], t_table tab)
+char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
 {
     quotes[0] = 0;
     quotes[1] = 0;

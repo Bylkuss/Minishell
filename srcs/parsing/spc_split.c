@@ -92,13 +92,13 @@ char **space_split(const char *s, char *set)
 
         if (nodes == -1)
             return (NULL);
-        printf(":: %d  NODES ::\n",nodes);
+        // printf(":: %d  NODES ::\n",nodes);
         arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
         if (arr == NULL)
             return (NULL);
 
-        arr = ft_fill_node(arr, s, set, i);    // null-term str return
-
+        arr = node_fill(arr, s, set, i);    // null-term str return
+        mx_display_tab(arr);
         // arr[nodes] = NULL;
         return (arr);   
 }

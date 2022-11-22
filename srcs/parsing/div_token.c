@@ -73,10 +73,10 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 		
 		char    **aux;
 		int     tknum; // token->len = how many node into token
-		int 	id;
+		int 	token_id;
 		int     i[3];
 
-		nb = 0;
+		token_id = 0;
 		i[0] = 0;
 		i[1] = 0;
 		i[2] = 0;
@@ -91,14 +91,15 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
     if (aux == NULL)
         return (NULL);
     aux = token_fill(aux, (char *)s, set, i);
-	tab->token->id = 0;
-
-	tab->node[nb] = aux[nb];
-	tab->token->id++;
-	while (tab->token_len > token_id)
+	// mx_display_tab(aux);
+	tab->node[token_id] = aux[token_id];
+	token_id++;
+	// tab->token->id = 0;
+	// tab->token->id++;
+	while (token_id < tab->token_len)
 	{
 		tab->node[token_id] = aux[token_id];
-		tab->token->id++;
+		token_id++;
 	}
 		// while (nb < tknum)
 		// {
@@ -107,8 +108,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 		// 	token->endtype = 
 		// }
 	// aux ** == tab->node[id][str]] 
-    tab->node[token_id] = NULL;
-	
+    // tab->node[token_id] = NULL;
     return (tab);    
 }
 

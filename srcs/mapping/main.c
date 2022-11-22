@@ -73,7 +73,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
-    mx_display_tab(tab->envp);
+    // mx_display_tab(tab->envp);
     tab = init_token(tab);                // token frame
     while (av && ac) 
     {
@@ -102,7 +102,8 @@ int main(int ac, char **av, char **envp)
         /*
         */
         tab = check_args(input, tab);
-            break;
+        // mx_display_tab(tab->cmds);          //::    :://
+            // break;
         // else 
         //     mx_display_tkn(token); 
 

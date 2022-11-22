@@ -124,7 +124,7 @@ char 		**space_split(const char *s, char *set);
 // void		*check_args(char *out, t_dot *p);
 t_table		*div_token(char const *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
-char		*expand_vars(char *str, int i, int quotes[2], t_table tab);
+char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
 char		**fill_nodes(t_table *tab, int i);
 //operators
@@ -134,7 +134,7 @@ t_token		*get_outfile2(t_token *token, char **args);
 t_token		*get_infile1(t_token *token, char **args);
 // t_token		*get_infile2(t_mini *token, char **args, int *i);
 //utils
-void		mx_display_tkn(t_table token);
+void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
 t_table		*init_token(t_table *tab);
