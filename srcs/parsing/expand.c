@@ -25,6 +25,11 @@ static char *get_substr_var(char *str, int i, t_table *tab)
     free(var);
     free(path);
     free(str);
+    // if (aux)
+    //{
+    //  mx_display_str(aux);
+    //  exit(0);
+    //}
     return (aux);
 }
 

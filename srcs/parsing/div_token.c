@@ -89,7 +89,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->spli
     if (aux == NULL)
         return (NULL);
     aux = token_fill(aux, (char *)s, set, i);	
-	if (aux)
+	if (*aux)
 	{
 		tab->node[token_id] = aux[token_id];
 		token_id++;		// tab->token->id = 0;		// tab->token->id++;
@@ -98,7 +98,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->spli
 			tab->node[token_id] = aux[token_id];
 			token_id++;
 		}
-		mx_display_tab(aux);
+		mx_display_str(*aux);
 	}
 	/*
 		while (nb < tknum)
