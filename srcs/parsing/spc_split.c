@@ -72,7 +72,6 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
 
 /*
     cmd space_trim :: token_part   
-    call by 
 */
 char **space_split(const char *s, char *set)
 {
@@ -89,7 +88,6 @@ char **space_split(const char *s, char *set)
         if (!s)
             return (NULL);
         nodes = node_count(s, set, count);     // node = str.space.cut 
-
         if (nodes == -1)
             return (NULL);
         // printf(":: %d  NODES ::\n",nodes);
@@ -98,8 +96,7 @@ char **space_split(const char *s, char *set)
             return (NULL);
 
         arr = node_fill(arr, s, set, i);    // null-term str return
-        mx_display_tab(arr);
-        // arr[nodes] = NULL;
+        mx_display_tab(arr);                // arr[nodes] = NULL;
         return (arr);   
 }
 

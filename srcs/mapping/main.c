@@ -58,7 +58,6 @@ static t_table *init_prompt(char **av, char **envp)
         tab = init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -72,9 +71,9 @@ int main(int ac, char **av, char **envp)
     // t_token token;
     t_table *tab;
 
-    tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
-    // mx_display_tab(tab->envp);
-    tab = init_token(tab);                // token frame
+    tab = init_prompt(av, envp);    //tab->envp , pid --> init_vars
+                                    // mx_display_tab(tab->envp);
+    tab = init_token(tab);          // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -85,8 +84,7 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         // 
-            //fonction on his own { built_outs }
-            //
+        //fonction on his own { built_outs }
             if(ft_strcmp(input, "exit") == 0)
                 exit(0);
             if (ft_strlen(input) > 0)
@@ -99,14 +97,10 @@ int main(int ac, char **av, char **envp)
                 echo(ft_split(input, ' '));
         // 
         free(str);
-        /*
-        */
         tab = check_args(input, tab);
+        if (!tab)
+            break;
         // mx_display_tab(tab->cmds);          //::    :://
-            // break;
-        // else 
-        //     mx_display_tkn(token); 
-
     }
     exit(g_status); 
 }

@@ -96,9 +96,8 @@ static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int
 	// } 
 	
 
-/*					arg[][] from splitt_all (token chunk)	*/
 
-char	**fill_nodes(t_table *tab, int i)
+char	**fill_nodes(t_table *tab, int i)	/*	arg[][] from splitt_all (token chunk)	*/
 {
 	// t_token	**token;
 	// t_list	*cmds[2];
@@ -132,7 +131,7 @@ char	**fill_nodes(t_table *tab, int i)
 		// if (!args[i])
 		// 	break ;
 	}
-	// ft_mx_free(&temp[1S
+	// ft_mx_free(&temp[1]);
 	return (tab->node);
 }
 
