@@ -68,41 +68,42 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
 	int 	id;			//	# command id 
 	char	*cmd;		//	... cmd[id]
-	char	*arg;		// *str of all frm cmd to end
+	char	*attr;		// *str of all from cmd to end
+	char 	*path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
 	int 	cmd_len;	// how many node by token (min 2)
 	struct s_table	*table;		// *ptr -> 
-}			;//t_token;
+};//t_token;
 
 struct s_table
 {
 	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char **cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
 	char **node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
-	char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
+	// char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
 	pid_t	pid;	//	fork dup wait 
 	int token_len;	// 	how many tokens
 	struct s_token	*token;	//	multi_referenciels *ptr->
-}			;//t_table;
+};//t_table;
+
 
 // struct s_dot		/*  ENVP BUILDER */  t_table
-// {
-// 	char 	**cmds;
-// 	char 	**envp;
-// 	pid_t	pid;
-// 	t_token token;
-// };
-
-// struct s_mini 	 	/*	MATRIX COMMAND TABLE */  repl token
-// {
-// 	char **t_cmd;
-// 	char *path;
-// 	int infile;
-// 	int outfile;
-// };
-
+	// {
+	// 	char 	**cmds;
+	// 	char 	**envp;
+	// 	pid_t	pid;
+	// 	t_token token;
+	// };
+	// struct s_mini 	 	/*	MATRIX COMMAND TABLE */  repl token
+	// {
+	// 	char **t_cmd;
+	// 	char *path;
+	// 	int infile;
+	// 	int outfile;
+	// };
+//
 
 //builtins
 // cd 
@@ -115,21 +116,22 @@ void	pwd(void);
 void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
+char 		**space_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
+
 //parsing
 // void		*check_args(char *out, t_dot *p);
-char 		**space_split(const char *s, char *set);
-char		**div_token(char const *s, char *set);
+t_table		*div_token(char const *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-char		**fill_nodes(char **args, int i);
+char		**fill_nodes(t_table *tab, int i);
 //operators
-int			get_fd(int oldfd, char *path, int flags[2]);
-t_token		*get_outfile1(t_token *token, char **args, int *i);
-t_token		*get_outfile2(t_token *token, char **args, int *i);
-t_token		*get_infile1(t_token *token, char **args, int *i);
+int			get_fd(int oldfd, char *path, t_token *token);
+t_token		*get_outfile1(t_token *token, char **args);
+t_token		*get_outfile2(t_token *token, char **args);
+t_token		*get_infile1(t_token *token, char **args);
 // t_token		*get_infile2(t_mini *token, char **args, int *i);
 //utils
 void		mx_display_tkn(t_table token);
@@ -140,6 +142,8 @@ t_table		*init_token(t_table *tab);
 //check	new
 
 char    *getprompt(t_table *tab);
+t_table *init_token(t_table *tab);
+t_table *init_tab(t_table *tab);
 
 // static t_token *parse_args(t_table tab);
 t_table  *check_args(char *out, t_table *tab);

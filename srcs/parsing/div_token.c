@@ -61,28 +61,28 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 		else
 			i[0]++;
 		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-		tab->token
+		// tab->token
 	}
-	return (tab);
+	return (aux);
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err
 //	s = 
-t_table div_token(char const *s, char *set, t_table tab) // call by parse>split_all
+t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
-		/*
-			char    **aux;
-			int     tknum; // token->len = how many node into token
-			int 	nb;
-			int     i[3];
+		
+		char    **aux;
+		int     tknum; // token->len = how many node into token
+		int 	id;
+		int     i[3];
 
-			nb = 0;
-			i[0] = 0;
-			i[1] = 0;
-			i[2] = 0;
-			if (!s)
-				return (NULL);
-		//*/
+		nb = 0;
+		i[0] = 0;
+		i[1] = 0;
+		i[2] = 0;
+		if (!s)
+			return (NULL);
+	
     tknum = token_count((char *)s, set, 0);	// how many end
     if (tknum == -1)
         return (NULL);
@@ -91,14 +91,14 @@ t_table div_token(char const *s, char *set, t_table tab) // call by parse>split_
     if (aux == NULL)
         return (NULL);
     aux = token_fill(aux, (char *)s, set, i);
-	token->id = 0;
+	tab->token->id = 0;
 
-	tab->node[token_id] = aux[token_id];
-	token->id++;
+	tab->node[nb] = aux[nb];
+	tab->token->id++;
 	while (tab->token_len > token_id)
 	{
 		tab->node[token_id] = aux[token_id];
-		token->id++;
+		tab->token->id++;
 	}
 		// while (nb < tknum)
 		// {

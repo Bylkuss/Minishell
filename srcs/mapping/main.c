@@ -23,18 +23,6 @@ static void getmypid(t_table *tab)
         tab->pid = pid - 1; 
     }
 
-t_table *init_token(t_table *tab)
-{
-        // t_token *token = NULL;
-        tab->token = tab->token;
-        tab->token->cmd = NULL;  
-        tab->token->arg = NULL;  
-        tab->token->table = NULL;
-        tab->token->endtype = DEAD_END;
-
-        return (tab);   
-}
-
 static t_table *init_vars(t_table *tab, char *str, char **av)
 {
         char *num;
@@ -67,9 +55,10 @@ static t_table *init_prompt(char **av, char **envp)
         char *str;
 
         tab = malloc(sizeof(t_table *));
+        tab = init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        tab->token = malloc(sizeof(t_token));   
+        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -84,6 +73,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
+    mx_display_tab(tab->envp);
     tab = init_token(tab);                // token frame
     while (av && ac) 
     {
@@ -138,31 +128,25 @@ main :  init_prompt => get user info to be stock into *p {struct t_dot}
     // #include <readline/history.h>
     // #include "../../includes/minishell.h"
     // #include "../libft/incs/libft.h"
-
     // int main(int ac, char **av, char **envp) 
     //     {
     //         char *str;
     //         char *input;
     //         t_dot p;
-
     //         // Configure readline to auto-complete paths when the tab key is hit.
-    //         rl_bind_key('\t', rl_complete);
-            
+    //         rl_bind_key('\t', rl_complete);       
     //         str = av[0];
     //         tab->envp = envp;
     //         while (ac)
     //         {
     //             // Display prompt and read input
     //             input = readline("prompt> ");
-
     //             // Check for EOF.
     //             if (!input)
     //                 break;
-
     //             // Add input to readline history.
     //             add_history(input);
     //             // Do stuff...
-
     //             // Free buffer that was allocated by readline
     //             free(input);
     //         }

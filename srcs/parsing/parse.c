@@ -24,7 +24,7 @@ extern int g_status;
 //     return (token);   
 // }
 
-/*   char **args = tab->cmds  :  token chunk */
+/*       char **args = tab->cmds  :  token chunk    */
 static char **split_all(char **args, t_table tab)  
 {
     char **aux;

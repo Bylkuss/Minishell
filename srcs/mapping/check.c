@@ -14,11 +14,39 @@
 
 extern int g_status;
 
+t_table *init_token(t_table *tab)
+{
+        t_token *token;
+
+        token = malloc(sizeof(t_token));
+        token->id = 0;
+        token->cmd = NULL;  
+        token->attr = NULL;  
+        token->path = NULL;
+        token->endtype = DEAD_END;
+        token->infile = 0;
+        token->outfile = 0;
+        token->cmd_len = 0;
+        token->table = tab;
+        return (tab);   
+}
+
+t_table *init_tab(t_table *tab)
+{
+        
+        tab->envp = NULL;
+        tab->cmds = NULL;
+        tab->node = NULL;
+        (void) tab->pid;
+        tab->token_len = 0;
+        tab->token = NULL;
+        return (tab);
+}
+
 
 // t_table  *check_args(char *out, t_table tab)  // maybe needed to return (tab)
 // {
 //     char    **arr;
-    
 //     if (!out)
 //     {
 //         printf("exit\n");
@@ -41,17 +69,14 @@ extern int g_status;
 //     /*
 //        token need to be ID _cmd, _attr, _end   
 //     */
-
 //     if (tab && tab->cmds && tab->token && tab->token_len > 0)
 //     {
 //         // display_tkn(token);
 //         mx_display_tab(tab->cmds);
 //         /*
 //         // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-//         //  - 1], p->envp, 1);           
-                                
+//         //  - 1], p->envp, 1);                                        
 //             //     ft_lstclear(&p->cmds, free_content);
-
 //             */
 //     }
 //     return (tab); 
@@ -61,7 +86,6 @@ extern int g_status;
 // static void getmypid(t_dot *p) 
 // {
 //     pid_t   pid;
-
 //     pid = fork();                                             
 //     if (pid < 0)
 //     {
@@ -77,7 +101,6 @@ extern int g_status;
 //     waitpid(pid, NULL, 0);                                    
 //     p->pid = pid - 1; 
 // }
-
 // static t_token *init_token(t_dot *p)
 // {
 //     t_token *token = NULL;
@@ -87,11 +110,9 @@ extern int g_status;
 //     token->endtype = DEAD_END;
 //     return (token);   
 // }
-
 // static t_dot init_vars(t_dot p, char *str, char **av)
 // {
 //     char *num;
-
 //     str = getcwd(NULL, 0);                                            
 //     tab->envp = ms_setenv("PWD", str, tab->envp, 3);          // 
 //     free(str);
@@ -113,12 +134,10 @@ extern int g_status;
 //     free(str);
 //         return (p); 
 // }
-
 // static t_dot init_prompt(char **av, char **envp) 
 // {
 //     t_dot p;
 //     char *str;
-
 //     str = NULL;
 //     p.cmds = NULL;
 //     tab->envp = ft_mx_dup(envp); 
@@ -128,7 +147,6 @@ extern int g_status;
 //     p = init_vars(p, str, av);            
 //     return (p); 
 // }
-
 // int main(int ac, char **av, char **envp) 
 // {
 //     char *str;
@@ -136,7 +154,6 @@ extern int g_status;
 //     t_token *token;
 //     // char **test_cd = NULL;
 //     t_dot p;
-
 //     p = init_prompt(av, envp);      // 
 //     init_token(p);
 //     // mx_display_tab(tab->envp);
