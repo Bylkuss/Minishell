@@ -39,7 +39,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 	return (fd);
 }
 
-t_mini	*get_outfile1(t_mini *m, char **args, int *i)
+t_token	*get_outfile1(t_token *token, char **args, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -49,11 +49,11 @@ t_mini	*get_outfile1(t_mini *m, char **args, int *i)
 	nl = "minishell: syntax error near unexpected token `newline'";
 	(*i)++;
 	if (args[*i])
-		m->outfile = get_fd(m->outfile, args[*i], flags);
-	if (!args[*i] || m->outfile == -1)
+		token->outfile = get_fd(token->outfile, args[*i], flags);
+	if (!args[*i] || token->outfile == -1)
 	{
 		*i = -1;
-		if (m->outfile != -1)
+		if (token->outfile != -1)
 		{
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
@@ -61,10 +61,11 @@ t_mini	*get_outfile1(t_mini *m, char **args, int *i)
 		else
 			g_status = 1;
 	}
-	return (m);
+	token->endtype = 1;
+	return (token);
 }
 
-t_mini	*get_outfile2(t_mini *token, char **args, int *i)
+t_token	*get_outfile2(t_token *token, char **args, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -86,10 +87,11 @@ t_mini	*get_outfile2(t_mini *token, char **args, int *i)
 		else
 			g_status = 1;
 	}
+	token->endtype = 2;
 	return (token);
 }
 
-t_mini	*get_infile1(t_mini *m, char **args, int *i)
+t_token	*get_infile1(t_token *token, char **args, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -99,11 +101,11 @@ t_mini	*get_infile1(t_mini *m, char **args, int *i)
 	nl = "minishell: syntax error near unexpected token `newline'";
 	(*i)++;
 	if (args[*i])
-		m->infile = get_fd(m->infile, args[*i], flags);
-	if (!args[*i] || m->infile == -1)
+		token->infile = get_fd(token->infile, args[*i], flags);
+	if (!args[*i] || token->infile == -1)
 	{
 		*i = -1;
-		if (m->infile != -1)
+		if (token->infile != -1)
 		{
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
@@ -111,7 +113,8 @@ t_mini	*get_infile1(t_mini *m, char **args, int *i)
 		else
 			g_status = 1;
 	}
-	return (m);
+	token->endtype = 3;
+	return (token);
 }
 
 // t_mini	*get_infile2(t_mini *m, char **args, int *i)

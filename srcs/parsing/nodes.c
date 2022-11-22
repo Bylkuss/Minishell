@@ -30,31 +30,40 @@
 	// }
 */
 
-static t_mini	*get_params(t_mini *m, char **a[2], int *i) // endtype (int)
+static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
 {
-	if (a[0][*i])
+	int cmd;	
+	int nod;
+	int id;
+	char ***mx;
+	cmd = 0;
+	nod = 0;
+	id = 0;
+	mx[id] = tab->cmds;//[cmd][nod];
+
+	if (tab->cmds[cmd][nod])
 	{
-		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
-			m = get_outfile2(m, a[1], i);
-		else if (a[0][*i][0] == '>')
-			m = get_outfile1(m, a[1], i);
+		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+			token = get_outfile2(token, mx[id], nod);
+		else if (mx[id][cmd][nod] == '>')
+			token = get_outfile1(token, a[1], i);
 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
 			a[0][*i + 1][0] == '<')
 			m = get_infile2(m, a[1], i);*/
 		else if (a[0][*i][0] == '<')
-			m = get_infile1(m, a[1], i);
+			token = get_infile1(token, a[1], i);
 		else if (a[0][*i][0] != '|')
-			m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-		else
+		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+		// else
 		{
 			//mini_perror(PIPENDERR, NULL, 2);
 			*i = -2;
 		}
-		return (m);
+		return (token);
 	}
 	//mini_perror(PIPENDERR, NULL, 2);
 	*i = -2;
-	return (m);
+	return (token);
 }
 
 static char	**get_trimmed(char **args)
@@ -88,31 +97,32 @@ static char	**get_trimmed(char **args)
 
 /*					arg[][] from splitt_all (token chunk)	*/
 
-char	**fill_nodes(char **args, int i)
+char	**fill_nodes(t_table *tab, int i)
 {
 	// t_token	**token;
-	t_list	*cmds[2];
-	char	**temp[2];
-		
+	// t_list	*cmds[2];
 	// token = init_token()
-	cmds[0] = NULL;
-	temp[1] = get_trimmed(args); /* malloc_machine twin part */
-	while (args[++i])
+	// cmds[0] = NULL;
+	char	**temp[2];
+
+	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
+	while (tab->cmds && i < tab->token_len)
 	{
 		// revert from list 
-		// need to set first arg => cmd 
-		// 			set last arg => endtype
-		//	middle arg (if so!) 
-		
-		cmds[1] = ft_lstlast(cmds[0]);
+			// need to set first arg => cmd 
+			// 			set last arg => endtype
+			//	middle arg (if so!) 	
+		// cmds[1] = ft_lstlast(cmds[0]);
+
 		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
 		{
 			i += args[i][0] == '|';
-			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-			cmds[1] = ft_lstlast(cmds[0]);
+		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
+		//	cmds[1] = ft_lstlast(cmds[0]);
 		}
+
 		temp[0] = args;
-		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
+		tab->token = get_params(tab, tab->token);//, &i);
 		token->cmd = cmds[1]->content;
 		token->arg = *temp[1];
 		token->endtype = cmds[1]->content;
@@ -123,7 +133,7 @@ char	**fill_nodes(char **args, int i)
 	}
 	ft_mx_free(&temp[1]);
 	ft_mx_free(&args);
-	return (token);
+	return (
 }
 
 /*

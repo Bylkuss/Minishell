@@ -57,7 +57,8 @@ static t_token *parse_args(t_table tab)
     /*  args =>                              */
     char **args;
     args = tab->cmds;
-    tab->node = fill_nodes(split_all(args, tab), -1);  //split_arg 
+    tab->cmds = split_all(args, tab);  //split_arg 
+    tab->node = fill_nodes(tab, tab->token_len);  //split_arg 
 
     /*                   args breaker => cmd_token*/ 
 

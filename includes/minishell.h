@@ -61,7 +61,7 @@ enum EndType{
 
 // typedef struct s_dot t_dot;
 // typedef struct s_mini t_mini;
-// typedef struct s_token t_token;
+typedef struct s_token t_token;
 typedef struct s_table t_table;
 
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
@@ -74,9 +74,9 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
 	int 	cmd_len;	// how many node by token (min 2)
 	struct s_table	*table;		// *ptr -> 
-}			t_token;
+}			;//t_token;
 
-typedef struct s_table
+struct s_table
 {
 	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char **cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
@@ -85,7 +85,7 @@ typedef struct s_table
 	pid_t	pid;	//	fork dup wait 
 	int token_len;	// 	how many tokens
 	struct s_token	*token;	//	multi_referenciels *ptr->
-}			t_table;
+}			;//t_table;
 
 // struct s_dot		/*  ENVP BUILDER */  t_table
 // {
@@ -126,11 +126,11 @@ char		*expand_vars(char *str, int i, int quotes[2], t_table tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
 char		**fill_nodes(char **args, int i);
 //operators
-// t_token		*get_outfile1(t_mini *token, char **args, int *i);
-// t_token		*get_outfile2(t_mini *token, char **args, int *i);
-// t_token		*get_infile1(t_mini *token, char **args, int *i);
+int			get_fd(int oldfd, char *path, int flags[2]);
+t_token		*get_outfile1(t_token *token, char **args, int *i);
+t_token		*get_outfile2(t_token *token, char **args, int *i);
+t_token		*get_infile1(t_token *token, char **args, int *i);
 // t_token		*get_infile2(t_mini *token, char **args, int *i);
-// int			get_fd(int oldfd, char *path, int flags[2]);
 //utils
 void		mx_display_tkn(t_table token);
 void		mx_display_tab(char **tab);
