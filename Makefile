@@ -45,7 +45,9 @@ fclean	:	clean
 				$(RM) $(O_DIR)
 				$(RM) $(NAME)
 
-re		:	fclean all
+re		:	clean all
+
+ref		:	fclean all
 
 
 .PHONY	:	clean fclean re bonus
