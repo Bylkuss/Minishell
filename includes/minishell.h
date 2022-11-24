@@ -67,15 +67,14 @@ typedef struct s_table t_table;
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 {
 	int 	id;			//	# command id 
-	char	*cmd;		//	... cmd[id]
-	char	*attr;		// *str of all from cmd to end
-	char 	*path;		// relative || absolute
+	char	**cmd;		//	... cmd[id]
+	char 	**path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
 	int 	cmd_len;	// how many node by token (min 2)
-	struct s_table	*table;		// *ptr -> 
-};//t_token;
+	struct s_table	*table; 
+};						//t_token;
 
 struct s_table
 {
@@ -86,7 +85,7 @@ struct s_table
 	pid_t	pid;	//	fork dup wait 
 	int token_len;	// 	how many tokens
 	struct s_token	*token;	//	multi_referenciels *ptr->
-};//t_table;
+};					//t_table;
 
 
 // struct s_dot		/*  ENVP BUILDER */  t_table

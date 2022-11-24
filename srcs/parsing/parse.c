@@ -26,10 +26,12 @@ static char **split_all(char **args, t_table *tab)
     while (args && args[++i])       
     {
         /*// args = tab->cmds[id]
-        //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
-        //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
+            //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
+            //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         args[i] = expand_vars(args[i], -1, quotes, tab);    //expand_var   //expand_path;
+
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
+
         tab->token = div_token(args[i], "<|>", tab);               //token divider 
         // i += ft_mx_len(aux) - 1;  // ft_mx_rpl(&args, aux, i);                           
         // ft_mx_free(&aux);                                 

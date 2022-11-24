@@ -90,17 +90,16 @@ t_table	*get_trimmed(t_table *tab)
 	
 t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 {
-	int i;		// token id
+	int i;		// node id
+	int j;		// 
 
 		// t_token	**token;
 		// t_list	*cmds[2];
 		// token = init_token()
 		// cmds[0] = NULL;
 		// char	**temp[2];
-
-	// tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
-	// needed to token command
-
+		// tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
+		// needed to token command
 	// tab->cmds 
 	i = 0;
 	while (tab->cmds[i] && i < tab->token_len)
@@ -109,10 +108,12 @@ t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 			// need to set first arg => cmd 
 			// 			set last arg => endtype
 			//	middle arg (if so!) 	
-		// cmds[1] = ft_lstlast(cmds[0]);
+			// cmds[1] = ft_lstlast(cmds[0]);
 
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
+			tab->token->cmd_len
+			tab->token->cmd[i]  
 				/*	i += args[i][0] == '|';
 					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
 					cmds[1] = ft_lstlast(cmds[0]); 
