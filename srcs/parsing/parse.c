@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 22:22:31 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 00:48:41 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@ static char **split_all(char **args, t_table *tab)
     // args = tab->cmds[id]
     while (args && args[++i])
     {
-        //expand_var
-        //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
-        //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]]
-        args[i] = expand_vars(args[i], -1, quotes, tab);       
-        //expand_path
+        //expand_var                            ex: {} ..recursiv
+            //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
+            //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]]
+        args[i] = expand_vars(args[i], -1, quotes, tab);     //get substr of spec char* 
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
-        //
         tab = div_token(args[i], "<|>", tab);         /* token divider */     
         // ft_mx_rpl(&args, aux, i);                           
         // i += ft_mx_len(aux) - 1;                          
@@ -46,8 +44,8 @@ static t_token *parse_args(t_table *tab)
     // int is_exit; // is_exit = 0;
     /*  args =>                              */
     char **args;
-    // args = tab->cmds;
-    tab->cmds = split_all(args, tab);  //split_arg 
+    args = tab->cmds;
+    tab->cmds = split_all(tab->cmds, tab);  //split_arg 
     tab->node = fill_nodes(tab, tab->token_len);  //split_arg 
     /*                   args breaker => cmd_token*/ 
     if (!tab->node)
@@ -89,7 +87,7 @@ t_table  *check_args(char *out, t_table *tab)  // maybe needed to return (tab)
         
     tab->node = space_split(out, " ");  // new set node instead of cmds
             // keep cmds for token post-building...
-    if (!tab->cmds)
+    if (!tab->node)
         return (NULL);
     // if (tab)
     //     mx_display_tab(tab->cmds);

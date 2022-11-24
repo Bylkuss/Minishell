@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 20:24:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/23 23:32:05 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ t_table *init_token(t_table *tab)
         t_token *token;
 
         token = malloc(sizeof(t_token));
+        
+        tab->token = token;
         token->id = 0;
         token->cmd = NULL;  
-        token->attr = NULL;  
+        // token->attr = NULL;  
         token->path = NULL;
         token->endtype = DEAD_END;
         token->infile = 0;
         token->outfile = 0;
         token->cmd_len = 0;
-        token->table = tab;
         return (tab);   
 }
 

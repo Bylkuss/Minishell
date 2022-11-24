@@ -6,14 +6,14 @@ extern int g_status;
 static char *get_substr_var(char *str, int i, t_table *tab)
 {
     char *aux;  // result str
-    int pos;    // where to cut
+    int pos;    // where to cut // pos ?: ptr to substr
     char *path;
-    char *var;  //
-
-    pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0);
+    char *var;  // spec char path check ...
+    
+    pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0); 
     if (pos == -1)
         pos = ft_strlen(str) - 1;
-    aux = ft_substr(str, 0, i - 1);
+    aux = ft_substr(str, 0, i - 1); 
     var = ms_getenv(&str[i], tab->envp, ft_strchar_i(&str[i], "\"\'$|>< "));
     if (!var && str[i] == '$')
         var = ft_itoa(tab->pid);
@@ -67,9 +67,9 @@ char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
         quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2;
         quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2;
 
-        if (!quotes[0] && str[i] == '$' && str[i + 1] && \
-            ((ft_strchar_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
-            return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab));
+        if (!quotes[0] && str[i] == '$' && str[i + 1] && ((ft_strchar_i(&str[i + 1], "/~%^{}:; ")
+             && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
+            return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
     }
     return (str);
 }

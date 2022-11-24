@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide.c                                           :+:      :+:    :+:   */
+/*   div_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 21:29:18 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/24 00:46:36 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
@@ -71,23 +72,22 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
-		char    **aux;
-		int     tknum; // token->len = how many node into token
-		int 	token_id;
-		int     i[3];
-
-		token_id = 0;
+		t_token	*token;				// token->len = how many node into token
+		int     i[3];				// int     tknum; 
+		
+		token = tab->token;
+		tab->token_len = 0;
 		i[0] = 0;
 		i[1] = 0;
 		i[2] = 0;
 		if (!s)
 			return (NULL);
 	
-    tknum = token_count((char *)s, set, 0);	// how many end
-    if (tknum == -1)
+    tab->token_len = token_count((char *)s, set, 0);	// how many end
+    if (tab->token_len == -1)
         return (NULL);
-    aux = malloc(sizeof(char *) * (tknum + 1)) ;
-	tab->token_len = tknum;
+    tab->node = malloc(sizeof(char *) * (tab->token_len + 1)) ;
+	// tab->token_len;
     if (aux == NULL)
         return (NULL);
     aux = token_fill(aux, (char *)s, set, i);
