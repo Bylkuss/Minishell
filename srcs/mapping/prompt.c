@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:02:26 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/23 22:13:16 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ char    *getprompt(t_table *tab)
         char *tmp2;
         char *aux;
 
-        tmp = get_user(tab);                          
+        tmp = get_user(tab);                    //
         tmp2 = ft_strjoin(tmp, "@mishell");
         free(tmp);
-        aux = get_home(tab);                   
+        aux = get_home(tab);                   //
         tmp = ft_strjoin(tmp2, aux);
         free(aux);
         free(tmp2);

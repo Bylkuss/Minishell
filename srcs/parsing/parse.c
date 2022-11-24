@@ -3,26 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:18:58 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/23 22:22:31 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 extern int g_status;
-
-// static t_token *init_token(t_dot *p)
-// {
-//     t_token *token = NULL;
-//     token->table = p->envp;
-//     token->cmd = NULL;//p->cmds;//>content;
-//     token->arg = NULL;//p->cmds->next->content;
-//     token->endtype = DEAD_END;
-//     return (token);   
-// }
 
 /*       char **args = tab->cmds  :  token chunk    */
 static char **split_all(char **args, t_table *tab)  
@@ -54,15 +44,12 @@ static t_token *parse_args(t_table *tab)
 {
     int i; 
     // int is_exit; // is_exit = 0;
-
     /*  args =>                              */
     char **args;
-    args = tab->cmds;
+    // args = tab->cmds;
     tab->cmds = split_all(args, tab);  //split_arg 
     tab->node = fill_nodes(tab, tab->token_len);  //split_arg 
-
     /*                   args breaker => cmd_token*/ 
-
     if (!tab->node)
         return (tab->token);
     /*   tab->node [*str]  sep.space. node -ID.less
@@ -70,21 +57,20 @@ static t_token *parse_args(t_table *tab)
         // tab->
         // i = ft_lstsize(tab->cmds);
         // g_status = builtin(p, p->cmds, &is_exit, 0);             
-    */
-    
+    */    
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
     /*
-    // if (!is_exit && &g_status == 13)
-    //     g_status = 0;
-    // if (args && is_exit)
-        // {
-        //     ft_lstclear(&p->cmds, free_content);
-        //     return (NULL);
-    // }
+        // if (!is_exit && &g_status == 13)
+        //     g_status = 0;
+        // if (args && is_exit)
+            // {
+            //     ft_lstclear(&p->cmds, free_content);
+            //     return (NULL);
+        // }
     */
     return (tab->token);
 }
@@ -100,15 +86,16 @@ t_table  *check_args(char *out, t_table *tab)  // maybe needed to return (tab)
     }
     if (out[0] != '\0')
         add_history(out);
-    //
-    tab->cmds = space_split(out, " ");  
-    mx_display_tab(tab->cmds);
-                //input divided by space  **tab    
-                // if (tab)
-                //     mx_display_tab(tab->cmds);
-    // free(out);
-    if (!tab)
+        
+    tab->node = space_split(out, " ");  // new set node instead of cmds
+            // keep cmds for token post-building...
+    if (!tab->cmds)
         return (NULL);
+    // if (tab)
+    //     mx_display_tab(tab->cmds);
+    // mx_display_tab(tab->node);
+                //input divided by space  **tab    
+    free(out);
     // tab->token  ... 
     tab->token = parse_args(tab);    
 
@@ -120,49 +107,49 @@ t_table  *check_args(char *out, t_table *tab)  // maybe needed to return (tab)
     */
 
     // if (tab && tab->cmds && tab->token && tab->token_len > 0)
-    // {
-    //     // mx_display_tab(tab->cmds);
-    //     /*
-    //     // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-    //     //  - 1], p->envp, 1);                                    
-    //         //     ft_lstclear(&p->cmds, free_content);
-    //         */
+        // {
+        //     // mx_display_tab(tab->cmds);
+        //     /*
+        //     // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+        //     //  - 1], p->envp, 1);                                    
+        //         //     ft_lstclear(&p->cmds, free_content);
+        //         */
     // }
     return (tab); 
 }
 //
 
 /* void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
-// {
-//     char    **arr;
-    
-//     if (!out)
-//     {
-//         printf("exit\n");
-//         return (NULL);
-//     }
-//     if (out[0] != '\0')
-//         add_history(out);
-//     //
-//     tab->cmds = space_split(out, " ");  
-//                 //input divided by space  **tab    
-//                 // if (tab)
-//                 //     mx_display_tab(tab->cmds);
-//     // free(out);
-//     if (!tab)
-//         return ("");
-//     // tab->token  ... 
-//     tab->token = parse_args(tab);    
-//     if (tab && tab->token)
-//         tab->attr = ; 
-//     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)    
-//     {
-//         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-//          - 1], p->envp, 1);                    
-//             //     ft_lstclear(&p->cmds, free_content);
-//     }
-//     // mx_display_tkn(token);
-//     return (p); 
+    // {
+    //     char    **arr;
+        
+    //     if (!out)
+    //     {
+    //         printf("exit\n");
+    //         return (NULL);
+    //     }
+    //     if (out[0] != '\0')
+    //         add_history(out);
+    //     //
+    //     tab->cmds = space_split(out, " ");  
+    //                 //input divided by space  **tab    
+    //                 // if (tab)
+    //                 //     mx_display_tab(tab->cmds);
+    //     // free(out);
+    //     if (!tab)
+    //         return ("");
+    //     // tab->token  ... 
+    //     tab->token = parse_args(tab);    
+    //     if (tab && tab->token)
+    //         tab->attr = ; 
+    //     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)    
+    //     {
+    //         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+    //          - 1], p->envp, 1);                    
+    //             //     ft_lstclear(&p->cmds, free_content);
+    //     }
+    //     // mx_display_tkn(token);
+    //     return (p); 
 // }*/
 
 /*

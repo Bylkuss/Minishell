@@ -116,6 +116,7 @@ void	pwd(void);
 void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
+
 char 		**space_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
