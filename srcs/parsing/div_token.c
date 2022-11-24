@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-// set = endtype*char	count 0++; 
-static int	token_count(char *s, char *set, int count)
+
+static int	token_count(char *s, char *set, int count)	// set = endtype*char	count 0++; 
 {
 	int		q[2];
 	int		i;
@@ -60,15 +60,13 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 		}
 		else
 			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-		// tab->token
+		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);		// tab->token
 	}
 	return (aux);
 }
 
-// 	set = {"<",">","|"} :: if(!set) ? end : err
-//	s = 
-t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
+	/*	 	set = {"<",">","|"} :: if(!set) ? end : err 		*/
+t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->split_all
 {
 		
 		char    **aux;
@@ -83,32 +81,35 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 		if (!s)
 			return (NULL);
 	
-    tknum = token_count((char *)s, set, 0);	// how many end
+    tknum = token_count((char *)s, set, 0);		// how many end
     if (tknum == -1)
         return (NULL);
     aux = malloc(sizeof(char *) * (tknum + 1)) ;
 	tab->token_len = tknum;
     if (aux == NULL)
         return (NULL);
-    aux = token_fill(aux, (char *)s, set, i);
-	// mx_display_tab(aux);
-	tab->node[token_id] = aux[token_id];
-	token_id++;
-	// tab->token->id = 0;
-	// tab->token->id++;
-	while (token_id < tab->token_len)
+    aux = token_fill(aux, (char *)s, set, i);	
+	if (*aux)
 	{
 		tab->node[token_id] = aux[token_id];
-		token_id++;
+		token_id++;		// tab->token->id = 0;		// tab->token->id++;
+		while (token_id < tab->token_len)
+		{
+			tab->node[token_id] = aux[token_id];
+			token_id++;
+		}
+		mx_display_str(*aux);
 	}
-		// while (nb < tknum)
-		// {
-		// 	token->id = nb;
-		// 	token->cmd = aux[0];
-		// 	token->endtype = 
-		// }
-	// aux ** == tab->node[id][str]] 
-    // tab->node[token_id] = NULL;
+	/*
+		while (nb < tknum)
+		{
+			token->id = nb;
+			token->cmd = aux[0];
+			token->endtype = 
+		}
+		aux ** == tab->node[id][str]] 
+		tab->node[token_id] = NULL;
+	*/
     return (tab);    
 }
 

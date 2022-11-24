@@ -12,10 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-/*
-
-
-	// static t_mini	*mx_init(void)
+/*	// static t_mini	*mx_init(void)
 	// {
 	// 	t_mini	*m;
 
@@ -71,34 +68,25 @@ static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int
 }
 
 
-	// static char	**get_trimmed(char **args)
-		// {
-		// 	char	**temp;
-		// 	char	*aux;
-		// 	int		j;
-		// 	j = -1;
-		// 	temp = ft_mx_dup(args);
-		// 	while (temp && temp[++j])
-		// 	{
-		// 		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
-		// 		free(temp[j]);
-		// 		temp[j] = aux;
-		// 	}
-		// 	return (temp);
-		// }
-		// static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-		// {
-		// 	(void)  &cmds;
-		// 	// ft_lstclear(&cmdc, free_content);
-		// 	ft_mx_free(&temp);
-		// 	ft_mx_free(&args);
-		// 	return (NULL);
-	// } 
+t_table	*get_trimmed(t_table *tab)
+{
+	char	**temp;
+	char	*aux;
+	int		j;
+
+	j = -1;
+	temp = ft_mx_dup(tab->cmds);
+	while (temp && temp[++j])
+	{
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
+		free(temp[j]);
+		temp[j] = aux;
+	}
+	tab->node = temp;
+	return (tab);
+}
 	
-
-/*					arg[][] from splitt_all (token chunk)	*/
-
-char	**fill_nodes(t_table *tab, int i)
+char	**fill_nodes(t_table *tab, int i)	/*	arg[][] from splitt_all (token chunk)	*/
 {
 	// t_token	**token;
 	// t_list	*cmds[2];
@@ -106,7 +94,9 @@ char	**fill_nodes(t_table *tab, int i)
 	// cmds[0] = NULL;
 	// char	**temp[2];
 
-	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
+	tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
+	// needed to token command
+
 	while (tab->cmds && i < tab->token_len)
 	{
 		// revert from list 
@@ -117,13 +107,14 @@ char	**fill_nodes(t_table *tab, int i)
 
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
-			// i += args[i][0] == '|';
-		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-		//	cmds[1] = ft_lstlast(cmds[0]);
+				/*	i += args[i][0] == '|';
+					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+					cmds[1] = ft_lstlast(cmds[0]); 
+				*/
 		}
 
 		// temp[0] = args;
-		tab->token = get_params(tab, tab->token);//, &i);
+		tab->token = get_params(tab, tab->token);//, &i); // params_ ended_ token_
 		// token->cmd = cmds[1]->content;
 		// token->arg = *temp[1];
 		// token->endtype = cmds[1]->content;
@@ -131,8 +122,9 @@ char	**fill_nodes(t_table *tab, int i)
 		// 	return (stop_fill(cmds[0], args, temp[1]));
 		// if (!args[i])
 		// 	break ;
+		i--;
 	}
-	// ft_mx_free(&temp[1S
+	// ft_mx_free(&temp[1]);
 	return (tab->node);
 }
 

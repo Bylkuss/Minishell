@@ -58,7 +58,6 @@ static t_table *init_prompt(char **av, char **envp)
         tab = init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -72,9 +71,9 @@ int main(int ac, char **av, char **envp)
     // t_token token;
     t_table *tab;
 
-    tab = init_prompt(av, envp);      //tab->envp , pid --> init_vars
-    // mx_display_tab(tab->envp);
-    tab = init_token(tab);                // token frame
+    tab = init_prompt(av, envp);    //tab->envp , pid --> init_vars
+                                    // mx_display_tab(tab->envp);
+    tab = init_token(tab);          // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -85,9 +84,8 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         // 
-            //fonction on his own { built_outs }
-            //
-            if(ft_strcmp(input, "exit") == 0)
+        //fonction on his own { built_outs }
+     /*       if(ft_strcmp(input, "exit") == 0)
                 exit(0);
             if (ft_strlen(input) > 0)
                 add_history(input);
@@ -97,20 +95,17 @@ int main(int ac, char **av, char **envp)
                 pwd();
             else if(ft_strnstr(input, "echo", 10))
                 echo(ft_split(input, ' '));
+    */
         // 
         free(str);
-        /*
-        */
         tab = check_args(input, tab);
-        // mx_display_tab(tab->cmds);          //::    :://
-            // break;
-        // else 
-        //     mx_display_tkn(token); 
-
+        if (!tab)
+            break;
+        else
+            mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }
-
 
 /*
 main :  init_prompt => get user info to be stock into *p {struct t_dot}   
@@ -121,70 +116,3 @@ main :  init_prompt => get user info to be stock into *p {struct t_dot}
         getprompt   => prompt.c
         check_args  => parse.c    
 */
-
-
-// #include <stdlib.h>
-    // #include <stdio.h>
-    // #include <readline/readline.h>
-    // #include <readline/history.h>
-    // #include "../../includes/minishell.h"
-    // #include "../libft/incs/libft.h"
-    // int main(int ac, char **av, char **envp) 
-    //     {
-    //         char *str;
-    //         char *input;
-    //         t_dot p;
-    //         // Configure readline to auto-complete paths when the tab key is hit.
-    //         rl_bind_key('\t', rl_complete);       
-    //         str = av[0];
-    //         tab->envp = envp;
-    //         while (ac)
-    //         {
-    //             // Display prompt and read input
-    //             input = readline("prompt> ");
-    //             // Check for EOF.
-    //             if (!input)
-    //                 break;
-    //             // Add input to readline history.
-    //             add_history(input);
-    //             // Do stuff...
-    //             // Free buffer that was allocated by readline
-    //             free(input);
-    //         }
-    //         if (!tab->envp)
-    //             printf("\n %s", str);
-    //         return 0;
-    // }
-
-// static t_dot init_prompt(char **av, char **envp) 
-    // {
-    //     t_dot p;
-    //     char *str;
-    //     str = NULL;
-    //     p.cmds = NULL;
-    //     tab->envp = ft_mx_dup(envp);                              
-    //     // g_status = 0;
-    //     mini_getpid(&p);                          
-    //     p = init_vars(p, str, av);            
-    //     return (p); 
-    // }
-    // int main(int ac, char **av, char **envp) 
-    // {
-    //     char *str;
-    //     char *input;
-    //     t_dot p;
-    //     p = init_prompt(av, envp);                   
-    //     while (av && ac) {
-    //         signal(SIGINT, handle_sigint);               
-    //         signal(SIGQUIT, SIG_IGN);                    
-    //         str = mini_getprompt(p);                
-    //         if (str)
-    //             input = readline(str);                    
-    //         else
-    //             input = readline("guest@minishell $ ");     
-    //         free(str);
-    //         if (!check_args(input, &p))             
-    //             break;
-    //     }
-    //     exit(g_status); 
-    // }
