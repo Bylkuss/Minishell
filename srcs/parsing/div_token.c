@@ -74,7 +74,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->spli
 		int 	token_id;
 		int     i[3];
 
-		token_id = 0;
+		token_id = tob->;
 		i[0] = 0;
 		i[1] = 0;
 		i[2] = 0;

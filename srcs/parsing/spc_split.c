@@ -90,6 +90,7 @@ char **space_split(const char *s, char *set)
         nodes = node_count(s, set, count);     // node = str.space.cut 
         if (nodes == -1)
             return (NULL);
+        tab
         printf(":: %d  NODES ::\n",nodes);
         arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
         if (arr == NULL)

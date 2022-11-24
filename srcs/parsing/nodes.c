@@ -27,23 +27,25 @@
 	// }
 */
 
-static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
 {
 	int id;
 	int cmd;	
 	int nod;	
-	char ***mx;
+	// char ***mx;
 
-	mx = NULL;
+	// mx = NULL;
 
-	nod = 0;
-	cmd = 0;
 	id = 0;
-	mx[id] = tab->cmds;//[cmd][nod];
+	cmd = 0;
+	nod = 0;
+	// mx[id] = tab->cmds;//[cmd][nod];
 
-	if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
+	// if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
+	if (*nodes && (nod < token->cmd_len) && (cmd < tab->token_len))
 	{
 		printf("\n\n\n");
+		while(tab->n)
 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
 			token = get_outfile2(token, mx[id]);//nod
 		else if (mx[id][cmd][nod] == '>')
@@ -86,18 +88,22 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-char	**fill_nodes(t_table *tab, int i)	/*	arg[][] from splitt_all (token chunk)	*/
+t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 {
-	// t_token	**token;
-	// t_list	*cmds[2];
-	// token = init_token()
-	// cmds[0] = NULL;
-	// char	**temp[2];
+	int i;		// token id
 
-	tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
+		// t_token	**token;
+		// t_list	*cmds[2];
+		// token = init_token()
+		// cmds[0] = NULL;
+		// char	**temp[2];
+
+	// tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
 	// needed to token command
 
-	while (tab->cmds && i < tab->token_len)
+	// tab->cmds 
+	i = 0;
+	while (tab->cmds[i] && i < tab->token_len)
 	{
 		// revert from list 
 			// need to set first arg => cmd 
@@ -114,7 +120,7 @@ char	**fill_nodes(t_table *tab, int i)	/*	arg[][] from splitt_all (token chunk)	
 		}
 
 		// temp[0] = args;
-		tab->token = get_params(tab, tab->token);//, &i); // params_ ended_ token_
+		tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 		// token->cmd = cmds[1]->content;
 		// token->arg = *temp[1];
 		// token->endtype = cmds[1]->content;
@@ -122,10 +128,10 @@ char	**fill_nodes(t_table *tab, int i)	/*	arg[][] from splitt_all (token chunk)	
 		// 	return (stop_fill(cmds[0], args, temp[1]));
 		// if (!args[i])
 		// 	break ;
-		i--;
+		i++;
 	}
 	// ft_mx_free(&temp[1]);
-	return (tab->node);
+	return (tab);
 }
 
 /*

@@ -16,65 +16,65 @@ extern int g_status;
 
 
 /*       char **args = tab->cmds  :  token chunk    */
-// static char **split_all(char **args, t_table *tab)  
-// {
-//     // char **aux;
-//     int i;                          //token->id 
-//     int quotes[2];
+static char **split_all(char **args, t_table *tab)  
+{
+    // char **aux;
+    int i;                          //token->id 
+    int quotes[2];
 
-//     i = -1;
-//     while (args && args[++i])       
-//     {
-//         /*// args = tab->cmds[id]
-//         //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
-//         //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
-//         args[i] = expand_vars(args[i], -1, quotes, tab);    //expand_var   //expand_path;
-//         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
-//         tab = div_token(args[i], "<|>", tab);               //token divider 
-//         // i += ft_mx_len(aux) - 1;  // ft_mx_rpl(&args, aux, i);                           
-//         // ft_mx_free(&aux);                                 
-//     }
-//     return (args); 
-// }
+    i = -1;
+    while (args && args[++i])       
+    {
+        /*// args = tab->cmds[id]
+        //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
+        //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
+        args[i] = expand_vars(args[i], -1, quotes, tab);    //expand_var   //expand_path;
+        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
+        tab->token = div_token(args[i], "<|>", tab);               //token divider 
+        // i += ft_mx_len(aux) - 1;  // ft_mx_rpl(&args, aux, i);                           
+        // ft_mx_free(&aux);                                 
+    }
+    return (args); 
+}
 
-// static t_token *parse_args(t_table *tab)
-// {
-//     int i;   // int is_exit; // is_exit = 0;
-//     char **args;
-
-//     args = tab->cmds;                   //  args =>        
-//     //
-//     tab->cmds = split_all(args, tab);   //  split_arg token_chunk _ID
+static t_token *parse_args(t_table *tab)
+{
+    int i;   // int is_exit; // is_exit = 0;
+        // char **args;
+        // args = tab->cmds;     //  args =>        
+        //
+    tab->node = split_all(tab->cmds, tab);   //  split_arg token_chunk _ID
     
-//     //
-//     tab->node = fill_nodes(tab, tab->token_len);  //split_arg 
-//     //
-//     /*
-//     if (!tab->node)
-//         return (tab->token);
-//                        args breaker => cmd_token*/ 
-//     /*   tab->node [*str]  sep.space. node -ID.less
+    //
+    tab = fill_nodes(tab, tab->token_len);  //split_arg 
+    //
 
-//         // tab->
-//         // i = ft_lstsize(tab->cmds);
-//         // g_status = builtin(p, p->cmds, &is_exit, 0);             
-//     */
-//     i = 0;
-//     while (i-- > 0)
-//         waitpid(-1, &g_status, 0);
-//     if (g_status > 255)
-//         g_status = g_status / 255;
-//     /*
-//     // if (!is_exit && &g_status == 13)
-//     //     g_status = 0;
-//     // if (args && is_exit)
-//         // {
-//         //     ft_lstclear(&p->cmds, free_content);
-//         //     return (NULL);
-//     // }
-//     */
-//     return (tab->token);
-// }
+    /*
+    if (!tab->node)
+        return (tab->token);
+                       args breaker => cmd_token*/ 
+    /*   tab->node [*str]  sep.space. node -ID.less
+
+        // tab->
+        // i = ft_lstsize(tab->cmds);
+        // g_status = builtin(p, p->cmds, &is_exit, 0);             
+    */
+    i = 0;
+    while (i-- > 0)
+        waitpid(-1, &g_status, 0);
+    if (g_status > 255)
+        g_status = g_status / 255;
+    /*
+    // if (!is_exit && &g_status == 13)
+    //     g_status = 0;
+    // if (args && is_exit)
+        // {
+        //     ft_lstclear(&p->cmds, free_content);
+        //     return (NULL);
+    // }
+    */
+    return (tab->token);
+}
 
 t_table  *check_args(char *out, t_table *tab)  
 {
@@ -94,8 +94,8 @@ t_table  *check_args(char *out, t_table *tab)
         add_history(out);
     //
     // tab->cmds = space_split(out, " ");   //input divided by space  **tab    
-    // tab->node = space_split((const char *)out, " ");   //input divided by space  **tab    
-    tab->node = ft_split((const char *)out, 32);
+    tab->node = space_split((const char *)out, " ");   //input divided by space  **tab    
+    // tab->node = ft_split((const char *)out, 32);
     
     if (tab->node)
     {
@@ -107,11 +107,11 @@ t_table  *check_args(char *out, t_table *tab)
     }
     else
         exit(0);
-    exit(0);
-    if (tab->cmds && tab->token_len > 0)
-        mx_display_tab(tab->cmds);
-    else
-        return (NULL);
+    // exit(0);
+    // if (tab->cmds && tab->token_len > 0)
+    //     mx_display_tab(tab->cmds);
+    // else
+    //     return (NULL);
     // tab->token = parse_args(tab);    
     /*
     if (tab && tab->token)
