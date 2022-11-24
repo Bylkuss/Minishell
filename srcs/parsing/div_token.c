@@ -6,13 +6,14 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 03:20:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 04:46:08 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
+
 static int	token_count(char *s, char *set, int count)
 {
 	int		q[2];
@@ -41,22 +42,20 @@ static int	token_count(char *s, char *set, int count)
 	return (count); //how many end..
 }
 
-
-static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+static t_token	*token_params(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
 {
-	int id;
-	int cmd;	
-	int nod;	
+	t_token *token;
+	char **cmd;
 	char ***mx;
+	int id;
 
-	mx = NULL;
-
-	nod = 0;
-	cmd = 0;
 	id = 0;
-	mx[id] = tab->cmds;//[cmd][nod];
+	// cmd = NULL;
+	// token->cmd = tab->node;
+	cmd = tab->node; //[id][node[;]
+	// cmd = tab->node;
 
-	if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
+	if (token->cmd[id] && (id < token->cmd_len) && (token->id < tab->token_len))
 	{
 		printf("\n\n\n");
 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
@@ -81,59 +80,6 @@ static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int
 	// *i = -2;
 	return (token);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-char	**fill_nodes(t_table *tab, int i)
-{
-	// t_token	**token;
-	// t_list	*cmds[2];
-	// token = init_token()
-	// cmds[0] = NULL;
-	// char	**temp[2];
-
-	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
-	while (tab->cmds && i < tab->token_len)
-	{
-		// revert from list 
-			// need to set first arg => cmd 
-			// 			set last arg => endtype
-			//	middle arg (if so!) 	
-		// cmds[1] = ft_lstlast(cmds[0]);
-
-		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		{
-			// i += args[i][0] == '|';
-		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-		//	cmds[1] = ft_lstlast(cmds[0]);
-		}
-
-		// temp[0] = args;
-		tab->token = get_params(tab, tab->token);//, &i);
-		// token->cmd = cmds[1]->content;
-		// token->arg = *temp[1];
-		// token->endtype = cmds[1]->content;
-		// if (i < 0)
-		// 	return (stop_fill(cmds[0], args, temp[1]));
-		// if (!args[i])
-		// 	break ;
-	}
-	// ft_mx_free(&temp[1S
-	return (tab->node);
-}
-// check nodes.c/fill_node
-//instead of ... 
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 	{
@@ -161,8 +107,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 		return (aux);
 }
 
-// 	set = {"<",">","|"} :: if(!set) ? end : err
-//	s = 
+// 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
 t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
@@ -190,6 +135,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 	// mx_display_tab(aux);
 
 	// set get_param 
+	tab->token = token_params(tab);
 	
 	// tab->node[token->id] = tab->node[token->id];
 		// token->id++;
