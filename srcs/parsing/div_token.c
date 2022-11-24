@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide.c                                           :+:      :+:    :+:   */
+/*   div_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 21:29:18 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/24 03:20:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
@@ -40,30 +41,124 @@ static int	token_count(char *s, char *set, int count)
 	return (count); //how many end..
 }
 
-static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{
-	int		q[2];
 
-	q[0] = 0;
-	q[1] = 0;
-	while (s && s[i[0]] != '\0')
+static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+{
+	int id;
+	int cmd;	
+	int nod;	
+	char ***mx;
+
+	mx = NULL;
+
+	nod = 0;
+	cmd = 0;
+	id = 0;
+	mx[id] = tab->cmds;//[cmd][nod];
+
+	if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
 	{
-		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
+		printf("\n\n\n");
+		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+			token = get_outfile2(token, mx[id]);//nod
+		else if (mx[id][cmd][nod] == '>')
+			token = get_outfile1(token, mx[id]);//nod
+		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+			a[0][*i + 1][0] == '<')
+			m = get_infile2(m, a[1], i);*/
+		else if (mx[id][cmd][nod] == '<')
+			token = get_infile1(token, mx[id]);	//nod
+		else if (mx[id][cmd][nod] != '|')
+		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+		// else
 		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-				i[0]++;
-			}
+			//mini_perror(PIPENDERR, NULL, 2);
+			// *i = -2;
 		}
-		else
-			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-		// tab->token
+		return (token);
 	}
-	return (aux);
+	//mini_perror(PIPENDERR, NULL, 2);
+	// *i = -2;
+	return (token);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+char	**fill_nodes(t_table *tab, int i)
+{
+	// t_token	**token;
+	// t_list	*cmds[2];
+	// token = init_token()
+	// cmds[0] = NULL;
+	// char	**temp[2];
+
+	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
+	while (tab->cmds && i < tab->token_len)
+	{
+		// revert from list 
+			// need to set first arg => cmd 
+			// 			set last arg => endtype
+			//	middle arg (if so!) 	
+		// cmds[1] = ft_lstlast(cmds[0]);
+
+		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+		{
+			// i += args[i][0] == '|';
+		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
+		//	cmds[1] = ft_lstlast(cmds[0]);
+		}
+
+		// temp[0] = args;
+		tab->token = get_params(tab, tab->token);//, &i);
+		// token->cmd = cmds[1]->content;
+		// token->arg = *temp[1];
+		// token->endtype = cmds[1]->content;
+		// if (i < 0)
+		// 	return (stop_fill(cmds[0], args, temp[1]));
+		// if (!args[i])
+		// 	break ;
+	}
+	// ft_mx_free(&temp[1S
+	return (tab->node);
+}
+// check nodes.c/fill_node
+//instead of ... 
+
+static char	**token_fill(char **aux, char *s, char *set, int i[3])
+	{
+		int		q[2];
+
+		q[0] = 0;
+		q[1] = 0;
+		while (s && s[i[0]] != '\0')
+		{
+			i[1] = i[0];
+			if (!ft_strchr(set, s[i[0]]))
+			{
+				while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+				{
+					q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+					q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
+					i[0]++;
+				}
+			}
+			else
+				i[0]++;
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+			// tab->token
+		}
+		return (aux);
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err
@@ -71,36 +166,40 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
-		char    **aux;
-		int     tknum; // token->len = how many node into token
-		int 	token_id;
-		int     i[3];
-
-		token_id = 0;
+		t_token	*token;				// token->len = how many node into token
+		char	**tmp;
+		int     i[3];				// int     tknum; 
+		
+		token = tab->token;
+		tab->token_len = 0;
+		tmp = NULL;
 		i[0] = 0;
 		i[1] = 0;
 		i[2] = 0;
 		if (!s)
 			return (NULL);
 	
-    tknum = token_count((char *)s, set, 0);	// how many end
-    if (tknum == -1)
+    tab->token_len = token_count((char *)s, set, 0);	// how many end
+    if (tab->token_len == -1)
         return (NULL);
-    aux = malloc(sizeof(char *) * (tknum + 1)) ;
-	tab->token_len = tknum;
-    if (aux == NULL)
+    tab->node = malloc(sizeof(char *) * (tab->token_len + 1)) ;
+	// tab->token_len;
+    if (tab->node == NULL)
         return (NULL);
-    aux = token_fill(aux, (char *)s, set, i);
+    tab->node = token_fill(tab->node, (char *)s, set, i);
 	// mx_display_tab(aux);
-	tab->node[token_id] = aux[token_id];
-	token_id++;
-	// tab->token->id = 0;
-	// tab->token->id++;
-	while (token_id < tab->token_len)
-	{
-		tab->node[token_id] = aux[token_id];
-		token_id++;
-	}
+
+	// set get_param 
+	
+	// tab->node[token->id] = tab->node[token->id];
+		// token->id++;
+		// tab->token->id = 0;
+		// tab->token->id++;
+		// while (token->id < tab->token_len)
+		// {
+		// 	tab->node[token->id] = aux[token->id];
+		// 	token->id++;
+	// }
 		// while (nb < tknum)
 		// {
 		// 	token->id = nb;

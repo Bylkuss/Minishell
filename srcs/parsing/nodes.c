@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/24 02:47:58 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,43 +98,43 @@ static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int
 
 /*					arg[][] from splitt_all (token chunk)	*/
 
-char	**fill_nodes(t_table *tab, int i)
-{
-	// t_token	**token;
-	// t_list	*cmds[2];
-	// token = init_token()
-	// cmds[0] = NULL;
-	// char	**temp[2];
+// char	**fill_nodes(t_table *tab, int i)
+// {
+// 	// t_token	**token;
+// 	// t_list	*cmds[2];
+// 	// token = init_token()
+// 	// cmds[0] = NULL;
+// 	// char	**temp[2];
 
-	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
-	while (tab->cmds && i < tab->token_len)
-	{
-		// revert from list 
-			// need to set first arg => cmd 
-			// 			set last arg => endtype
-			//	middle arg (if so!) 	
-		// cmds[1] = ft_lstlast(cmds[0]);
+// 	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
+// 	while (tab->cmds && i < tab->token_len)
+// 	{
+// 		// revert from list 
+// 			// need to set first arg => cmd 
+// 			// 			set last arg => endtype
+// 			//	middle arg (if so!) 	
+// 		// cmds[1] = ft_lstlast(cmds[0]);
 
-		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		{
-			// i += args[i][0] == '|';
-		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-		//	cmds[1] = ft_lstlast(cmds[0]);
-		}
+// 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+// 		{
+// 			// i += args[i][0] == '|';
+// 		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
+// 		//	cmds[1] = ft_lstlast(cmds[0]);
+// 		}
 
-		// temp[0] = args;
-		tab->token = get_params(tab, tab->token);//, &i);
-		// token->cmd = cmds[1]->content;
-		// token->arg = *temp[1];
-		// token->endtype = cmds[1]->content;
-		// if (i < 0)
-		// 	return (stop_fill(cmds[0], args, temp[1]));
-		// if (!args[i])
-		// 	break ;
-	}
-	// ft_mx_free(&temp[1S
-	return (tab->node);
-}
+// 		// temp[0] = args;
+// 		tab->token = get_params(tab, tab->token);//, &i);
+// 		// token->cmd = cmds[1]->content;
+// 		// token->arg = *temp[1];
+// 		// token->endtype = cmds[1]->content;
+// 		// if (i < 0)
+// 		// 	return (stop_fill(cmds[0], args, temp[1]));
+// 		// if (!args[i])
+// 		// 	break ;
+// 	}
+// 	// ft_mx_free(&temp[1S
+// 	return (tab->node);
+// }
 
 /*
 from parse.c
