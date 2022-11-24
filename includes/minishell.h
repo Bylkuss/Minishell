@@ -50,13 +50,13 @@ enum TokenType{
 
 /* Token's end type */
 enum EndType{
-	ERR_END   = 0,
-	OUTF1_END = 1,
-	OUTF2_END = 2,
-	INF1_END  = 3,
-	INF2_END  = 4,
-	PIPE_END  = 5,
-	DEAD_END  = 6
+	DEAD_END  = 0,
+	PIPE_END  = 1,
+	OUTF1_END = 2,
+	OUTF2_END = 3,
+	INF1_END  = 4,
+	INF2_END  = 5,
+	ERR_END   = 6
 };
 
 typedef struct s_token t_token;
@@ -69,12 +69,10 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int 	id;			//	# command id 
 	char	**cmd;		//	... **cmd[id]
 		// char	*attr;		// *str of all from cmd to end
-	char 	*path;		// relative || absolute
-	//
+	char 	*path;		// relative || absolute	//
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	//
 	int 	cmd_len;	// how many node by token (min 2)
 	struct s_table	*table;		// *ptr -> 
 };//t_token;

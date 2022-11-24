@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 00:48:41 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 03:02:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ static char **split_all(char **args, t_table *tab)
             //  :: node_id[0]/node_id[len-1]                {(attr = null) if (len = 2)}
             //  :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]]
         args[i] = expand_vars(args[i], -1, quotes, tab);     //get substr of spec char* 
-        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
-        tab = div_token(args[i], "<|>", tab);         /* token divider */     
-        // ft_mx_rpl(&args, aux, i);                           
-        // i += ft_mx_len(aux) - 1;                          
+        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));    
+     // **            
+        tab = div_token(args[i], "<|>", tab);        
+     /* token divider */     
+        ft_mx_rpl(&args, aux, i);                           
+        i += ft_mx_len(aux) - 1;                          
         ft_mx_free(&aux);                                 
     }
     return (args); 
