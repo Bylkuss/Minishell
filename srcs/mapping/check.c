@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:15:42 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/20 14:31:02 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_dot init_vars(t_dot p, char *str, char **av)
     char *num;
     // t_mini m;
 
-    str = getcwd(NULL, 0);                                            
+    str = getcwd(NULL, 0);
     p.envp = ms_setenv("PWD", str, p.envp, 3);          // 
     free(str);
     str = ms_getenv("SHLVL", p.envp, 5);                       ///
