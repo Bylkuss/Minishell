@@ -64,18 +64,25 @@ typedef struct s_token t_token;
 	// typedef struct s_mini t_mini;
 typedef struct s_table t_table;
 
-struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
+
+
+
+
+struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	*/
 {
 	int 	id;			//	# command id 
-	char	**cmd;		//	... **cmd[id]
-		// char	*attr;		// *str of all from cmd to end
+	char	**cmd;		//	... **cmd[id] [x][y] 
 	char 	**path;		// relative || absolute	//
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	int 	cmd_len;	// how many node by token (min 2)
+	int 	cmd_len;	// how many node by token (min 2) [y]
 	struct s_table	*table;		// *ptr -> 
 };//t_token;
+
+
+
+
 
 struct s_table
 {
@@ -84,7 +91,7 @@ struct s_table
 	char **node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 		// char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
 	pid_t	pid;	//	fork dup wait 
-	int token_len;	// 	how many tokens
+	int token_len;	// 	how many tokens [z]
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };//t_table;
 

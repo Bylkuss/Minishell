@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 23:17:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 14:39:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 extern int g_status;
 
 static void getmypid(t_table *tab) 
-    {
-        pid_t   pid;
+{
+    pid_t   pid;
 
-        pid = fork();                                             
-        if (pid < 0)
-        {
-            //mini_perror(FORKERR, NULL, 1);                        
-            ft_mx_free(&tab->envp);                              
-            exit(1);
-        }
-        if (!pid)
-        {
-        ft_mx_free(&tab->envp);                                  
-            exit(1);
-        }
-        waitpid(pid, NULL, 0);                                    
-        tab->pid = pid - 1; 
+    pid = fork();                                             
+    if (pid < 0)
+    {
+        //mini_perror(FORKERR, NULL, 1);                        
+        ft_mx_free(&tab->envp);                              
+        exit(1);
     }
+    if (!pid)
+    {
+    ft_mx_free(&tab->envp);                                  
+        exit(1);
+    }
+    waitpid(pid, NULL, 0);                                    
+    tab->pid = pid - 1; 
+}
 
 static t_table *init_vars(t_table *tab, char *str, char **av)
 {

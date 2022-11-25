@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 04:46:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:08:39 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	**fill_nodes(t_table *tab, int i)
 		}
 
 		// temp[0] = args;
-		tab->token = token_params(tab);//, &i);
+		// tab->token = token_params(tab);//, &i);
 			// token->cmd = cmds[1]->content;
 				// token->arg = *temp[1];
 				// token->endtype = cmds[1]->content;
@@ -76,8 +76,8 @@ static char **split_all(char **args, t_table *tab)
      // **            
         tab = div_token(args[i], "<|>", tab);        
      /* token divider */     
-        ft_mx_rpl(&args, aux, i);                           
-        i += ft_mx_len(aux) - 1;                          
+        // ft_mx_rpl(&args, aux, i);                           
+        // i += ft_mx_len(aux) - 1;                          
         ft_mx_free(&aux);                                 
     }
     return (args); 
@@ -140,8 +140,11 @@ t_table  *check_args(char *out, t_table *tab)  // maybe needed to return (tab)
                 //input divided by space  **tab    
     free(out);
     // tab->token  ... 
-    tab->token = parse_args(tab);    
-
+    tab->token = parse_args(tab);     
+            // if(tab->token->id)
+            //     tab->token->cmd
+            // tab->token->c
+        
     // if (tab && tab->token)
     //     display_tkn(tab);
         // tab->attr = ;
