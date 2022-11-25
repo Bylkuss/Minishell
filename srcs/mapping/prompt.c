@@ -75,6 +75,7 @@ char	*getprompt(t_dot p)
 	char *tmp2;
 	char *aux;
 
+<<<<<<< HEAD
 	tmp = get_user(p);
 	tmp2 = ft_strjoin(tmp, "@minishell");
 	free(tmp);
@@ -93,3 +94,30 @@ char	*getprompt(t_dot p)
 	free(tmp);
 	return (tmp2);
 }
+=======
+    tmp = get_user(p);                          
+    tmp2 = ft_strjoin(tmp, "@mishell");
+    free(tmp);
+    aux = get_home(p);                   
+    tmp = ft_strjoin(tmp2, aux);
+    free(aux);
+    free(tmp2);
+    if (!g_status || g_status == -1)
+        tmp2 = ft_strjoin(tmp, BLUE);
+    else
+        tmp2 = ft_strjoin(tmp, RED);
+    free(tmp);
+    tmp =ft_strjoin(tmp2, "$ ");
+    free(tmp2);
+    tmp2 = ft_strjoin(tmp, DEFAULT);
+    free(tmp);
+    return (tmp2); 
+}
+
+/*
+from check.c
+        getprompt   => build ID prompt return char*
+        get_user    => strjoin user data
+        get_home    => strjoin folder data
+*/
+>>>>>>> Linux

@@ -14,6 +14,11 @@
 
 void	pwd(void)
 {
+<<<<<<< HEAD
 	char path[2000];
 	printf("%s\n", getwd(path));
+=======
+	// char path[2000];
+	printf("%s\n", getcwd(NULL, 0));//path));
+>>>>>>> Linux
 }

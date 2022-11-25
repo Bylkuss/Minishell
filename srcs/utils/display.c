@@ -7,7 +7,7 @@ void mx_display_tab(char **tab)
     if (tab[i])// && tab[0])
     {
         while(*tab[++i])
-            printf ("%s :: ", tab[i]);
+            printf ("%s :: \n", tab[i]);
         printf (" :: \n" );
 
     }

@@ -63,7 +63,7 @@ static char	**get_trimmed(char **args)
 	temp = ft_mx_dup(args);
 	while (temp && temp[++j])
 	{
-		aux = ft_strtrim_all(temp[j], 0, 0); // s/d quotes rules
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
 		free(temp[j]);
 		temp[j] = aux;
 	}
@@ -87,7 +87,7 @@ t_list	*fill_nodes(char **args, int i)
 	
 	// token = init_token()
 	cmds[0] = NULL;
-	temp[1] = get_trimmed(args);
+	temp[1] = get_trimmed(args); /* malloc_machine twin part */
 	while (args[++i])
 	{
 		cmds[1] = ft_lstlast(cmds[0]);
@@ -111,3 +111,13 @@ t_list	*fill_nodes(char **args, int i)
 	ft_mx_free(&args);
 	return (cmds[0]);
 }
+
+/*
+from parse.c
+	fill_node 	=> t_list builder 
+		get_trimmed		=> multiple cmd list
+				str_trimm_all 	(malloc_machine)	==> trimm_all.c
+		mx_init 		=> matrix start
+		get_params		=> token_end part (struct mx)
+		stop_fill		=> t_list (wrap + free)
+*/

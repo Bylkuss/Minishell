@@ -21,7 +21,7 @@ void    handle_sigint(int sig)
     {
         g_status = 130;
         ioctl(STDIN_FILENO, TIOCSTI, "\n");                           
-        //rl_replace_line("", 0);                                    
+        rl_replace_line("", 0);                                    
         rl_on_new_line();                                          
     } 
 }
@@ -74,3 +74,9 @@ char    **ms_setenv(char *var, char *value, char **envp, int n)
     free(aux[1]);
     return (envp); 
 }
+/*
+from check.c
+    handle_signal   => signal reference (iotcl) fd, files, err
+    ms_setenv       => fix data into struct     
+    ms_getenv       => go get data to bet set      
+*/

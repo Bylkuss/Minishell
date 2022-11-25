@@ -74,3 +74,11 @@ char    *expand_vars(char *str, int i, int quotes[2], t_dot *p)
     }
     return (str);
 }
+
+/*
+from parse.c (split_all)
+    expand_vars => check spec. char. match by get_substr_var();
+    expand_path => check relativ path match
+    get_substr_var => get cmd's pid and *str pos;
+    *** dispatcher to be return full path cmd & str_ptr & PID ***
+*/

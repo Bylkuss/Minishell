@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 19:40:51 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/25 12:02:17 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_dot init_vars(t_dot p, char *str, char **av)
     char *num;
     // t_mini m;
 
-    str = getcwd(NULL, 0);                                            
+    str = getcwd(NULL, 0);
     p.envp = ms_setenv("PWD", str, p.envp, 3);          // 
     free(str);
     str = ms_getenv("SHLVL", p.envp, 5);                       ///
@@ -80,10 +80,10 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
-    // char **test_cd = NULL;
     t_dot p;
 
-    p = init_prompt(av, envp);                   
+    p = init_prompt(av, envp);      // 
+    mx_display_tab(p.envp);
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -92,21 +92,24 @@ int main(int ac, char **av, char **envp)
         if (str)
             input = readline(str);                    
         else
-            input = readline("guest@minishell $ ");
-        if(ft_strcmp(input, "exit") == 0)
-            exit(0);
-        if (ft_strlen(input) > 0)
-            add_history(input);
-        if(ft_strnstr(input, "cd", 10))
-            cd(ft_split(input, ' '), envp);
-        else if (strnstr(input, "pwd", 10))
-            pwd();
-        else if(strnstr(input, "echo", 10))
-            echo(ft_split(input, ' '));
+            input = readline("guest@minishell $ ");     
         free(str);
+        // mx_display_str(input);
+        // printf ("%s\n", input);
         if (!check_args(input, &p))
             break;
+  
     }
     exit(g_status); 
 }
 
+
+/*
+main :  init_prompt => get user info to be stock into *p {struct t_dot}   
+        signal      => Global variable to be access anywhere ...
+                getmypid    => fork process for multiple cmd.
+        init_vars   => split envp.args to stock into p.envp 
+                ms_setenv, ms_getenv   ==> signal.c      
+        getprompt   => prompt.c
+        check_args  => parse.c    
+*/

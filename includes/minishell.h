@@ -1,16 +1,20 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+<<<<<<< HEAD
 /************INCLUDES************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+=======
+
+>>>>>>> Linux
 # include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
-# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 # include <signal.h>
 # include <sys/wait.h>
 # include <dirent.h>
@@ -19,6 +23,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <stddef.h>
 
 /* fd Refs*/
 # define READ_END 0
@@ -99,6 +104,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	t_token *next;
 };
 
+<<<<<<< HEAD
 
 
 
@@ -109,33 +115,36 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 
 /*******	PROTOTYPES	*******/
 //signal
+=======
+//builtins
+// cd 
+void    cd(char **cmd, char **env);
+// echo
+void    echo(char **cmd);
+// pwd
+void	pwd(void);
+//mapping
+>>>>>>> Linux
 void    	handle_sigint(int sig);
-char	*ms_getenv(char *var, char **envp, int n);
-char	**ms_setenv(char *var, char *value, char **envp, int n);
-// //prompt 
-char   	*getprompt(t_dot p);
-//parse3
-void	*check_args(char *out, t_dot *p);
-//subsplit
-char 	**subsplit(const char *s, char *set);
-//divide
-char	**div_token(char const *s, char *set);
-//update
-void    exec_custom(char ***out, char *full, char *args, char **envp) ;
-//expand
-char	*expand_vars(char *str, int i, int quotes[2], t_dot *p);
-char	*expand_path(char *str, int i, int quotes[2], char *var);
-//nodes
-t_list	*fill_nodes(char **args, int i);
-//redir
-t_mini *get_outfile1(t_mini *token, char **args, int *i);
-t_mini *get_outfile2(t_mini *token, char **args, int *i);
-t_mini *get_infile1(t_mini *token, char **args, int *i);
-t_mini *get_infile2(t_mini *token, char **args, int *i);
-int	get_fd(int oldfd, char *path, int flags[2]);
-//trimm_all
-char        *ft_strtrim_all(const char *s, int squote, int dquote);
-//display
+char		*ms_getenv(char *var, char **envp, int n);
+char		**ms_setenv(char *var, char *value, char **envp, int n);
+char   		*getprompt(t_dot p);
+void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
+//parsing
+void		*check_args(char *out, t_dot *p);
+char 		**subsplit(const char *s, char *set);
+char		**div_token(char const *s, char *set);
+char    	*ft_strtrim_all(const char *s, int squote, int dquote);
+char		*expand_vars(char *str, int i, int quotes[2], t_dot *p);
+char		*expand_path(char *str, int i, int quotes[2], char *var);
+t_list		*fill_nodes(char **args, int i);
+//operators
+t_mini 		*get_outfile1(t_mini *token, char **args, int *i);
+t_mini 		*get_outfile2(t_mini *token, char **args, int *i);
+t_mini 		*get_infile1(t_mini *token, char **args, int *i);
+t_mini 		*get_infile2(t_mini *token, char **args, int *i);
+int			get_fd(int oldfd, char *path, int flags[2]);
+//utils
 void		mx_display_tnk(t_token *token);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
