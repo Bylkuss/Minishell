@@ -70,7 +70,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->spli
 {
 		
 	char    **tkn;			// token sub_split by endtype
-	int     tk_len; 		// token->len = how many token into tab
+	// int     tk_len; 		// tkn_len = how many token into tab
 	int 	tk_id;			// focus token
 	int     i[3];
 
@@ -79,26 +79,27 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->spli
 	i[2] = 0;				// set end pos ptr
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
-	
-    tab->tkn_num = token_count((char *)s, set, 0);	// how many end
-    if (tab->tkn_num == -1)
+	tk_id = 0;
+    tab->tk_num = token_count((char *)s, set, 0);	// how many end
+    if (tab->tk_num == -1)
         return (NULL);
-    tkn = malloc(sizeof(char *) * (tab->tkn_num + 1)); 
+    tkn = malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (tkn == NULL)
         return (NULL);
     tkn = token_fill(tkn, (char *)s, set, i);	
+
 	//	**tkn << tab->cmds >> sub_split / endtype char
 	//		... so  tkn[tk_id]
 	if (*tkn)
 	{
 		tab->node[tk_id] = tkn[tk_id];
 		tk_id++;		// tab->token->id = 0;		// tab->token->id++;
-		while (tk_id < tab->tkn_num)
+		while (tk_id < tab->tk_num)
 		{
 			tab->node[tk_id] = tkn[tk_id];
 			tk_id++;
 		}
-		mx_display_str(*tkn);
+		mx_display_tab(tkn);
 	}
 	/*
 		while (nb < tknum)

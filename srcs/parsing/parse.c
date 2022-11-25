@@ -16,7 +16,7 @@ extern int g_status;
 
 
 /*       char **args = tab->cmds  :  token chunk    */
-static char **split_all(char **args, t_table *tab)  
+static t_table *split_all(char **args, t_table *tab)  
 {
     // char **aux;
     int i;              //token->id 
@@ -80,15 +80,15 @@ static t_token *parse_args(t_table *tab)
 t_table  *check_args(char *input, t_table *tab)  
 {
    
-    int len;
+    // int len;
 
-    len = 0;
+    // len = 0;
     if (!input)
     {
         printf("exit\n");
         return (NULL);
     }
-    if (out[0] != '\0')
+    if (input[0] != '\0')
         add_history(input);
 
         //  input divided by space ::    
@@ -105,11 +105,11 @@ t_table  *check_args(char *input, t_table *tab)
     else
         exit(0);
         // exit(0);
-        // if (tab->cmds && tab->tkn_num > 0)
+        // if (tab->cmds && tab->tk_num > 0)
         //     mx_display_tab(tab->cmds);
         // else
         //     return (NULL);
-        // tab->token = parse_args(tab);    
+    tab->token = parse_args(tab);    
     /*
     if (tab && tab->token)
         display_tkn(tab);
@@ -118,7 +118,7 @@ t_table  *check_args(char *input, t_table *tab)
     */
 
     /*
-    if (tab && tab->cmds && tab->token && tab->tkn_num > 0)
+    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
     {
         // mx_display_tab(tab->cmds);
         // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
@@ -127,7 +127,7 @@ t_table  *check_args(char *input, t_table *tab)
     }
 
     */
-    free(out);
+    // free(input);
     return (tab); 
 }
 

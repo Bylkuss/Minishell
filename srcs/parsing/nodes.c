@@ -13,48 +13,45 @@
 #include "../../includes/minishell.h"
 
 /*	token get-set */
-static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
-{
-	int id;
-	int cmd;	
-	int nod;	
-	// char ***mx;
+// static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
+// {
+// 	int id;
+// 	int cmd;	
+// 	int nod;	
+// 	// char ***mx;
+// 	// mx = NULL;
+// 	// mx[id] = tab->cmds;//[cmd][nod];
+// 	id = 0;
+// 	cmd = 0;
+// 	nod = 0;
 
-	// mx = NULL;
-
-	id = 0;
-	cmd = 0;
-	nod = 0;
-	// mx[id] = tab->cmds;//[cmd][nod];
-
-	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tkn_num))
-	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tkn_num))
-	{
-		printf("\n\n\n");
-		while(tab->n)
-		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-			token = get_outfile2(token, mx[id]);//nod
-		else if (mx[id][cmd][nod] == '>')
-			token = get_outfile1(token, mx[id]);//nod
-		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
-			a[0][*i + 1][0] == '<')
-			m = get_infile2(m, a[1], i);*/
-		else if (mx[id][cmd][nod] == '<')
-			token = get_infile1(token, mx[id]);	//nod
-		else if (mx[id][cmd][nod] != '|')
-		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-		// else
-		{
-			//mini_perror(PIPENDERR, NULL, 2);
-			// *i = -2;
-		}
-		return (token);
-	}
-	//mini_perror(PIPENDERR, NULL, 2);
-	// *i = -2;
-	return (token);
-}
-
+// 	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
+// 	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tk_num))
+// 	{
+// 		printf("\n\n\n");
+// 		while(tab->n)
+// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+// 			token = get_outfile2(token, mx[id]);//nod
+// 		else if (mx[id][cmd][nod] == '>')
+// 			token = get_outfile1(token, mx[id]);
+// 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+// 			a[0][*i + 1][0] == '<')
+// 			m = get_infile2(m, a[1], i);
+// 		else if (mx[id][cmd][nod] == '<')
+// 			token = get_infile1(token, mx[id]);	//nod
+// 		else if (mx[id][cmd][nod] != '|')
+// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+// 		// else
+// 		{
+// 			//mini_perror(PIPENDERR, NULL, 2);
+// 			// *i = -2;
+// 		}
+// 		return (token);
+// 	}
+// 	//mini_perror(PIPENDERR, NULL, 2);
+// 	// *i = -2;
+// 	return (token);
+// }
 
 t_table	*get_trimmed(t_table *tab)
 {
@@ -74,23 +71,22 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-		/*		 (token chunk)	*/
+		/* call by parse_  <<(token_ized)	*/
 t_table	*token_nodes(t_table *tab)	
 {
 	int i;		// node_id
-	int j;		// ptr pos
+	// int j;		// ptr pos
 
-		// t_token	*token;
+	// tab->cmds >> t_token	*token;
 		// token->id 	(int)
 		// token->cmd	(char**)
 		// token->path	(**char)
 		// token->endtype	(int)
 		// token->infile :: token->outfile 
 		// token->tkn_len	(int)
-		// needed to token command
-	// tab->cmds 
+	// needed to token command
 	i = 0;
-	while (tab->cmds[i] && i < tab->tkn_num)
+	while (tab->cmds[i] && i < tab->tk_num)
 	{
 		// revert from list 
 			// need to set first arg => cmd 
@@ -98,11 +94,11 @@ t_table	*token_nodes(t_table *tab)
 			//	middle arg (if so!) 	
 			// cmds[1] = ft_lstlast(cmds[0]);
 
-		j = 0;
+		// j = 0;
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
 			tab->token->id = i;
-			tab->token->cmd[i] = tab->cmds[i] 
+			tab->token->cmd[i] = tab->cmds[i] ;
 				/*	i += args[i][0] == '|';
 					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
 					cmds[1] = ft_lstlast(cmds[0]); 
@@ -110,7 +106,7 @@ t_table	*token_nodes(t_table *tab)
 		}
 
 		// temp[0] = args;
-		tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
+		//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 		// token->cmd = cmds[1]->content;
 		// token->arg = *temp[1];
 		// token->endtype = cmds[1]->content;

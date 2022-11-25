@@ -14,7 +14,7 @@
 
 extern int g_status;
 
-t_table *init_token(t_table *tab)
+t_table *init_token(t_table *tab)       // call by main
 {
         t_token *token;
 
@@ -25,7 +25,7 @@ t_table *init_token(t_table *tab)
         token->endtype = DEAD_END;
         token->infile = 0;
         token->outfile = 0;
-        token->tkn_len = 0;
+        token->tk_len = 0;
         token->table = tab;
         return (tab);   
 }
@@ -36,8 +36,8 @@ t_table *init_tab(t_table *tab)
         tab->envp = NULL;
         tab->cmds = NULL;
         tab->node = NULL;
+        tab->tk_num = 0;
         (void) tab->pid;
-        tab->tkn_num = 0;
         tab->token = NULL;
         return (tab);
 }
@@ -68,7 +68,7 @@ t_table *init_tab(t_table *tab)
 //     /*
 //        token need to be ID _cmd, _attr, _end   
 //     */
-//     if (tab && tab->cmds && tab->token && tab->tkn_num > 0)
+//     if (tab && tab->cmds && tab->token && tab->tk_num > 0)
 //     {
 //         // display_tkn(token);
 //         mx_display_tab(tab->cmds);

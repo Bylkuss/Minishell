@@ -41,7 +41,8 @@ static int node_count(const char *s, char *c, int i[2]) //
 }
 
 /*
-        Space_Split_Form_           "..." "..." "..." */
+    Space_Split_Form_           "..." "..." "..."
+*/
 
 static char **node_fill(char **arr, const char *s, char *set, int i[3]) 
 {
@@ -90,7 +91,7 @@ char **space_split(const char *s, char *set)
         nodes = node_count(s, set, count);     // node = str.space.cut 
         if (nodes == -1)
             return (NULL);
-        tab
+        // tab
         printf(":: %d  NODES ::\n",nodes);
         arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
         if (arr == NULL)

@@ -72,7 +72,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	int 	tkn_len;	// how many node by token (min 2) ref by
+	int 	tk_len;	// how many node by token (min 2) ref by
 	struct s_table	*table; 
 };						//t_token;
 

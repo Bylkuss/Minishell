@@ -4,24 +4,24 @@
 extern int g_status;
 
 static void getmypid(t_table *tab) 
-    {
-        pid_t   pid;
+{
+    pid_t   pid;
 
-        pid = fork();                                             
-        if (pid < 0)
-        {
-            //mini_perror(FORKERR, NULL, 1);                        
-            ft_mx_free(&tab->envp);                              
-            exit(1);
-        }
-        if (!pid)
-        {
-        ft_mx_free(&tab->envp);                                  
-            exit(1);
-        }
-        waitpid(pid, NULL, 0);                                    
-        tab->pid = pid - 1; 
+    pid = fork();                                             
+    if (pid < 0)
+    {
+        //mini_perror(FORKERR, NULL, 1);                        
+        ft_mx_free(&tab->envp);                              
+        exit(1);
     }
+    if (!pid)
+    {
+    ft_mx_free(&tab->envp);                                  
+        exit(1);
+    }
+    waitpid(pid, NULL, 0);                                    
+    tab->pid = pid - 1; 
+}
 
 static t_table *init_vars(t_table *tab, char *str, char **av)
 {
@@ -30,7 +30,8 @@ static t_table *init_vars(t_table *tab, char *str, char **av)
         str = getcwd(NULL, 0);                                            
         tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
         free(str);
-        str = ms_getenv("SHLVL", tab->envp, 5);                     
+        str = ms_getenv("SHLVL", tab->envp, 5); 
+
         if (!str || ft_atoi(str) <= 0)
             num = ft_strdup("1");
         else
@@ -68,12 +69,12 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
-    // t_token token;
     t_table *tab;
 
-    tab = init_prompt(av, envp);    //tab->envp , pid --> init_vars
-                                    // mx_display_tab(tab->envp);
-    tab = init_token(tab);          // token frame
+    tab = init_prompt(av, envp);    
+        //tab->envp , pid --> init_vars
+    tab = init_token(tab);          
+        // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -101,8 +102,8 @@ int main(int ac, char **av, char **envp)
         tab = check_args(input, tab);
         if (!tab)
             break;
-        else
-            mx_display_tab(tab->cmds);          //::    :://
+        // else
+        //     mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }
