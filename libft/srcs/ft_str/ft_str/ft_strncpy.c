@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vminomiy <vminomiy@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2020/11/27 16:53:30 by vminomiy          #+#    #+#             */
+/*   Updated: 2021/04/26 20:19:27 by vminomiy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+char	*ft_strncpy(char *dst, const char *src, size_t len)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+	unsigned int	i;
+
+	i = 0;
+	while (src[i] != '\0' && i < len)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	while (i < len)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
 }

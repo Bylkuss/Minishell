@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   it_t.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2021/10/01 07:17:41 by gehebert          #+#    #+#             */
+/*   Updated: 2021/10/01 07:18:40 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+void	it_t(unsigned int i, char *c)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
-}
+	*c = *c + i;
+}// test striteri     remove  it_t libft - Makefile

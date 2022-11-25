@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_all_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2022/07/28 09:20:59 by gehebert          #+#    #+#             */
+/*   Updated: 2022/07/28 09:21:01 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+int	ft_all_spaces(char *str)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+	int			i;
+	int			j;
+
+	i = -1;
+	j = ft_strlen(str);
+	while ((++i < j) && (ft_isspace_nl(str[i]) && str[i] != '\n'))
+		;
+	if (i == j)
+		return (1);
+	else
+		return (0);
 }

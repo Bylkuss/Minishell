@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 18:00:00 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/17 18:02:51 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/25 12:17:56 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 void	pwd(void)
 {
-<<<<<<< HEAD
-	char path[2000];
-	printf("%s\n", getwd(path));
-=======
 	// char path[2000];
 	printf("%s\n", getcwd(NULL, 0));//path));
->>>>>>> Linux
 }

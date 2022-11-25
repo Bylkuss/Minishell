@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_mx_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2022/11/08 11:11:22 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/08 11:20:18 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+int ft_mx_len(char **mx)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+    int i;
+
+    i = 0;
+    while(mx && mx[i])
+        i++;
+    return (i);
 }

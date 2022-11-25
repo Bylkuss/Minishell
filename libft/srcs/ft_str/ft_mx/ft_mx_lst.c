@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_mx_lst.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2022/11/08 11:11:29 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/08 11:21:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+t_list *ft_mx_lst(char **mx)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+    t_list *lst;
+    int i;
+
+    lst = NULL;
+    i = -1;
+    while (mx[++i])
+        ft_lstadd_back(&lst, ft_lstnew(ft_strdup(mx[i])));
+    return (lst);
 }

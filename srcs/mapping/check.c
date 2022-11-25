@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 12:02:17 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/11/25 12:20:15 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int main(int ac, char **av, char **envp)
     t_dot p;
 
     p = init_prompt(av, envp);      // 
-    mx_display_tab(p.envp);
+    // mx_display_tab(p.envp);
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               

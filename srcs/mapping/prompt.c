@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 16:30:51 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/25 12:19:28 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,26 +75,6 @@ char	*getprompt(t_dot p)
 	char *tmp2;
 	char *aux;
 
-<<<<<<< HEAD
-	tmp = get_user(p);
-	tmp2 = ft_strjoin(tmp, "@minishell");
-	free(tmp);
-	aux = get_home(p);
-	tmp = ft_strjoin(tmp2, aux);
-	free(aux);
-	free(tmp2);
-	if (!g_status || g_status == -1)
-		tmp2 = ft_strjoin(tmp, BLUE);
-	else
-		tmp2 = ft_strjoin(tmp, RED);
-	free(tmp);
-	tmp = ft_strjoin(tmp2, "$ ");
-	free(tmp2);
-	tmp2 = ft_strjoin(tmp, DEFAULT);
-	free(tmp);
-	return (tmp2);
-}
-=======
     tmp = get_user(p);                          
     tmp2 = ft_strjoin(tmp, "@mishell");
     free(tmp);
@@ -120,4 +100,3 @@ from check.c
         get_user    => strjoin user data
         get_home    => strjoin folder data
 */
->>>>>>> Linux

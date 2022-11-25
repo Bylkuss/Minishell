@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_addchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2022/07/28 09:21:41 by gehebert          #+#    #+#             */
+/*   Updated: 2022/07/28 09:21:44 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+char	*ft_addchar(char *str, char c)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+	char		*res;
+	int			len;
+	int			i;
+
+	i = -1;
+	len = ft_strlen(str);
+	res = ft_calloc(len + 2, sizeof(char));
+	while (++i < len)
+		res[i] = str[i];
+	res[i] = c;
+	free(str);
+	return (res);
 }

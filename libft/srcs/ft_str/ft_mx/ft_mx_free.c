@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_mx_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/25 12:16:38 by bylkus           ###   ########.fr       */
+/*   Created: 2022/11/08 11:11:11 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/08 11:20:52 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "libft.h"
 
-
-#include "../../includes/minishell.h"
-
-void    echo(char **cmd)
+void ft_mx_free(char ***mx)
 {
-    printf("%s", cmd[2]);
-    if(ft_strcmp(cmd[1], "-n") != 0)
-        printf("\n");
+    int i;
+
+    i = 0;
+    while(mx && mx[0] && mx[0][i])
+    {
+        free(mx[0][i]);
+        i++;
+    }
+    if (mx)
+    {
+        free(mx[0]);
+        *mx = NULL;
+    }
 }

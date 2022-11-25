@@ -1,15 +1,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-<<<<<<< HEAD
-/************INCLUDES************/
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-=======
-
->>>>>>> Linux
 # include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
 # include <readline/readline.h>
@@ -104,18 +95,6 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	t_token *next;
 };
 
-<<<<<<< HEAD
-
-
-
-
-
-
-
-
-/*******	PROTOTYPES	*******/
-//signal
-=======
 //builtins
 // cd 
 void    cd(char **cmd, char **env);
@@ -124,7 +103,6 @@ void    echo(char **cmd);
 // pwd
 void	pwd(void);
 //mapping
->>>>>>> Linux
 void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
