@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/24 20:44:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ t_table	*token_nodes(t_table *tab)
 	i = 0;
 	while (tab->cmds[i] && i < tab->tk_num)
 	{
+			tab->token->id = i;
+			tab->token->cmd[i] = node[i];
+			// ... // div_token to set end 
+				// endtype eval + default 
+
 		// revert from list 
 			// need to set first arg => cmd 
 			// 			set last arg => endtype
@@ -116,7 +121,6 @@ t_table	*token_nodes(t_table *tab)
 		// 	break ;
 		i++;
 	}
-	// ft_mx_free(&temp[1]);
 	return (tab);
 }
 

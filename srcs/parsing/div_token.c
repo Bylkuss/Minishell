@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   divide.c                                           :+:      :+:    :+:   */
+/*   div_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/13 21:29:18 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/24 20:36:28 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
 
-static int	token_count(char *s, char *set, int count)	// set = endtype*char	count 0++; 
+#include "../../includes/minishell.h"
+// set = endtype*char	count 0++; 
+
+static int	token_count(char *s, char *set, int count)
 {
 	int		q[2];
 	int		i;
@@ -57,16 +59,16 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
 				i[0]++;
 			}
+			else
+				i[0]++;
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+			// tab->token
 		}
-		else
-			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);		// tab->token
-	}
-	return (aux);
+		return (aux);
 }
 
-	/*	 	set = {"<",">","|"} :: if(!set) ? end : err 		*/
-t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->split_all
+// 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
+t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype

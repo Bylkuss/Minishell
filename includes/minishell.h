@@ -50,21 +50,25 @@ enum TokenType{
 
 /* Token's end type */
 enum EndType{
-	ERR_END   = 0,
-	OUTF1_END = 1,
-	OUTF2_END = 2,
-	INF1_END  = 3,
-	INF2_END  = 4,
-	PIPE_END  = 5,
-	DEAD_END  = 6
+	DEAD_END  = 0,
+	PIPE_END  = 1,
+	OUTF1_END = 2,
+	OUTF2_END = 3,
+	INF1_END  = 4,
+	INF2_END  = 5,
+	ERR_END   = 6
 };
 
-// typedef struct s_dot t_dot;
-// typedef struct s_mini t_mini;
 typedef struct s_token t_token;
+	// typedef struct s_dot t_dot;
+	// typedef struct s_mini t_mini;
 typedef struct s_table t_table;
 
-struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
+
+
+
+
+struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	*/
 {
 	int 	id;			//	# command id 
 	char	**cmd;		//	... cmd[id]
@@ -75,6 +79,10 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int 	tk_len;	// how many node by token (min 2) ref by
 	struct s_table	*table; 
 };						//t_token;
+
+
+
+
 
 struct s_table
 {
@@ -114,6 +122,7 @@ void	pwd(void);
 void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
+
 char 		**space_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;

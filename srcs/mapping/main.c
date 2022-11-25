@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
+/*   Updated: 2022/11/25 00:38:52 by gehebert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -55,10 +67,11 @@ static t_table *init_prompt(char **av, char **envp)
         t_table *tab;      
         char *str;
 
-        tab = malloc(sizeof(t_table *));
-        tab = init_tab(tab);
+        tab = malloc(sizeof(t_table ));
+        init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
+        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame

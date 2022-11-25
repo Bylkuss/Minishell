@@ -20,12 +20,12 @@ static int node_count(const char *s, char *c, int i[2]) //
         q[1] = 0;
         while (s[i[0]] != '\0')
         {
-            if (!ft_strchr(c, s[i[0]]))
+            if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
             {
                 i[1]++;
-                while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
+                while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0') // != '," % 2
                 {
-                    if(!q[1] && (s[i[0]] == '\"' || s[i[0]] != '\0')) 
+                    if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
                         q[1] = s[i[0]];
                     q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
                     q[1] *= q[0] != 0;
@@ -71,9 +71,7 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         return (arr);
 }
 
-/*
-    cmd space_trim :: token_part   
-*/
+/*    readline input _space_split_  NODE MAKERE   */
 char **space_split(const char *s, char *set)
 {
         char    **arr;
@@ -88,7 +86,7 @@ char **space_split(const char *s, char *set)
         count[1] = 0;
         if (!s)
             return (NULL);
-        nodes = node_count(s, set, count);     // node = str.space.cut 
+        nodes = node_count(s, set, count);     // substr 
         if (nodes == -1)
             return (NULL);
         // tab
@@ -96,9 +94,7 @@ char **space_split(const char *s, char *set)
         arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
         if (arr == NULL)
             return (NULL);
-
-        arr = node_fill(arr, s, set, i);    // null-term str return
-        // mx_display_tab(arr);                // arr[nodes] = NULL;
+        arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
         return (arr);   
 }
 
