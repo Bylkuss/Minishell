@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 20:35:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:44:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-t_table		*fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
+t_table		*fill_nodes(t_table *tab, char **cmds)	/*	cmds = tab->cmds from parse_args	*/
 {
 	int i;		// token id
 
