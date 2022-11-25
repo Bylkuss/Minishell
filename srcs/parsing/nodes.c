@@ -12,21 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-/*	// static t_mini	*mx_init(void)
-	// {
-	// 	t_mini	*m;
-
-	// 	m = malloc(sizeof(t_mini));
-	// 	if (!m)
-	// 		return (NULL);
-	// 	m->full_cmd = NULL;
-	// 	m->full_path = NULL;
-	// 	m->infile = STDIN_FILENO;
-	// 	m->outfile = STDOUT_FILENO;
-	// 	return (m);
-	// }
-*/
-
+/*	token get-set */
 static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
 {
 	int id;
@@ -41,8 +27,8 @@ static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *
 	nod = 0;
 	// mx[id] = tab->cmds;//[cmd][nod];
 
-	// if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
-	if (*nodes && (nod < token->cmd_len) && (cmd < tab->token_len))
+	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tkn_num))
+	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tkn_num))
 	{
 		printf("\n\n\n");
 		while(tab->n)
@@ -88,21 +74,23 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-t_table	*fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
+		/*		 (token chunk)	*/
+t_table	*token_nodes(t_table *tab)	
 {
-	int i;		// node id
+	int i;		// node_id
 	int j;		// ptr pos
 
-		// t_token	**token;
-		// t_list	*cmds[2];
-		// token = init_token()
-		// cmds[0] = NULL;
-		// char	**temp[2];
-		// tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
+		// t_token	*token;
+		// token->id 	(int)
+		// token->cmd	(char**)
+		// token->path	(**char)
+		// token->endtype	(int)
+		// token->infile :: token->outfile 
+		// token->tkn_len	(int)
 		// needed to token command
 	// tab->cmds 
 	i = 0;
-	while (tab->cmds[i] && i < tab->token_len)
+	while (tab->cmds[i] && i < tab->tkn_num)
 	{
 		// revert from list 
 			// need to set first arg => cmd 

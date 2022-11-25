@@ -41,7 +41,7 @@ static int	token_count(char *s, char *set, int count)	// set = endtype*char	coun
 }
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{
+{	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	int		q[2];
 
 	q[0] = 0;
@@ -69,36 +69,36 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 t_table 	*div_token(char const *s, char *set, t_table *tab) // call::parse->split_all
 {
 		
-		char    **aux;
-		int     tknum; // token->len = how many node into token
-		int 	token_id;
-		int     i[3];
+	char    **tkn;			// token sub_split by endtype
+	int     tk_len; 		// token->len = how many token into tab
+	int 	tk_id;			// focus token
+	int     i[3];
 
-		token_id = tob->;
-		i[0] = 0;
-		i[1] = 0;
-		i[2] = 0;
-		if (!s)
-			return (NULL);
+	i[0] = 0;				// set start pos ptr
+	i[1] = 0;				// set sub_end pos ptr
+	i[2] = 0;				// set end pos ptr
+	if (!s)					// s <<  args[i]  << tab->cmds
+		return (NULL);
 	
-    tknum = token_count((char *)s, set, 0);		// how many end
-    if (tknum == -1)
+    tab->tkn_num = token_count((char *)s, set, 0);	// how many end
+    if (tab->tkn_num == -1)
         return (NULL);
-    aux = malloc(sizeof(char *) * (tknum + 1)) ;
-	tab->token_len = tknum;
-    if (aux == NULL)
+    tkn = malloc(sizeof(char *) * (tab->tkn_num + 1)); 
+    if (tkn == NULL)
         return (NULL);
-    aux = token_fill(aux, (char *)s, set, i);	
-	if (*aux)
+    tkn = token_fill(tkn, (char *)s, set, i);	
+	//	**tkn << tab->cmds >> sub_split / endtype char
+	//		... so  tkn[tk_id]
+	if (*tkn)
 	{
-		tab->node[token_id] = aux[token_id];
-		token_id++;		// tab->token->id = 0;		// tab->token->id++;
-		while (token_id < tab->token_len)
+		tab->node[tk_id] = tkn[tk_id];
+		tk_id++;		// tab->token->id = 0;		// tab->token->id++;
+		while (tk_id < tab->tkn_num)
 		{
-			tab->node[token_id] = aux[token_id];
-			token_id++;
+			tab->node[tk_id] = tkn[tk_id];
+			tk_id++;
 		}
-		mx_display_str(*aux);
+		mx_display_str(*tkn);
 	}
 	/*
 		while (nb < tknum)

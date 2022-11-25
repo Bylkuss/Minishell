@@ -51,7 +51,7 @@ t_token	*get_outfile1(t_token *token, char **args)
 	// flags[1] = 0;
 	nl = "minishell: syntax error near unexpected token `newline'";
 	// (*i)++;
-	if (args[id][token->cmd_len - 1])
+	if (args[id][token->tkn_len - 1])
 		token->outfile = get_fd(token->outfile, *args, token);
 	if (!args[id] || token->outfile == -1)
 	{

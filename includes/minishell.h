@@ -72,18 +72,17 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	int 	cmd_len;	// how many node by token (min 2) ref by
+	int 	tkn_len;	// how many node by token (min 2) ref by
 	struct s_table	*table; 
 };						//t_token;
 
 struct s_table
 {
-	char **envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
-	char **cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
-	char **node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
-	// char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
+	char 	**envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	char 	**cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
+	char 	**node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t	pid;	//	fork dup wait 
-	int token_len;	// 	how many tokens ref by div_token
+	int 	tk_num;	// 	how many tokens ref by div_token
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
@@ -125,7 +124,7 @@ t_table		*div_token(char const *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-char		**fill_nodes(t_table *tab, int i);
+t_table		*token_nodes(t_table *tab);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);
