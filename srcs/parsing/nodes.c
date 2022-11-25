@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 19:47:16 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 20:21:28 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,51 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
+t_table		*fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 {
 	int i;		// token id
+
+		// t_token	**token;
+		// t_list	*cmds[2];
+		// token = init_token()
+		// cmds[0] = NULL;
+		// char	**temp[2];
+
+	// tab = get_trimmed(tab); /* tab-node :: malloc_machine ->trim_all */
+	// needed to token command
+
+	// tab->cmds 
+	i = 0;
+	while (tab->cmds[i] && i < tab->token_len)
+	{
+		// revert from list 
+			// need to set first arg => cmd 
+			// 			set last arg => endtype
+			//	middle arg (if so!) 	
+		// cmds[1] = ft_lstlast(cmds[0]);
+
+		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+		{
+				/*	i += args[i][0] == '|';
+					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+					cmds[1] = ft_lstlast(cmds[0]); 
+				*/
+		}
+
+		// temp[0] = args;
+		tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
+		// token->cmd = cmds[1]->content;
+		// token->arg = *temp[1];
+		// token->endtype = cmds[1]->content;
+		// if (i < 0)
+		// 	return (stop_fill(cmds[0], args, temp[1]));
+		// if (!args[i])
+		// 	break ;
+		i++;
+	}
+	// ft_mx_free(&temp[1]);
+	return (tab);
+}
 
 		// t_token	**token;
 		// t_list	*cmds[2];
