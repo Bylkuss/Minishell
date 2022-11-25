@@ -59,9 +59,10 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
 				i[0]++;
 			}
-			else
-				i[0]++;
-			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+		}
+		else
+			i[0]++;
+		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 			// tab->token
 		}
 		return (aux);
