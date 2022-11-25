@@ -38,7 +38,7 @@ $(NAME): 	$(OBJS)
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 clean	:
-				$(RM) $(OBJ_F) $(F_DIR)
+				$(RM) $(OBJ_F) $(LIBFT)
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean
