@@ -76,33 +76,6 @@ static t_dot init_prompt(char **av, char **envp)
     return (p); 
 }
 
-// int main(int ac, char **av, char **envp) 
-// {
-//     char *str;
-//     char *input;
-//     t_dot p;
-
-//     p = init_prompt(av, envp);                   
-//     while (av && ac) 
-//     {
-//         signal(SIGINT, handle_sigint);               
-//         signal(SIGQUIT, SIG_IGN);                    
-//         str = getprompt(p);                
-//         if (str)
-//             input = readline(str);                    
-//         else
-//             input = readline("guest@minishell $ ");     
-//         free(str);
-//         // mx_display_str(input);
-//         // printf ("%s\n", input);
-//         if (!check_args(input, &p))
-//             break;
-  
-//     }
-//     exit(g_status); 
-// }
-
-
 int main(int ac, char **av, char **envp) 
 {
     char *str;
@@ -110,7 +83,8 @@ int main(int ac, char **av, char **envp)
     // char **test_cd = NULL;
     t_dot p;
 
-    p = init_prompt(av, envp);                   
+    p = init_prompt(av, envp);      // 
+    mx_display_tab(p.envp);
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
