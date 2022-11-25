@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 20:47:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/25 01:08:59 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ extern int g_status;
 /*       char **args = tab->cmds  :  token chunk    */
 
 
-static char **split_all(char **args, t_table *tab)  
+static char **split_join(char **args, t_table *tab)  
 {
-    // char **aux;
+   
     int i;                          //token->id 
     int quotes[2];
 
@@ -71,26 +71,25 @@ static char **split_all(char **args, t_table *tab)
         args[i] = expand_vars(args[i], -1, quotes, tab);       
         //expand_path
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
-        //
-        tab = div_token(args[i], "<|>", tab);         /* token divider */     
-        // ft_mx_rpl(&args, aux, i);                           
-        // i += ft_mx_len(aux) - 1;                          
-        // ft_mx_free(&aux);                                 
+        //div_token 
+        tab = div_token(args[i], "<|>", tab);       /* token divider  */         
+
     }
     return (args); 
 }
 
 static t_token *parse_args(t_table *tab)
 {
-    int i; 
-    // int is_exit; // is_exit = 0;
-    /*  args =>                              */
-    char **args;
-    args = tab->cmds;
-    tab->cmds = split_all(tab->cmds, tab);  // split all >> tab->cmds 
-    tab = fill_nodes(tab, tab->cmds);                  // 
-    /*                   args breaker => cmd_token*/ 
-    if (!tab->node)
+    // char **args;
+    int i;
+    // args =>      // args = tab->cmds;
+    // int is_exit; // is_exit = 0;*/
+
+    tab->node = split_join(tab->cmds, tab);     // split join >> tab->cmds  >>  tab->node 
+                                                // 
+    tab = fill_nodes(tab->node, tab);           // 
+    
+    if (!tab->node) /*      node  breaker => tab->token   */ 
         return (tab->token);
                     //    args breaker => cmd_token*/ 
     /*   tab->node [*str]  sep.space. node -ID.less
@@ -117,36 +116,26 @@ static t_token *parse_args(t_table *tab)
     return (tab->token);
 }
 
-t_table  *check_args(char *out, t_table *tab)  
+t_table  *check_args(char *input, t_table *tab)  
 {
-    // char **test;
-    // char spc;
     int len;
 
     len = 0;
-    // spc = 32;
-    // test = NULL;
-    if (!out)
+    if (!input)
     {
         printf("exit\n");
         return (NULL);
     }
-    if (out[0] != '\0')
-        add_history(out);
-    //
-    tab->cmds = space_split(out, " ");  
-    mx_display_tab(tab->cmds);
-                //input divided by space  **tab    
-                // if (tab)
-                //     mx_display_tab(tab->cmds);
-    // free(out);
+    if (input[0] != '\0')
+        add_history(input);
+    tab->cmds = space_split(input, " ");// tab->cmds  ...
+    free(input);
     if (!tab)
         return (NULL);
-    // tab->token  ... 
-    tab->token = parse_args(tab);    
+    tab->token = parse_args(tab);       // tab->token  ... 
 
-    // if (tab && tab->token)
-    //     display_tkn(tab);
+    // if (tab->cmds && tab->token)
+      
         // tab->attr = ;
     /*
     if (tab && tab->token)
@@ -166,40 +155,6 @@ t_table  *check_args(char *out, t_table *tab)
     // }
     return (tab); 
 }
-//
-
-/* void *check_args(char *out, t_table tab)  // maybe needed to return (tab)
-    // {
-    //     char    **arr;
-        
-    //     if (!out)
-    //     {
-    //         printf("exit\n");
-    //         return (NULL);
-    //     }
-    //     if (out[0] != '\0')
-    //         add_history(out);
-    //     //
-    //     tab->cmds = space_split(out, " ");  
-    //                 //input divided by space  **tab    
-    //                 // if (tab)
-    //                 //     mx_display_tab(tab->cmds);
-    //     // free(out);
-    //     if (!tab)
-    //         return ("");
-    //     // tab->token  ... 
-    //     tab->token = parse_args(tab);    
-    //     if (tab && tab->token)
-    //         tab->attr = ; 
-    //     if (p && p->cmds && m && m->full_cmd && ft_lstsize(p->cmds) == 1)    
-    //     {
-    //         p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-    //          - 1], p->envp, 1);                    
-    //             //     ft_lstclear(&p->cmds, free_content);
-    //     }
-    //     // mx_display_tkn(token);
-    //     return (p); 
-// }*/
 
 /*
 from check.c

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 19:42:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/25 00:38:52 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);          //tab->envp , pid --> init_vars
+    
     tab = init_token(tab);                // token frame
     while (av && ac) 
     {

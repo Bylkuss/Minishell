@@ -134,7 +134,7 @@ t_table		*div_token(char const *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-t_table		*fill_nodes(t_table *tab, char **cmds);
+t_table		*fill_nodes(char **node, t_table *tab);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);

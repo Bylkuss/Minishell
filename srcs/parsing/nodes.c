@@ -48,7 +48,7 @@
 	// 			token = get_outfile2(token, mx[id]);//nod
 	// 		else if (mx[id][cmd][nod] == '>')
 	// 			token = get_outfile1(token, mx[id]);//nod
-	// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+	// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
 	// 			a[0][*i + 1][0] == '<')
 	// 			m = get_infile2(m, a[1], i);*/
 	// 		else if (mx[id][cmd][nod] == '<')
@@ -86,7 +86,7 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-t_table		*fill_nodes(t_table *tab, char **cmds)	/*	cmds = tab->cmds from parse_args	*/
+t_table		*fill_node(char **node, t_table *tab)	/*	cmds = tab->cmds from parse_args	*/
 {
 	int i;		// token id
 
@@ -99,14 +99,22 @@ t_table		*fill_nodes(t_table *tab, char **cmds)	/*	cmds = tab->cmds from parse_a
 		// needed to token command
 
 	// tab->cmds 
+	node = tab->node;
+
 	i = 0;
-	while (tab->cmds[i] && i < tab->token_len)
+	
+	while (node[i] && i < tab->token_len)
 	{
+			tab->token->id = i;
+			tab->token->cmd[i] = node[i];
+			// ... // div_token to set end 
+				// endtype eval + default 
+
 		// revert from list 
 			// need to set first arg => cmd 
 			// 			set last arg => endtype
 			//	middle arg (if so!) 	
-		// cmds[1] = ft_lstlast(cmds[0]);
+
 
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
@@ -127,47 +135,8 @@ t_table		*fill_nodes(t_table *tab, char **cmds)	/*	cmds = tab->cmds from parse_a
 			// 	break ;
 		i++;
 	}
-	// ft_mx_free(&temp[1]);
 	return (tab);
 }
-
-// char	**fill_nodes(t_table *tab, int i)
-	// {
-	// 	// t_token	**token;
-	// 	// t_list	*cmds[2];
-	// 	// token = init_token()
-	// 	// cmds[0] = NULL;
-	// 	// char	**temp[2];
-
-	// 	// temp[1] = get_trimmed(tab->cmds); /* malloc_machine twin part */
-	// 	while (tab->cmds && i < tab->token_len)
-	// 	{
-	// 		// revert from list 
-	// 			// need to set first arg => cmd 
-	// 			// 			set last arg => endtype
-	// 			//	middle arg (if so!) 	
-	// 		// cmds[1] = ft_lstlast(cmds[0]);
-
-	// 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-	// 		{
-	// 			// i += args[i][0] == '|';
-	// 		//	ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-	// 		//	cmds[1] = ft_lstlast(cmds[0]);
-	// 		}
-
-	// 		// temp[0] = args;
-	// 		tab->token = get_params(tab, tab->token);//, &i);
-	// 		// token->cmd = cmds[1]->content;
-	// 		// token->arg = *temp[1];
-	// 		// token->endtype = cmds[1]->content;
-	// 		// if (i < 0)
-	// 		// 	return (stop_fill(cmds[0], args, temp[1]));
-	// 		// if (!args[i])
-	// 		// 	break ;
-	// 	}
-	// 	// ft_mx_free(&temp[1S
-	// 	return (tab->node);
-// }
 
 /*
 from parse.c
