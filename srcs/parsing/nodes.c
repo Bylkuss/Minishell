@@ -6,16 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 14:47:30 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:47:16 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-
-
-	// static t_mini	*mx_init(void)
+/*	// static t_mini	*mx_init(void)
 	// {
 	// 	t_mini	*m;
 
@@ -31,72 +28,73 @@
 */
 
 // static t_token	*get_params(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
-// {
-// 	int id;
-// 	int cmd;	
-// 	int nod;	
-// 	char ***mx;
+	// {
+	// 	int id;
+	// 	int cmd;	
+	// 	int nod;	
+	// 	char ***mx;
 
-// 	mx = NULL;
+	// 	mx = NULL;
 
-// 	nod = 0;
-// 	cmd = 0;
-// 	id = 0;
-// 	mx[id] = tab->cmds;//[cmd][nod];
+	// 	nod = 0;
+	// 	cmd = 0;
+	// 	id = 0;
+	// 	mx[id] = tab->cmds;//[cmd][nod];
 
-// 	if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
-// 	{
-// 		printf("\n\n\n");
-// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-// 			token = get_outfile2(token, mx[id]);//nod
-// 		else if (mx[id][cmd][nod] == '>')
-// 			token = get_outfile1(token, mx[id]);//nod
-// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
-// 			a[0][*i + 1][0] == '<')
-// 			m = get_infile2(m, a[1], i);*/
-// 		else if (mx[id][cmd][nod] == '<')
-// 			token = get_infile1(token, mx[id]);	//nod
-// 		else if (mx[id][cmd][nod] != '|')
-// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-// 		// else
-// 		{
-// 			//mini_perror(PIPENDERR, NULL, 2);
-// 			// *i = -2;
-// 		}
-// 		return (token);
-// 	}
-// 	//mini_perror(PIPENDERR, NULL, 2);
-// 	// *i = -2;
-// 	return (token);
+	// 	if (tab->cmds[cmd][nod] && (nod < token->cmd_len) && (cmd < tab->token_len))
+	// 	{
+	// 		printf("\n\n\n");
+	// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+	// 			token = get_outfile2(token, mx[id]);//nod
+	// 		else if (mx[id][cmd][nod] == '>')
+	// 			token = get_outfile1(token, mx[id]);//nod
+	// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+	// 			a[0][*i + 1][0] == '<')
+	// 			m = get_infile2(m, a[1], i);*/
+	// 		else if (mx[id][cmd][nod] == '<')
+	// 			token = get_infile1(token, mx[id]);	//nod
+	// 		else if (mx[id][cmd][nod] != '|')
+	// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+	// 		// else
+	// 		{
+	// 			//mini_perror(PIPENDERR, NULL, 2);
+	// 			// *i = -2;
+	// 		}
+	// 		return (token);
+	// 	}
+	// 	//mini_perror(PIPENDERR, NULL, 2);
+	// 	// *i = -2;
+	// 	return (token);
 // }
 
 
-	// static char	**get_trimmed(char **args)
-		// {
-		// 	char	**temp;
-		// 	char	*aux;
-		// 	int		j;
-		// 	j = -1;
-		// 	temp = ft_mx_dup(args);
-		// 	while (temp && temp[++j])
-		// 	{
-		// 		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
-		// 		free(temp[j]);
-		// 		temp[j] = aux;
-		// 	}
-		// 	return (temp);
-		// }
-		// static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-		// {
-		// 	(void)  &cmds;
-		// 	// ft_lstclear(&cmdc, free_content);
-		// 	ft_mx_free(&temp);
-		// 	ft_mx_free(&args);
-		// 	return (NULL);
-	// } 
-	
+t_table	*get_trimmed(t_table *tab)
+{
+	char	**temp;
+	char	*aux;
+	int		j;
 
-/*					arg[][] from splitt_all (token chunk)	*/
+	j = -1;
+	temp = ft_mx_dup(tab->cmds);
+	while (temp && temp[++j])
+	{
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
+		free(temp[j]);
+		temp[j] = aux;
+	}
+	tab->node = temp;
+	return (tab);
+}
+	
+t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
+{
+	int i;		// token id
+
+		// t_token	**token;
+		// t_list	*cmds[2];
+		// token = init_token()
+		// cmds[0] = NULL;
+		// char	**temp[2];
 
 // char	**fill_nodes(t_table *tab, int i)
 // {

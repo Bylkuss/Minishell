@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 14:39:38 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/24 19:42:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static t_table *init_prompt(char **av, char **envp)
         init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
+        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -95,8 +96,7 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         // 
-            //fonction on his own { built_outs }
-            //
+        //fonction on his own { built_outs }
             if(ft_strcmp(input, "exit") == 0)
                 exit(0);
             if (ft_strlen(input) > 0)
@@ -107,20 +107,17 @@ int main(int ac, char **av, char **envp)
                 pwd();
             else if(ft_strnstr(input, "echo", 10))
                 echo(ft_split(input, ' '));
+    
         // 
         free(str);
-        /*
-        */
         tab = check_args(input, tab);
-        // mx_display_tab(tab->cmds);          //::    :://
-            // break;
-        // else 
-        //     mx_display_tkn(token); 
-
+        if (!tab)
+            break;
+        else
+            mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }
-
 
 /*
 main :  init_prompt => get user info to be stock into *p {struct t_dot}   

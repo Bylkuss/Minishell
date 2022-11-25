@@ -72,7 +72,6 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
 
 /*
     cmd space_trim :: token_part   
-    call by 
 */
 char **space_split(const char *s, char *set)
 {
@@ -92,7 +91,7 @@ char **space_split(const char *s, char *set)
         nodes = node_count(s, set, count);     // node = str.space.cut 
         if (nodes == -1)
             return (NULL);
-        printf(":: %d  NODES ::\n",nodes);
+        // printf(":: %d  NODES ::\n",nodes);
         arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
         if (arr == NULL)
             return (NULL);
