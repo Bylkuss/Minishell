@@ -88,10 +88,10 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
+t_table	*fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 {
 	int i;		// node id
-	int j;		// 
+	int j;		// ptr pos
 
 		// t_token	**token;
 		// t_list	*cmds[2];
@@ -110,10 +110,11 @@ t_table	**fill_nodes(t_table *tab)	/*	arg[][] from splitt_all (token chunk)	*/
 			//	middle arg (if so!) 	
 			// cmds[1] = ft_lstlast(cmds[0]);
 
+		j = 0;
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
-			tab->token->cmd_len
-			tab->token->cmd[i]  
+			tab->token->id = i;
+			tab->token->cmd[i] = tab->cmds[i] 
 				/*	i += args[i][0] == '|';
 					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
 					cmds[1] = ft_lstlast(cmds[0]); 

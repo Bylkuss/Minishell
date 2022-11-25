@@ -72,7 +72,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN		*/
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	int 	cmd_len;	// how many node by token (min 2)
+	int 	cmd_len;	// how many node by token (min 2) ref by
 	struct s_table	*table; 
 };						//t_token;
 
@@ -83,7 +83,7 @@ struct s_table
 	char **node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	// char **term;	//	[sig][*fcn]	: eof behavior		TERM["pipe"]["InFile<OutFile"]
 	pid_t	pid;	//	fork dup wait 
-	int token_len;	// 	how many tokens
+	int token_len;	// 	how many tokens ref by div_token
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
