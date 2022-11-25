@@ -144,17 +144,17 @@ t_token		*get_infile1(t_token *token, char **args);
 void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
-t_table		*init_token(t_table *tab);
+// t_table		*init_token(t_table *tab);
 
 //check	new
 
-char    *getprompt(t_table *tab);
-t_table *init_token(t_table *tab);
-t_table *init_tab(t_table *tab);
+char    	*getprompt(t_table *tab);
+t_table 	*init_token(t_table *tab);
+t_table 	*init_tab(t_table *tab);
 
 // static t_token *parse_args(t_table tab);
-t_table  *check_args(char *out, t_table *tab);
-
+t_table 	*check_args(char *out, t_table *tab);
+t_table		*token_nodes(t_table *tab);
 	//  static t_dot	init_vars(t_dot prompt, char *str, char **av);
 	//  static t_dot	init_prompt(char **av, char **envp); 
 	// static char **split_all(char **args, t_dot p);

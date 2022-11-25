@@ -68,34 +68,37 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
             else
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  //
         }
+        // mx_display_tab(arr);
+        printf("DEBUG: arr >>:: %s ::\n", arr);
         return (arr);
 }
 
 /*    readline input _space_split_  NODE MAKERE   */
 char **space_split(const char *s, char *set)
 {
-        char    **arr;
-        int     nodes;
-        int     i[3];       // *arr pos: start, sub-end, end
-        int     count[2];   // str sub len [0:start/1:end]
+    char    **arr;
+    int     nodes;
+    int     i[3];       // *arr pos: start, sub-end, end
+    int     count[2];   // str sub len [0:start/1:end]
 
-        i[0] = 0;
-        i[1] = 0;
-        i[2] = 0;
-        count[0] = 0;
-        count[1] = 0;
-        if (!s)
-            return (NULL);
-        nodes = node_count(s, set, count);     // substr 
-        if (nodes == -1)
-            return (NULL);
-        // tab
-        printf(":: %d  NODES ::\n",nodes);
-        arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
-        if (arr == NULL)
-            return (NULL);
-        arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-        return (arr);   
+    i[0] = 0;
+    i[1] = 0;
+    i[2] = 0;
+    count[0] = 0;
+    count[1] = 0;
+    if (!s)
+        return (NULL);
+    nodes = node_count(s, set, count);     // substr 
+    if (nodes == -1)
+        return (NULL);
+    // tab
+    // printf(":: %d  NODES ::\n", nodes);
+    arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
+    if (!arr)
+        return (NULL);
+    arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    printf("DEBUG: afternode");
+    return (arr);   
 }
 
 /*

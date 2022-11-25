@@ -6,20 +6,19 @@ extern int g_status;
 
 t_table *init_token(t_table *tab)
 {
-        t_token *token;
+    t_token *token;
 
-        token = malloc(sizeof(t_token));
-        
-        tab->token = token;
-        token->id = 0;
-        token->cmd = NULL;  
-        // token->attr = NULL;  
-        token->path = NULL;
-        token->endtype = DEAD_END;
-        token->infile = 0;
-        token->outfile = 0;
-        token->cmd_len = 0;
-        return (tab);   
+    token = malloc(sizeof(t_token));
+    
+    tab->token = token;
+    token->id = 0;
+    token->cmd = NULL;  
+    token->path = NULL;
+    token->endtype = DEAD_END;
+    token->infile = 0;
+    token->outfile = 0;
+    token->tk_len = 0;
+    return (tab);   
 }
 
 t_table *init_tab(t_table *tab)
@@ -27,8 +26,8 @@ t_table *init_tab(t_table *tab)
     tab->envp = NULL;
     tab->cmds = NULL;
     tab->node = NULL;
+    tab->tk_num = 0;
     (void) tab->pid;
-    tab->token_len = 0;
     tab->token = NULL;
     return (tab);
 }
