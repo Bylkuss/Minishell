@@ -88,8 +88,8 @@ static t_token *parse_args(t_table *tab)
     int i; 
     // int is_exit; // is_exit = 0;
     /*  args =>                              */
-    char **args;
-    args = tab->cmds;
+    // char **args;
+    // args = tab->cmds;
     tab->cmds = split_all(tab->cmds, tab);  //split_arg 
     tab->node = fill_nodes(tab, tab->token_len);  //split_arg 
     /*                   args breaker => cmd_token*/ 

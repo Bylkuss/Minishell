@@ -112,11 +112,11 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
-		t_token	*token;				// token->len = how many node into token
-		// char	**tmp;s
+		// t_token	*token;				// token->len = how many node into token
+		// char	**tmp;
 		int     i[3];				// int     tknum; 
 		
-		token = tab->token;
+		// token = tab->token;
 		tab->token_len = 0;
 		// tmp = NULL;
 		i[0] = 0;
