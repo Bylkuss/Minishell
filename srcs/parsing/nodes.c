@@ -51,7 +51,7 @@
 // 			token = get_outfile2(token, mx[id]);//nod
 // 		else if (mx[id][cmd][nod] == '>')
 // 			token = get_outfile1(token, mx[id]);//nod
-// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
 // 			a[0][*i + 1][0] == '<')
 // 			m = get_infile2(m, a[1], i);*/
 // 		else if (mx[id][cmd][nod] == '<')

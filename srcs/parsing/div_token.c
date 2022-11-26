@@ -63,7 +63,7 @@ static int	token_count(char *s, char *set, int count)
 	// 			token = get_outfile2(token, mx[id]);//nod
 	// 		else if (mx[id][cmd][nod] == '>')
 	// 			token = get_outfile1(token, mx[id]);//nod
-	// 		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+	// 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
 	// 			a[0][*i + 1][0] == '<')
 	// 			m = get_infile2(m, a[1], i);*/
 	// 		else if (mx[id][cmd][nod] == '<')
@@ -113,12 +113,12 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 {
 		
 		t_token	*token;				// token->len = how many node into token
-		char	**tmp;
+		// char	**tmp;s
 		int     i[3];				// int     tknum; 
 		
 		token = tab->token;
 		tab->token_len = 0;
-		tmp = NULL;
+		// tmp = NULL;
 		i[0] = 0;
 		i[1] = 0;
 		i[2] = 0;
