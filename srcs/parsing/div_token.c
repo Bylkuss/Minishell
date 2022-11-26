@@ -42,6 +42,46 @@ static int	token_count(char *s, char *set, int count)
 	return (count); //how many end..
 }
 
+// static t_token	*token_params(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
+	// {
+	// 	t_token *token;
+	// 	char **cmd;
+	// 	char ***mx;
+	// 	int id;
+
+	// 	id = 0;
+	// 	// cmd = NULL;
+	// 	// token->cmd = tab->node;
+	// 	cmd = tab->node; //[id][node[;]
+	// 	// cmd = tab->node;
+
+	// 	if (token->cmd && (token->id < token->cmd_len) && (token->id < tab->token_len))
+	// 	{
+	// 		printf("\n\n\n");
+	// 		if (tab->cmds == ">" && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+	// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+	// 			token = get_outfile2(token, mx[id]);//nod
+	// 		else if (mx[id][cmd][nod] == '>')
+	// 			token = get_outfile1(token, mx[id]);//nod
+	// 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+	// 			a[0][*i + 1][0] == '<')
+	// 			m = get_infile2(m, a[1], i);*/
+	// 		else if (mx[id][cmd][nod] == '<')
+	// 			token = get_infile1(token, mx[id]);	//nod
+	// 		else if (mx[id][cmd][nod] != '|')
+	// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+	// 		// else
+	// 		{
+	// 			//mini_perror(PIPENDERR, NULL, 2);
+	// 			// *i = -2;
+	// 		}
+	// 		return (token);
+	// 	}
+	// 	mini_perror(PIPENDERR, NULL, 2);
+	// 	*i = -2;
+	// 	return (token);
+// }
+
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	int		q[2];

@@ -42,7 +42,7 @@ clean	:
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean
-				$(RM) $(O_DIR)
+				$(RM) $(O_DIR) $(LIBFT)
 				$(RM) $(NAME)
 
 re		:	fclean all
