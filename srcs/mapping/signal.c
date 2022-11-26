@@ -75,7 +75,7 @@ char    **ms_setenv(char *var, char *value, char **envp, int n)
     return (envp); 
 }
 /*
-from check.c
+from main.c
     handle_signal   => signal reference (iotcl) fd, files, err
     ms_setenv       => fix data into struct     
     ms_getenv       => go get data to bet set      
