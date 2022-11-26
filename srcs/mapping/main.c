@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 14:39:38 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/25 00:38:52 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static t_table *init_vars(t_table *tab, char *str, char **av)
         str = getcwd(NULL, 0);                                            
         tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
         free(str);
-        str = ms_getenv("SHLVL", tab->envp, 5);                     
+        str = ms_getenv("SHLVL", tab->envp, 5); 
+
         if (!str || ft_atoi(str) <= 0)
             num = ft_strdup("1");
         else
@@ -70,6 +71,7 @@ static t_table *init_prompt(char **av, char **envp)
         init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
+        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -80,11 +82,12 @@ int main(int ac, char **av, char **envp)
 {
     char *str;
     char *input;
-    // t_token token;
     t_table *tab;
 
-    tab = init_prompt(av, envp);          //tab->envp , pid --> init_vars
-    tab = init_token(tab);                // token frame
+    tab = init_prompt(av, envp);    
+        //tab->envp , pid --> init_vars
+    tab = init_token(tab);          
+        // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -95,32 +98,28 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         // 
-            //fonction on his own { built_outs }
-            //
-            if(ft_strcmp(input, "exit") == 0)
-                exit(0);
-            if (ft_strlen(input) > 0)
-                add_history(input);
-            if(ft_strnstr(input, "cd", 10))
-                cd(ft_split(input, ' '), envp);
-            else if (ft_strnstr(input, "pwd", 10))
-                pwd();
-            else if(ft_strnstr(input, "echo", 10))
-                echo(ft_split(input, ' '));
+      //fonction on his own { built_outs }
+        if(ft_strcmp(input, "exit") == 0)
+            exit(0);
+        if (ft_strlen(input) > 0)
+            add_history(input);
+        if(ft_strnstr(input, "cd", 10))
+            cd(ft_split(input, ' '), envp);
+        else if (ft_strnstr(input, "pwd", 10))
+            pwd();
+        else if(ft_strnstr(input, "echo", 10))
+            echo(ft_split(input, ' '));
+    
         // 
         free(str);
-        /*
-        */
         tab = check_args(input, tab);
-        // mx_display_tab(tab->cmds);          //::    :://
-            // break;
-        // else 
-        //     mx_display_tkn(token); 
-
+        if (!tab)
+            break;
+        // else
+        //     mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }
-
 
 /*
 main :  init_prompt => get user info to be stock into *p {struct t_dot}   

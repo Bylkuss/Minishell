@@ -20,17 +20,17 @@ void mx_display_str(char *str)
 
 void display_tkn(t_table *tab)
 {
-    t_token *token;
     int id;
 
     id = 0;
-    token = tab->token; 
-    if (!token)
-        exit(0);
-    printf("TOKEN_ID:\t%d\n", tab->token_len); // how many tkn
+    // t_token *token;
+    // token = tab->token; 
+    // if (!token)
+    //     exit(0);
+    printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-    while (tab->token->cmd_len > 2 && id++ < tab->token->cmd_len)
-        printf("ARG == %s == \t", tab->token->cmd[id]);   
+    if (tab->token->tk_len > 2 )
+        printf("ARG == %s == \t", tab->token->cmd[++id]);   
     printf("END_TYPE == %d == \n", tab->token->endtype);   
 
 }
