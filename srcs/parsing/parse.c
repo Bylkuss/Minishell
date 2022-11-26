@@ -92,13 +92,13 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
-
         //  input divided by space ::    
+    printf("GO_GO_GO\n");    // DEBUG
     tab->cmds = space_split((const char *)input, " ");
-    
-    if (tab->cmds)
+    if (tab->cmds[0])
     {
-        printf("\n\nOK TEST INPUT!");
+        printf("\n\nOK TEST INPUT!");           //  DEBUG
+        printf("\n\n:: %s :: !!!", tab->cmds[0]);
             // len = ft_mx_len(tab->node);
             // printf("\n%d :::\n", len);
             // mx_display_tab(tab->node);

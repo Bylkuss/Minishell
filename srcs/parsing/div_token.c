@@ -86,9 +86,10 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
     tab->tk_num = token_count((char *)s, set, 0);	// how many end
     if (tab->tk_num == -1)
         return (NULL);
-    tkn = malloc(sizeof(char *) * (tab->tk_num + 1)); 
-    if (tkn == NULL)
-        return (NULL);
+    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
+    if (!(*tkn))
+	    return (NULL);
+	printf("\n\nOK TEST PRE-TOKEN-FILL !!");
     tkn = token_fill(tkn, (char *)s, set, i);	
 
 	//	**tkn << tab->cmds >> sub_split / endtype char
@@ -102,7 +103,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 			tab->node[tk_id] = tkn[tk_id];
 			tk_id++;
 		}
-		mx_display_tab(tkn);
+		// mx_display_tab(tkn);
 	}
 	/*
 		while (nb < tknum)

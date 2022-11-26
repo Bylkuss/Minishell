@@ -52,7 +52,8 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         q[0] = 0;
         q[1] = 0;
         len = ft_strlen(s);
-        while (s[i[0]])
+        printf("\n::NODE_FILL_ BEGIN ::le =%d", len);      // DEBUG
+        while (s[i[0]] != '\0')
         {
             while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
                 i[0]++;
@@ -67,9 +68,12 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 arr[i[2]++] = "\0";
             else
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  //
+            i[0]++;
         }
+        printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
         // mx_display_tab(arr);
-        printf("DEBUG: arr >>:: %s ::\n", arr);
+        // printf("DEBUG: arr >>:: %s ::\n", arr[0]);
+        printf("\n::NODE_FILL_ \n");      // DEBUG
         return (arr);
 }
 
@@ -86,6 +90,7 @@ char **space_split(const char *s, char *set)
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
+    printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
     if (!s)
         return (NULL);
     nodes = node_count(s, set, count);     // substr 
@@ -93,11 +98,12 @@ char **space_split(const char *s, char *set)
         return (NULL);
     // tab
     // printf(":: %d  NODES ::\n", nodes);
-    arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
+    arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
     if (!arr)
         return (NULL);
+    printf("\nOK TEST:S_S FOLLOW:: %d nodes \n", nodes);      // DEBUG
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    printf("DEBUG: afternode");
+    printf("DEBUG: space_split end!");
     return (arr);   
 }
 
