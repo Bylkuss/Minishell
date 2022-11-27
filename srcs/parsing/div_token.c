@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 20:36:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/26 19:36:14 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 {
 		
 	char    **tkn;			// token sub_split by endtype
-	// int     tk_len; 		// tkn_len = how many token into tab
 	int 	tk_id;			// focus token
 	int     i[3];
 

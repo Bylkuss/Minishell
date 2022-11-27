@@ -49,8 +49,9 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         q[0] = 0;
         q[1] = 0;
         len = ft_strlen(s);
+        //  printf("DEBUG: s >>:: %s ::\n", s);
         printf("\n::NODE_FILL_ BEGIN ::len =%d", len);      // DEBUG
-        while (s[i[0]] != '\0')
+        while (s[i[0]])// && i[0] <= len)
         {
             while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
                 i[0]++;
@@ -64,13 +65,11 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
             if (i[1] >= len)
                 arr[i[2]++] = "\0";
             else
-                arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  //
-            i[0]++;
+                arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
+            // i[0]++;
         }
-        printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
-        // mx_display_tab(arr);
-        // printf("DEBUG: arr >>:: %s ::\n", arr[0]);
-        printf("::NODE_FILL_ END \n");      // DEBUG
+        printf("::NODE_FILL_ INNER:: %d:: \n", i[0]);      // DEBUG
+        // printf(" ::NODE_FILL_ END \n");      // DEBUG
         return (arr);
 }
 
@@ -93,13 +92,15 @@ char **space_split(const char *s, char *set)
     nodes = node_count(s, set, count);     // substr 
     if (nodes == -1)
         return (NULL);
-    // tab
-    // printf(":: %d  NODES ::\n", nodes);
     arr = (char **)malloc(sizeof(char *) * (nodes + 1)); //strc malloc
     if (!arr)
         return (NULL);
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    printf("\nDEBUG : TEST:Spc_Splt :: %d nodes :: split end \n", nodes);      // DEBUG
+    
+    // printf("\nDEBUG ::Spc_Splt :: %d nodes ::", nodes);      // DEBUG
+    // printf("DEBUG: arr >>:: %s ::\n", arr[0]);            // DEBUG
+    // printf("TEST  _\"%s\"_  :: split end \n", arr[0]);      // DEBUG
+    // mx_display_tab(arr);
     // printf("DEBUG: space_split end!");
     return (arr);   
 }

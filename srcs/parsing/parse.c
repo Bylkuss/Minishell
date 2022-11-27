@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 01:08:59 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:26:37 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ static t_token *parse_args(t_table *tab)
     tab = token_nodes(tab);  
     //    tab >> tab->token-> ... arg-set value ...TBD            
     //  
-    if (tab->token)
-        display_tkn(tab);
+    // if (tab->token)
+    //     display_tkn(tab);
     /*
     if (!tab->node)
         return (tab->token);
@@ -93,17 +93,19 @@ t_table  *check_args(char *input, t_table *tab)
     if (input[0] != '\0')
         add_history(input);
         //  input divided by space ::    
-    printf("GO_GO_GO\n");    // DEBUG
+    // printf("GO_GO_GO\n");    // DEBUG
     tab->cmds = space_split((const char *)input, " ");
-    if (tab->cmds[0])
+    if (tab->cmds)
     {
-        printf("\nOK TEST INPUT!");           //  DEBUG
-        mx_display_tab(tab->cmds);
+        printf("\nOK TEST INPUT!\n");           //  DEBUG
+        printf("DEBUG: arr >>:: %s ::\n", tab->cmds[0]);            // DEBUG
+        
+        // mx_display_tab(tab->cmds);
         // display_tkn(tab);
-        printf(":: :: !!!");
+        // printf("\n:: !!!\n");
         // len = ft_mx_len(tab->node);
         // printf("\n%d :::\n", len);
-        // mx_display_tab(tab->cmds);
+
         return (tab);
     }
     else
