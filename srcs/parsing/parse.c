@@ -39,27 +39,29 @@ static t_table *split_all(char **args, t_table *tab)
     return (tab); 
 }
 
-static t_token *parse_args(t_table *tab)
+static t_table *parse_args(t_table *tab)
 {
-    int i;   
-        // int is_exit; // is_exit = 0;
+    int i;           // int is_exit; // is_exit = 0;
+
     i = 0;
     tab = split_all(tab->cmds, tab);
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
-    tab = token_nodes(tab);  
+
+
+    // tab = token_nodes(tab);  
     //    tab >> tab->token-> ... arg-set value ...TBD            
     //  
-    if (tab->token)
-        display_tkn(tab);
+        if (tab->token)
+            display_tkn(tab);
     /*
     if (!tab->node)
         return (tab->token);
-                    //    args breaker => cmd_token*/ 
-    /*   tab->node [*str]  sep.space. node -ID.less
+        
+    //    args breaker => cmd_token*
+    //       tab->node [*str]  sep.space. node -ID.less
 
-        // tab->
-        // i = ft_lstsize(tab->cmds);
-        // g_status = builtin(p, p->cmds, &is_exit, 0);             
+    // i = ft_lstsize(tab->cmds);
+    // g_status = builtin(p, p->cmds, &is_exit, 0);             
     */
     
     i = 0;
@@ -67,24 +69,21 @@ static t_token *parse_args(t_table *tab)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
-    /*
-        // if (!is_exit && &g_status == 13)
+    /*  // if (!is_exit && &g_status == 13)
         //     g_status = 0;
         // if (args && is_exit)
             // {
             //     ft_lstclear(&p->cmds, free_content);
             //     return (NULL);
-        // }
-    */
+        // }    */
     return (tab->token);
 }
 
 t_table  *check_args(char *input, t_table *tab)  
 {
-   
     // int len;
-
     // len = 0;
+
     if (!input)
     {
         printf("exit\n");
@@ -92,27 +91,29 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
-        //  input divided by space ::    
-    printf("GO_GO_GO\n");    // DEBUG
+    //  input divided by space ::    
+        // printf("GO_GO_GO\n");    // DEBUG
     tab->cmds = space_split((const char *)input, " ");
+
+
     if (tab->cmds[0])
     {
         printf("\nOK TEST INPUT!");           //  DEBUG
-        mx_display_tab(tab->cmds);
-        // display_tkn(tab);
         printf(":: :: !!!");
-        // len = ft_mx_len(tab->node);
-        // printf("\n%d :::\n", len);
-        // mx_display_tab(tab->cmds);
-        return (tab);
+            // mx_display_tab(tab->cmds);
+            // display_tkn(tab);
+            // len = ft_mx_len(tab->node);
+            // printf("\n%d :::\n", len);
+            // mx_display_tab(tab->cmds);
+        // return (tab);
     }
     else
         exit(0);
-        // exit(0);
-        // if (tab->cmds && tab->tk_num > 0)
-        // else
-        //     return (NULL);
-    tab->token = parse_args(tab);    
+            // exit(0);
+            // if (tab->cmds && tab->tk_num > 0)
+            // else
+            //     return (NULL);
+    tab = parse_args(tab);    
     /*
     if (tab && tab->token)
         display_tkn(tab);
