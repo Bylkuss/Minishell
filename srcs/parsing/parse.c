@@ -37,6 +37,7 @@ static t_table *split_all(char **args, t_table *tab)
             // watch out :: splt_all >> tab-cmds 
             //           :: tab->token <<
     }
+    mx_display_tab(args);
     return (tab); 
 }
 

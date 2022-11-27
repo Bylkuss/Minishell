@@ -37,6 +37,7 @@ $(NAME): 	$(OBJS)
 		-@$(MAKE) -C $(F_DIR) -s
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
+
 clean	:
 				$(RM) $(OBJ_F)
 				$(RM) -r $(S_OBJ)

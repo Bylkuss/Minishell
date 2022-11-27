@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(const char *s, char *set, int count)
+static int	token_count(char *s, char *set, int count)
 {
 	int		q[2];
 	int		i;
@@ -22,7 +22,7 @@ static int	token_count(const char *s, char *set, int count)
 	i = 0;
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i] != '\0')
+	while (s[i] != '\0')
 	{
 		count++;
 		if (!ft_strchr(set, s[i]))
@@ -39,7 +39,7 @@ static int	token_count(const char *s, char *set, int count)
 		else
 			i++;
 	}
-	printf("DEBUG : into... token_count= %d\n", count);
+	printf("DEBUG : into... token_count = %d\n", count);
 	return (count); //how many end..
 }
 
@@ -83,14 +83,15 @@ static int	token_count(const char *s, char *set, int count)
 	// 	return (token);
 // }
 
+	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
+{	
 	int		q[2];
 
 	q[0] = 0;
 	q[1] = 0;
-	printf("Hello, welcome to Token_Fill\n");
-	while (s && s[i[0]] != '\0')
+	// printf("Hello, welcome to Token_Fill\n");
+	while (s[i[0]] != '\0')
 	{
 		i[1] = i[0];
 		if (!ft_strchr(set, s[i[0]]))
@@ -111,7 +112,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
+t_table 	*div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
@@ -125,15 +126,14 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	tk_id = 0;
-	// printf("DEBUG : into... div_token");			// set end pos ptr
-    tab->tk_num = token_count((const char *)s, set, 0);	// how many end
-    
+	printf("DEBUG : into... div_token\n");	// set end pos ptr
+    tab->tk_num = token_count(s, set, 0);	// how many end
 	if (tab->tk_num == (-1))
 		return (NULL);
-	// printf("OK TEST PRE-TOKEN_FILL #token ::%d::\n", tab->tk_num);
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);
+	// printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
     tkn = token_fill(tkn, (char *)s, set, i);	
 
 	//	**tkn << tab->cmds >> sub_split / endtype char
