@@ -67,10 +67,10 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  //
             i[0]++;
         }
-        printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
-        // mx_display_tab(arr);
-        // printf("DEBUG: arr >>:: %s ::\n", arr[0]);
-        printf("::NODE_FILL_ END \n");      // DEBUG
+        // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
+        // // mx_display_tab(arr);
+        // // printf("DEBUG: arr >>:: %s ::\n", arr[0]);
+        // printf("::NODE_FILL_ END \n");      // DEBUG
         return (arr);
 }
 
