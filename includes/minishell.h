@@ -115,6 +115,8 @@ char		**div_token(char const *s, char *set);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_dot *p);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
+int			is_quoted(char *str);
+void		print_skip_qt(char *s);
 t_list		*fill_nodes(char **args, int i);
 //operators
 t_mini 		*get_outfile1(t_mini *token, char **args, int *i);

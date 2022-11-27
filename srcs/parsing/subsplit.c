@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   subsplit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:05:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/25 14:49:01 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char **subsplit(const char *s, char *set) /* cmd trim into token_part */
     nwords = word_count(s, set, count);
     if (nwords == -1)
         return (NULL);
-    printf(": %d :: chunk :",nwords);
+    // printf(": %d :: chunk :",nwords);
     aux = malloc(sizeof(char *) * (nwords + 1));
     if (aux == NULL)
         return (NULL);

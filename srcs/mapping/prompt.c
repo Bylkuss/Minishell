@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 12:19:28 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/11/25 14:52:50 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*getprompt(t_dot p)
 	char *aux;
 
     tmp = get_user(p);                          
-    tmp2 = ft_strjoin(tmp, "@mishell");
+    tmp2 = ft_strjoin(tmp, "@minishell");
     free(tmp);
     aux = get_home(p);                   
     tmp = ft_strjoin(tmp2, aux);

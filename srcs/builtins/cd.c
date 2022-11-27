@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/17 18:45:48 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/25 16:48:20 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-char *get_root(char **env)
+char	*get_root(char **env)
 {
     char *user;
-    int i = 0;
+	int	i;
+
+    i = 0;
     while(env[i])
     {
         user = ft_strnstr(env[i], "USER=", 5);
@@ -24,32 +26,32 @@ char *get_root(char **env)
             return (&user[5]);
         i++;
     }
-    return NULL;
+    return (NULL);
 }
 */
 
-void    cd(char **cmd, char **env)
+// (void)cmd;
+// char *pwd;
+// char path[2000];
+// pwd = getwd(path);
+// printf("%s\n", pwd);
+
+void	cd(char **cmd, char **env)
 {
-    // (void)cmd;
-    // char *pwd;
-    // char path[2000];
-    // pwd = getwd(path);
-    // printf("%s\n", pwd);
-    
-    if(ft_strcmp(cmd[1], "..") == 0)
-        chdir("..");
-    else if(ft_strcmp(cmd[1], "/") == 0)
-        chdir("/");
-    else if(ft_strcmp(cmd[1], "#") == 0 || ft_strcmp(cmd[1], "~") == 0 || !cmd[1])
-        chdir(ms_getenv("HOME", env, 4));
-    /* 
+	if (ft_strcmp(cmd[1], "..") == 0)
+		chdir("..");
+	else if (ft_strcmp(cmd[1], "/") == 0)
+		chdir("/");
+	else if (ft_strcmp(cmd[1], "#") == 0 || ft_strcmp(cmd[1], "~") == 0
+			|| /*(ft_strcmp(cmd[0], "cd") == 0 &&*/ !cmd[1])
+		chdir(ms_getenv("HOME", env, 4));
+	/* 
     else if(ft_strcmp(cmd[1], "-") == 0) 
     else if(ft_strcmp(cmd[1], "\\") == 0)
     ***************???????**************
     */
-    else
-        chdir(cmd[1]);
-        
+	else
+		chdir(cmd[1]);
 }
 
 /*
