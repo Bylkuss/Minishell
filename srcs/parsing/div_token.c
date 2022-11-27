@@ -25,7 +25,7 @@ static int	token_count(const char *s, char *set, int count)
 	while (s && s[i] != '\0')
 	{
 		count++;
-		if (ft_strchr(set, s[i]))
+		if (!ft_strchr(set, s[i]))
 		{
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
 			{
@@ -39,6 +39,7 @@ static int	token_count(const char *s, char *set, int count)
 		else
 			i++;
 	}
+	printf("DEBUG : into... token_count= %d\n", count);
 	return (count); //how many end..
 }
 
@@ -88,7 +89,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 
 	q[0] = 0;
 	q[1] = 0;
-	printf("\nHello, welcome to Token_Fill!! \n");
+	printf("Hello, welcome to Token_Fill\n");
 	while (s && s[i[0]] != '\0')
 	{
 		i[1] = i[0];
@@ -120,15 +121,16 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 
 	i[0] = 0;				// set start pos ptr
 	i[1] = 0;				// set sub_end pos ptr
-	i[2] = 0;				// set end pos ptr
+	i[2] = 0;	
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	tk_id = 0;
+	// printf("DEBUG : into... div_token");			// set end pos ptr
     tab->tk_num = token_count((const char *)s, set, 0);	// how many end
     
 	if (tab->tk_num == (-1))
 		return (NULL);
-	printf("\n\nOK TEST PRE-TOKEN_FILL #token ::%d::!!", tab->tk_num);
+	// printf("OK TEST PRE-TOKEN_FILL #token ::%d::\n", tab->tk_num);
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);

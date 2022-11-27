@@ -22,6 +22,7 @@ static t_table *split_all(char **args, t_table *tab)
     int quotes[2];
 
     i = -1;
+    printf("DEBUG : into... split all\n");
     while (args && args[++i])       
     {
         // args = tab->cmds[id]
@@ -39,18 +40,20 @@ static t_table *split_all(char **args, t_table *tab)
     return (tab); 
 }
 
-static t_token *parse_args(t_table *tab)
+t_table  *parse_args(t_table *tab)
 {
     int i;   
         // int is_exit; // is_exit = 0;
     i = 0;
+    // printf("DEBUG: parse...");
+
     tab = split_all(tab->cmds, tab);
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     tab = token_nodes(tab);  
     //    tab >> tab->token-> ... arg-set value ...TBD            
     //  
-    if (tab->token)
-        display_tkn(tab);
+    // if (tab->token)
+    //     display_tkn(tab);
     /*
     if (!tab->node)
         return (tab->token);
@@ -76,7 +79,7 @@ static t_token *parse_args(t_table *tab)
             //     return (NULL);
         // }
     */
-    return (tab->token);
+    return (tab);
 }
 
 t_table  *check_args(char *input, t_table *tab)  
@@ -96,23 +99,20 @@ t_table  *check_args(char *input, t_table *tab)
     // printf("GO_GO_GO\n");    // DEBUG
     tab->cmds = space_split((const char *)input, " ");
     if (tab->cmds[0])
-    {
-        printf("\nOK TEST INPUT!");           //  DEBUG
-        // mx_display_tab(tab->cmds);
-        // display_tkn(tab);
-        printf(":: :: END !!!");
-        // len = ft_mx_len(tab->node);
-        // printf("\n%d :::\n", len);
-        // mx_display_tab(tab->cmds);
-        return (tab);
-    }
-    else
-        exit(0);
+        printf("\nOK TEST INPUT :: :: END\n");   
+            // mx_display_tab(tab->cmds);
+            // display_tkn(tab);
+            // len = ft_mx_len(tab->node);
+            // printf("\n%d :::\n", len);
+            // mx_display_tab(tab->cmds);
+            // return (tab);
+    if (tab->cmds[0])
+        printf("DEBUG : into... check_arg\n");
+    tab = parse_args(tab);    
         // exit(0);
         // if (tab->cmds && tab->tk_num > 0)
         // else
         //     return (NULL);
-    tab->token = parse_args(tab);    
     /*
     if (tab && tab->token)
         display_tkn(tab);

@@ -99,7 +99,7 @@ char **space_split(const char *s, char *set)
     if (!arr)
         return (NULL);
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    printf("\nDEBUG : TEST:Spc_Splt :: %d nodes :: split end \n", nodes);      // DEBUG
+    printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
     // printf("DEBUG: space_split end!");
     return (arr);   
 }
