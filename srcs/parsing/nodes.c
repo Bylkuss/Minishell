@@ -109,8 +109,8 @@ t_table	*token_nodes(t_table *tab)
 			// 	mx_display_tab(tab->token->cmd);
 
 			i += args[i][0] == '|';
-			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-			cmds[1] = ft_lstlast(cmds[0]); 
+			// ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+			// cmds[1] = ft_lstlast(cmds[0]); 
 				
 		}
 
