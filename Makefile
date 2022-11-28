@@ -34,11 +34,11 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 all		:	$(NAME)
 
 $(NAME): 	$(OBJS)
-		-@$(MAKE) -C $(F_DIR) 
+		-@$(MAKE) -C $(F_DIR) -s
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 clean	:
-				$(RM) $(OBJ_F) $(LIBFT)
+				$(RM) $(OBJ_F)
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean

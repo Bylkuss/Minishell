@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/26 18:26:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:09:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_table  *check_args(char *input, t_table *tab)
         
         // mx_display_tab(tab->cmds);
         // display_tkn(tab);
-        // printf("\n:: !!!\n");
+        printf(":: :: !!!");
         // len = ft_mx_len(tab->node);
         // printf("\n%d :::\n", len);
 
