@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 07:42:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:46:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ t_table  *parse_args(t_table *tab)
     tab = token_nodes(tab);  
     //    tab >> tab->token-> ... arg-set value ...TBD            
     //  
-    if (tab->token)
-        display_tkn(tab);
+    // if (tab->token)
+    //     display_tkn(tab);
     /*
     if (!tab->node)
         return (tab->token);

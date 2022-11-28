@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/26 18:25:51 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 07:45:30 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_table	*token_nodes(t_table *tab)
 	while (tab->cmds[i] && i < tab->tk_num)
 	{
 			tab->token->id = i;
-			tab->token->cmd[i] = tab->node[i];
+			tab->token->cmd[i] = tab->node;
 				// ... // div_token to set end 
 				// endtype eval + default 
 
@@ -104,10 +104,10 @@ t_table	*token_nodes(t_table *tab)
 		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
 			tab->token->id = i;
-			tab->token->cmd[i] = tab->cmds[i] ;
+			tab->token->cmd[i] = tab->cmds;
 			printf("debug:: into tok_node");
-			if (tab->token->cmd)
-				mx_display_tab(tab->token->cmd);
+			// if (tab->token->cmd)
+			// 	mx_display_tab(tab->token->cmd);
 
 				/*	i += args[i][0] == '|';
 					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
