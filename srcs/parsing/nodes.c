@@ -3,111 +3,137 @@
 /*                                                        :::      ::::::::   */
 /*   nodes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/11/24 20:44:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static t_mini	*mx_init(void)
-{
-	t_mini	*m;
+/*	token get-set */
+		// static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
+		// {
+		// 	int id;
+		// 	int cmd;	
+		// 	int nod;	
+		// 	// char ***mx;
+		// 	// mx = NULL;
+		// 	// mx[id] = tab->cmds;//[cmd][nod];
+		// 	id = 0;
+		// 	cmd = 0;
+		// 	nod = 0;
 
-	m = malloc(sizeof(t_mini));
-	if (!m)
-		return (NULL);
-	m->full_cmd = NULL;
-	m->full_path = NULL;
-	m->infile = STDIN_FILENO;
-	m->outfile = STDOUT_FILENO;
-	return (m);
-}
+		// 	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
+		// 	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tk_num))
+		// 	{
+		// 		printf("\n\n\n");
+		// 		while(tab->n)
+		// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+		// 			token = get_outfile2(token, mx[id]);//nod
+		// 		else if (mx[id][cmd][nod] == '>')
+		// 			token = get_outfile1(token, mx[id]);
+		// 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+		// 			a[0][*i + 1][0] == '<')
+		// 			m = get_infile2(m, a[1], i);
+		// 		else if (mx[id][cmd][nod] == '<')
+		// 			token = get_infile1(token, mx[id]);	//nod
+		// 		else if (mx[id][cmd][nod] != '|')
+		// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+		// 		// else
+		// 		{
+		// 			//mini_perror(PIPENDERR, NULL, 2);
+		// 			// *i = -2;
+		// 		}
+		// 		return (token);
+		// 	}
+		// 	//mini_perror(PIPENDERR, NULL, 2);
+		// 	// *i = -2;
+		// 	return (token);
+// }
 
-static t_mini	*get_params(t_mini *m, char **a[2], int *i)
-{
-	if (a[0][*i])
-	{
-		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
-			m = get_outfile2(m, a[1], i);
-		else if (a[0][*i][0] == '>')
-			m = get_outfile1(m, a[1], i);
-		/*else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
-			a[0][*i + 1][0] == '<')
-			m = get_infile2(m, a[1], i);*/
-		else if (a[0][*i][0] == '<')
-			m = get_infile1(m, a[1], i);
-		else if (a[0][*i][0] != '|')
-			m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-		else
-		{
-			//mini_perror(PIPENDERR, NULL, 2);
-			*i = -2;
-		}
-		return (m);
-	}
-	//mini_perror(PIPENDERR, NULL, 2);
-	*i = -2;
-	return (m);
-}
-
-static char	**get_trimmed(char **args)
+t_table	*get_trimmed(t_table *tab)
 {
 	char	**temp;
 	char	*aux;
 	int		j;
 
 	j = -1;
-	temp = ft_mx_dup(args);
+	temp = ft_mx_dup(tab->cmds);
 	while (temp && temp[++j])
 	{
-		aux = ft_strtrim_all(temp[j], 0, 0); // s/d quotes rules
+		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
 		free(temp[j]);
 		temp[j] = aux;
 	}
-	return (temp);
+	tab->node = temp;
+	return (tab);
 }
-
-static t_list	*stop_fill(t_list *cmds, char **args, char **temp)
-{
-	(void)  &cmds;
-	// ft_lstclear(&cmdc, free_content);
-	ft_mx_free(&temp);
-	ft_mx_free(&args);
-	return (NULL);
-}
-
-t_list	*fill_nodes(char **args, int i)
-{
-	t_token	*token = NULL;
-	t_list	*cmds[2];
-	char	**temp[2];
 	
-	// token = init_token()
-	cmds[0] = NULL;
-	temp[1] = get_trimmed(args);
-	while (args[++i])
+		/* call by parse_  <<(token_ized)	*/
+t_table	*token_nodes(t_table *tab)	
+{
+	int i;		// node_id
+	// int j;		// ptr pos
+
+	// tab->cmds >> t_token	*token;
+		// token->id 	(int)
+		// token->cmd	(char**)
+		// token->path	(**char)
+		// token->endtype	(int)
+		// token->infile :: token->outfile 
+		// token->tkn_len	(int)
+	// needed to token command
+	i = 0;
+	while (tab->cmds[i] && i < tab->tk_num)
 	{
-		cmds[1] = ft_lstlast(cmds[0]);
-		if (i == 0 || (args[i][0] == '|' && args[i + 1] && args[i + 1][0]))
+			tab->token->id = i;
+			tab->token->cmd[i] = tab->node[i];
+			// ... // div_token to set end 
+				// endtype eval + default 
+
+		// revert from list 
+			// need to set first arg => cmd 
+			// 			set last arg => endtype
+			//	middle arg (if so!) 	
+			// cmds[1] = ft_lstlast(cmds[0]);
+
+		// j = 0;
+		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
-			i += args[i][0] == '|';
-			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		/* mx_start */
-			cmds[1] = ft_lstlast(cmds[0]);
+			tab->token->id = i;
+			tab->token->cmd[i] = tab->cmds[i] ;
+			printf("debug:: into tok_node");
+			if (tab->token->cmd)
+				mx_display_tab(tab->token->cmd);
+
+				/*	i += args[i][0] == '|';
+					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+					cmds[1] = ft_lstlast(cmds[0]); 
+				*/
 		}
-		temp[0] = args;
-		cmds[1]->content = get_params(cmds[1]->content, temp, &i);
-		token->cmd = cmds[1]->content;
-		token->arg = *temp[1];
+
+		// temp[0] = args;
+		//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
+		// token->cmd = cmds[1]->content;
+		// token->arg = *temp[1];
 		// token->endtype = cmds[1]->content;
-		if (i < 0)
-			return (stop_fill(cmds[0], args, temp[1]));
-		if (!args[i])
-			break ;
+		// if (i < 0)
+		// 	return (stop_fill(cmds[0], args, temp[1]));
+		// if (!args[i])
+		// 	break ;
+		i++;
 	}
-	ft_mx_free(&temp[1]);
-	ft_mx_free(&args);
-	return (cmds[0]);
+	return (tab);
 }
+
+/*
+from parse.c
+	fill_node 	=> t_list builder 
+		get_trimmed		=> multiple cmd list
+				str_trimm_all 	(malloc_machine)	==> trimm_all.c
+		mx_init 		=> matrix start
+		get_params		=> token_end part (struct mx)
+		stop_fill		=> t_list (wrap + free)
+*/

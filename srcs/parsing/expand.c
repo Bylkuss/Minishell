@@ -3,21 +3,20 @@
 
 extern int g_status;
 
-static char *get_substr_var(char *str, int i, t_dot *p)
+static char *get_substr_var(char *str, int i, t_table *tab)
 {
-    char *aux;
-    int pos;
+    char *aux;  // result str
+    int pos;    // where to cut // pos ?: ptr to substr
     char *path;
-    char *var;
-
-    pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0);
+    char *var;  // spec char path check ...
+    
+    pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0); 
     if (pos == -1)
         pos = ft_strlen(str) - 1;
-    aux = ft_substr(str, 0, i - 1);
-    var = ms_getenv(&str[i], p->envp, \
-        ft_strchar_i(&str[i], "\"\'$|>< "));
+    aux = ft_substr(str, 0, i - 1); 
+    var = ms_getenv(&str[i], tab->envp, ft_strchar_i(&str[i], "\"\'$|>< "));
     if (!var && str[i] == '$')
-        var = ft_itoa(p->pid);
+        var = ft_itoa(tab->pid);
     else if (!var && str[i] == '?')
         var = ft_itoa(g_status);
     path = ft_strjoin(aux, var);
@@ -26,6 +25,11 @@ static char *get_substr_var(char *str, int i, t_dot *p)
     free(var);
     free(path);
     free(str);
+    // if (aux)
+    //{
+    //  mx_display_str(aux);
+    //  exit(0);
+    //}
     return (aux);
 }
 
@@ -58,19 +62,27 @@ char    *expand_path(char *str, int i, int quotes[2], char *var)
     return (str);
 }
 
-char    *expand_vars(char *str, int i, int quotes[2], t_dot *p)
+char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
 {
     quotes[0] = 0;
     quotes[1] = 0;
+
     while(str && str[++i])
     {
         quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2;
         quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2;
-        if (!quotes[0] && str[i] == '$' && str[i + 1] && \
-            ((ft_strchar_i(&str[i + 1], "/~%^{}:; ") && !quotes[1]) || \
-            (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
-            return (expand_vars(get_substr_var(str, ++i, p), -1, \
-                quotes, p));
+
+        if (!quotes[0] && str[i] == '$' && str[i + 1] && ((ft_strchar_i(&str[i + 1], "/~%^{}:; ")
+             && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
+            return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
     }
     return (str);
 }
+
+/*
+from parse.c (split_all)
+    expand_vars => check spec. char. match by get_substr_var();
+    expand_path => check relativ path match
+    get_substr_var => get cmd's pid and *str pos;
+    *** dispatcher to be return full path cmd & str_ptr & PID ***
+*/

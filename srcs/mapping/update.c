@@ -30,7 +30,7 @@ static void update_output(char ***mx, int fd)
         aux = ft_mx_ext(aux, tmp);                       
         free(tmp);
     }
-    // ft_mx_free(mx);
+    ft_mx_free(mx);
     *mx = aux; 
 }
 
@@ -57,3 +57,7 @@ void    exec_custom(char ***out, char *full, char *args, char **envp)
     update_output(out, fd[READ_END]);                      
     close(fd[READ_END]); 
 }
+/*
+        update_output   => building matrix info
+        exec_custum     => framed outcome process
+*/

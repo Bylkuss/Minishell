@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/28 09:21:57 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:21:59 by gehebert         ###   ########.fr       */
+/*   Created: 2022/11/17 18:00:00 by loadjou           #+#    #+#             */
+/*   Updated: 2022/11/17 18:02:51 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/minishell.h"
 
-int	ft_abs(float num)
+void	pwd(void)
 {
-	int	dummy;
-
-	dummy = (int)num;
-	if ((num - dummy) >= 0.5)
-		return ((int) num + 1);
-	else
-		return ((int) num);
+	// char path[2000];
+	printf("%s\n", getcwd(NULL, 0));//path));
 }

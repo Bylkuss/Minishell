@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/28 09:08:10 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:08:12 by gehebert         ###   ########.fr       */
+/*   Created: 2022/11/17 15:53:52 by loadjou           #+#    #+#             */
+/*   Updated: 2022/11/17 18:55:09 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../includes/minishell.h"
 
-#include "libft.h"
-
-void	ft_putnbr(int n)
+void    echo(char **cmd)
 {
-	unsigned int	num;
-
-	if (n < 0)
-	{
-		ft_putchar('-');
-		num = n * -1;
-	}
-	else
-		num = n;
-	if ((num / 10) > 0)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+    printf("%s", cmd[2]);
+    if(ft_strcmp(cmd[1], "-n") != 0)
+        printf("\n");
 }
