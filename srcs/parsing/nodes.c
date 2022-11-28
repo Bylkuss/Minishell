@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 07:45:30 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 10:24:05 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_table	*get_trimmed(t_table *tab)
 	int		j;
 
 	j = -1;
-	temp = ft_mx_dup(tab->cmds);
+	temp = ft_mx_dup(tab->cmds[0]);
 	while (temp && temp[++j])
 	{
 		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
@@ -72,62 +72,62 @@ t_table	*get_trimmed(t_table *tab)
 }
 	
 		/* call by parse_  <<(token_ized)	*/
-t_table	*token_nodes(t_table *tab)	
-{
-	int i;		// node_id
-	// int j;		// ptr pos
+// t_table	*token_nodes(t_table *tab)	
+// {
+// 	int i;		// node_id
+// 	// int j;		// ptr pos
 
-	// tab->cmds >> t_token	*token;
-		// token->id 	(int)
-		// token->cmd	(char**)
-		// token->path	(**char)
-		// token->endtype	(int)
-		// token->infile :: token->outfile 
-		// token->tkn_len	(int)
-	// needed to token command
+// 	// tab->cmds >> t_token	*token;
+// 		// token->id 	(int)
+// 		// token->cmd	(char**)
+// 		// token->path	(**char)
+// 		// token->endtype	(int)
+// 		// token->infile :: token->outfile 
+// 		// token->tkn_len	(int)
+// 	// needed to token command
 	
-	i = 0;
-	while (tab->cmds[i] && i < tab->tk_num)
-	{
-			tab->token->id = i;
-			tab->token->cmd[i] = tab->node;
-				// ... // div_token to set end 
-				// endtype eval + default 
+// 	i = 0;
+// 	while (tab->cmds[i] && i < tab->tk_num)
+// 	{
+// 			// tab->token->id = i;
+// 			tab->cmds[i] = tab->node;
+// 				// ... // div_token to set end 
+// 				// endtype eval + default 
 
-		// revert from list 
-			// need to set first arg => cmd 
-			// 			set last arg => endtype
-			//	middle arg (if so!) 	
-			// cmds[1] = ft_lstlast(cmds[0]);
+// 		// revert from list 
+// 			// need to set first arg => cmd 
+// 			// 			set last arg => endtype
+// 			//	middle arg (if so!) 	
+// 			// cmds[1] = ft_lstlast(cmds[0]);
 
-		// j = 0;
-		if (i == 0 || (tab->cmds[i][0] == '|' && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		{
-			tab->token->id = i;
-			tab->token->cmd[i] = tab->cmds;
-			printf("debug:: into tok_node");
-			// if (tab->token->cmd)
-			// 	mx_display_tab(tab->token->cmd);
+// 		// j = 0;
+// 		if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+// 		{
+// 			tab->token->id = i;
+// 			tab->token->cmd[i] = tab->node;
+// 			printf("debug:: into tok_node");
+// 			// if (tab->token->cmd)
+// 			// 	mx_display_tab(tab->token->cmd);
 
-				/*	i += args[i][0] == '|';
-					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-					cmds[1] = ft_lstlast(cmds[0]); 
-				*/
-		}
+// 				/*	i += args[i][0] == '|';
+// 					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+// 					cmds[1] = ft_lstlast(cmds[0]); 
+// 				*/
+// 		}
 
-		// temp[0] = args;
-		//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
-		// token->cmd = cmds[1]->content;
-		// token->arg = *temp[1];
-		// token->endtype = cmds[1]->content;
-		// if (i < 0)
-		// 	return (stop_fill(cmds[0], args, temp[1]));
-		// if (!args[i])
-		// 	break ;
-		i++;
-	}
-	return (tab);
-}
+// 			// temp[0] = args;
+// 			//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
+// 			// token->cmd = cmds[1]->content;
+// 			// token->arg = *temp[1];
+// 			// token->endtype = cmds[1]->content;
+// 			// if (i < 0)
+// 			// 	return (stop_fill(cmds[0], args, temp[1]));
+// 			// if (!args[i])
+// 			// 	break ;
+// 		i++;
+// 	}
+// 	return (tab);
+// }
 
 /*
 from parse.c

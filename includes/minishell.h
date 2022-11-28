@@ -72,7 +72,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 {
 	int 	id;			//	# command id 
 	// char 	**node;		//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
-	char	***cmd;		//	... cmd[id][node]
+	char	**cmd;		//	... cmd[id][node]
 	char 	**path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
@@ -88,7 +88,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 struct s_table
 {
 	char 	**envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
-	char 	**cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
+	char 	***cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
 	char 	**node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t	pid;	//	fork dup wait 
 	int 	tk_num;	// 	how many tokens ref by div_token
@@ -130,7 +130,7 @@ char 		**space_split(const char *s, char *set);
 
 //parsing
 // void		*check_args(char *out, t_dot *p);
-t_table		*div_token(char *s, char *set, t_table *tab);
+char		**div_token(char *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);

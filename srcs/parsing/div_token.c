@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 07:46:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:07:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 	q[0] = 0;
 	q[1] = 0;
 	len = ft_strlen(s);
-	// printf("Hello, welcome to Token_Fill\n");
+	printf("Hello, welcome to Token_Fill\n");
 	while (s[i[0]])
 	{
 		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
@@ -119,7 +119,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-t_table 	*div_token(char *s, char *set, t_table *tab) // call by parse>split_all
+char	 **div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
@@ -139,7 +139,7 @@ t_table 	*div_token(char *s, char *set, t_table *tab) // call by parse>split_all
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);
-	// printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
+	printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
     tkn = token_fill(tkn, (char *)s, set, i);	
 
 	//	**tkn << tab->cmds >> sub_split / endtype char
@@ -165,7 +165,7 @@ t_table 	*div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 		aux ** == tab->node[id][str]] 
 		tab->node[token_id] = NULL;
 	*/
-    return (tab);    
+    return (tkn);    
 }
 
 /*
