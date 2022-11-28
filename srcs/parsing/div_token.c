@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(char *s, char *set, int count)
+static int	token_count(const char *s, char *set, int count)
 {
 	int		q[2];
 	int		i;
@@ -24,20 +24,25 @@ static int	token_count(char *s, char *set, int count)
 	q[1] = 0;
 	while (s[i] != '\0')
 	{
-		count++;
 		if (!ft_strchr(set, s[i]))
 		{
+			i++;
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
 			{
-				q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
-				i++;
+				if(!q[1] && (s[i] == '\"' || s[i] != '\0'))
+                	q[1] = s[i];
+            	q[0] = (q[0] + (s[i] == q[1])) % 2;
+            	q[1] *= q[0] != 0;
+            	i++;
+					// q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
+					// q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
+					// i++;
 			}
-			if (q[0] || q[1])
+			if (q[0])// || q[1])
 				return (-1);
 		}
-		else
-			i++;
+		else if (count == 0)
+			count = 1;
 	}
 	printf("DEBUG : into... token_count = %d\n", count);
 	return (count); //how many end..
@@ -86,26 +91,28 @@ static int	token_count(char *s, char *set, int count)
 	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {	
+	int len;
 	int		q[2];
 
 	q[0] = 0;
 	q[1] = 0;
+	len = ft_strlen(s);
 	// printf("Hello, welcome to Token_Fill\n");
-	while (s[i[0]] != '\0')
+	while (s[i[0]])
 	{
+		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+        	i[0]++;
 		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
+		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
 		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-				i[0]++;
-			}
-		}
-		else
+			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
 			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+		}
+		if (i[1] >= len)
+        	aux[i[2]++] = "\0";
+		else
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 			// tab->token
 		}
 		return (aux);
