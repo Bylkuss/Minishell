@@ -22,23 +22,29 @@ static int	token_count(const char *s, char *set, int count)
 	i = 0;
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i] != '\0')
+	while (s[i] != '\0')
 	{
-		count++;
-		if (ft_strchr(set, s[i]))
+		if (!ft_strchr(set, s[i]))
 		{
+			i++;
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
 			{
-				q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
-				i++;
+				if(!q[1] && (s[i] == '\"' || s[i] != '\0'))
+                	q[1] = s[i];
+            	q[0] = (q[0] + (s[i] == q[1])) % 2;
+            	q[1] *= q[0] != 0;
+            	i++;
+					// q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
+					// q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
+					// i++;
 			}
-			if (q[0] || q[1])
+			if (q[0])// || q[1])
 				return (-1);
 		}
-		else
-			i++;
+		else if (count == 0)
+			count = 1;
 	}
+	printf("DEBUG : into... token_count = %d\n", count);
 	return (count); //how many end..
 }
 
@@ -82,35 +88,38 @@ static int	token_count(const char *s, char *set, int count)
 	// 	return (token);
 // }
 
+	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
+{	
+	int len;
 	int		q[2];
 
 	q[0] = 0;
 	q[1] = 0;
-	printf("\nHello, welcome to Token_Fill!! \n");
-	while (s && s[i[0]] != '\0')
+	len = ft_strlen(s);
+	// printf("Hello, welcome to Token_Fill\n");
+	while (s[i[0]])
 	{
+		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+        	i[0]++;
 		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
+		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
 		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-				i[0]++;
-			}
-		}
-		else
+			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
 			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+		}
+		if (i[1] >= len)
+        	aux[i[2]++] = "\0";
+		else
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 			// tab->token
 		}
 		return (aux);
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
+t_table 	*div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
@@ -119,18 +128,18 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 
 	i[0] = 0;				// set start pos ptr
 	i[1] = 0;				// set sub_end pos ptr
-	i[2] = 0;				// set end pos ptr
+	i[2] = 0;	
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	tk_id = 0;
-    tab->tk_num = token_count((const char *)s, set, 0);	// how many end
-    
+	printf("DEBUG : into... div_token\n");	// set end pos ptr
+    tab->tk_num = token_count(s, set, 0);	// how many end
 	if (tab->tk_num == (-1))
 		return (NULL);
-	printf("\n\nOK TEST PRE-TOKEN_FILL #token ::%d::!!", tab->tk_num);
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);
+	// printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
     tkn = token_fill(tkn, (char *)s, set, i);	
 
 	//	**tkn << tab->cmds >> sub_split / endtype char

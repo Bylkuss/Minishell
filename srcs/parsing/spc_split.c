@@ -98,11 +98,7 @@ char **space_split(const char *s, char *set)
     if (!arr)
         return (NULL);
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    
-    // printf("\nDEBUG ::Spc_Splt :: %d nodes ::", nodes);      // DEBUG
-    // printf("DEBUG: arr >>:: %s ::\n", arr[0]);            // DEBUG
-    // printf("TEST  _\"%s\"_  :: split end \n", arr[0]);      // DEBUG
-    // mx_display_tab(arr);
+    printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
     // printf("DEBUG: space_split end!");
     return (arr);   
 }
