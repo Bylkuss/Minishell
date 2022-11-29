@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 22:50:27 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:53:10 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ t_table  *check_args(char *input, t_table *tab)
     if (input[0] != '\0')
         add_history(input);
     // node_chk >> insert space in before/after it if neede
-    // input = node_check(input, "|");
+    
+  
         //  input divided by space ::    
         //      error space split need to check if no-space-too
     //
