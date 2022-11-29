@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/24 20:36:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 11:07:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(char *s, char *set, int count)
+static int	token_count(const char *s, char *set, int count)
 {
 	int		q[2];
 	int		i;
@@ -22,23 +22,29 @@ static int	token_count(char *s, char *set, int count)
 	i = 0;
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i] != '\0')
+	while (s[i] != '\0')
 	{
-		count++;
 		if (!ft_strchr(set, s[i]))
 		{
+			i++;
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
 			{
-				q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
-				i++;
+				if(!q[1] && (s[i] == '\"' || s[i] != '\0'))
+                	q[1] = s[i];
+            	q[0] = (q[0] + (s[i] == q[1])) % 2;
+            	q[1] *= q[0] != 0;
+            	i++;
+					// q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
+					// q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
+					// i++;
 			}
-			if (q[0] || q[1])
+			if (q[0])// || q[1])
 				return (-1);
 		}
-		else
-			i++;
+		else if (count == 0)
+			count = 1;
 	}
+	printf("DEBUG : into... token_count = %d\n", count);
 	return (count); //how many end..
 }
 
@@ -82,54 +88,58 @@ static int	token_count(char *s, char *set, int count)
 	// 	return (token);
 // }
 
+	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
+{	
+	int len;
 	int		q[2];
 
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i[0]] != '\0')
+	len = ft_strlen(s);
+	printf("Hello, welcome to Token_Fill\n");
+	while (s[i[0]])
 	{
+		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+        	i[0]++;
 		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
+		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
 		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-				i[0]++;
-			}
-		}
-		else
+			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
 			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+		}
+		if (i[1] >= len)
+        	aux[i[2]++] = "\0";
+		else
+			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 			// tab->token
 		}
 		return (aux);
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>split_all
+char	 **div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
-	// int     tk_len; 		// tkn_len = how many token into tab
 	int 	tk_id;			// focus token
 	int     i[3];
 
 	i[0] = 0;				// set start pos ptr
 	i[1] = 0;				// set sub_end pos ptr
-	i[2] = 0;				// set end pos ptr
+	i[2] = 0;	
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	tk_id = 0;
-    tab->tk_num = token_count((char *)s, set, 0);	// how many end
-    if (tab->tk_num == -1)
-        return (NULL);
+	printf("DEBUG : into... div_token\n");	// set end pos ptr
+    tab->tk_num = token_count(s, set, 0);	// how many end
+	if (tab->tk_num == (-1))
+		return (NULL);
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);
-	printf("\n\nOK TEST PRE-TOKEN-FILL !!");
+	printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
     tkn = token_fill(tkn, (char *)s, set, i);	
 
 	//	**tkn << tab->cmds >> sub_split / endtype char
@@ -155,7 +165,7 @@ t_table 	*div_token(char const *s, char *set, t_table *tab) // call by parse>spl
 		aux ** == tab->node[id][str]] 
 		tab->node[token_id] = NULL;
 	*/
-    return (tab);    
+    return (tkn);    
 }
 
 /*
