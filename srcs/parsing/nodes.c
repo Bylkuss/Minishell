@@ -6,7 +6,11 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/11/28 21:13:14 by gehebert         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/28 21:51:25 by gehebert         ###   ########.fr       */
+>>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +28,7 @@
 		// 	id = 0;
 		// 	cmd = 0;
 		// 	nod = 0;
-
+		//
 		// 	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 		// 	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tk_num))
 		// 	{
@@ -86,8 +90,11 @@ t_table	*token_nodes(t_table *tab)
 		// token->tkn_len	(int)
 	// needed to token command
 	
+	
+	//
+	//
 	i = 0;
-	while (tab->cmds[i] && i < tab->tk_num)
+	while (tab->node[i] && i < tab->tk_num)
 	{
 			// tab->token->id = i;
 			tab->cmds[i] = tab->node;
@@ -101,6 +108,7 @@ t_table	*token_nodes(t_table *tab)
 			// cmds[1] = ft_lstlast(cmds[0]);
 
 		// j = 0;
+<<<<<<< HEAD
 		if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 		{
 			tab->token->id = i;
@@ -108,12 +116,21 @@ t_table	*token_nodes(t_table *tab)
 			printf("debug:: into tok_node");
 			// if (tab->token->cmd)
 			// 	mx_display_tab(tab->token->cmd);
+=======
+		// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+		// {
+		// 	tab->token->id = i;
+		// 	// tab->token->cmd[i] = tab->node;
+		// 	printf("debug:: into tok_node");
+		// 	// if (tab->token->cmd)
+		// 	// 	mx_display_tab(tab->token->cmd);
+>>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
 
-				/*	i += args[i][0] == '|';
-					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-					cmds[1] = ft_lstlast(cmds[0]); 
-				*/
-		}
+		// 		/*	i += args[i][0] == '|';
+		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+		// 			cmds[1] = ft_lstlast(cmds[0]); 
+		// 		*/
+		// }
 			// temp[0] = args;
 			//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 			// token->cmd = cmds[1]->content;

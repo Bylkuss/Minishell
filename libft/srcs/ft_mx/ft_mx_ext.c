@@ -9,7 +9,7 @@ char **ft_mx_ext(char **stk, char *str)
     i = -1;
     tab = NULL;
     if (!str)
-        return (stk);
+        return (stk);   
     len = ft_mx_len(stk);
     tab = malloc(sizeof(char *) * (len + 2));
     tab[len + 1] = NULL;

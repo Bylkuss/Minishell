@@ -22,10 +22,10 @@ Makefile
    * Seq_Job_Exec
   ## Execute
    * Seq. Event
-    * ...job, arg, param, output...
+    * ...cmds :: args :: endtype...
    * Sig. Event
-    * child, parent, error
+    * parent, child, error
   ## Command
-   * Path 
-   * Pid 
-   * Redir
+   * Path = /bin 
+   * Pid  = 0
+   * Redir <,<<,>>,>,|,(EOT) ... end Of Type 
