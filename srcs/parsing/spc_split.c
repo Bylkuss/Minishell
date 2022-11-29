@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   space_split.c                                         :+:      :+:    :+:   */
+/*   init_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,37 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char *node_check(char *input, char *meta)
+{
+    char *tmp;
+    int i[2];
+    int j;
+
+    i[0] = 0;
+    i[1] = 0;
+    j = 0; 
+    j = ft_strlen(input);
+    while(input && *input != '\0')
+    {
+        //strchr meta_input get ptr
+        i[0] = ft_strchr_i((char *)input, *meta);
+        if (i[0] && i[0] != j)
+        {
+            // substr ptr meta input-a input-b
+            tmp = ft_substr((const char *)input, (i[0] - 1), (j - i[0])); 
+            //strchr meta input-b get ptr 
+
+            
+            
+        // substr ptr meta input -b input-c
+        // strjoin -a + " " + -b + " " + -c
+        }
+    }
+    // strchr(me
+    return(input);
+
+}
 
 static int node_count(const char *s, char *c, int i[2]) // 
 {
@@ -41,7 +72,7 @@ static int node_count(const char *s, char *c, int i[2]) //
         return (i[1]);
 }
 
-/*   Space_Split_Form_           "..." "..." "..." */
+/*   init_split_Form_           "..." "..." "..." */
 static char **node_fill(char **arr, const char *s, char *set, int i[3]) 
 {
         int     len;
@@ -76,8 +107,8 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         return (arr);
 }
 
-/*    readline input _space_split_  NODE MAKER   */
-char **space_split(const char *s, char *set)
+/*    readline input _init_split_  NODE MAKER   */
+char **init_split(const char *s, char *set)
 {
     char    **arr;
     int     nodes;
@@ -89,9 +120,13 @@ char **space_split(const char *s, char *set)
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
+    arr = NULL;
     printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
     if (!s)
         return (NULL);
+    arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
+    arr[0] = node_check(arr[0], ">|<"); // dbl / smpl 've to be check
+                                        // insert spc. where it needs watch for dbl..
     nodes = node_count(s, set, count);     // substr 
     if (nodes == -1)
         return (NULL);
@@ -101,13 +136,13 @@ char **space_split(const char *s, char *set)
         return (NULL);
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     arr[nodes] = NULL;
-    printf("DEBUG: space_split end!\n");
+    printf("DEBUG: init_split end!\n");
     return (arr);   
 }
 
 /*
 from parse.c
-    space_split => split *str by space only (quote rule (ok if both))
+    init_split => split *str by space only (quote rule (ok if both))
     word_count + ft_fill_node ... ... seems legit!
-    *** space_split: trunk at space to make token part
+    *** init_split: trunk at space to make token part
 */

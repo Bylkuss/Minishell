@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 10:24:05 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/28 21:51:25 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,19 @@ t_table	*token_nodes(t_table *tab)
 			// cmds[1] = ft_lstlast(cmds[0]);
 
 		// j = 0;
-		if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		{
-			tab->token->id = i;
-			tab->token->cmd[i] = tab->node;
-			printf("debug:: into tok_node");
-			// if (tab->token->cmd)
-			// 	mx_display_tab(tab->token->cmd);
+		// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+		// {
+		// 	tab->token->id = i;
+		// 	// tab->token->cmd[i] = tab->node;
+		// 	printf("debug:: into tok_node");
+		// 	// if (tab->token->cmd)
+		// 	// 	mx_display_tab(tab->token->cmd);
 
-				/*	i += args[i][0] == '|';
-					ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-					cmds[1] = ft_lstlast(cmds[0]); 
-				*/
-		}
+		// 		/*	i += args[i][0] == '|';
+		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+		// 			cmds[1] = ft_lstlast(cmds[0]); 
+		// 		*/
+		// }
 			// temp[0] = args;
 			//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 			// token->cmd = cmds[1]->content;

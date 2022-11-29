@@ -115,7 +115,7 @@ void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 
-char 		**space_split(const char *s, char *set);
+char 		**init_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
 
@@ -125,7 +125,6 @@ char		**div_token(char *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-char		*node_check(char *input, char meta);
 t_table		*token_nodes(t_table *tab);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
@@ -143,6 +142,8 @@ void		mx_display_str(char *str);
 char    	*getprompt(t_table *tab);
 t_table 	*init_token(t_table *tab);
 t_table 	*init_tab(t_table *tab);
+
+char		*node_check(char *input, char *meta);
 
 t_table 	*check_args(char *out, t_table *tab);
 t_table		*token_nodes(t_table *tab);
