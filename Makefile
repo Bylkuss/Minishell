@@ -43,10 +43,10 @@ clean	:
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean
-				$(RM) $(O_DIR) $(LIBFT)
+				$(RM) $(O_DIR) 
 				$(RM) $(NAME)
 
-re		:	clean all
+re		:	fclean all
 
 ref		:	fclean all
 
