@@ -15,6 +15,7 @@
 char *node_check(char *input, char *meta)
 {
     char *tmp;
+    char *dest;
     int i[2];
     int j;
 
@@ -22,21 +23,26 @@ char *node_check(char *input, char *meta)
     i[1] = 0;
     j = 0; 
     j = ft_strlen(input);
-    while(input && *input != '\0')
+    while(input && input[i[0]] != '\0')
     {
         //strchr meta_input get ptr
         i[0] = ft_strchr_i((char *)input, *meta);
-        if (i[0] && i[0] != j)
+        i[1] = i[0];
+        if (i[0] && (i[0] != j) && i[0] + 1 != *meta)
         {
             // substr ptr meta input-a input-b
             tmp = ft_substr((const char *)input, (i[0] - 1), (j - i[0])); 
             //strchr meta input-b get ptr 
-
-            
+            dest = ft_strjoin(tmp, " ");
+            tmp = ft_strjoin(dest, meta);
+            tmp = ft_strjoin(tmp, " ");
+            dest =ft_substr((const char *)input, (i[0] + 1), (j - (i[0] + 1)));  
+            tmp = ft_strjoin(tmp, dest);           
             
         // substr ptr meta input -b input-c
         // strjoin -a + " " + -b + " " + -c
         }
+        i[0]++;
     }
     // strchr(me
     return(input);
@@ -125,7 +131,7 @@ char **init_split(const char *s, char *set)
     if (!s)
         return (NULL);
     arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
-    arr[0] = node_check(arr[0], ">|<"); // dbl / smpl 've to be check
+    // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
                                         // insert spc. where it needs watch for dbl..
     nodes = node_count(s, set, count);     // substr 
     if (nodes == -1)
