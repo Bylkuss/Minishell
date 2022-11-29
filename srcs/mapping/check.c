@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:59:09 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 15:07:44 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/11/28 13:57:17 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,7 @@ int main(int ac, char **av, char **envp)
             exit(0);
         if (ft_strlen(input) > 0)
             add_history(input);
-        if(ft_strnstr(input, "cd", 10))
-            cd(ft_split(input, ' '), envp);
-        else if (ft_strnstr(input, "pwd", 10))
-            pwd();
-        else if(ft_strnstr(input, "echo", 10))
-            echo(ft_split(input, ' '));
-        else if (ft_strnstr(input, "ls", 5))
-            execve("/usr/bin/ls", ft_split(input, ' '), envp);
+        builtins_handler(input, envp);
         free(str);
         if (!check_args(input, &p))
             break;

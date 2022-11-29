@@ -23,6 +23,9 @@
 /*PATH*/
 # define PATH "[user@minishell ~]#"
 
+/*ADD-REMOVE ENVP VAR*/
+# define ADD 1
+# define REMOVE 0
 
 /* Colors Defined*/
 # define DEFAULT "\001\033[0;39m\002"
@@ -134,6 +137,10 @@ t_token		*init_token(t_dot *p);
 
 
 /*******	BUILTINS	******/
+void    builtins_handler(char *input, char **envp);
+void    env(char **envp);
+void	unset(char **cmd, char **envp);
+void    export(char **cmd, char **envp);
 void    echo(char **cmd);
 void    cd(char **cmd, char **envp);
 void    pwd(void);
