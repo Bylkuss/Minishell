@@ -27,23 +27,30 @@ char *node_check(char *input, char *meta)
     {
         //strchr meta_input get ptr
         i[0] = ft_strchr_i((char *)input, *meta);
-        i[1] = i[0];
-        if (i[0] && (i[0] != j) && i[0] + 1 != *meta)
+        // i[1] = i[0];
+        if (i[0] && (i[0] != j) && i[0] + 1 != *meta && (i[0] <= j))
         {
             // substr ptr meta input-a input-b
-            tmp = ft_substr((const char *)input, (i[0] - 1), (j - i[0])); 
+            tmp = ft_substr((const char *)input, 0, (j - (i[0]))); 
             //strchr meta input-b get ptr 
+            // printf("DEBUG: init_split : %s: \n", tmp);
             dest = ft_strjoin(tmp, " ");
-            tmp = ft_strjoin(dest, meta);
-            tmp = ft_strjoin(tmp, " ");
-            dest =ft_substr((const char *)input, (i[0] + 1), (j - (i[0] + 1)));  
+            tmp = ft_strjoin(dest, meta); // ?? 
+            if ((input[i[0]] + 1) != (32 || meta))
+                tmp = ft_strjoin(tmp, " ");
+            dest =ft_substr((const char *)input, (i[0] + 1), (j - (i[0])));  
             tmp = ft_strjoin(tmp, dest);           
-            
+            // printf("DEBUG: init_split++ : %s: \n", tmp); 
         // substr ptr meta input -b input-c
         // strjoin -a + " " + -b + " " + -c
+            i[1] = ft_strchr_i((char *)dest, *meta);
+            if (i[1])
+                break;
         }
         i[0]++;
+
     }
+    printf("DEBUG: init_split == %s \n", tmp);
     input = tmp; 
     free(tmp);
     // strchr(me
