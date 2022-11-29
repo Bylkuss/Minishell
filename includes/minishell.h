@@ -60,12 +60,7 @@ enum EndType{
 };
 
 typedef struct s_token t_token;
-	// typedef struct s_dot t_dot;
-	// typedef struct s_mini t_mini;
 typedef struct s_table t_table;
-
-
-
 
 
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	*/
@@ -82,9 +77,6 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 };						//t_token;
 
 
-
-
-
 struct s_table
 {
 	char 	**envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
@@ -94,7 +86,6 @@ struct s_table
 	int 	tk_num;	// 	how many tokens ref by div_token
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
-
 
 // struct s_dot		/*  ENVP BUILDER */  t_table
 	// {
@@ -134,6 +125,7 @@ char		**div_token(char *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
+char		*node_check(char *input, char meta);
 t_table		*token_nodes(t_table *tab);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
