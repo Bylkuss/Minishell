@@ -100,13 +100,13 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
-    // meta_chk >> insert space in before/after it if neede
-        // input = node_check(input, "|");
+    // node_chk >> insert space in before/after it if neede
+    // input = node_check(input, "|");
         //  input divided by space ::    
         //      error space split need to check if no-space-too
     //
         
-    tab->node = init_split((const char *)input, " ");
+    tab->node = init_split(input, " ");
     
     if (tab->node)
     {

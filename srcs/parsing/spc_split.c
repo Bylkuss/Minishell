@@ -44,6 +44,8 @@ char *node_check(char *input, char *meta)
         }
         i[0]++;
     }
+    input = tmp; 
+    free(tmp);
     // strchr(me
     return(input);
 
@@ -114,7 +116,7 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         return (arr);
 }
 
-/*    readline input _init_split_  NODE MAKER   */
+/*    (old spc_split) readline input _init_split_  NODE MAKER   */
 char **init_split(const char *s, char *set)
 {
     char    **arr;
@@ -131,7 +133,7 @@ char **init_split(const char *s, char *set)
     printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
     if (!s)
         return (NULL);
-    arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
+    // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
     // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
                                         // insert spc. where it needs watch for dbl..
     nodes = node_count(s, set, count);     // substr 
