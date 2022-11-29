@@ -14,10 +14,29 @@
 
 extern int g_status;
 
+char **node_check(char **input, char *meta)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0; 
+    while(input && **input != '\0')
+    {
+        //strchr meta_input get ptr
+        // substr ptr meta input-a input-b
+        //strchr meta input-b get ptr 
+        // substr ptr meta input -b input-c
+        // strjoin -a + " " + -b + " " + -c
+    }
+    // strchr(me
+
+}
+
 /*       char **args = tab->cmds  :  token chunk    */
 static t_table *split_all(char **args, t_table *tab)  
 {
-    
+    char **nodes;
     int i;              //token->id 
     int quotes[2];
 
@@ -32,7 +51,12 @@ static t_table *split_all(char **args, t_table *tab)
         //expand_var ...  
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         //expand_path ...
-        tab->cmds[i] = div_token(args[i], "<|>", tab); 
+        nodes = div_token(args[i], "<|>", tab); 
+        // mx_ext (nodes(len + 1))
+        // mx_rpl (arg , node)
+        // free node
+
+
         //token divider  ...
             // watch out :: splt_all >> tab-cmds 
             //           :: tab->token <<
@@ -50,7 +74,9 @@ t_table  *parse_args(t_table *tab)
     //
     tab = split_all(tab->cmds[0], tab);
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
+
     // tab = token_nodes(tab);  
+    //node_token == token_builder ...  use of mx cmds[id] = tab->node
     /*   tab->node [*str]  sep.space. node -ID.less
         //    tab >> tab->token-> ... arg-set value ...TBD            
         //  
@@ -91,14 +117,21 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
+    // meta_chk >> insert space in before/after it if neede
+    intput = meta_chk(input, "|");
+
     //  input divided by space ::    
     //      error space split need to check if no-space-too
     //
         
-    *tab->cmds = space_split((const char *)input, " <|>");
+    tab->node = space_split((const char *)input, " ");
     
-    if (tab->cmds[0])
-        printf("\nOK TEST INPUT :: :: END\n");   
+    if (tab->node)
+    {
+        *tab->cmds = node_check(tab->node, "|");
+
+    }
+        // printf("\nOK TEST INPUT :: :: END\n");   
             // mx_display_tab(tab->cmds);
             // display_tkn(tab);
             // len = ft_mx_len(tab->node);

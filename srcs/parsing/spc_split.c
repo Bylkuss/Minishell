@@ -54,7 +54,7 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         // printf("\n::NODE_FILL_ BEGIN ::len =%d", len);      // DEBUG
         while (s[i[0]])// && i[0] <= len)
         {
-            while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
+            if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
                 i[0]++;
             i[1] = i[0];
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
