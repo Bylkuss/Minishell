@@ -24,7 +24,7 @@
 		// 	id = 0;
 		// 	cmd = 0;
 		// 	nod = 0;
-
+		//
 		// 	// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 		// 	if (*nodes && (nod < token->tkn_len) && (cmd < tab->tk_num))
 		// 	{
@@ -86,8 +86,11 @@ t_table	*token_nodes(t_table *tab)
 		// token->tkn_len	(int)
 	// needed to token command
 	
+	
+	//
+	//
 	i = 0;
-	while (tab->cmds[i] && i < tab->tk_num)
+	while (tab->node[i] && i < tab->tk_num)
 	{
 			// tab->token->id = i;
 			tab->cmds[i] = tab->node;

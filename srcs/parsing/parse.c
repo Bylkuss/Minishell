@@ -14,8 +14,6 @@
 
 extern int g_status;
 
-
-
 /*       char **args = tab->cmds  :  token chunk    */
 static char **split_all(char **args, t_table *tab)  
 {
@@ -35,13 +33,12 @@ static char **split_all(char **args, t_table *tab)
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         //expand_path ...
         nodes = div_token(args[i], "<|>", tab); 
-        // mx_ext (nodes(len + 1))
-        // ft_mx_ext(args, )
-                //
         // mx_rpl (arg , node)
+        ft_mx_rpl(&args, nodes, i);
+        //
+        i += ft_mx_len(nodes) - 1;
         // free node
-
-
+        ft_mx_free(&nodes);
         //token divider  ...
             // watch out :: splt_all >> tab-cmds 
             //           :: tab->token <<
@@ -57,7 +54,9 @@ t_table  *parse_args(t_table *tab)
     i = 0;
     printf("DEBUG: parse...\n");
     //
-    tab->node = split_all(tab->cmds[0], tab);
+        // wo! check node / cmds    ** / *** 
+    //
+    *tab->cmds = split_all(tab->cmds[0], tab);
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     tab = token_nodes(tab);  
     //node_token == token_builder ...  use of mx cmds[id] = tab->node
@@ -102,10 +101,9 @@ t_table  *check_args(char *input, t_table *tab)
     if (input[0] != '\0')
         add_history(input);
     // meta_chk >> insert space in before/after it if neede
-    // input = node_check(input, "|");
-
-    //  input divided by space ::    
-    //      error space split need to check if no-space-too
+        // input = node_check(input, "|");
+        //  input divided by space ::    
+        //      error space split need to check if no-space-too
     //
         
     tab->node = init_split((const char *)input, " ");

@@ -54,13 +54,13 @@ static int	token_count(const char *s, char *set, int count)
 	// 	char **cmd;
 	// 	char ***mx;
 	// 	int id;
-
+	// 
 	// 	id = 0;
 	// 	// cmd = NULL;
 	// 	// token->cmd = tab->node;
 	// 	cmd = tab->node; //[id][node[;]
 	// 	// cmd = tab->node;
-
+	// 
 	// 	if (token->cmd && (token->id < token->cmd_len) && (token->id < tab->token_len))
 	// 	{
 	// 		printf("\n\n\n");
