@@ -26,7 +26,7 @@ char *node_check(char *input, char *meta)
     while(input && input[i[0]] != '\0')
     {
         //strchr meta_input get ptr
-        i[0] = ft_strchr_i((char *)input, *meta);
+        i[0] = ft_strchr_i((char *)input, *meta)
         // i[1] = i[0];
         if (i[0] && (i[0] != j) && i[0] + 1 != *meta && (i[0] <= j))
         {

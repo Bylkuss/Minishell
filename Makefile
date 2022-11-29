@@ -39,7 +39,7 @@ $(NAME): 	$(OBJS)
 
 
 clean	:
-				$(RM) $(OBJ_F)
+				$(RM) $(OBJ_F) $(LIBFT)
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean
