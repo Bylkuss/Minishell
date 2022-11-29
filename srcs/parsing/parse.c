@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 01:08:59 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/29 12:53:10 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 extern int g_status;
 
 /*       char **args = tab->cmds  :  token chunk    */
-static t_table *split_all(char **args, t_table *tab)  
+static char **split_all(char **args, t_table *tab)  
 {
-                        // char **aux;
+    char **nodes;
     int i;              //token->id 
     int quotes[2];
 
     i = -1;
+    printf("DEBUG : into... split all\n");
     while (args && args[++i])       
     {
         // args = tab->cmds[id]
@@ -31,37 +32,48 @@ static t_table *split_all(char **args, t_table *tab)
         //expand_var ...  
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         //expand_path ...
-        tab = div_token(args[i], "<|>", tab); 
+        nodes = div_token(args[i], "<|>", tab); 
+        // mx_rpl (arg , node)
+        ft_mx_rpl(&args, nodes, i);
+        //
+        i += ft_mx_len(nodes) - 1;
+        // free node
+        ft_mx_free(&nodes);
         //token divider  ...
             // watch out :: splt_all >> tab-cmds 
             //           :: tab->token <<
     }
-    return (tab); 
+    // mx_display_tab(args);
+    return (args); 
 }
 
-static t_token *parse_args(t_table *tab)
+t_table  *parse_args(t_table *tab)
 {
     int i;   
         // int is_exit; // is_exit = 0;
     i = 0;
-    tab = split_all(tab->cmds, tab);
+    printf("DEBUG: parse...\n");
+    //
+        // wo! check node / cmds    ** / *** 
+    //
+    *tab->cmds = split_all(tab->cmds[0], tab);
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     tab = token_nodes(tab);  
-    //    tab >> tab->token-> ... arg-set value ...TBD            
-    //  
-    if (tab->token)
-        display_tkn(tab);
-    /*
-    if (!tab->node)
-        return (tab->token);
-                    //    args breaker => cmd_token*/ 
+    //node_token == token_builder ...  use of mx cmds[id] = tab->node
     /*   tab->node [*str]  sep.space. node -ID.less
+        //    tab >> tab->token-> ... arg-set value ...TBD            
+        //  
+        // if (tab->token)
+        //     display_tkn(tab);
+   
+        if (!tab->node)
+            return (tab->token);
+                    //    args breaker => cmd_token
 
         // tab->
         // i = ft_lstsize(tab->cmds);
         // g_status = builtin(p, p->cmds, &is_exit, 0);             
-    */
-    
+    */    
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
@@ -76,15 +88,11 @@ static t_token *parse_args(t_table *tab)
             //     return (NULL);
         // }
     */
-    return (tab->token);
+    return (tab);
 }
 
 t_table  *check_args(char *input, t_table *tab)  
 {
-   
-    // int len;
-
-    // len = 0;
     if (!input)
     {
         printf("exit\n");
@@ -92,41 +100,47 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
+    // node_chk >> insert space in before/after it if neede
+    input = node_check(input, "|");
         //  input divided by space ::    
-    printf("GO_GO_GO\n");    // DEBUG
-    tab->cmds = space_split((const char *)input, " ");
-    if (tab->cmds[0])
+        //      error space split need to check if no-space-too
+    //
+        
+    tab->node = init_split(input, " ");
+    
+    if (tab->node)
     {
-        printf("\nOK TEST INPUT!");           //  DEBUG
-        mx_display_tab(tab->cmds);
-        // display_tkn(tab);
-        printf(":: :: !!!");
-        // len = ft_mx_len(tab->node);
-        // printf("\n%d :::\n", len);
-        // mx_display_tab(tab->cmds);
-        return (tab);
+        // *tab->cmds = node_check(tab->node, "|");
+
     }
-    else
-        exit(0);
+        // printf("\nOK TEST INPUT :: :: END\n");   
+            // mx_display_tab(tab->cmds);
+            // display_tkn(tab);
+            // len = ft_mx_len(tab->node);
+            // printf("\n%d :::\n", len);
+            // mx_display_tab(tab->cmds);
+            // return (tab);
+    // if (tab->cmds[0])
+    //     printf("DEBUG : into... check_arg\n");
+    printf("GO_GO_GO>>PARSE\n");    // DEBUG
+    tab = parse_args(tab);    
         // exit(0);
         // if (tab->cmds && tab->tk_num > 0)
         // else
         //     return (NULL);
-    tab->token = parse_args(tab);    
     /*
-    if (tab && tab->token)
-        display_tkn(tab);
+            if (tab && tab->token)
+                display_tkn(tab);
 
-       token need to be ID _cmd, _attr, _end   
-    */
-
-    /*
-    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
-    {
-        // mx_display_tab(tab->cmds);
-        // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-        //  - 1], p->envp, 1);                                    
-            //     ft_lstclear(&p->cmds, free_content);
+            token need to be ID _cmd, _attr, _end   
+        */
+        /*
+            if (tab && tab->cmds && tab->token && tab->tk_num > 0)
+            {
+                // mx_display_tab(tab->cmds);
+                // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+                //  - 1], p->envp, 1);                                    
+                    //     ft_lstclear(&p->cmds, free_content);
     }
 
     */
@@ -136,8 +150,8 @@ t_table  *check_args(char *input, t_table *tab)
 
 /*
 from check.c
-    check_args  => take input to be space_split to build table command
-    space_split    => will do that space_split into a tab **       ==> space_split.c
+    check_args  => take input to be init_split to build table command
+    space_split    => will do that init_split into a tab **       ==> init_split.c
     parse_args  => call fill_node  return *p (list-> p.cmds)    ==> nodes.c
     split_all   =>  token's alternate end if it's not! 
                     div_token  ('<','>','|')                    ==> divide.c
