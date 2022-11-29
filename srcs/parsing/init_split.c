@@ -12,6 +12,11 @@
 
 #include "../../includes/minishell.h"
 
+
+//  set dbl pipe
+//      spc-bef / spc-aft
+//
+
 char *node_check(char *input, char *meta)
 {
     char *tmp;
@@ -19,9 +24,9 @@ char *node_check(char *input, char *meta)
     int i[2];
     int j;
 
+    printf("DEBUG : node_check :: %s \n", input);
     i[0] = 0;
     i[1] = 0;
-    j = 0; 
     j = ft_strlen(input);
     while(input && input[i[0]] != '\0')
     {
@@ -50,10 +55,9 @@ char *node_check(char *input, char *meta)
         i[0]++;
 
     }
-    printf("DEBUG: init_split == %s \n", tmp);
+    printf("DEBUG  :after_check :: %s \n", input);
     input = tmp; 
     free(tmp);
-    // strchr(me
     return(input);
 
 }
@@ -127,6 +131,7 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
 char **init_split(const char *s, char *set)
 {
     char    **arr;
+    char    *input;
     int     nodes;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
@@ -138,12 +143,16 @@ char **init_split(const char *s, char *set)
     count[1] = 0;
     arr = NULL;
     printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
+
     if (!s)
         return (NULL);
-    // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
-    // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
-                                        // insert spc. where it needs watch for dbl..
-    nodes = node_count(s, set, count);     // substr 
+    else
+        input= node_check(s, "|");
+        
+        // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
+                    // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
+                    // insert spc. where it needs watch for dbl..
+    nodes = node_count(input, set, count);     // substr 
     if (nodes == -1)
         return (NULL);
     printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
