@@ -31,12 +31,11 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 			@mkdir -p $(S_OBJ) $(OBJS_DIRS)
 			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
-all		:	$(NAME)
-
-$(NAME): 	$(OBJS)
+$(NAME): 	$(OBJS) 
 		-@$(MAKE) -C $(F_DIR) -s
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
+all		:	$(NAME) 
 
 clean	: 
 				$(RM) -r $(S_OBJ)
@@ -44,13 +43,12 @@ clean	:
 fclean	:	clean
 				$(RM) $(OBJ_F) $(LIBFT)
 				$(RM) $(O_DIR)
-				$(RM) $(NAME)
+				$(RM) $(NAME) 
 
-rf		:   clean all
 
 re		:	fclean all
 
-ref		:	fclean all
+ref		:	fclean sub
 
 
-.PHONY	:	clean fclean re bonus
+.PHONY	:	clean fclean re sub

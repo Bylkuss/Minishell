@@ -61,7 +61,7 @@ t_table  *parse_args(t_table *tab)
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     *tab->cmds = split_all(tab->node, tab);
     //node_token == token_builder ...  use of mx cmds[id] = tab->node
-    tab = token_nodes(tab);  //try w/ tab-> *cmd
+    // tab = token_nodes(tab);  //try w/ tab-> *cmd
 
         /*   tab->node [*str]  sep.space. node -ID.less
             //    tab >> tab->token-> ... arg-set value ...TBD            
