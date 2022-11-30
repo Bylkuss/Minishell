@@ -48,7 +48,7 @@ static char **split_all(char **args, t_table *tab)
 }
 
 
-//  parse still w/ noses
+//  parse still w/ nodes
 
 t_table  *parse_args(t_table *tab)
 {
@@ -56,15 +56,13 @@ t_table  *parse_args(t_table *tab)
         // int is_exit; // is_exit = 0;
     i = 0;
     printf("DEBUG: parse...\n");
-    //
-        // wo! check node / cmds    ** / *** 
-    //
-    *tab->cmds = split_all(tab->node, tab);
-
+     //        // wo! check node / cmds    ** / ***     //
 
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
-    // tab = token_nodes(tab);  //try w/ tab-> *cmd
+    *tab->cmds = split_all(tab->node, tab);
     //node_token == token_builder ...  use of mx cmds[id] = tab->node
+    tab = token_nodes(tab);  //try w/ tab-> *cmd
+
         /*   tab->node [*str]  sep.space. node -ID.less
             //    tab >> tab->token-> ... arg-set value ...TBD            
             //  
@@ -106,15 +104,12 @@ t_table  *check_args(char *input, t_table *tab)
     if (input[0] != '\0')
         add_history(input);
         
-     // node_chk >> insert space in before/after it if neede
-    input = node_check(input, "|");
-        //  input divided by space ::    
-        //      error space split need to check if no-space-too
         
     tab->node = init_split(input, " ");
-    
+
     if (tab->node)
     {
+        mx_display_tab(tab->node);
         // *tab->cmds = node_check(tab->node, "|");
 
         // }
@@ -123,7 +118,6 @@ t_table  *check_args(char *input, t_table *tab)
                 // display_tkn(tab);
                 // len = ft_mx_len(tab->node);
                 // printf("\n%d :::\n", len);
-                // mx_display_tab(tab->cmds);
                 // return (tab);
         // if (tab->cmds[0])
         //     printf("DEBUG : into... check_arg\n");

@@ -24,39 +24,51 @@ char *node_check(char *input, char *meta)
     int i[2];
     int j;
 
-    printf("DEBUG : node_check :: %s \n", input);
+    // printf("DEBUG : node_check :: %s \n", input);
     i[0] = 0;
     i[1] = 0;
     j = ft_strlen(input);
-    while(input && input[i[0]] != '\0')
+    i[0] = ft_strchr_i((char *)input, *meta);
+    if ((input[i[0]] - 1) != 32)
     {
-        //strchr meta_input get ptr
-        i[0] = ft_strchr_i((char *)input, *meta);
-        if ((input[i[0]] + 1) == *meta)
-             i[1] = (i[0] + 1);
-        if (i[0] && (i[0] != j) && i[0] + 1 != *meta && (i[0] <= j))
-        {
-            // substr ptr meta input-a input-b
-            tmp = ft_substr((const char *)input, 0, (j - (i[0]))); 
-            //strchr meta input-b get ptr 
-            // printf("DEBUG: init_split : %s: \n", tmp);
-            dest = ft_strjoin(tmp, " ");
-            tmp = ft_strjoin(dest, meta); // ?? 
-            if ((input[i[0]] + 1) != (32 || meta))
-                tmp = ft_strjoin(tmp, " ");
-            dest =ft_substr((const char *)input, (i[0] + 1), (j - (i[0])));  
-            tmp = ft_strjoin(tmp, dest);           
-            // printf("DEBUG: init_split++ : %s: \n", tmp); 
-        // substr ptr meta input -b input-c
-        // strjoin -a + " " + -b + " " + -c
-            i[1] = ft_strchr_i((char *)dest, *meta);
-            if (i[1])
-                break;
-        }
-        i[0]++;
-
+        tmp = ft_substr((const char *)input, 0, (j - (i[0] + 1)));
+        dest = ft_substr((const char *)input, i[0], (j - (i[0] - 1)));
+        tmp = ft_strjoin(tmp, " ");
+        dest = ft_strjoin(tmp, dest);
     }
-    printf("DEBUG  :after_check :: %s \n", input);
+        // input = ins_spc_ptr(input, i[0] - 1);
+        // printf("bingo\n");
+
+    // while(input && input[i[0]] != '\0')
+    // {
+    //     //strchr meta_input get ptr
+    //     // if ((input[i[0]] - 1) != " ")
+    //     //      i[1] = (i[0] + 1);
+    //         // if ((input[i[0]] + 1) == *meta)
+    //         //  i[1] = (i[0] + 1);
+    //     if (i[0] && (input[i[0] + 1] != *meta) && (i[0] < j))
+    //     {
+    //         // substr ptr meta input-a input-b
+    //         tmp = ft_substr((const char *)input, 0, (j - (i[0]))); 
+    //         //strchr meta input-b get ptr 
+    //         printf("DEBUG: init_split : %s: \n", tmp);
+    //         dest = ft_strjoin(tmp, " ");
+    //         // tmp = ft_strjoin(dest, meta); // ?? 
+    //         // if ((input[i[0]] - 1) != 32 )//|| (input[i[0]] - 1) != *meta)
+    //         //     tmp = ft_strjoin(tmp, " ");
+    //         dest =ft_substr((const char *)input, (i[0] + 1), (j - (i[0])));  
+    //         tmp = ft_strjoin(tmp, dest);           
+    //         // printf("DEBUG: init_split++ : %s: \n", tmp); 
+    //             // substr ptr meta input -b input-c
+    //             // strjoin -a + " " + -b + " " + -c
+    //         i[1] = ft_strchr_i((char *)dest, *meta);
+    //         if (i[1])
+    //             break;
+    //     }
+    //     i[0]++;
+
+    // }
+    printf("DEBUG  :after_check :: %s \n", dest);
     input = tmp; 
     free(tmp);
     return(input);
@@ -121,10 +133,10 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
             // i[0]++;
         }
-        // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
-        // // mx_display_tab(arr);
-        // printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
-        // printf("::NODE_FILL_ END \n");      // DEBUG
+            // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
+            // // mx_display_tab(arr);
+            // printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
+            // printf("::NODE_FILL_ END \n");      // DEBUG
         return (arr);
 }
 
@@ -144,12 +156,13 @@ char **init_split(const char *s, char *set)
     count[1] = 0;
     arr = NULL;
     printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
-
-    if (!s)
-        return (NULL);
+        // node_chk >> insert space in before/after it if needed
+        //  input divided by space ::  error if no-space-too
+    if (s)
+        input = node_check((char *)s, "|");
     else
-        input= node_check((char *)s, "|");
-        
+        return (NULL);
+      
         // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
                     // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
                     // insert spc. where it needs watch for dbl..
@@ -163,7 +176,7 @@ char **init_split(const char *s, char *set)
     arr = node_fill(arr, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     arr[nodes] = NULL;
     printf("DEBUG: init_split end!\n");
-    return (arr);   
+    return (arr);   // ret(tab->node)
 }
 
 /*

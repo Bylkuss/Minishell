@@ -38,13 +38,15 @@ $(NAME): 	$(OBJS)
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 
-clean	:
-				$(RM) $(OBJ_F) $(LIBFT)
+clean	: 
 				$(RM) -r $(S_OBJ)
 				
 fclean	:	clean
-				$(RM) $(O_DIR) 
+				$(RM) $(OBJ_F) $(LIBFT)
+				$(RM) $(O_DIR)
 				$(RM) $(NAME)
+
+rf		:   clean all
 
 re		:	fclean all
 

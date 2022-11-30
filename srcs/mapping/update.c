@@ -12,6 +12,11 @@
 
 #include "../../includes/minishell.h"
 
+    // char *ins_spc_ptr(char *str, int ptr)
+    // {
+
+    // }
+
 static void update_output(char ***mx, int fd)
 {
     char **aux;
