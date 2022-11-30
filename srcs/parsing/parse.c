@@ -47,6 +47,9 @@ static char **split_all(char **args, t_table *tab)
     return (args); 
 }
 
+
+//  parse still w/ noses
+
 t_table  *parse_args(t_table *tab)
 {
     int i;   
@@ -56,9 +59,11 @@ t_table  *parse_args(t_table *tab)
     //
         // wo! check node / cmds    ** / *** 
     //
-    *tab->cmds = split_all(tab->cmds[0], tab);
+    *tab->cmds = split_all(tab->node, tab);
+
+
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
-    tab = token_nodes(tab);  
+    // tab = token_nodes(tab);  //try w/ tab-> *cmd
     //node_token == token_builder ...  use of mx cmds[id] = tab->node
         /*   tab->node [*str]  sep.space. node -ID.less
             //    tab >> tab->token-> ... arg-set value ...TBD            
@@ -73,7 +78,7 @@ t_table  *parse_args(t_table *tab)
             // tab->
             // i = ft_lstsize(tab->cmds);
             // g_status = builtin(p, p->cmds, &is_exit, 0);             
-    */    
+         */    
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
@@ -122,28 +127,28 @@ t_table  *check_args(char *input, t_table *tab)
                 // return (tab);
         // if (tab->cmds[0])
         //     printf("DEBUG : into... check_arg\n");
-    printf("GO_GO_GO>>PARSE\n");    // DEBUG
-    tab = parse_args(tab);    
+        printf("GO_GO_GO>>PARSE\n");    // DEBUG
+        tab = parse_args(tab);    // tab->node
         // exit(0);
-        // if (tab->cmds && tab->tk_num > 0)
-        // else
-        //     return (NULL);
-    /*
-            if (tab && tab->token)
-                display_tkn(tab);
+            // if (tab->cmds && tab->tk_num > 0)
+            // else
+            //     return (NULL);
+            /*
+                if (tab && tab->token)
+                    display_tkn(tab);
 
-            token need to be ID _cmd, _attr, _end   
-        */
-        /*
-            if (tab && tab->cmds && tab->token && tab->tk_num > 0)
-            {
-                // mx_display_tab(tab->cmds);
-                // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-                //  - 1], p->envp, 1);                                    
-                    //     ft_lstclear(&p->cmds, free_content);
+                token need to be ID _cmd, _attr, _end   
+            */
+            /*
+                if (tab && tab->cmds && tab->token && tab->tk_num > 0)
+                {
+                    // mx_display_tab(tab->cmds);
+                    // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
+                    //  - 1], p->envp, 1);                                    
+                        //     ft_lstclear(&p->cmds, free_content);
+    */
     }
 
-    */
     // free(input);
     return (tab); 
 }
