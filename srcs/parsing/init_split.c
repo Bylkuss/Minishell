@@ -23,30 +23,57 @@ char *pipe_check(char *input, char *meta)
     char *dest;
     int i[2];
     int j;
+    int padl;
 
     // printf("DEBUG : node_check :: %s \n", input);
     i[0] = 0;
     i[1] = 0;
-    j = ft_strlen(input);
+    padl = 1;
     i[0] = ft_strchr_i((char *)input, *meta);
     if (i[0])
     {
-        if ((input[i[0]] - 1) != 32) //|| (input[i[0]] - 1) != 124) // ni spc ni pip
+        if ((input[i[0]] + 1) != 32)
         {
-            tmp = ft_substr((const char *)input, 0, (j - (i[0] + 1)));
-            dest = ft_substr((const char *)input, i[0] + 1, (j - (i[0] - 1)));
-            tmp = ft_strjoin(tmp, " |");
-            if(((input[i[0]] + 1) != 124)) // && ((input[i[0]] + 1) != 32))
-                tmp = ft_strjoin(tmp, " ");     exit
+            // i[0]++;
+            j = ft_strlen(input);
+            if ((input[i[0]+ 1]) == 124)  // 124 *mete
+                padl = 2;
+            printf("\n :: %d padl:: \t input[i[0] + 1] = %d\n",padl, (input[i[0] + 1]));
+            tmp =  ft_substr((const char *)input, 0, (j - (i[0] - padl)));
+            dest = ft_substr((const char *)input, i[0] + padl, (j - (i[0] - padl)));
+            printf("DEBUG  :tmp_check  :: %s \n", tmp);
+            printf("DEBUG  :dest_check :: %s \n", dest);
+            tmp = ft_strjoin(tmp, " ");
             input = ft_strjoin(tmp, dest);
+            printf("DEBUG  :i + 1 != 32_check :: %s \n", input);
+        
         }
-            // tmp = ft_strjoin(tmp,dest);
-            // i[1] = ft_strchr_i((char *)dest, *meta);
-            // if ((input[i[1]] - 1) != 124 && (input[i[1]] + 1) != 32) 
+        if ((input[i[0]] - 1) != 32) 
+        {
+            j = ft_strlen(input);   
+            tmp = ft_substr((const char *)input, 0, (j - (i[0] + 1)));
+            dest = ft_substr((const char *)input, i[0], (j - (i[0] -1)));
+            tmp = ft_strjoin(tmp, " ");
+            input = ft_strjoin(tmp, dest);
+            // i[0]++;
+            printf("DEBUG  :i - 1 != 32_check :: %s \n", input);
+        }
     }
+        // else if (((input[i[0]] + 1) != 32))
+        // {
+        //     tmp = ft_substr((const char *)res, 0, (j - (i[0] - 2)));
+        //     dest = ft_substr((const char *)res, i[0] + 3, (j - (i[0] - 3)));
+        //     tmp = ft_strjoin(tmp, " "); 
+        //     res = ft_strjoin(tmp, dest);        
+        //     printf("DEBUG  :i + 1 != 32_check :: %s \n", res);   
+        // }
+        // input = ft_strjoin(tmp, dest);
+        input = ft_strjoin(tmp, dest);
+    // }
     free(tmp);
     free(dest);
     printf("DEBUG  :after_check :: %s \n", input);
+    // input = res;
     return(input);
         // input = ins_spc_ptr(input, i[0] - 1);
         // printf("bingo\n");
@@ -120,7 +147,6 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         q[0] = 0;
         q[1] = 0;
         len = ft_strlen(s);
-        printf("DEBUG: NODE >> len[%d]:: %s ::\n", len, s);
         // printf("\n::NODE_FILL_ BEGIN ::len =%d", len);      // DEBUG
         while (s[i[0]])// && i[0] <= len)
         {
@@ -137,12 +163,13 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 arr[i[2]++] = "\0";
             else
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
-            // i[0]++;
+            i[0]++;
         }
             // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
             // // mx_display_tab(arr);
             // printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
             // printf("::NODE_FILL_ END \n");      // DEBUG
+        printf("DEBUG: NODE >> len[%d]:: %s ::\n", len, s);
         return (arr);
 }
 
