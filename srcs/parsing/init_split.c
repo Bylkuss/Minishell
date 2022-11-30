@@ -31,8 +31,9 @@ char *node_check(char *input, char *meta)
     while(input && input[i[0]] != '\0')
     {
         //strchr meta_input get ptr
-        i[0] = ft_strchr_i((char *)input, *meta)
-        // i[1] = i[0];
+        i[0] = ft_strchr_i((char *)input, *meta);
+        if ((input[i[0]] + 1) == *meta)
+             i[1] = (i[0] + 1);
         if (i[0] && (i[0] != j) && i[0] + 1 != *meta && (i[0] <= j))
         {
             // substr ptr meta input-a input-b
@@ -147,7 +148,7 @@ char **init_split(const char *s, char *set)
     if (!s)
         return (NULL);
     else
-        input= node_check(s, "|");
+        input= node_check((char *)s, "|");
         
         // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
                     // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check

@@ -6,11 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/11/28 21:13:04 by gehebert         ###   ########.fr       */
-=======
-/*   Updated: 2022/11/29 12:53:10 by gehebert         ###   ########.fr       */
->>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
+/*   Updated: 2022/11/29 18:58:29 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +33,6 @@ static char **split_all(char **args, t_table *tab)
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         //expand_path ...
         nodes = div_token(args[i], "<|>", tab); 
-<<<<<<< HEAD
-        // mx_ext (nodes(len + 1))
-        // ft_mx_ext(args, )
-                //
-=======
->>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
         // mx_rpl (arg , node)
         ft_mx_rpl(&args, nodes, i);
         //
@@ -70,19 +60,19 @@ t_table  *parse_args(t_table *tab)
     //    tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     tab = token_nodes(tab);  
     //node_token == token_builder ...  use of mx cmds[id] = tab->node
-    /*   tab->node [*str]  sep.space. node -ID.less
-        //    tab >> tab->token-> ... arg-set value ...TBD            
-        //  
-        // if (tab->token)
-        //     display_tkn(tab);
-   
-        if (!tab->node)
-            return (tab->token);
-                    //    args breaker => cmd_token
+        /*   tab->node [*str]  sep.space. node -ID.less
+            //    tab >> tab->token-> ... arg-set value ...TBD            
+            //  
+            // if (tab->token)
+            //     display_tkn(tab);
+    
+            if (!tab->node)
+                return (tab->token);
+                        //    args breaker => cmd_token
 
-        // tab->
-        // i = ft_lstsize(tab->cmds);
-        // g_status = builtin(p, p->cmds, &is_exit, 0);             
+            // tab->
+            // i = ft_lstsize(tab->cmds);
+            // g_status = builtin(p, p->cmds, &is_exit, 0);             
     */    
     i = 0;
     while (i-- > 0)
@@ -110,42 +100,28 @@ t_table  *check_args(char *input, t_table *tab)
     }
     if (input[0] != '\0')
         add_history(input);
-<<<<<<< HEAD
-    // meta_chk >> insert space in before/after it if neede
-    // input = node_check(input, "|");
-
-    //  input divided by space ::    
-    //      error space split need to check if no-space-too
-=======
-    // node_chk >> insert space in before/after it if neede
+        
+     // node_chk >> insert space in before/after it if neede
     input = node_check(input, "|");
         //  input divided by space ::    
         //      error space split need to check if no-space-too
->>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
-    //
         
     tab->node = init_split(input, " ");
     
-<<<<<<< HEAD
-    // if (tab->node)
-    // {
-    //     *tab->cmds = node_check(tab->node, "|");
-=======
     if (tab->node)
     {
         // *tab->cmds = node_check(tab->node, "|");
->>>>>>> 87dbeb741bac80c12981c5295cf57488f8c7664b
 
-    // }
-        // printf("\nOK TEST INPUT :: :: END\n");   
-            // mx_display_tab(tab->cmds);
-            // display_tkn(tab);
-            // len = ft_mx_len(tab->node);
-            // printf("\n%d :::\n", len);
-            // mx_display_tab(tab->cmds);
-            // return (tab);
-    // if (tab->cmds[0])
-    //     printf("DEBUG : into... check_arg\n");
+        // }
+            // printf("\nOK TEST INPUT :: :: END\n");   
+                // mx_display_tab(tab->cmds);
+                // display_tkn(tab);
+                // len = ft_mx_len(tab->node);
+                // printf("\n%d :::\n", len);
+                // mx_display_tab(tab->cmds);
+                // return (tab);
+        // if (tab->cmds[0])
+        //     printf("DEBUG : into... check_arg\n");
     printf("GO_GO_GO>>PARSE\n");    // DEBUG
     tab = parse_args(tab);    
         // exit(0);
