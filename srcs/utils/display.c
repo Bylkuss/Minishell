@@ -4,11 +4,11 @@
 
 void mx_display_tab(char **tab)
 {
-    int i = -1;
-    if (tab)// && tab)
+    int i = 0;
+    if (tab[i])// && tab[0])
     {
-        while(*tab[++i])
-            printf ("%s :: ", tab[i]);
+        while(tab[i++])
+            printf ("%s :: \n", tab[i]);
         printf (" :: \n" );
     }
 }

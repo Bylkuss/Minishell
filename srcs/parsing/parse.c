@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/25 01:08:59 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/30 11:04:10 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ t_table  *check_args(char *input, t_table *tab)
     if (input[0] != '\0')
         add_history(input);
         //  input divided by space ::    
-    printf("GO_GO_GO\n");    // DEBUG
+    // printf("GO_GO_GO\n");    // DEBUG
     tab->cmds = space_split((const char *)input, " ");
     if (tab->cmds[0])
     {
-        printf("\nOK TEST INPUT!");           //  DEBUG
-        mx_display_tab(tab->cmds);
+        // printf("\nOK TEST INPUT!");           //  DEBUG
+        // mx_display_tab(tab->cmds);
         // display_tkn(tab);
-        printf(":: :: !!!");
+        // printf(":: :: !!!");
         // len = ft_mx_len(tab->node);
         // printf("\n%d :::\n", len);
         // mx_display_tab(tab->cmds);

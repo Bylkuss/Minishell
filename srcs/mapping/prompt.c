@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 22:13:16 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/11/30 10:55:23 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-extern int g_status;
+extern int	g_status;
 
 static char *get_home(t_table *tab)
 {
@@ -40,9 +40,9 @@ static char *get_home(t_table *tab)
 
 static char *get_user(t_table *tab)
 {
-    char **user;
-    char *tmp;
-    char *tmp2;
+	char	**user;
+	char	*tmp;
+	char	*tmp2;
 
     user = NULL;
     tmp2 = NULL;
