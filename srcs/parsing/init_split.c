@@ -39,40 +39,41 @@ char **pipe_check(char *input, char *meta)
 
     if ((input[i[0] - 1]) != 32 && (input[i[0]+ 1]) == 124) 
     {
-        arr[j] = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0])));
-        arr[j++] = ft_substr((const char *)input, i[0] + 2, (ft_strlen(input) - (i[0] + 2)));
+        tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] - 1)));
+        dest = ft_substr((const char *)input, i[0] + 2, (ft_strlen(input) - (i[0] + 1)));
         printf("DEBUG -1 :tmp_check  ::%s: \n", arr[j]);
         printf("DEBUG -1 :dest_check ::%s: \n", arr[j + 1]);
-        // tmp = ft_strjoin(tmp, " ");
-        // input = ft_strjoin(tmp, dest);
+        tmp = ft_strjoin(tmp, " ");
+        input = ft_strjoin(tmp, dest);
         // i[0]++;
         printf("DEBUG  :i - 1 != 32_check :: %s \n\n", input);
-    }
-    if ((input[i[0]+ 1]) != 32 && (input[i[0]+ 1]) == 124)  // len 
-    {
-        i[0] = ft_strchr_i((char *)input, *meta);
-        // j = ft_strlen(input) - (i[0] - i[1]);
-        tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - i[1]%2)); //  1p () :: 2p ([0]-[1])
-        dest = ft_substr((const char *)input, ((i[0] + i[1])), (ft_strlen(input) - (i[1] )));
-        printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
-        printf("DEBUG +1 :dest_check ::%s: \n", dest);
-        // tmp = ft_strjoin(tmp, " ");
-        // input = ft_strjoin(tmp, dest);
-        printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
-    
-    }
-    if ((input[i[0] - 1]) != 32) 
+    } 
+    else if ((input[i[0] - 1]) != 32) 
     {
         tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] + i[1])));
         dest = ft_substr((const char *)input, i[0], (ft_strlen(input) -  i[0]));
         printf("DEBUG -1 :tmp_check  ::%s: \n", tmp);
         printf("DEBUG -1 :dest_check ::%s: \n", dest);
-        // tmp = ft_strjoin(tmp, " ");
-        // input = ft_strjoin(tmp, dest);
+        tmp = ft_strjoin(tmp, " ");
+        input = ft_strjoin(tmp, dest);
         // i[0]++;
         printf("DEBUG  :i - 1 != 32_check :: %s \n\n", input);
     }
-    if ((input[i[0]+ 1]) != 32)  // len 
+
+    if ((input[i[0] + 1]) != 32 && (input[i[0]+ 1]) == 124)  // len 
+    {
+        i[0] = ft_strchr_i((char *)input, *meta);
+        // j = ft_strlen(input) - (i[0] - i[1]);
+        tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - 2)); //  1p () :: 2p ([0]-[1])
+        dest = ft_substr((const char *)input, ((i[0] +2)), (ft_strlen(input) - (i[0] )));
+        printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
+        printf("DEBUG +1 :dest_check ::%s: \n", dest);
+        tmp = ft_strjoin(tmp, " ");
+        input = ft_strjoin(tmp, dest);
+        printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
+    
+    }
+    else if ((input[i[0] + 1]) != 32)  // len 
     {
         i[0] = ft_strchr_i((char *)input, *meta);
         // j = ft_strlen(input) - (i[0] - i[1]);
@@ -80,8 +81,8 @@ char **pipe_check(char *input, char *meta)
         dest = ft_substr((const char *)input, ((i[0] + i[1])), (ft_strlen(input) - (i[1] )));
         printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
         printf("DEBUG +1 :dest_check ::%s: \n", dest);
-        // tmp = ft_strjoin(tmp, " ");
-        // input = ft_strjoin(tmp, dest);
+        tmp = ft_strjoin(tmp, " ");
+        input = ft_strjoin(tmp, dest);
         printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
     
     }
