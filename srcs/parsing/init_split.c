@@ -33,7 +33,7 @@ char *pipe_check(char *input, char *meta)
         p[3] = ft_strlen(input);
         if ((input[p[1] + 1]) == 124)
             p[2] = p[1] + 2;
-        printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
+        // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
         srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
         dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
@@ -127,7 +127,7 @@ char **init_split(const char *s, char *set)
     count[0] = 0;
     count[1] = 0;
     arr = NULL;
-    printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
+    // printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
         // node_chk >> insert space in before/after it if needed
         //  input divided by space ::  error if no-space-too
     if (s)
@@ -143,13 +143,14 @@ char **init_split(const char *s, char *set)
     nodes = node_count((const char *)input, set, count);     // substr 
     if (nodes == -1)
         return (NULL);
-    printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
+    // printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
     arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
     if (!arr)
         return (NULL);
     arr = node_fill(arr, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+
     arr[nodes] = NULL;
-    // printf("DEBUG: init_split end!\n");
+    mx_display_tab(arr);
     return (arr);   // ret(tab->node)
 }
 
