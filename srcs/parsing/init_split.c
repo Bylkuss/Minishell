@@ -23,13 +23,13 @@ char **pipe_check(char *input, char *meta)
     char *dest;
     char **arr;
     int i[2];
-    int j;      //arr count
+    // int j;      //arr count
 
     // printf("DEBUG : node_check :: %s \n", input);
     arr = NULL;
     i[0] = ft_strchr_i((char *)input, *meta);
     i[1] = 1;
-    j = 0;
+    // j = 0;
     // if (!i[0])
     //     return (input);
     // if (i[0] && (input[i[0]+ 1]) == 124) 
@@ -37,54 +37,62 @@ char **pipe_check(char *input, char *meta)
     //     i[1]++;
     // }
 
-    if ((input[i[0] - 1]) != 32 && (input[i[0]+ 1]) == 124) 
+    i[0] = ft_strchr_i((char *)input, *meta);
+    if (input[i[0]+ 1] == 124)  //  found pipe +followed pipe
     {
-        tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] - 1)));
-        dest = ft_substr((const char *)input, i[0] + 2, (ft_strlen(input) - (i[0] + 1)));
-        printf("DEBUG -1 :tmp_check  ::%s: \n", arr[j]);
-        printf("DEBUG -1 :dest_check ::%s: \n", arr[j + 1]);
-        tmp = ft_strjoin(tmp, " ");
-        input = ft_strjoin(tmp, dest);
-        // i[0]++;
-        printf("DEBUG  :i - 1 != 32_check :: %s \n\n", input);
+        if ((input[i[0] + 2]) != 32 )  // spc aft 2pipe
+        {
+            // j = ft_strlen(input) - (i[0] - i[1]);
+            printf("\npadl check i[0] =%d:: \n", input[i[0] + 3]);
+            tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - 1)); //  1p () :: 2p ([0]-[1])
+            dest = ft_substr((const char *)input, ((i[0] +2)), (ft_strlen(input) - (i[0] )));
+            printf("DEBUG +1 DP:tmp_check  ::%s: \n", tmp);
+            printf("DEBUG +1 DP:dest_check ::%s: \n", dest);
+            tmp = ft_strjoin(tmp, " ");
+            input = ft_strjoin(tmp, dest);
+            printf("DEBUG  DP:i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
+            // i[0]++;
+        }
+        if ((input[i[0] - 1]) != 32) //spc bef 2pipe
+        {
+            printf("\npadl check i[0] =%d:: \n", input[i[0] + 1]);
+            tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] + 2)));
+            dest = ft_substr((const char *)input, i[0] , (ft_strlen(input) - (i[0] )));
+            printf("DEBUG -1 DP:tmp_check  ::%s: \n", tmp);
+            printf("DEBUG -1 DP:dest_check ::%s: \n", dest);
+            tmp = ft_strjoin(tmp, " ");
+            input = ft_strjoin(tmp, dest);
+            printf("DEBUG  DP:i - 1 != 32_check :: %s \n\n", input);
+            i[0]++;
+        }
     } 
-    else if ((input[i[0] - 1]) != 32) 
-    {
-        tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] + i[1])));
-        dest = ft_substr((const char *)input, i[0], (ft_strlen(input) -  i[0]));
-        printf("DEBUG -1 :tmp_check  ::%s: \n", tmp);
-        printf("DEBUG -1 :dest_check ::%s: \n", dest);
-        tmp = ft_strjoin(tmp, " ");
-        input = ft_strjoin(tmp, dest);
-        // i[0]++;
-        printf("DEBUG  :i - 1 != 32_check :: %s \n\n", input);
-    }
-
-    if ((input[i[0] + 1]) != 32 && (input[i[0]+ 1]) == 124)  // len 
+    else if (input[i[0]+ 1] != 124)
     {
         i[0] = ft_strchr_i((char *)input, *meta);
-        // j = ft_strlen(input) - (i[0] - i[1]);
-        tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - 2)); //  1p () :: 2p ([0]-[1])
-        dest = ft_substr((const char *)input, ((i[0] +2)), (ft_strlen(input) - (i[0] )));
-        printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
-        printf("DEBUG +1 :dest_check ::%s: \n", dest);
-        tmp = ft_strjoin(tmp, " ");
-        input = ft_strjoin(tmp, dest);
-        printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
-    
-    }
-    else if ((input[i[0] + 1]) != 32)  // len 
-    {
-        i[0] = ft_strchr_i((char *)input, *meta);
-        // j = ft_strlen(input) - (i[0] - i[1]);
-        tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - i[1]%2));//  1p () :: 2p ([0]-[1])
-        dest = ft_substr((const char *)input, ((i[0] + i[1])), (ft_strlen(input) - (i[1] )));
-        printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
-        printf("DEBUG +1 :dest_check ::%s: \n", dest);
-        tmp = ft_strjoin(tmp, " ");
-        input = ft_strjoin(tmp, dest);
-        printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
-    
+        if ((input[i[0] - 1]) != 32)  // spc bef pipe
+        {
+            tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] + i[1])));
+            dest = ft_substr((const char *)input, i[0], (ft_strlen(input) -  i[0]));
+            printf("DEBUG -1 :tmp_check  ::%s: \n", tmp);
+            printf("DEBUG -1 :dest_check ::%s: \n", dest);
+            tmp = ft_strjoin(tmp, " ");
+            input = ft_strjoin(tmp, dest);
+            dest = ft_substr((const char *)input, ((i[0] + i[1])), (ft_strlen(input) - (i[1] )));
+            printf("DEBUG  padl = %d:::i - 1 != 32_check :: %s \n\n",input[i[0]-1], input);
+            i[0]++;
+        }
+        if ((input[i[0] + 1]) != 32)  // spc aft pipe
+        {
+            printf("DEBUG  padl = %d::i + 1 != 32_check ::\n", input[i[0] + 1]);
+            // j = ft_strlen(input) - (i[0] - i[1]);
+            tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - 2));//  1p () :: 2p ([0]-[1])
+            printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
+            printf("DEBUG +1 :dest_check ::%s: \n", dest);
+            tmp = ft_strjoin(tmp, " ");
+            input = ft_strjoin(tmp, dest);
+            printf("DEBUG  padl = %d::i + 1 != 32_check :: %s \n", input[i[0] + 2], input);
+            i[0]++;
+        }
     }
     input = ft_strjoin(tmp, dest);
     free(tmp);
