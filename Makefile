@@ -22,33 +22,33 @@ RDPATH 		= readline/libreadline.a readline/libhistory.a
 #	HEADER
 H_DIR		= -I includes
 
-CC 			= gcc
-CFLAGS 		= -Wall -Wextra -Werror 
-RM 			= rm -rf
+SRCS_PATH = src/
 
 #	BUILD FOLDER
 $(S_OBJ)/%.o :	$(S_DIR)/%.c
 			@mkdir -p $(S_OBJ) $(OBJS_DIRS)
 			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
-$(NAME): 	$(OBJS) 
-		-@$(MAKE) -C $(F_DIR) -s
+all		:	$(NAME)
+			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+
+$(NAME): 	$(OBJS)
+		-@$(MAKE) -C $(F_DIR)
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
-all		:	$(NAME) 
-
-clean	: 
-				$(RM) -r $(S_OBJ)
+clean	:
+				@$(RM) $(OBJ_F) 
+				@$(RM) -rf $(S_OBJ)
+				@echo "$(RED)$(S_OBJ) deleted!$(DEFAULT)"
 				
 fclean	:	clean
-				$(RM) $(OBJ_F) $(LIBFT)
-				$(RM) $(O_DIR)
-				$(RM) $(NAME) 
-
+				@$(RM) -rf $(O_DIR)
+				@$(RM) $(NAME)
+				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
 re		:	fclean all
 
-ref		:	fclean sub
+ref		:	fclean all
 
 
-.PHONY	:	clean fclean re sub
+.PHONY	:	clean fclean re bonus

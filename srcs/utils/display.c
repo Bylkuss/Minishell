@@ -5,13 +5,12 @@
 void mx_display_tab(char **tab)
 {
     int i = 0;
-
-        while(*tab && (*tab[i] != '\0'))
-        {
-            printf ("%s :: ", tab[i++]);
-            i++;
-        }
-        printf(" :: \n" );
+    if (tab[i])// && tab[0])
+    {
+        while(tab[i++])
+            printf ("%s :: \n", tab[i]);
+        printf (" :: \n" );
+    }
 }
 
 void mx_display_str(char *str)
