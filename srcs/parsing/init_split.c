@@ -22,32 +22,40 @@ char *pipe_check(char *input, char *meta)
     char *tmp;
     char *dest;
     int i[2];
-    // int j;
+    // int j;      //end len frm ptr
 
     // printf("DEBUG : node_check :: %s \n", input);
-    i[1] = 1;
     i[0] = ft_strchr_i((char *)input, *meta);
+    i[1] = 1;
+    if (!i[0])
+        return (input);
     if (i[0] && (input[i[0]+ 1]) == 124) 
-        i[1] = 2;
-    if (i[0] && (input[i[0] - 1]) != 32) 
     {
-        tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0]) - i[1]));
-        dest = ft_substr((const char *)input, i[0], (ft_strlen(input) - (i[0] - i[1])));
+        i[1]++;
+    }
+
+    if ((input[i[0] - 1]) != 32) 
+    {
+        tmp = ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0] + i[1])));
+        dest = ft_substr((const char *)input, i[0], (ft_strlen(input) -  i[0]));
+        printf("DEBUG -1 :tmp_check  ::%s: \n", tmp);
+        printf("DEBUG -1 :dest_check ::%s: \n", dest);
         tmp = ft_strjoin(tmp, " ");
         input = ft_strjoin(tmp, dest);
         // i[0]++;
-        printf("DEBUG  :i - 1 != 32_check :: %s \n", input);
+        printf("DEBUG  :i - 1 != 32_check :: %s \n\n", input);
     }
-    i[0] = ft_strchr_i((char *)input, *meta);
-    if ((input[i[0]+ 1]) != 32)
+    if ((input[i[0]+ 1]) != 32)  // len 
     {
-        tmp =  ft_substr((const char *)input, 0, (ft_strlen(input) - (i[0]-1)));
-        dest = ft_substr((const char *)input, i[0] + i[1], (ft_strlen(input) - (i[0])));
-            // printf("DEBUG  :tmp_check  :: %s \n", tmp);
-            // printf("DEBUG  :dest_check :: %s \n", dest);
+        i[0] = ft_strchr_i((char *)input, *meta);
+        // j = ft_strlen(input) - (i[0] - i[1]);
+        tmp =  ft_substr((const char *)input, 0, ft_strlen(input) - (i[0] - i[1]%2))); //  1p () :: 2p ([0]-[1])
+        dest = ft_substr((const char *)input, ((i[0] + i[1])), (ft_strlen(input) - (i[1] )));
+        printf("DEBUG +1 :tmp_check  ::%s: \n", tmp);
+        printf("DEBUG +1 :dest_check ::%s: \n", dest);
         tmp = ft_strjoin(tmp, " ");
         input = ft_strjoin(tmp, dest);
-        printf("DEBUG  :i + 1 != 32_check :: %s \n", input);
+        printf("DEBUG  i[1] = %d::i + 1 != 32_check :: %s \n", i[1], input);
     
     }
     input = ft_strjoin(tmp, dest);
