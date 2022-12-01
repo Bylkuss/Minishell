@@ -144,10 +144,11 @@ t_table 	*init_token(t_table *tab);
 t_table 	*init_tab(t_table *tab);
 
 char		*node_check(char *input, char *meta);
+char		*pipe_check(char *input, char *meta);
 
 t_table 	*check_args(char *out, t_table *tab);
 t_table		*token_nodes(t_table *tab);
-t_table  *parse_args(t_table *tab);
+t_table  	*parse_args(t_table *tab);
 
 void    echo(char **cmd);
 void    cd(char **cmd, char **env);
