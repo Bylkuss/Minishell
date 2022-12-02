@@ -128,15 +128,16 @@ char	 **div_token(char *s, char *set, t_table *tab) // call by parse>split_all
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	tk_id = 0;
-	printf("DEBUG : into... div_token\n");	// set end pos ptr
+	// printf("DEBUG : into... div_token\n");	// set end pos ptr
     tab->tk_num = token_count(s, set, 0);	// how many end
-	printf("DEBUG : into div_token ::: %d ::\n", tab->tk_num);
+	printf("DEBUG : into... div_token ::: %d ::\n", tab->tk_num);
 	if (tab->tk_num == (-1))
 		return (NULL);
-    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
+    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
     if (!(*tkn))
 	    return (NULL);
     tkn = token_fill(tkn, (char *)s, set, 0);	
+	// t_fill reciv array *str endtyp
 
 	//	**tkn << tab->cmds >> sub_split / endtype char
 	//		... so  tkn[tk_id]
