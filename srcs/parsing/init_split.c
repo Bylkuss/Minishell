@@ -111,7 +111,7 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 // mx_display_tab(arr);
             // printf("::NODE_FILL_ END \n");      // DEBUG
         
-        printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
+        // printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
         return (arr);
             // printf("DEBUG: arr[0] >>:: %s ::\n", arr[i[2]]);
 }
