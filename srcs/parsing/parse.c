@@ -33,6 +33,7 @@ static char **split_all(char **args, t_table *tab)
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));              
         //expand_path ...
         nodes = div_token(args[i], "<|>", tab); 
+        printf("\n ___%s___ \n",args[i]);
         // mx_rpl (arg , node)
         ft_mx_rpl(&args, nodes, i);
         //
@@ -106,6 +107,9 @@ t_table  *parse_args(t_table *tab)
 
 t_table  *check_args(char *input, t_table *tab)  
 {
+    // int i;
+
+    // i = 0;
     if (!input)
     {
         printf("exit\n");
@@ -116,11 +120,20 @@ t_table  *check_args(char *input, t_table *tab)
         
         
     tab->node = init_split(input, " ");
-
     if (tab->node)
     {
-        mx_display_tab(tab->node);
+        // mx_display_tab(tab->node);
         // printf("GO_GO_GO>>PARSE\n");    // DEBUG
+        // while(tab->node)
+        // {
+        //     i = 0;
+        //     while(*tab->node[i] != '\0')
+        //     {
+        //         printf("\n check node > [%s] \n", tab->node[i]);
+        //         i++;
+        //     }
+        //     tab->node++;
+        // }
         tab = parse_args(tab);    // tab->node
         // *tab->cmds = node_check(tab->node, "|");
 
@@ -137,12 +150,11 @@ t_table  *check_args(char *input, t_table *tab)
             // if (tab->cmds && tab->tk_num > 0)
             // else
             //     return (NULL);
-            /*
+    /*
                 if (tab && tab->token)
                     display_tkn(tab);
 
-                token need to be ID _cmd, _attr, _end   
-            */
+    token need to be ID _cmd, _attr, _end         */
             /*
                 if (tab && tab->cmds && tab->token && tab->tk_num > 0)
                 {

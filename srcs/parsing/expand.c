@@ -76,6 +76,7 @@ char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
              && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
             return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
     }
+    
     return (str);
 }
 

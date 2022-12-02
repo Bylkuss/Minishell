@@ -104,11 +104,11 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
             i[0]++;
         }
-            // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
-            // // mx_display_tab(arr);
-            // printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
+            printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
+                // mx_display_tab(arr);
+            printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
             // printf("::NODE_FILL_ END \n");      // DEBUG
-                // printf("DEBUG: NODE >> len[%d]:: %s ::\n", len, s);
+            // printf("DEBUG: NODE >> len[%d]:: %s ::\n", len, s);
         return (arr);
 }
 
@@ -120,13 +120,14 @@ char **init_split(const char *s, char *set)
     int     nodes;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
+    // int *v;
 
     i[0] = 0;
     i[1] = 0;
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    arr = NULL;
+    // arr = NULL;
     // printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
         // node_chk >> insert space in before/after it if needed
         //  input divided by space ::  error if no-space-too
@@ -143,14 +144,33 @@ char **init_split(const char *s, char *set)
     nodes = node_count((const char *)input, set, count);     // substr 
     if (nodes == -1)
         return (NULL);
-    // printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
+    printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
     arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
     if (!arr)
         return (NULL);
     arr = node_fill(arr, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-
     arr[nodes] = NULL;
-    mx_display_tab(arr);
+     
+    while(i[2]-- != 0)
+    {
+
+        // *v = 0;
+        printf("\n Start at :%d::%d::%d: with :%s: \n", i[2], i[1], i[0],arr[i[2]]);
+        // i[2]--;
+    }
+    printf("byebye!!!\n");
+
+
+//     // t_token *token;
+//     // token = tab->token; 
+//     // if (!token)
+//     //     exit(0);
+//     printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
+//     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
+//     if (tab->token->tk_len > 2 )
+//         printf("ARG == %s == \t", tab->token->cmd[++id]);   
+//     printf("END_TYPE == %d == \n", tab->token->endtype);   
+    // mx_display_tab(arr);
     return (arr);   // ret(tab->node)
 }
 

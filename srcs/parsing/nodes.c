@@ -76,6 +76,7 @@ t_table	*token_nodes(t_table *tab)
 {
 	int i;		// node_id
 	// int j;		// ptr pos
+	// t_token *tok;	// frmd token instanc
 
 	i = 0;
 
