@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(const char *s, char *set, int tkn)
+static int	token_count(char *s, char *set, int tkn)
 {
 	int		q[2];
 	int		i;
@@ -38,9 +38,9 @@ static int	token_count(const char *s, char *set, int tkn)
 				return (-1);
 		}
 		else 
-			tkn++;
+			i++;
 	}
-	printf("DEBUG : into... token_count = %d\n", tkn);
+		printf("DEBUG: token_count :: tkn = %d\n", tkn);
 	return (tkn); //how many end..
 }
 
@@ -93,7 +93,7 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 	q[0] = 0;
 	q[1] = 0;
 	len = ft_strlen(s);
-	printf("Hello, welcome to Token_Fill\n");
+	printf("DEBUG: token_Fill :: set ::%s::\n", set);
 	while (s[i[0]])
 	{
 		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
@@ -115,32 +115,31 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-char	 **div_token(char *s, char *set, t_table *tab) // call by parse>split_all
+char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
 	int 	tk_id;			// focus token
-	// int     i[3];
 
-	// i[0] = 0;				// set start pos ptr
-	// i[1] = 0;				// set sub_end pos ptr
-	// i[2] = 0;	
+	tk_id = 0;
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
-	tk_id = 0;
-	// printf("DEBUG : into... div_token\n");	// set end pos ptr
-    tab->tk_num = token_count(s, set, 0);	// how many end
-	printf("DEBUG : into... div_token ::: %d ::\n", tab->tk_num);
+
+    tab->tk_num = token_count((char *)s, set, 0);	// how many end
 	if (tab->tk_num == (-1))
 		return (NULL);
+	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
     if (!(*tkn))
 	    return (NULL);
     tkn = token_fill(tkn, (char *)s, set, 0);	
+	tab->token->tk_len = ft_mx_len(tkn);
+	printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
 	// t_fill reciv array *str endtyp
-
-	//	**tkn << tab->cmds >> sub_split / endtype char
-	//		... so  tkn[tk_id]
+		//		**tkn << tab->cmds >> sub_split / endtype char
+	
+	///		ft_mx_ext ... 
 	if (*tkn)
 	{
 		tab->node[tk_id] = tkn[tk_id];

@@ -27,7 +27,6 @@ static char ***split_all(char **args, t_table *tab)
     // x = 0;
     cmdx = NULL;
     
-    printf("DEBUG : into... split all\n");
     while (args && args[++i])       
     {
         // args = tab->cmds[id]
@@ -54,13 +53,12 @@ static char ***split_all(char **args, t_table *tab)
 
                 // mx_display_tab(nodes);
     }
+    printf("DEBUG : into... split all = %d\n", i);
     // mx_display_tab(args);
     return (cmdx); 
 }
 
-
 //  parse still w/ nodes
-
 t_table  *parse_args(t_table *tab)
 {
     int i;// int is_exit; // is_exit = 0;
@@ -68,6 +66,15 @@ t_table  *parse_args(t_table *tab)
     // token = tab->token;
 
     i = 0;
+    
+    //              
+
+    while(tab->node[i] != NULL)
+    {
+        mx_display_str(tab->node[i]);
+        i++;
+
+    }
     //              tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
     tab->cmds = split_all(tab->node, tab); // pass nodes splited to be check /meta
     printf("DEBUG: parse... tab->cmds\n");
@@ -76,14 +83,6 @@ t_table  *parse_args(t_table *tab)
     tab->token = token_nodes(tab);  
     printf("DEBUG: parse... tab->token\n");
     
-    //              
-
-    // while(tab->node[i] != NULL)
-    // {
-    //     mx_display_str(tab->node[i]);
-    //     i++;
-
-    // }
 
 
         /*  tab->node [*str]  sep.space. node -ID.less
@@ -117,9 +116,11 @@ t_table  *parse_args(t_table *tab)
 
 t_table  *check_args(char *input, t_table *tab)  // main deply >parse
 {
-    // int i;
+     int n;     //int node
+    //  int i;
 
     // i = 0;
+    n = 0;
     if (!input)
     {
         printf("exit\n");
@@ -131,14 +132,21 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         
     tab->node = init_split(input, " "); // space split 
 
+    tab = parse_args(tab);    // tab->node
+
     if (tab->node)
-    {
+    {   
+        n = ft_mx_len(tab->node);
+        printf("DEBUG: check :: node_len ::%d::\n", n);
+        mx_display_str(tab->node[n - 1]);
+        mx_display_str(tab->node[n - 3]);
+
+
 
     }
-    tab = parse_args(tab);    // tab->node
         
         
-        // while(tab->node)
+    // while(tab->node)
         // {
         //     i = 0;
         //     while(*tab->node[i] != '\0')
