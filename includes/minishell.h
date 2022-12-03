@@ -87,21 +87,6 @@ struct s_table
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
-// struct s_dot		/*  ENVP BUILDER */  t_table
-	// {
-	// 	char 	**cmds;
-	// 	char 	**envp;
-	// 	pid_t	pid;
-	// 	t_token token;
-	// };
-	// struct s_mini 	 	/*	MATRIX COMMAND TABLE */  repl token
-	// {
-	// 	char **t_cmd;
-	// 	char *path;
-	// 	int infile;
-	// 	int outfile;
-	// };
-//
 
 //builtins
 // cd 
@@ -115,8 +100,8 @@ void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 
-// char **init_split(const char *s, char *set, t_table *tab);
-char 		**init_split(const char *s, char *set);
+char **init_split(const char *s, char *set, t_table *tab);
+// char 		**init_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
 

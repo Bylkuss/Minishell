@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/29 19:07:39 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/02 17:33:58 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,29 +95,29 @@ t_token	*token_nodes(t_table *tab)
 	while (*tab->cmds[i] && i < tab->tk_num)
 	{
 			// tab->token->id = i;
-		// tab->cmds[i] = tab->node;
-				// ... // div_token to set end 
-				// endtype eval + default 
+			// tab->cmds[i] = tab->node;
+					// ... // div_token to set end 
+					// endtype eval + default 
 
-			// revert from list 
-				// need to set first arg => cmd 
-				// 			set last arg => endtype
-				//	middle arg (if so!) 	
-				// cmds[1] = ft_lstlast(cmds[0]);
+				// revert from list 
+					// need to set first arg => cmd 
+					// 			set last arg => endtype
+					//	middle arg (if so!) 	
+					// cmds[1] = ft_lstlast(cmds[0]);
 
-		// j = 0;
-		// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		// {
-			tab->token->id = i;
-			tab->token->cmd = tab->cmds[i];
-		// 	printf("debug:: into tok_node");
-		// 	// if (tab->token->cmd)
-		// 		// 	mx_display_tab(tab->token->cmd);
-		// 		// 		/*	i += args[i][0] == '|';
-		// 		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-		// 		// 			cmds[1] = ft_lstlast(cmds[0]); 
-		// 		// 		*/
-		// }
+				// j = 0;
+				// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+			// {
+		tab->token->id = i;
+		tab->token->cmd = tab->cmds[i];
+			// 	printf("debug:: into tok_node");
+			// 	// if (tab->token->cmd)
+			// 		// 	mx_display_tab(tab->token->cmd);
+			// 		// 		/*	i += args[i][0] == '|';
+			// 		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+			// 		// 			cmds[1] = ft_lstlast(cmds[0]); 
+			// 		// 		*/
+			// }
 			// temp[0] = args;
 			//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 				// token->cmd = cmds[1]->content;

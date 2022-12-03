@@ -6,9 +6,9 @@ void mx_display_tab(char **tab)
 {
     int i = 0;
 
-        while(*tab && (*tab[i] != '\0'))
+        while(tab && (*tab[i] != '\0'))
         {
-            printf ("%s :: ", tab[i]);
+            printf ("%s :: \n", tab[i]);
             i++;
         }
         printf(" :: \n" );
@@ -16,7 +16,7 @@ void mx_display_tab(char **tab)
 
 void mx_display_str(char *str)
 {
-    printf("::_%s_::\n", str);
+    printf(" :_:%s:_: \n", str);
 }
 
 // void display_tkn(t_table *tab)

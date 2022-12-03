@@ -68,8 +68,6 @@ static int node_count(const char *s, char *c, int i[2]) //
                 }
                 if (q[0])
                     return (-1);
-                // if (ft_strchr(c, s[i[0]])) 
-                //     i[1]++;
             }
             else
                 i[0]++;
@@ -78,7 +76,7 @@ static int node_count(const char *s, char *c, int i[2]) //
 }
 
 /*   init_split_Form_           "..." "..." "..." */
-static char **node_fill(char **arr, const char *s, char *set, int i[3]) 
+static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
         // char **
         int     len;
@@ -91,8 +89,12 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
         while (s[i[0]] && i[0] <= len)
         {
             if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
+            {
                 i[0]++;
+                printf("DEBUG: n_fill :: i[0] = [%c]\n", s[i[0]]);      // DEBUG 
+            }
             i[1] = i[0];
+            printf("DEBUG: n_fill :: i[1] = [%c]\n", s[i[1]]);      // DEBUG 
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
             {
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
@@ -100,28 +102,32 @@ static char **node_fill(char **arr, const char *s, char *set, int i[3])
                 i[0]++;
             }
             if (i[1] >= len)
-                arr = ft_mx_ext(arr, "\0");
+                tab->node = ft_mx_ext(tab->node, "\0");
                 // arr[i[2]++] = "\0";
 
             else
-                arr = ft_mx_ext(arr, ft_substr(s, i[1], i[0] - i[1]));
-                // arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
+            {
+
+               *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
+                tab->node = ft_mx_ext(tab->node, *tab->node);
+                // mx_display_str(*tab->node);
+            }
             i[0]++;
+            // arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
         }
-                // mx_display_tab(arr);
             // printf("::NODE_FILL_ END \n");      // DEBUG
         
         // printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
-        return (arr);
+        return (tab->node);
             // printf("DEBUG: arr[0] >>:: %s ::\n", arr[i[2]]);
 }
 
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
-char **init_split(const char *s, char *set)
+char **init_split(const char *s, char *set, t_table *tab)
 {
-    char    **arr;
+    // char    **;  // to be chang >> tab->node
     char    *input;
-    int     nodes;
+    int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
     // int *v;
@@ -143,22 +149,20 @@ char **init_split(const char *s, char *set)
         // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
                     // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
                     // insert spc. where it needs watch for dbl..
+            /// watch out input *char  /// arr**
 
-    /// watch out input *char  /// arr**
-
-    nodes = node_count((const char *)input, set, count);     // substr 
-    if (nodes == -1)
+    n = node_count((const char *)input, set, count);     // substr 
+    if (n == -1)
         return (NULL);
-    printf("DEBUG: init_split  ::  node = %d \n", nodes);      // DEBUG
-
-
-    arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
-    if (!arr)
+    tab->node = malloc(sizeof(char *) * (n + 1)); //strc malloc
+    if (!tab->node)
         return (NULL);
-    arr = node_fill(arr, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    arr[nodes] = NULL;
-     
+    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
+    mx_display_tab(tab->node);
+    tab->node[n] = NULL;     
 
+    // mx_display_str(input);
         // t_token *token;
             // token = tab->token; 
             // if (!token)
@@ -170,7 +174,7 @@ char **init_split(const char *s, char *set)
         // printf("END_TYPE == %d == \n", tab->token->endtype);   
 
     // mx_display_tab(arr);
-    return (arr);   // ret(tab->node)
+    return (tab->node);   // ret(tab->node)
 }
 
 /*
