@@ -90,31 +90,28 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // D: trouv
             {
-                printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
+                // printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
                 i[1] = i[0];
                 i[0]++;
-                printf("DEBUG: n_fill || i[1] = [%d][%c]\n", i[1], s[i[1]]);       
+                // printf("DEBUG: n_fill || i[1] = [%d][%c]\n", i[1], s[i[1]]);       
             }
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
             {
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
-                printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
+                // printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
                 i[0]++;
             }
-                if (i[1] >= len)
-                    tab->node = ft_mx_ext(tab->node, "\0");
-                else
-                {
+            if (i[1] >= len)
+                tab->node = ft_mx_ext(tab->node, "\0");
+            else
+            {
                 *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
-                    tab->node = ft_mx_ext(tab->node, *tab->node);
-                }
-            printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
+                tab->node = ft_mx_ext(tab->node, *tab->node);
+            }
+            // printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
             i[0]++;
         }
-            // arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
-             // printf("::NODE_FILL_ END \n");      // DEBUG
-             // printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
         return (tab->node);
 }
 
@@ -139,11 +136,6 @@ char **init_split(const char *s, char *set, t_table *tab)
     else
         return (NULL);
     printf("DEBUG: pass_to_init :: %s \n", input);
-        // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
-                    // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
-                    // insert spc. where it needs watch for dbl..
-            /// watch out input *char  /// arr**
-
     n = node_count((const char *)input, set, count);     // substr 
     if (n == -1)
         return (NULL);
@@ -152,8 +144,9 @@ char **init_split(const char *s, char *set, t_table *tab)
         return (NULL);
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
-    // mx_display_tab(tab->node);
-    tab->node[n] = NULL;     
+    tab->node[n] = NULL; 
+    return (tab->node);   // ret(tab->node)
+}
 
     // mx_display_str(input);
         // t_token *token;
@@ -165,11 +158,7 @@ char **init_split(const char *s, char *set, t_table *tab)
             //     if (tab->token->tk_len > 2 )
             //         printf("ARG == %s == \t", tab->token->cmd[++id]);   
         // printf("END_TYPE == %d == \n", tab->token->endtype);   
-
     // mx_display_tab(arr);
-    return (tab->node);   // ret(tab->node)
-}
-
 /*
 from parse.c
     init_split => split *str by space only (quote rule (ok if both))

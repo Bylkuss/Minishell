@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/02 22:21:55 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 00:24:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 extern int g_status;
 
 /*       char **args = tab->cmds  :  token chunk    */
-static char ***split_all(char **args, t_table *tab)  
+static char ***split_all(char **node, t_table *tab)  
 {
     char    ***cmdx;  // char number name-> x[itoa(x)]
     int i;
@@ -27,19 +27,18 @@ static char ***split_all(char **args, t_table *tab)
     
     ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
     
-    // mx_display_str(*args);
-    while (args && args[++i])       
+    while (node && node[++i])       
     {
         // args = tab->cmds[id]
             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
-        args[i] = expand_vars(args[i], -1, quotes, tab);  
+        node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...  
-        args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-        tab->cmds[i] = div_token(args[i], "<|>", tab); 
+        tab->cmds[i] = div_token(node[i], "<|>", tab); 
         //div_token ...
-        cmdx[i] = ft_mx_ext(cmdx[i], args[i]);
+        cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
     }
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
@@ -50,8 +49,7 @@ static char ***split_all(char **args, t_table *tab)
                 // ft_mx_free(&nodes);
 
                 // mx_display_tab(nodes);
-    printf("DEBUG : into... split all = %d\n", i);
-    // mx_display_tab(args);
+    printf("DEBUG : into... split all :: id = %d\n", i);
     return (cmdx); 
 }
 
@@ -60,36 +58,20 @@ static char ***split_all(char **args, t_table *tab)
 //  parse still w/ nodes
 t_table  *parse_args(t_table *tab)
 {
-    int i;// int is_exit; // is_exit = 0;
-    // t_token *token;
+    int i; // int is_exit; // is_exit = 0;
+        // t_token *token;
         // token = tab->token;
-
         // i = 0;
-        
-        //              
-
-        // while(tab->node[i] != NULL)
-        // {
-        //     mx_display_str(tab->node[i]);
-        //     i++;
-
-        // }
-    //              tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
-    if (tab->node)
-        printf("DEBUG: parse... tab->node >> tab->cmds\n");
-    tab->cmds = split_all(tab->node, tab); // pass nodes splited to be check /meta
-
-    //              node breaker =>   node_token == token_builder ...
+        //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
+            // if (tab->node)
+    printf("DEBUG: parse... tab->node >> tab->cmds\n");
+    tab->cmds = split_all(tab->node, tab); 
+    //          pass nodes splited to be check /meta
     tab->token = token_nodes(tab);  
+    //          node breaker =>   node_token == token_builder ...
     printf("DEBUG: parse... tab->token\n");
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
-            //  
-            if (tab->token)
-                display_tkn(tab);
-            if (!tab->node)
-                return (tab->token);
-
             // tab->
             // i = ft_lstsize(tab->cmds);
             // g_status = builtin(p, p->cmds, &is_exit, 0);             
@@ -99,15 +81,15 @@ t_table  *parse_args(t_table *tab)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
-    /*
-        // if (!is_exit && &g_status == 13)
+    
+       // if (!is_exit && &g_status == 13)
         //     g_status = 0;
         // if (args && is_exit)
-            // {
-            //     ft_lstclear(&p->cmds, free_content);
-            //     return (NULL);
+        // {
+        //     ft_lstclear(&p->cmds, free_content);
+        //     return (NULL);
         // }
-    */
+    
     return (tab);
 }
 

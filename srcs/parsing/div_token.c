@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/28 11:07:13 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 00:30:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static int	token_count(char *s, char *set, int tkn)
 		if (!ft_strchr(set, s[i]))
 		{
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
-			{
-    
+			{ 
 					q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
 					q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
 					i++;
@@ -40,7 +39,7 @@ static int	token_count(char *s, char *set, int tkn)
 		else 
 			i++;
 	}
-		printf("DEBUG: token_count :: tkn = %d\n", tkn);
+		// printf("DEBUG: token_count :: tkn = %d\n", tkn);
 	return (tkn); //how many end..
 }
 
@@ -125,7 +124,7 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 
-    tab->tk_num = token_count((char *)s, set, 0);	// how many end
+    tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
 	if (tab->tk_num == (-1))
 		return (NULL);
 	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
