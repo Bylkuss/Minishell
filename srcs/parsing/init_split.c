@@ -78,48 +78,44 @@ static int node_count(const char *s, char *c, int i[2]) //
 /*   init_split_Form_           "..." "..." "..." */
 static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
-        // char **
         int     len;
         int     q[2];       // uniq_quotes ignore
 
         q[0] = 0;
         q[1] = 0;
         len = ft_strlen(s);
-        printf("DEBUG: node_fill  :: len = %d \n", len);      // DEBUG
+        printf("DEBUG: node_fill  :: len = %d \n", len);                        // strlen
+        // printf("DEBUG: n_fill ## i[0] = [%d][%c]\n", i[0], s[i[0]]);            // [0]
         while (s[i[0]] && i[0] <= len)
         {
-            if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
+            if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // D: trouv
             {
+                printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
+                i[1] = i[0];
                 i[0]++;
-                printf("DEBUG: n_fill :: i[0] = [%c]\n", s[i[0]]);      // DEBUG 
+                printf("DEBUG: n_fill || i[1] = [%d][%c]\n", i[1], s[i[1]]);       
             }
-            i[1] = i[0];
-            printf("DEBUG: n_fill :: i[1] = [%c]\n", s[i[1]]);      // DEBUG 
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
             {
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
+                printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
                 i[0]++;
             }
-            if (i[1] >= len)
-                tab->node = ft_mx_ext(tab->node, "\0");
-                // arr[i[2]++] = "\0";
-
-            else
-            {
-
-               *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
-                tab->node = ft_mx_ext(tab->node, *tab->node);
-                // mx_display_str(*tab->node);
-            }
+                if (i[1] >= len)
+                    tab->node = ft_mx_ext(tab->node, "\0");
+                else
+                {
+                *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
+                    tab->node = ft_mx_ext(tab->node, *tab->node);
+                }
+            printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
             i[0]++;
-            // arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
         }
-            // printf("::NODE_FILL_ END \n");      // DEBUG
-        
-        // printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
+            // arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
+             // printf("::NODE_FILL_ END \n");      // DEBUG
+             // printf("DEBUG: NODE >> len[%d]:: %s ::\n", ft_mx_len(arr), s);
         return (tab->node);
-            // printf("DEBUG: arr[0] >>:: %s ::\n", arr[i[2]]);
 }
 
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
@@ -137,10 +133,7 @@ char **init_split(const char *s, char *set, t_table *tab)
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    // arr = NULL;
-    // printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
-        // node_chk >> insert space in before/after it if needed
-        //  input divided by space ::  error if no-space-too
+    
     if (s)
         input = pipe_check((char *)s, "|");
     else
@@ -159,7 +152,7 @@ char **init_split(const char *s, char *set, t_table *tab)
         return (NULL);
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
-    mx_display_tab(tab->node);
+    // mx_display_tab(tab->node);
     tab->node[n] = NULL;     
 
     // mx_display_str(input);

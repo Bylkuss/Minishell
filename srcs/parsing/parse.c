@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/02 18:35:11 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/02 22:21:55 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ extern int g_status;
 static char ***split_all(char **args, t_table *tab)  
 {
     char    ***cmdx;  // char number name-> x[itoa(x)]
-    // char    *x;         // char * token selector
-    // int     x;              // cmdx -> num factor
     int i;
     int quotes[2];
 
     i = -1;
     // x = 0;
     cmdx = NULL;
+    
+    ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
     
     // mx_display_str(*args);
     while (args && args[++i])       
@@ -36,16 +36,12 @@ static char ***split_all(char **args, t_table *tab)
         args[i] = expand_vars(args[i], -1, quotes, tab);  
         //expand_var ...  
         args[i] = expand_path(args[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-   
         //expand_path ...
         tab->cmds[i] = div_token(args[i], "<|>", tab); 
         //div_token ...
         cmdx[i] = ft_mx_ext(cmdx[i], args[i]);
-        tab->token->tk_len += ft_mx_len(tab->node);
-
-
-
-
+    }
+        // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
                 // ft_mx_rpl(&args, nodes, i);
                 // //
@@ -54,11 +50,12 @@ static char ***split_all(char **args, t_table *tab)
                 // ft_mx_free(&nodes);
 
                 // mx_display_tab(nodes);
-    }
     printf("DEBUG : into... split all = %d\n", i);
     // mx_display_tab(args);
     return (cmdx); 
 }
+
+
 
 //  parse still w/ nodes
 t_table  *parse_args(t_table *tab)
