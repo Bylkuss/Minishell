@@ -85,21 +85,22 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         q[1] = 0;
         len = ft_strlen(s);
         printf("DEBUG: node_fill  :: len = %d \n", len);                        // strlen
-        // printf("DEBUG: n_fill ## i[0] = [%d][%c]\n", i[0], s[i[0]]);            // [0]
+        printf("DEBUG: n_fill ## i[0] = [%d][%c]\n", i[0], s[i[0]]);            // [0]
         while (s[i[0]] && i[0] <= len)
         {
             if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // D: trouv
             {
-                // printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
-                i[1] = i[0];
                 i[0]++;
+                printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
+                i[1] = i[0];
                 // printf("DEBUG: n_fill || i[1] = [%d][%c]\n", i[1], s[i[1]]);       
             }
+            // ls -lat | wc -l > out.txt
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
             {
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
-                // printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
+                printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
                 i[0]++;
             }
             if (i[1] >= len)
@@ -109,7 +110,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
                 *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
                 tab->node = ft_mx_ext(tab->node, *tab->node);
             }
-            // printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
+            printf("DEBUG: n_fill    i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
             i[0]++;
         }
         return (tab->node);

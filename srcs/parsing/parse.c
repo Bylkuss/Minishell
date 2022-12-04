@@ -39,6 +39,7 @@ static char ***split_all(char **node, t_table *tab)
         tab->cmds[i] = div_token(node[i], "<|>", tab); 
         //div_token ...
         cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
+        mx_display_tab(cmdx[i]);
     }
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
@@ -48,7 +49,6 @@ static char ***split_all(char **node, t_table *tab)
                 // // free node
                 // ft_mx_free(&nodes);
 
-                // mx_display_tab(nodes);
     printf("DEBUG : into... split all :: id = %d\n", i);
     return (cmdx); 
 }

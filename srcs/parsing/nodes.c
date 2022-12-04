@@ -71,8 +71,7 @@ t_table	*get_trimmed(t_table *tab)
 	return (tab);
 }
 	
-		/* call by parse_  <<(token_ized)	*/
-t_token	*token_nodes(t_table *tab)	
+t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 {
 	int i;		// node_id
 	// int j;		// ptr pos
@@ -94,6 +93,7 @@ t_token	*token_nodes(t_table *tab)
 	{
 		printf("DEBUG : token_node cmds [0][0] =  ::\n");
 		// mx_display_tab(*tab->cmds);
+		mx_display_str(*tab->cmds[0]);
 	}
 	if (tab->tk_num)
 		printf("DUBUG : tk_num = %d:: \n", tab->tk_num);
@@ -113,8 +113,8 @@ t_token	*token_nodes(t_table *tab)
 				// j = 0;
 				// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
 			// {
-		tab->token->id = i;
-		tab->token->cmd = tab->cmds[i];
+		token->id = i;
+		token->cmd = tab->cmds[i];
 		printf("debug:: into tok_node");
 			// 	// if (tab->token->cmd)
 			// 		// 	mx_display_tab(tab->token->cmd);
