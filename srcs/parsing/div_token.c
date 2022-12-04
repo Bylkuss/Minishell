@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/03 00:30:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:22:35 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,49 @@ static int	token_count(char *s, char *set, int tkn)
 	return (tkn); //how many end..
 }
 
-// static t_token	*token_params(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
-	// {
-	// 	t_token *token;
-	// 	char **cmd;
-	// 	char ***mx;
-	// 	int id;
-	// 
-	// 	id = 0;
-	// 	// cmd = NULL;
-	// 	// token->cmd = tab->node;
-	// 	cmd = tab->node; //[id][node[;]
-	// 	// cmd = tab->node;
-	// 
-	// 	if (token->cmd && (token->id < token->cmd_len) && (token->id < tab->token_len))
-	// 	{
-	// 		printf("\n\n\n");
-	// 		if (tab->cmds == ">" && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-	// 		if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-	// 			token = get_outfile2(token, mx[id]);//nod
-	// 		else if (mx[id][cmd][nod] == '>')
-	// 			token = get_outfile1(token, mx[id]);//nod
-	// 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
-	// 			a[0][*i + 1][0] == '<')
-	// 			m = get_infile2(m, a[1], i);*/
-	// 		else if (mx[id][cmd][nod] == '<')
-	// 			token = get_infile1(token, mx[id]);	//nod
-	// 		else if (mx[id][cmd][nod] != '|')
-	// 		// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-	// 		// else
-	// 		{
-	// 			//mini_perror(PIPENDERR, NULL, 2);
-	// 			// *i = -2;
-	// 		}
-	// 		return (token);
-	// 	}
-	// 	mini_perror(PIPENDERR, NULL, 2);
-	// 	*i = -2;
-	// 	return (token);
-// }
+static t_token	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
+	{
+		t_token *token;
+		char **cmd;
+		char ***mx;
+		int id;
+	
+		id = 0;
+		cmd = tab->node; //[id][node[;]
+		mx = tab->cmds;
+		token = tab->token;
+	//
+	//	get to *node[0]	== token->cmds
+	//	get *node[len-1] == 
+	//	get *node[len]	== token->endtype
+
+		// if ()
+		if (token->cmd && (token->id < token->tk_len) && (token->id < token->tk_len))
+		{
+			printf("\n\n\n");
+			// if (tab->cmds == ">" && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+			// if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+			// 	token = get_outfile2(token, mx[id]);//nod
+			// else if (mx[id][cmd][nod] == '>')
+			// 	token = get_outfile1(token, mx[id]);//nod
+			// else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+			// 	a[0][*i + 1][0] == '<')
+			// 	m = get_infile2(m, a[1], i);*/
+			// else if (mx[id][cmd][nod] == '<')
+			// 	token = get_infile1(token, mx[id]);	//nod
+			// else if (mx[id][cmd][nod] != '|')
+			// // 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+			// // else
+			// {
+			// 	//mini_perror(PIPENDERR, NULL, 2);
+			// 	// *i = -2;
+			// }
+			// return (token);
+		}
+		// mini_perror(PIPENDERR, NULL, 2);
+		// *i = -2;
+		return (token);
+}
 
 	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
@@ -125,20 +129,29 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 		return (NULL);
 
     tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
+
 	if (tab->tk_num == (-1))
 		return (NULL);
 	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
 
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
+
     if (!(*tkn))
 	    return (NULL);
     tkn = token_fill(tkn, (char *)s, set, 0);	
+
+
 	tab->token->tk_len = ft_mx_len(tkn);
 	printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
+
+	
 	// t_fill reciv array *str endtyp
 		//		**tkn << tab->cmds >> sub_split / endtype char
 	
 	///		ft_mx_ext ... 
+	//		
+	///
+	
 	if (*tkn)
 	{
 		tab->node[tk_id] = tkn[tk_id];
@@ -160,6 +173,7 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 		aux ** == tab->node[id][str]] 
 		tab->node[token_id] = NULL;
 	*/
+	// return (tab->cmds[i])
     return (tkn);    
 }
 

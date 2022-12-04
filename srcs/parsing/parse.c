@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/03 00:24:13 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:23:12 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static char ***split_all(char **node, t_table *tab)
 }
 
 
-
-//  parse still w/ nodes
 t_table  *parse_args(t_table *tab)
 {
     int i; // int is_exit; // is_exit = 0;
@@ -64,18 +62,24 @@ t_table  *parse_args(t_table *tab)
         // i = 0;
         //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
             // if (tab->node)
+            
     printf("DEBUG: parse... tab->node >> tab->cmds\n");
     tab->cmds = split_all(tab->node, tab); 
     //          pass nodes splited to be check /meta
+
     tab->token = token_nodes(tab);  
     //          node breaker =>   node_token == token_builder ...
     printf("DEBUG: parse... tab->token\n");
+        
+        
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             // tab->
             // i = ft_lstsize(tab->cmds);
             // g_status = builtin(p, p->cmds, &is_exit, 0);             
          */    
+
+         
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
