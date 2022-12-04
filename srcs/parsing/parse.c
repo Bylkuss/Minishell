@@ -115,6 +115,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     {   
         n = ft_mx_len(tab->node);
         printf("DEBUG: check :: node_len ::%d::\n", n);
+        // mx_display_str(*tab->node);
         // mx_display_str(tab->node[n - 1]);
         // mx_display_str(tab->node[n - 3]);
     }

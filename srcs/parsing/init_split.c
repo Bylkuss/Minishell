@@ -75,47 +75,56 @@ static int node_count(const char *s, char *c, int i[2]) //
         return (i[1] + 1);
 }
 
+// ls -lat | wc -l > out.txt
 /*   init_split_Form_           "..." "..." "..." */
 static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
-        int     len;
-        int     q[2];       // uniq_quotes ignore
+    int     n;      //node id
+    int     len;
+    int     q[2];       // uniq_quotes ignore
 
-        q[0] = 0;
-        q[1] = 0;
-        len = ft_strlen(s);
-        printf("DEBUG: node_fill  :: len = %d \n", len);                        // strlen
-        printf("DEBUG: n_fill ## i[0] = [%d][%c]\n", i[0], s[i[0]]);            // [0]
-        while (s[i[0]] && i[0] <= len)
+    n = 0;
+    q[0] = 0;
+    q[1] = 0;
+    len = ft_strlen(s);
+    printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
+    while (s[i[0]] && i[0] <= len)
+    {
+        i[2] = i[0];
+        while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
         {
-            if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // D: trouv
-            {
-                i[0]++;
-                printf("DEBUG: n_fill .. i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
-                i[1] = i[0];
-                // printf("DEBUG: n_fill || i[1] = [%d][%c]\n", i[1], s[i[1]]);       
-            }
-            // ls -lat | wc -l > out.txt
-            while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
-            {
-                q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
-                q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
-                printf("DEBUG: n_fill == i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
-                i[0]++;
-            }
-            if (i[1] >= len)
-                tab->node = ft_mx_ext(tab->node, "\0");
-            else
-            {
-                *tab->node = ft_substr((char *)s, i[1], i[0] - i[1]); 
-                tab->node = ft_mx_ext(tab->node, *tab->node);
-            }
-            printf("DEBUG: n_fill    i[0] = [%d][%c]\n", i[0], s[i[0]]);        // NOT
+            printf("DEBUG: n_fill -- i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
+            q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
+            q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
             i[0]++;
         }
-        return (tab->node);
+        if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // spc found
+        {
+            i[1] = i[0];
+            printf("DEBUG: n_fill XX i[1] = [%d][%c]\n", i[1], s[i[1]]);   // spc found
+            i[0]++;
+            // printf("DEBUG: n_fill OO i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
+        }
+        if (i[0] <= len)
+        {
+            // if( i[0] == len)
+            //     i[2] = i[0] - 1;
+            tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
+            printf("DEBUG:  node[%d]_len = _%ld_\n", n, ft_strlen(tab->node[n]));
+            tab->node = ft_mx_ext(tab->node, tab->node[n]);
+            i[2] = i[0]; // 1
+            // printf("DEBUG: n_fill >< i[2] = [%d][%c]\n", i[2], s[i[2]]);   // spc found
+            n++;
+        }
+        // else
+        //     break;
+            
+    }
+            tab->node = ft_mx_ext(tab->node, "\0");
+    mx_display_tab(tab->node);
+    return (tab->node);
 }
-
+// ls -lat | wc -l > out.txt
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
 char **init_split(const char *s, char *set, t_table *tab)
 {
@@ -145,7 +154,7 @@ char **init_split(const char *s, char *set, t_table *tab)
         return (NULL);
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
-    tab->node[n] = NULL; 
+    // tab->node[n] = NULL; 
     return (tab->node);   // ret(tab->node)
 }
 

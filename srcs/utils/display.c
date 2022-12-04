@@ -8,10 +8,10 @@ void mx_display_tab(char **tab)
 
         while(tab && (*tab[i] != '\0'))
         {
-            printf ("%s :: \n", tab[i]);
+            printf ("%s__\n", tab[i]);
             i++;
         }
-        printf(" :: \n" );
+        printf("__ \n" );
 }
 
 void mx_display_str(char *str)
