@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/02 17:33:58 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:27:32 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,11 @@ t_token	*token_nodes(t_table *tab)
 {
 	int i;		// node_id
 	// int j;		// ptr pos
-	// t_token *token;	// frmd token instanc
+	t_token *token;	// frmd token instanc
 
-	// token = tab->token;
+	token = tab->token;
 	i = 0; 
+	
 	// tab->cmds >> t_token	*token;
 		// token->id 	(int)
 		// token->cmd	(char**)
@@ -88,8 +89,12 @@ t_token	*token_nodes(t_table *tab)
 		// token->infile :: token->outfile 
 		// token->tkn_len	(int)
 	// needed to token command
+	
 	if (tab->cmds)
-		printf("DEBUG : token_node cmds [0][0] = %s ::\n", *tab->cmds[0]);
+	{
+		printf("DEBUG : token_node cmds [0][0] =  ::\n");
+		// mx_display_tab(*tab->cmds);
+	}
 	if (tab->tk_num)
 		printf("DUBUG : tk_num = %d:: \n", tab->tk_num);
 	while (*tab->cmds[i] && i < tab->tk_num)
@@ -110,7 +115,7 @@ t_token	*token_nodes(t_table *tab)
 			// {
 		tab->token->id = i;
 		tab->token->cmd = tab->cmds[i];
-			// 	printf("debug:: into tok_node");
+		printf("debug:: into tok_node");
 			// 	// if (tab->token->cmd)
 			// 		// 	mx_display_tab(tab->token->cmd);
 			// 		// 		/*	i += args[i][0] == '|';
