@@ -107,20 +107,17 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         }
         if (i[0] <= len)
         {
-            // if( i[0] == len)
-            //     i[2] = i[0] - 1;
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
             printf("DEBUG:  node[%d]_len = _%ld_\n", n, ft_strlen(tab->node[n]));
-            tab->node = ft_mx_ext(tab->node, tab->node[n]);
+            if( i[0] == len)
+                tab->node = ft_mx_ext(tab->node, "\0");
+            else
+                tab->node = ft_mx_ext(tab->node, tab->node[n]);
             i[2] = i[0]; // 1
             // printf("DEBUG: n_fill >< i[2] = [%d][%c]\n", i[2], s[i[2]]);   // spc found
             n++;
-        }
-        // else
-        //     break;
-            
+        }            
     }
-            tab->node = ft_mx_ext(tab->node, "\0");
     mx_display_tab(tab->node);
     return (tab->node);
 }
