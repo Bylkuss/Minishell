@@ -100,7 +100,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             i[2] = i[0];
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
             {
-                printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
+                // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
                 i[0]++;

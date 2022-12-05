@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/05 07:38:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/05 09:06:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static char ***split_all(char **node, t_table *tab)
     cmdx = NULL;
 
     if (!(cmdx))  
-        cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
+        // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
     
-    printf("gogogo!!\n");
     while (node && node[++i])       
     {
+        printf("DEBUG: split_all!!\n");
 
         //args = tab->cmds[id]
             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
@@ -46,9 +46,10 @@ static char ***split_all(char **node, t_table *tab)
         cmdx[id++] = div_token(node[i], "<|>", tab); 
         //div_token ...
         // cmdx[id] = ft_mx_ext(cmdx[id], *cmdx[id]);
+        printf("splt_ll... next\n");
     }
     
-    mx_display_tab(cmdx[id]);
+    // mx_display_tab(cmdx[id]);
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
                 // ft_mx_rpl(&args, nodes, i);
