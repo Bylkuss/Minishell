@@ -46,8 +46,8 @@ static t_table *split_all(char **node, t_table *tab)
         //expand_path ...
         printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
-        printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, box[i]);
-        mx_display_tab(box);
+        printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, box[i]);
+        // mx_display_tab(box);
 
         
         tab->cmds[id] = ft_mx_ext(tab->cmds[id], *box);
