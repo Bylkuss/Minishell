@@ -52,6 +52,7 @@
 		// 	// *i = -2;
 		// 	return (token);
 // }
+//  ls -lat | wc -l > out.txt  
 
 static int  malloc_len(const char *s)
 {
