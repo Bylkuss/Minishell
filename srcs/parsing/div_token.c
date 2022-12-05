@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/03 19:22:35 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/05 05:45:23 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,22 +128,22 @@ static int	token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int
 	cmd = tab->node; //[id][node[;]
 	token = tab->token;
 	//
-	//	get to *node[0]	== token->cmds
-	//	get *node[len-1] == 
-	//	get *node[len]	== token->endtype
-	// DEAD_END  = 0,
-	// PIPE_END  = 1,
-	// OUTF1_END = 2,
-	// OUTF2_END = 3,
-	// INF1_END  = 4,
-	// INF2_END  = 5,
-	// ERR_END   = 6
+		//	get to *node[0]	== token->cmds
+		//	get *node[len-1] == 
+		//	get *node[len]	== token->endtype
+			// DEAD_END  = 0,
+			// PIPE_END  = 1,
+			// OUTF1_END = 2,
+			// OUTF2_END = 3,
+			// INF1_END  = 4,
+			// INF2_END  = 5,
+			// ERR_END   = 6
 
-	while (id <= tab->tk_num)
-	{
+	// while (id <= tab->tk_num)
+	// {
+			printf("\n\n\n");
 		if (token->cmd && (token->id < token->tk_len) && (token->id < token->tk_len))
 		{
-			printf("\n\n\n");
 			// if (tab->cmds == ">" && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
 			if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
 				tab->token->endtype = 3;
@@ -174,12 +174,13 @@ static int	token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int
 			}
 			// return (token);
 		}
-	}	
+	// }	
 	// mini_perror(PIPENDERR, NULL, 2);
 	// *i = -2;
 	return (tab->token->endtype);
 }
 
+//  ls -lat | wc -l > out.txt
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
 char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split_all
 {
@@ -194,19 +195,25 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
     tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
 	if (tab->tk_num == (-1))
 		return (NULL);
+		
 	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
 	tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
 	if (!(*tkn))
 	    return (NULL);
-    tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
-    if (!(tab->token->cmd))
-	
-    tkn = token_fill(tkn, (char *)s, set, tab);	
-	printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
+		
+    // tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
+    // if (!(tab->token->cmd))
+ 	// 	return (NULL);	
+	// else
+	// {
+		
+		tab->token->cmd = token_fill(tkn, (char *)s, set, tab);	
+		printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
+	// }
 	
 	
 	tab->token->endtype = token_etype(tab);
-	tab->token->tk_len = ft_mx_len(tkn);
+	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp
 		//		**tkn << tab->cmds >> sub_split / endtype char
@@ -214,18 +221,18 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 		///		ft_mx_ext ... 
 		//		
 		///;
-	// tab->token = token_etype(tab)
-	// if (*tkn)
-	// {
-	// 	tab->node[tk_id] = tkn[tk_id];
-	// 	tk_id++;		// tab->token->id = 0;		// tab->token->id++;
-	// 	while (tk_id < tab->tk_num)
-	// 	{
-	// 		tab->node[tk_id] = tkn[tk_id];
-	// 		tk_id++;
-	// 	}
-		// mx_display_tab(tkn);
-	// }
+			// tab->token = token_etype(tab)
+			// if (*tkn)
+			// {
+			// 	tab->node[tk_id] = tkn[tk_id];
+			// 	tk_id++;		// tab->token->id = 0;		// tab->token->id++;
+			// 	while (tk_id < tab->tk_num)
+			// 	{
+			// 		tab->node[tk_id] = tkn[tk_id];
+			// 		tk_id++;
+			// 	}
+				// mx_display_tab(tkn);
+			// }
 	/*
 		while (nb < tknum)
 		{
