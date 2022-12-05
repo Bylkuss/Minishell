@@ -19,10 +19,11 @@ static char ***split_all(char **node, t_table *tab)
 {
     char    ***cmdx;  // char number name-> x[itoa(x)]
     int     i;
-    // int     x;
-    // int quotes[2];
+    int quotes[2];
 
     i = -1;
+    quotes[0] = 0;
+    quotes[1] = 0;
     // x = 0;
     cmdx = NULL;
     
@@ -34,18 +35,18 @@ static char ***split_all(char **node, t_table *tab)
         // cmdx[x] = ft_mx_ext(cmdx[x], node[++i]);
         // mx_display_tab(cmdx[i]);
 
+            // args = tab->cmds[id]
+            //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
+            //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
+        node[i] = expand_vars(node[i], -1, quotes, tab);  
+        //expand_var ...  
+        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        //expand_path ...
         tab->cmds[i] = div_token(node[i], "<|>", tab); 
-        cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
-            // cmdx[x] = tab->node[0];
-    
-                 // args = tab->cmds[id]
-                //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
-                //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
-            // node[i] = expand_vars(node[i], -1, quotes, tab);  
-            //expand_var ...  
-            // node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-            //expand_path ...
         //div_token ...
+        // cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
+            // cmdx[x] = tab->node[0];
+
     }
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
