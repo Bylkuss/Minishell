@@ -147,7 +147,7 @@ char **init_split(const char *s, char *set, t_table *tab)
     if (!tab->node)
         return (NULL);
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
+    // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
     // tab->node[n] = NULL; 
     return (tab->node);   // ret(tab->node)
 }

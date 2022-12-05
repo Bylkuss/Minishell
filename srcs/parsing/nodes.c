@@ -146,7 +146,7 @@ t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 		mx_display_str(*tab->cmds[0]);
 	}
 	if (tab->tk_num)
-		printf("DUBUG : tk_num = %d:: \n", tab->tk_num);
+		printf("DEBUG : tk_num = %d:: \n", tab->tk_num);
 	while (*tab->cmds[i] && i < tab->tk_num)
 	{
 			// tab->token->id = i;

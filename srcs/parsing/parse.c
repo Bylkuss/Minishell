@@ -27,7 +27,7 @@ static char ***split_all(char **node, t_table *tab)
     // x = 0;
     cmdx = NULL;
     
-    ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
+    // ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
     
     while (node && node[++i])       
     {
@@ -42,7 +42,9 @@ static char ***split_all(char **node, t_table *tab)
         //expand_var ...  
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-        tab->cmds[i] = div_token(node[i], "<|>", tab); 
+        // tab->cmds[i] = div_token(node[i], "<|>", tab); 
+        cmdx[i] = div_token(node[i], "<|>", tab); 
+        // while(!tab->token->cmd)
         //div_token ...
         // cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
             // cmdx[x] = tab->node[0];
@@ -56,7 +58,8 @@ static char ***split_all(char **node, t_table *tab)
                 // // free node
                 // ft_mx_free(&nodes);
 
-    printf("DEBUG : into... split all :: id = %d\n", i);
+    printf("DEBUG: split_all :: id = %d\n", i);
+    // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
     return (cmdx); 
 }
 
@@ -70,13 +73,17 @@ t_table  *parse_args(t_table *tab)
         //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
             // if (tab->node)
             
-    printf("DEBUG: parse... tab->node >> \n");
+    // printf("DEBUG: parse... tab->node >> \n");
     tab->cmds = split_all(tab->node, tab); 
     //          pass nodes splited to be check /meta
+    if (tab->cmds[0])
+    {
+        printf("DEBUG: parse... tab->token\n");
+        mx_display_str(*tab->cmds[0]);
+    }
 
     tab->token = token_nodes(tab);  
     //          node breaker =>   node_token == token_builder ...
-    printf("DEBUG: parse... tab->token\n");
         
         
         /*  tab->node [*str]  sep.space. node -ID.less
@@ -157,7 +164,6 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 /*
                     if (tab && tab->cmds && tab->token && tab->tk_num > 0)
                     {
-                        // mx_display_tab(tab->cmds);
                         // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
                         //  - 1], p->envp, 1);                                    
                             //     ft_lstclear(&p->cmds, free_content);
