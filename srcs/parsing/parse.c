@@ -18,8 +18,9 @@ extern int g_status;
 static char ***split_all(char **node, t_table *tab)  
 {
     char    ***cmdx;  // char number name-> x[itoa(x)]
-    int i;
-    int quotes[2];
+    int     i;
+    // int     x;
+    // int quotes[2];
 
     i = -1;
     // x = 0;
@@ -29,17 +30,22 @@ static char ***split_all(char **node, t_table *tab)
     
     while (node && node[++i])       
     {
-        // args = tab->cmds[id]
-            //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
-            //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
-        node[i] = expand_vars(node[i], -1, quotes, tab);  
-        //expand_var ...  
-        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-        //expand_path ...
+        // if (!(**cmdx))  
+        // cmdx[x] = ft_mx_ext(cmdx[x], node[++i]);
+        // mx_display_tab(cmdx[i]);
+
         tab->cmds[i] = div_token(node[i], "<|>", tab); 
-        //div_token ...
         cmdx[i] = ft_mx_ext(tab->cmds[i], node[i]);
-        mx_display_tab(cmdx[i]);
+            // cmdx[x] = tab->node[0];
+    
+                 // args = tab->cmds[id]
+                //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
+                //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
+            // node[i] = expand_vars(node[i], -1, quotes, tab);  
+            //expand_var ...  
+            // node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+            //expand_path ...
+        //div_token ...
     }
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
@@ -63,7 +69,7 @@ t_table  *parse_args(t_table *tab)
         //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
             // if (tab->node)
             
-    printf("DEBUG: parse... tab->node >> tab->cmds\n");
+    printf("DEBUG: parse... tab->node >> \n");
     tab->cmds = split_all(tab->node, tab); 
     //          pass nodes splited to be check /meta
 
@@ -115,11 +121,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     {   
         n = ft_mx_len(tab->node);
         printf("DEBUG: check :: node_len ::%d::\n", n);
-        // mx_display_str(*tab->node);
-        // mx_display_str(tab->node[n - 1]);
-        // mx_display_str(tab->node[n - 3]);
     }
-
     tab = parse_args(tab);    // tab->node        
     // while(tab->node)
         // {

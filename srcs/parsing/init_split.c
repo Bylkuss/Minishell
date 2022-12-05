@@ -93,7 +93,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         i[2] = i[0];
         while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
         {
-            printf("DEBUG: n_fill -- i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
+            // printf("DEBUG: n_fill -- i[0] = [%d][%c]\n", i[0], s[i[0]]);     // NOT
             q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
             q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
             i[0]++;
@@ -101,14 +101,14 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // spc found
         {
             i[1] = i[0];
-            printf("DEBUG: n_fill XX i[1] = [%d][%c]\n", i[1], s[i[1]]);   // spc found
+            // printf("DEBUG: n_fill XX i[1] = [%d][%c]\n", i[1], s[i[1]]);   // spc found
             i[0]++;
             // printf("DEBUG: n_fill OO i[0] = [%d][%c]\n", i[0], s[i[0]]);    // D: trouv
         }
         if (i[0] <= len)
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
-            printf("DEBUG:  node[%d]_len = _%ld_\n", n, ft_strlen(tab->node[n]));
+            //            // printf("DEBUG:  node[%d]_len = _%ld_\n", n, ft_strlen(tab->node[n]));
             if( i[0] == len)
                 tab->node = ft_mx_ext(tab->node, "\0");
             else
@@ -125,19 +125,16 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
 char **init_split(const char *s, char *set, t_table *tab)
 {
-    // char    **;  // to be chang >> tab->node
     char    *input;
     int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
-    // int *v;
 
     i[0] = 0;
     i[1] = 0;
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    
     if (s)
         input = pipe_check((char *)s, "|");
     else
