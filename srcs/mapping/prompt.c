@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/30 10:55:23 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/12/06 12:44:23 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char    *getprompt(t_table *tab)
         char *aux;
 
         tmp = get_user(tab);                    //
-        tmp2 = ft_strjoin(tmp, "@mishell");
+        tmp2 = ft_strjoin(tmp, "@minishell");
         free(tmp);
         aux = get_home(tab);                   //
         tmp = ft_strjoin(tmp2, aux);

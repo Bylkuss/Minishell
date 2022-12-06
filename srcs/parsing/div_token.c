@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/05 21:08:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:51:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,22 +134,22 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
     if (!(*tkn))
 	    return (NULL);
     tkn = token_fill(tkn, (char *)s, set, 0);	
-	tab->token->tk_len = ft_mx_len(tkn);
-	printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
+	// tab->token->tk_len = ft_mx_len(tkn);
+	// printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
 	// t_fill reciv array *str endtyp
 		//		**tkn << tab->cmds >> sub_split / endtype char
 	
 	///		ft_mx_ext ... 
-	// if (*tkn)
-	// {
-	// 	tab->node[tk_id] = tkn[tk_id];
-	// 	tk_id++;		// tab->token->id = 0;		// tab->token->id++;
-	// 	while (tk_id < tab->tk_num)
-	// 	{
-	// 		tab->node[tk_id] = tkn[tk_id];
-	// 		tk_id++;
-	// 	}
-	// 	// mx_display_tab(tkn);
+		// if (*tkn)
+		// {
+		// 	tab->node[tk_id] = tkn[tk_id];
+		// 	tk_id++;		// tab->token->id = 0;		// tab->token->id++;
+		// 	while (tk_id < tab->tk_num)
+		// 	{
+		// 		tab->node[tk_id] = tkn[tk_id];
+		// 		tk_id++;
+		// 	}
+		// 	// mx_display_tab(tkn);
 	// }
 	/*
 		while (nb < tknum)
