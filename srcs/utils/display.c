@@ -5,6 +5,7 @@
 void mx_display_tab(char **tab)
 {
     int i = 0;
+<<<<<<< HEAD
 
         printf("START:");
         while(tab && (*tab[i] != '\0'))
@@ -13,6 +14,14 @@ void mx_display_tab(char **tab)
             i++;
         }
         printf(":END\n");
+=======
+    if (tab[i])// && tab[0])
+    {
+        while(tab[i++])
+            printf ("%s :: \n", tab[i]);
+        printf (" :: \n" );
+    }
+>>>>>>> origin
 }
 
 void mx_display_str(char *str)

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/12/05 21:12:41 by gehebert         ###   ########.fr       */
+=======
+/*   Updated: 2022/11/30 11:04:10 by bylkus           ###   ########.fr       */
+>>>>>>> origin
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +156,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     }
     if (input[0] != '\0')
         add_history(input);
+<<<<<<< HEAD
         
     tab->node = init_split(input, " ", tab); // space split 
     if (tab->node)
@@ -159,6 +164,21 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         n = ft_mx_len(tab->node);
         mx_display_tab(tab->node);
         printf("DEBUG: check :: node_num ::%d::\n", n);
+=======
+        //  input divided by space ::    
+    // printf("GO_GO_GO\n");    // DEBUG
+    tab->cmds = space_split((const char *)input, " ");
+    if (tab->cmds[0])
+    {
+        // printf("\nOK TEST INPUT!");           //  DEBUG
+        // mx_display_tab(tab->cmds);
+        // display_tkn(tab);
+        // printf(":: :: !!!");
+        // len = ft_mx_len(tab->node);
+        // printf("\n%d :::\n", len);
+        // mx_display_tab(tab->cmds);
+        return (tab);
+>>>>>>> origin
     }
     tab->token = parse_args(tab);    // tab->node        
     // while(tab->node)
