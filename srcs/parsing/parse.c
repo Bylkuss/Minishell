@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/05 09:06:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/05 21:12:41 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ static t_table *split_all(char **node, t_table *tab)
     quotes[1] = 0;
     box = NULL;
     // cmdx = NULL;
-
-    // if (!(cmdx))  
-        // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
+        // if (!(cmdx))  
+            // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));      
+        //  printf("how many node = %d\n",ft_mx_len(tab->node));
         
-    //  printf("how many node = %d\n",ft_mx_len(tab->node));
-    
-    // printf("DEBUG: split_all_start\n");
+        // printf("DEBUG: split_all_start\n");
+    tab->token->id = 0;
     while (node && node[++i])       
     {
         //args = tab->cmds[id]
@@ -43,19 +42,25 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...  
-        printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
+                // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-        printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+                // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
         //div_token ...
-        printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, *box);
+                // printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, node[i]);
+        tab->token->cmd[id] = ft_substr(*box, 0, ft_strlen(box[0]));
+             printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, box[0]); 
         // mx_display_tab(box);
-
-        if (ft_strchar_i("|", *box)) 
-            id++;
-        tab->cmds[id] = ft_mx_ext(tab->cmds[id], *box);
-        printf("splt_ll... next\n");
+        
+        // tab->token->cmd = ft_mx_ext(tab->token->cmd, *box);
+        // if(tab->token->cmd[id])
+        //     tab->token->cmd[id] = *ft_mx_ext(*tab->token->cmd[id], *box); 
+        // else
+        //     tab->token->cmd[id] = ft_strjoin(*box, "\0"); 
+        // if (ft_strchar_i("|", *box)) 
+        //     tab->token->id++;
+        printf("splt_ll... next:: %d\n", id);
         // if (tab->cmds[i][0] )//== "|" || tab->cmds[i][0] != "<" || tab->cmds[i][0] != ">")
         // {
         // }
