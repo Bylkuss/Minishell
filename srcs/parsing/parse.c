@@ -34,8 +34,8 @@ static t_table *split_all(char **node, t_table *tab)
     // cmdx = NULL;
     // cmd_line = NULL;
 
-    // tab->token->cmd = NULL;
-    // printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
+    tab->token->cmd = NULL;
+    printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
     while (node && node[++i])       
     {
         //args = tab->cmds[id]
@@ -43,11 +43,11 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...  
-          printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", id, node[i]);
+          // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-            printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", id, node[i]);
-        tab->cmds[id] = div_token(node[i], "<|>", tab); 
+            // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+        box = div_token(node[i], "<|>", tab); 
         //div_token ...
 
                 // if (!cmd_line)
@@ -57,19 +57,19 @@ static t_table *split_all(char **node, t_table *tab)
                 // if (ft_strchar_i("|", *box)) 
                 //     id++;
         printf("DEBUG: split: div_node_id[%d]::[%s]::\n", id, *box);
-        if (ft_strchar_i(*tab->cmds[id], set))        
+        if (!ft_strchar_i((char *)node[i], set))        
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
             // if (*tab->cmds != NULL)
-            //     printf("tab->cmds: len[%d]\n", ft_mx_len(tab->cmds[id]));    
+                // printf("tab->cmds: len[%d]\n", ft_mx_len(tab->cmds[id]));    
             // tab->cmds[id] = ft_mx_dup(tab->token->cmd);
             // ft_mx_free(&tab->token->cmd);
             id++;
         }
         else            
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-        printf("token...id[%d] { %s } ... \n", id, tab->token->cmd[i]);
-        // printf("splt_ll.... \n");
+        printf("splt_ll.... \n");
+        // printf("splt_ll...id[%d] { %s } ... \n", id, tab->token->cmd[i]);
         // mx_display_tab(tab->token->cmd);
         if (id > 0)
         {
