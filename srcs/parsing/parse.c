@@ -10,33 +10,100 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../includes/minishell.h"
 
 extern int g_status;
 
 /*       char **args = tab->cmds  :  token chunk    */
+            // static t_table *split_all(char **node, t_table *tab)  
+            // {
+            //     // char    ***cmdx;  // char number name-> x[itoa(x)]
+            //     int     i;
+            //     int     id;     // tkn_id     
+            //     char **box;
+            //     char *cmd_line;
+            //     int quotes[2];
+
+            //     i = -1;
+            //     id = 0;
+            //     quotes[0] = 0;
+            //     quotes[1] = 0;
+            //     box = NULL;
+            //     cmd_line = NULL;
+            //     // cmdx = NULL;
+            //         // if (!(cmdx))  
+            //             // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));      
+            //         //  printf("how many node = %d\n",ft_mx_len(tab->node));
+                    
+            //         // printf("DEBUG: split_all_start\n");
+            //     tab->token->id = 0;
+            //     while (node && node[++i])       
+            //     {
+            //         //args = tab->cmds[id]
+            //             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
+            //             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
+            //         node[i] = expand_vars(node[i], -1, quotes, tab);  
+            //         //expand_var ...  
+            //         // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
+            //         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+            //         //expand_path ...
+            //         // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+            //         box = div_token(node[i], "<|>", tab); 
+            //         //div_token ...
+            //                 // printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, node[i]);
+            //         // tab->token->cmd[id] = ft_substr(*box, 0, ft_strlen(box[0]));
+            //         // mx_display_tab(box);
+                    
+            //         tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+            //         printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, *box); 
+            //         // if(tab->token->cmd[id])
+            //         //     tab->token->cmd[id] = *ft_mx_ext(*tab->token->cmd[id], *box); 
+            //         // else
+            //         //     tab->token->cmd[id] = ft_strjoin(*box, "\0"); 
+            //         // if (ft_strchar_i("|", *box)) 
+            //         //     tab->token->id++;
+            //         printf("splt_ll... next:: %d\n", id);
+            //         // if (tab->cmds[i][0] )//== "|" || tab->cmds[i][0] != "<" || tab->cmds[i][0] != ">")
+            //         // {
+            //         // }
+            //     }
+                
+            //     // mx_display_tab(cmdx[id]);
+            //         // tab->token->tk_len += ft_mx_len(tab->node);
+            //                 // mx_rpl (arg , node)
+            //                 // ft_mx_rpl(&args, nodes, i);
+            //                 // //
+            //                 // // printf("mx_len == %d\n", i);
+            //                 // // free node
+            //                 // ft_mx_free(&nodes);
+
+            //     printf("DEBUG: split_all :: tk_id = %d\n", id);
+            //     // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
+            //     return (tab); 
+// }
+
 static t_table *split_all(char **node, t_table *tab)  
 {
+    char *set;
     // char    ***cmdx;  // char number name-> x[itoa(x)]
     int     i;
     int     id;     // tkn_id     
     char **box;
-    char *cmd_line;
+    // char *cmd_line;
     int quotes[2];
 
     i = -1;
     id = 0;
     quotes[0] = 0;
     quotes[1] = 0;
+    set = "<|>";
     box = NULL;
-    cmd_line = NULL;
     // cmdx = NULL;
-        // if (!(cmdx))  
-            // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));      
-        //  printf("how many node = %d\n",ft_mx_len(tab->node));
-        
-        // printf("DEBUG: split_all_start\n");
-    tab->token->id = 0;
+    // cmd_line = NULL;
+
+    // tab->token->cmd = NULL;
+    printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
     while (node && node[++i])       
     {
         //args = tab->cmds[id]
@@ -44,28 +111,43 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...  
-        // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
+          // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-        // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+            // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
         //div_token ...
-                // printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, node[i]);
-        // tab->token->cmd[id] = ft_substr(*box, 0, ft_strlen(box[0]));
-        // mx_display_tab(box);
-        
-        tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-        printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, *box); 
-        // if(tab->token->cmd[id])
-        //     tab->token->cmd[id] = *ft_mx_ext(*tab->token->cmd[id], *box); 
-        // else
-        //     tab->token->cmd[id] = ft_strjoin(*box, "\0"); 
-        // if (ft_strchar_i("|", *box)) 
-        //     tab->token->id++;
-        printf("splt_ll... next:: %d\n", id);
-        // if (tab->cmds[i][0] )//== "|" || tab->cmds[i][0] != "<" || tab->cmds[i][0] != ">")
-        // {
-        // }
+
+                // if (!cmd_line)
+                //     cmd_line = ft_substr(node[i], 0, ft_strlen(node[0]));
+                // else
+                //     cmd_line = ft_strjoin(cmd_line, node[i]);
+                // if (ft_strchar_i("|", *box)) 
+                //     id++;
+        // printf("DEBUG: split: div_node_id[%d]::[%s]::\n", id, *box);
+        if (!ft_strchar_i((char *)*box, set))        
+        {
+            tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+            // if (*tab->cmds != NULL)
+                // printf("tab->cmds: len[%d]\n", ft_mx_len(tab->cmds[id]));    
+            // tab->cmds[id] = ft_mx_dup(tab->token->cmd);
+            // ft_mx_free(&tab->token->cmd);
+            id++;
+        }
+        else            
+            tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+        printf("splt_ll.... \n");
+        // printf("splt_ll...id[%d] { %s } ... \n", id, tab->token->cmd[i]);
+        // mx_display_tab(tab->token->cmd);
+        if (id > 0)
+        {
+            tab->cmds[id] = ft_mx_dup(tab->token->cmd);
+            ft_mx_free(&tab->token->cmd);
+            tab->token->cmd = ft_mx_ext(tab->token->cmd, "");
+
+
+        }
+        printf("token->cmd: len[%d]\n", ft_mx_len(tab->token->cmd));
     }
     
     // mx_display_tab(cmdx[id]);
@@ -77,7 +159,7 @@ static t_table *split_all(char **node, t_table *tab)
                 // // free node
                 // ft_mx_free(&nodes);
 
-    printf("DEBUG: split_all :: tk_id = %d\n", id);
+    // printf("DEBUG: split_all :: tk_id = %d\n", id);
     // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
     return (tab); 
 }
