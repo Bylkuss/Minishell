@@ -21,6 +21,7 @@ static t_table *split_all(char **node, t_table *tab)
     int     i;
     int     id;     // tkn_id     
     char **box;
+    char *cmd_line;
     int quotes[2];
 
     i = -1;
@@ -28,6 +29,7 @@ static t_table *split_all(char **node, t_table *tab)
     quotes[0] = 0;
     quotes[1] = 0;
     box = NULL;
+    cmd_line = NULL;
     // cmdx = NULL;
         // if (!(cmdx))  
             // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));      
@@ -42,10 +44,10 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...  
-                printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
+        // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-                // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+        // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
         //div_token ...
                 // printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, node[i]);
