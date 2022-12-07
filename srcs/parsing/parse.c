@@ -50,7 +50,7 @@ static t_table *split_all(char **node, t_table *tab)
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
             printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
-        box = div_token(node[i], "<|>", tab); 
+        box = div_token(node[i], set, tab); 
         //div_token ...
 
                 // if (!cmd_line)
@@ -60,7 +60,7 @@ static t_table *split_all(char **node, t_table *tab)
                 // if (ft_strchar_i("|", *box)) 
                 //     id++;
         printf("DEBUG: split: div_node_id[%d]::[%s]::\n", id, *box);
-        if (!ft_strchar_i(node[i], set))        
+        if (!ft_strchar_i(*box, set))        
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
             printf("DEBUG: token->cmd:: str_len[%d]::\n", ft_mx_len(tab->token->cmd));
