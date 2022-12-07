@@ -50,7 +50,7 @@ static t_table *split_all(char **node, t_table *tab)
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
             printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
-        box = div_token(node[i], set, tab); 
+        box = div_token(node[i], set, tab, id); 
         //div_token ...
 
                 // if (!cmd_line)
@@ -63,7 +63,7 @@ static t_table *split_all(char **node, t_table *tab)
         if (!ft_strchar_i(*box, set))        
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-            printf("DEBUG: token->cmd:: str_len[%d]::\n", ft_mx_len(tab->token->cmd));
+            printf("DEBUG: split_ll :: tkn_str_len[%d]::\n", ft_mx_len(tab->token->cmd));
                 // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
             tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
             ++id;
@@ -72,13 +72,14 @@ static t_table *split_all(char **node, t_table *tab)
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
         }
-        if (id > focus_id && id < tab->tk_num)
+        if (id > focus_id && id <= tab->tk_num)
         {
             printf("DEBUG: splt_ll..FOCUS_id[%d]\n",focus_id);
             // tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
             mx_display_tab(tab->token->cmd);
             ft_mx_free(&tab->token->cmd);
             focus_id = id;
+            tab->token->id = focus_id;
             
         }
     }

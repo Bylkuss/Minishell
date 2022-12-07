@@ -211,40 +211,46 @@ static int	token_count(char *s, char *set, int tkn)
 				i[0]++;
 			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 				// tab->token
+
 			}
+			// mx_display_tab(aux);
 			return (aux);
 	}
 
 
 	//  ls -lat | wc -l > out.txt  
 // 	set = {"<",">","|"} :: if(!set) ? end : err 
-char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split_all
+char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by parse>split_all
 {
 	
 	char    **tkn;			// token sub_split by endtype
+	int tkn_len;
 	int i[3];
 
 		// int 	tk_id;		// focus token	// tk_id = 0;
+	tkn_len = 0;
 	i[0] = 0;				// set start pos ptr
 	i[1] = 0;				// set sub_end pos ptr
 	i[2] = 0;	
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	//
-    tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
+    tkn_len = token_count((char *)s, set, 1);	// how many end at_least_1
+	tab->tk_num = tkn_len;
 	if (tab->tk_num == (-1))
 		return (NULL);
 		
-	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+	printf("DEBUG: div_token :: tkn_len = %d\n", tkn_len);
 
-	tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
+	if (ft_mx_len(tab->cmds[id]) == 0) 
+		tkn = (char **)malloc(sizeof(char *) * (tkn_len + 1)); 
 	if (!(*tkn))
 	    return (NULL);
 		
 	tkn = token_fill(tkn, (char *)s, set, i);	
 	if (!(*tkn))
 	    return (NULL);
-	printf("DEBUG: div_token :: tk_len = %d\n", ft_mx_len(tkn));	
+	// printf("DEBUG: div_token :: tk_len = %d\n", ft_mx_len(tkn));	
 	// printf("DEBUG: div_token :: tk_len = %s\n", tkn[0]);	
 			// tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
 			// if (!(tab->token->cmd))
