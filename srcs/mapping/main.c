@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/29 12:44:13 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:23:44 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,18 +98,8 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         // 
-        // fonction on his own { built_outs }
-        if(ft_strcmp(input, "exit") == 0)
-            exit(0);
-        if (ft_strlen(input) > 0)
-            add_history(input);
-        if(ft_strnstr(input, "cd", 10))
-            cd(ft_split(input, ' '), envp);
-        else if (ft_strnstr(input, "pwd", 10))
-            pwd();
-        else if(ft_strnstr(input, "echo", 10))
-            echo(ft_split(input, ' '));
-    
+      //fonction on his own { built_outs }
+        builtins_handler(input, envp);
         // 
         free(str);
         tab = check_args(input, tab);

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/05 09:06:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:51:41 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,12 @@ static t_table *split_all(char **node, t_table *tab)
     box = NULL;
     cmd_line = NULL;
     // cmdx = NULL;
-
-    // if (!(cmdx))  
-        // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));
+        // if (!(cmdx))  
+            // cmdx[id++] = ft_mx_rpl(cmdx, tab->node, ft_mx_len(tab->node));      
+        //  printf("how many node = %d\n",ft_mx_len(tab->node));
         
-    //  printf("how many node = %d\n",ft_mx_len(tab->node));
-    
-    // printf("DEBUG: split_all_start\n");
+        // printf("DEBUG: split_all_start\n");
+    tab->token->id = 0;
     while (node && node[++i])       
     {
         //args = tab->cmds[id]
@@ -51,18 +50,19 @@ static t_table *split_all(char **node, t_table *tab)
         // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
         //div_token ...
-        printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, *box);
+                // printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, node[i]);
+        // tab->token->cmd[id] = ft_substr(*box, 0, ft_strlen(box[0]));
         // mx_display_tab(box);
-
-        if (!cmd_line)
-            cmd_line = ft_substr(node[i], 0, ft_strlen(node[0]));
-        else
-            cmd_line = ft_strjoin(cmd_line, node[i]);
+        
+        tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+        printf("DEBUG: spl_ll div_node_id[%d]::[%s]::\n", i, *box); 
+        // if(tab->token->cmd[id])
+        //     tab->token->cmd[id] = *ft_mx_ext(*tab->token->cmd[id], *box); 
+        // else
+        //     tab->token->cmd[id] = ft_strjoin(*box, "\0"); 
         // if (ft_strchar_i("|", *box)) 
-        //     id++;
-        // tab->cmds[id] = ft_mx_ext(tab->cmds[id], *box);
-        printf("splt_ll...[%s] next\n", cmd_line);
-
+        //     tab->token->id++;
+        printf("splt_ll... next:: %d\n", id);
         // if (tab->cmds[i][0] )//== "|" || tab->cmds[i][0] != "<" || tab->cmds[i][0] != ">")
         // {
         // }
