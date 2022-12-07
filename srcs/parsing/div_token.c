@@ -104,7 +104,7 @@ static int	token_count(char *s, char *set, int tkn)
 // }
 
 
-//	 ls -lat | wc -l > out.txt       
+//	`
 // set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	// static char	**token_fill(char *s, char *set, t_table *tab)
 		// {	

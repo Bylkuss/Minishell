@@ -82,13 +82,13 @@ static t_table *split_all(char **node, t_table *tab)
         if (id > focus_id && id < tab->tk_num)
         {
             printf("DEBUG: .. .. FOCUS_id[%d]\n",focus_id);
+            // tab->token = token_nodes(tab);
             // tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
             mx_display_tab(tab->token->cmd);
             ft_mx_free(&tab->token->cmd);
-            focus_id = id;
-            
+            focus_id = id;            
         }
-        // tab->token = token_nodes(tab);
+    // tab->token = token_nodes(tab);
     }
     
     // mx_display_tab(cmdx[id]);
