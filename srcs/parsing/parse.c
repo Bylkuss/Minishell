@@ -21,13 +21,14 @@ static t_table *split_all(char **node, t_table *tab)
     // char    ***cmdx;  // char number name-> x[itoa(x)]
     int     i;
     int     id;     // tkn_id     
-    // char    *tk_id;
+    int     focus_id;
     char **box;
     // char *cmd_line;
     int quotes[2];
 
     i = -1;
     id = 0;
+    focus_id = 0;
     // tk_id = NULL;
     quotes[0] = 0;
     quotes[1] = 0;
@@ -36,7 +37,7 @@ static t_table *split_all(char **node, t_table *tab)
     // cmdx = NULL;
     // cmd_line = NULL;
 
-    tab->token->cmd = NULL;
+    // tab->token->cmd = NULL;
     printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
     while (node && node[++i])       
     {
@@ -44,11 +45,11 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
-        //expand_var ...  
-          // printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
+        //expand_var ...   
+          printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...
-            // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+            printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], "<|>", tab); 
         //div_token ...
 
@@ -62,22 +63,24 @@ static t_table *split_all(char **node, t_table *tab)
         if (!ft_strchar_i(node[i], set))        
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-            printf("token->cmd:: str_len[%d]:: ", ft_mx_len(tab->token->cmd));
-            printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
+            printf("DEBUG: token->cmd:: str_len[%d]::\n", ft_mx_len(tab->token->cmd));
+                // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
             tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
             ++id;
         }
-        else            
+        else 
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
         }
-        if (id > 0)
+        if (id > focus_id && id < tab->tk_num)
         {
-            // mx_display_tab(tab->token->cmd);
-            *tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
+            printf("DEBUG: splt_ll..FOCUS_id[%d]\n",focus_id);
+            // tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
+            mx_display_tab(tab->token->cmd);
             ft_mx_free(&tab->token->cmd);
+            focus_id = id;
+            
         }
-        // printf("splt_ll.... tk_id[%d]\n",id);
     }
     
     // mx_display_tab(cmdx[id]);
@@ -97,33 +100,36 @@ static t_table *split_all(char **node, t_table *tab)
 static t_token  *parse_args(t_table *tab)
 {
     int i; // int is_exit; // is_exit = 0;
-    int tab_len;
+    // int tab_len;
+    int tk_id;
+
     t_token *token;
     token = tab->token;
 
     i = 0;
-    tab_len = 0;
+    tk_id = 0;
+    // tab_len = 0;
         //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
         // if (tab->node)
     // printf("DEBUG: parse... tab->cmds >> \n");
         //create cmds ... token ... malloc both!
     
     tab = split_all(tab->node, tab); 
-    tab_len =  ft_mx_len(tab->node);
-    printf("parse >>node_len = {%d} \n",tab_len);
+    // tab_len =  ft_mx_len(tab->node);
+    // printf("DEBUG: parse >>node_num = [%d] \n",tab_len);
 
-    tab_len = ft_mx_len(tab->node);
-    printf("DEBUG: parse... tab->node >> len:%d \n",tab_len );
-    tab->cmds[i] = ft_mx_rpl(tab->cmds, tab->node, tab_len);
+    // tab->cmds[tk_id] = ft_mx_rpl(tab->cmds, tab->node, tab_len);
+    // tab_len = ft_mx_len(tab->cmds[i]);
+    // printf("DEBUG: parse >>token_len = [%d] \n",tab->tk_num );
 
     //          pass nodes splited to be check /meta
     token = token_nodes(tab);
-    printf("DEBUG: parse... tab->token >>\n");
-    if (tab->cmds[0])
+    // printf("DEBUG: parse... tab->token >>\n");
+    if (tab->cmds[tk_id])
     {
         // mx_display_str(*tx[0]);
-        i = ft_mx_len(tab->cmds[0]);
-         printf("DEBUG: parse... tab->cmds[0] len = %d >>\n", i);
+        i = ft_mx_len(tab->cmds[tk_id]);
+         printf("DEBUG: parse >>tab->cmds[0] len = %d >>\n", i);
     }
 
     token = token_nodes(tab);  
