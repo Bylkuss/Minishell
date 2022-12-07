@@ -21,12 +21,14 @@ static t_table *split_all(char **node, t_table *tab)
     // char    ***cmdx;  // char number name-> x[itoa(x)]
     int     i;
     int     id;     // tkn_id     
+    // char    *tk_id;
     char **box;
     // char *cmd_line;
     int quotes[2];
 
     i = -1;
     id = 0;
+    // tk_id = NULL;
     quotes[0] = 0;
     quotes[1] = 0;
     set = "<|>";
@@ -57,29 +59,25 @@ static t_table *split_all(char **node, t_table *tab)
                 // if (ft_strchar_i("|", *box)) 
                 //     id++;
         printf("DEBUG: split: div_node_id[%d]::[%s]::\n", id, *box);
-        if (!ft_strchar_i((char *)node[i], set))        
+        if (!ft_strchar_i(node[i], set))        
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-            // if (*tab->cmds != NULL)
-                // printf("tab->cmds: len[%d]\n", ft_mx_len(tab->cmds[id]));    
-            // tab->cmds[id] = ft_mx_dup(tab->token->cmd);
-            // ft_mx_free(&tab->token->cmd);
-            id++;
+            printf("token->cmd:: str_len[%d]:: ", ft_mx_len(tab->token->cmd));
+            printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
+            tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+            ++id;
         }
         else            
+        {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-        printf("splt_ll.... \n");
-        // printf("splt_ll...id[%d] { %s } ... \n", id, tab->token->cmd[i]);
-        // mx_display_tab(tab->token->cmd);
+        }
         if (id > 0)
         {
-            tab->cmds[id] = ft_mx_dup(tab->token->cmd);
+            // mx_display_tab(tab->token->cmd);
+            *tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
             ft_mx_free(&tab->token->cmd);
-            tab->token->cmd = ft_mx_ext(tab->token->cmd, "");
-
-
         }
-        printf("token->cmd: len[%d]\n", ft_mx_len(tab->token->cmd));
+        // printf("splt_ll.... tk_id[%d]\n",id);
     }
     
     // mx_display_tab(cmdx[id]);

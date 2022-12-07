@@ -109,7 +109,6 @@ int main(int ac, char **av, char **envp)
         //     pwd();
         // else if(ft_strnstr(input, "echo", 10))
         //     echo(ft_split(input, ' '));
-    
         // 
         free(str);
         tab = check_args(input, tab);
