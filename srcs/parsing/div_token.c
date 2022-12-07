@@ -104,7 +104,7 @@ static int	token_count(char *s, char *set, int tkn)
 // }
 
 
-//		 ls -lat | wc -l > out.txt  
+//	 ls -lat | wc -l > out.txt       
 // set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	// static char	**token_fill(char *s, char *set, t_table *tab)
 		// {	
@@ -237,14 +237,14 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 		
 	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
 
-	tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
+	tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
 	if (!(*tkn))
 	    return (NULL);
 		
 	tkn = token_fill(tkn, (char *)s, set, i);	
 	if (!(*tkn))
 	    return (NULL);
-	printf("DEBUG: div_token :: tk_len = %d\n", ft_mx_len(tkn));	
+	// printf("DEBUG: div_token :: tkn_str_len = %d\n", ft_mx_len(tkn));	
 	// printf("DEBUG: div_token :: tk_len = %s\n", tkn[0]);	
 			// tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
 			// if (!(tab->token->cmd))
