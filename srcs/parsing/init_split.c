@@ -146,7 +146,7 @@ char **init_split(const char *s, char *set, t_table *tab)
     count[0] = 0;
     count[1] = 0;
     if (s)
-        input = pipe_check((char *)s, "|");
+        input = pipe_check((char *)s, "<|>");
     else
         return (NULL);
     printf("DEBUG: pass_to_init :: %s \n", input);
