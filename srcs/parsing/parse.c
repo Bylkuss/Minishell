@@ -34,8 +34,8 @@ static t_table *split_all(char **node, t_table *tab)
     // cmdx = NULL;
     // cmd_line = NULL;
 
-    tab->token->cmd = NULL;
-    printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
+    // tab->token->cmd = NULL;
+    // printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
     while (node && node[++i])       
     {
         //args = tab->cmds[id]

@@ -86,31 +86,31 @@ static int	token_count(char *s, char *set, int tkn)
 
 	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 // static char	**token_fill(char **aux, char *s, char *set, int i[3])
-	// {	
-	// 	int len;
-	// 	int		q[2];
+// 	{	
+// 		int len;
+// 		int		q[2];
 
-	// 	q[0] = 0;
-	// 	q[1] = 0;
-	// 	len = ft_strlen(s);
-	// 	// printf("DEBUG: token_Fill :: set ::%s::\n", set);
-	// 	while (s[i[0]])
-	// 	{
-	// 		while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
-	//         	i[0]++;
-	// 		i[1] = i[0];
-	// 		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-	// 		{
-	// 			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-	// 			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-	// 			i[0]++;
-	// 		}
-	// 		if (i[1] >= len)
-	//         	aux[i[2]++] = "\0";
-	// 		else
-	// 			aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-	// 			// tab->token
-	// 		}
+// 		q[0] = 0;
+// 		q[1] = 0;
+// 		len = ft_strlen(s);
+// 		// printf("DEBUG: token_Fill :: set ::%s::\n", set);
+// 		while (s[i[0]])
+// 		{
+// 			while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+// 	        	i[0]++;
+// 			i[1] = i[0];
+// 			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+// 			{
+// 				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+// 				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
+// 				i[0]++;
+// 			}
+// 			if (i[1] >= len)
+// 	        	aux[i[2]++] = "\0";
+// 			else
+// 				aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
+// 				// tab->token
+// 			}
 // 		return (aux);
 // }
 // static int	token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
@@ -179,14 +179,14 @@ static int	token_count(char *s, char *set, int tkn)
 static char	**token_fill(char **aux, char *s, char *set, t_table *tab)
 	{	
 		int tk_id;
-		int i;
+		// int i;
 			// int len;
 			// int		q[2];
 			// q[0] = 0;
 			// q[1] = 0;
 			// len = ft_strlen(s);
 
-		i = 0;
+		// i = 0;
 		tk_id = 0;
 			// how many token
 			// how long token is 
@@ -200,23 +200,24 @@ static char	**token_fill(char **aux, char *s, char *set, t_table *tab)
 
 			// add mx_ext str to an arr!
 
-			if(!ft_strchr(set, s[i]))
+			if(!ft_strchar_i(set, s))
 			{
-				// i++
-				// aux = ft_mx_ext(aux, s);
+				// i++;				
+				 aux = ft_mx_ext(aux, s);
 				// printf("DEBUG: token_Fill :: not_end cmds[%d] ::%s::\n", tk_id, s);
 				// tk_id++;
 			}
-			if(ft_strchr(set, s[i])) 
+			if(ft_strchar_i(set, s)) 
 			{
-				// aux = ft_mx_ext(aux, aux[tk_id]);
-				// printf("DEBUG: token_Fill :: endtype cmds[%d] ::%s::\n", tk_id, s);
-				// tk_id++;
+				aux = ft_mx_ext(aux, aux[tk_id]);
+				printf("DEBUG: token_Fill :: endtype cmds[%d] ::%s::\n", tk_id, s);
+				tk_id++;
 
 			}	
 		}
 		// tab->cmds[tk_id] = ft_mx_ext(tab->cmds[tk_id], s);
 		// mx_display_tab(tab->cmds[tk_id]);
+			printf("DEBUG: token_Fill :: endtype cmds[%d] ::\n", tk_id);
 		return (aux);
 	}
 			// *tab->cmds[tk_id] = s;
@@ -257,7 +258,7 @@ static char	**token_fill(char **aux, char *s, char *set, t_table *tab)
 				// mx_display_tab(aux);
 	
 
-//  ls -lat | wc -l > out.txt  
+// 	ls -lat | wc -l > out.txt  
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
 char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split_all
@@ -273,14 +274,15 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
     tab->tk_num = token_count((char *)s, set, 0);	// how many end
 	if (tab->tk_num == (-1))
 		return (NULL);
-	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+	else
+		printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
 
-    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
+    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
     if (!(*tkn))
 	    return (NULL);
     tkn = token_fill(tkn, (char *)s, set, 0);	
 	// tab->token->tk_len = ft_mx_len(tkn);
-	// printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
+	printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
 	// t_fill reciv array *str endtyp
 		//		**tkn << tab->cmds >> sub_split / endtype char
 	
