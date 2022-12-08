@@ -269,33 +269,7 @@ char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by par
 	return (tkn);    
 }
   //   ls  -lta| wc -l>>out.txt   
-	// tab->token->tk_len = ft_mx_len(tkn);
-	// printf("DEBUG: div_token :: tk_len = %d\n", tab->token->tk_len);
-	// t_fill reciv array *str endtyp
-		//		**tkn << tab->cmds >> sub_split / endtype char
-	
-	///		ft_mx_ext ... 
-		// if (*tkn)
-		// {
-		// 	tab->node[tk_id] = tkn[tk_id];
-		// 	tk_id++;		// tab->token->id = 0;		// tab->token->id++;
-		// 	while (tk_id < tab->tk_num)
-		// 	{
-		// 		tab->node[tk_id] = tkn[tk_id];
-		// 		tk_id++;
-		// 	}
-		// 	// mx_display_tab(tkn);
-	// }
-	/*
-		while (nb < tknum)
-		{
-			token->id = nb;
-			token->cmd = aux[0];
-			token->endtype = 
-		}
-		aux ** == tab->node[id][str]] 
-		tab->node[token_id] = NULL;
-	*/
+  
  // return (tab->cmds[i])
  
 /*
