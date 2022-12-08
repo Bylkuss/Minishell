@@ -19,31 +19,34 @@ char *pipe_check(char *input, char *meta)
     char *dest; //  end part str
     int p[4];   //ptr pos start/pos/end
 
-    p[3] = 0; // ptr strlen..    
-    p[1] = ft_strchar_i((char *)input, meta);
-    if (p[1] == -1)
-        return (input);
-    else
-    {
-        p[0] = p[1] - 1;
-        p[2] = p[1] + 1;
-        p[3] = ft_strlen(input);
-        if ((input[p[1] + 1]) == 124)
-            p[2] = p[1] + 2;
-        // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
-        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-        // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-        // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-        // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-        if (input[p[0]] != 32)// tmp -1
-            tmp = ft_strjoin(" ", tmp);
-        if (input[p[2]] != 32) //tmp + 1
-            tmp = ft_strjoin(tmp, " ");  
-        srcs = ft_strjoin(srcs, tmp);
-        input = ft_strjoin(srcs, dest);
-    }    
+    // while (ft_strchar_i((char *)input, meta) != -1)
+    // {
+        p[3] = 0; // ptr strlen..    
+        p[1] = ft_strchar_i((char *)input, meta);
+        if (p[1] == -1)
+            return (input);
+        else
+        {
+            p[0] = p[1] - 1;
+            p[2] = p[1] + 1;
+            p[3] = ft_strlen(input);
+            if (input[p[1] + 1] == (input[p[1]]))
+                p[2] = p[1] + 2;
+            // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
+            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+            if (input[p[0]] != 32)// tmp -1
+                tmp = ft_strjoin(" ", tmp);
+            if (input[p[2]] != 32) //tmp + 1
+                tmp = ft_strjoin(tmp, " ");  
+            srcs = ft_strjoin(srcs, tmp);
+            input = ft_strjoin(srcs, dest);
+        // } 
+    }   
     return(input);
 }
 
@@ -143,10 +146,10 @@ char **init_split(const char *s, char *set, t_table *tab)
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    if (s)
-        input = pipe_check((char *)s, "|");
-    else
+    if (!s)
         return (NULL);
+    else
+        input = pipe_check((char *)s, "<|>");
     printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count((const char *)input, set, count);     // substr 
     // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG

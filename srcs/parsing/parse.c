@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 02:03:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:33:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static t_table *split_all(char **node, t_table *tab)
     int     id;     // tkn_id     
     int     focus_id;
     int quotes[2];
-    // char    ***cmdx;  // char number name-> x[itoa(x)]
-    // char *cmd_line;
 
     i = -1;
     id = 0;
@@ -41,9 +39,6 @@ static t_table *split_all(char **node, t_table *tab)
     set = "<|>";
     box = NULL;
 
-
-    // tab->token->cmd = NULL;
-    // printf("split_:: ? node = _%d_\n",ft_mx_len(tab->node));
     while (node && node[++i])       
     {
         //args = tab->cmds[id]
@@ -51,39 +46,46 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...   
-        //   printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-        //expand_path ...
-            // printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
-        box = div_token(node[i], set, tab); 
+        //expand_path ...         
+        box = div_token(node[i], set, tab, tab->tk_num); 
         //div_token ...
-
-                // if (!cmd_line)
-                //     cmd_line = ft_substr(node[i], 0, ft_strlen(node[0]));
-                // else
-                //     cmd_line = ft_strjoin(cmd_line, node[i]);
-                // if (ft_strchar_i("|", *box)) 
-                //     id++;
-        printf("DEBUG: split: div_token_id[%d] :: [%s] :: \n", id, *box);
-        //token_node  need 
+        focus_id = tab->token->id;               
         if (tab->tk_num > 0)
         {
             tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
             ++id;
-            focus_id = tab->token->id;               
             if (ft_strchar_i(node[i], set))        
                 tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
             tab->tk_num--;
         }
-        else 
+        if (tab->tk_num == 0) 
         {
-            tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
-            // mx_display_tab(tab->cmds[tab->token->id]);
-            tab->token->id++;           // can be place before dup
+            // tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+            // tab->token->id++;           // can be place before dup
             ft_mx_free(&tab->token->cmd);
         } 
-        // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", tab->token->id, ft_mx_len(tab->token->cmd));
+        printf("DEBUG: split:token_id[%d]:: node_id[%d] :: [%s] :: \n",focus_id, id, *box);
+        // mx_display_tab(tab->cmds);
+        // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", focus_id, ft_mx_len(tab->token->cmd));
     }
+    //     if (tab->tk_num > 0)
+        //     {
+        //         tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+        //         ++id;
+        //         focus_id = tab->token->id;               
+        //         if (ft_strchar_i(node[i], set))        
+        //             tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+        //         tab->tk_num--;
+        //         if (tab->tk_num == 0) 
+        //         {
+        //             tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+        //             ft_mx_free(&tab->token->cmd);
+        //             tab->token->id++;           // can be place before dup
+        //         } 
+        //     }
+    //     printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", tab->token->id, ft_mx_len(tab->token->cmd));
+    // }
     // tab->token = token_nodes(tab);
         // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
             // printf("DEBUG: .. .. FOCUS_id[%d]\n",focus_id);
@@ -106,7 +108,7 @@ static t_table *split_all(char **node, t_table *tab)
 static t_token  *parse_args(t_table *tab)
 {
     int i; // int is_exit; // is_exit = 0;
-    // int tab_len;
+    int type_id;
     int tk_id;
 
     t_token *token;
@@ -114,7 +116,7 @@ static t_token  *parse_args(t_table *tab)
 
     i = 0;
     tk_id = 0;
-            // tab_len = 0;
+    type_id = 0;
                 //     tab >> tab->node  ::  substr( tab->cmds >> endtype ) 
                 // if (tab->node)
             // printf("DEBUG: parse... tab->cmds >> \n");
@@ -123,6 +125,12 @@ static t_token  *parse_args(t_table *tab)
     tab = split_all(tab->node, tab); 
             // tab_len =  ft_mx_len(tab->node);
     printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
+
+    // //
+    //
+    // type_id = endtype(tab);
+    //
+    // //
 
             // tab->cmds[tk_id] = ft_mx_rpl(tab->cmds, tab->node, tab_len);
             // tab_len = ft_mx_len(tab->cmds[i]);
@@ -187,7 +195,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         printf("DEBUG: check :: node_num ::%d::\n", n);
     }
     tab->token = parse_args(tab);    // tab->node        
-    // while(tab->node)
+     // while(tab->node)
         // {
         //     i = 0;
         //     while(*tab->node[i] != '\0')
@@ -228,7 +236,6 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
 
     // free(input);
     return (tab); 
-}
 
 /*
 from check.c
@@ -241,3 +248,4 @@ from check.c
     *** so in my mind a token is : CMD + ARG + END 
     *** in fact ARG is facultative
 */
+}

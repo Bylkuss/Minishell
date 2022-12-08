@@ -42,8 +42,13 @@ clean	:
 				@echo "$(RED)$(S_OBJ) deleted!$(DEFAULT)"
 				
 fclean	:	clean
+<<<<<<< HEAD
 				@$(RM) -rf $(O_DIR)
 				@$(RM) $(NAME) $(LIBFT)
+=======
+				@$(RM) -rf $(O_DIR) $(LIBFT) 
+				@$(RM) $(NAME)
+>>>>>>> 74267904fc1b746ba36112fcdb988d2de0c68c3a
 				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
 re		:	fclean all
@@ -51,4 +56,9 @@ re		:	fclean all
 make ref		:	fclean all
 
 
-.PHONY	:	clean fclean re bonus
+
+#COLORS
+RED = \033[1;31m
+GREEN = \033[1;32m
+YELLOW = \033[1;33m
+DEFAULT = \033[0m
