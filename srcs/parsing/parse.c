@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/07 23:02:50 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/07 23:55:10 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static t_table *split_all(char **node, t_table *tab)
                 // if (ft_strchar_i("|", *box)) 
                 //     id++;
         printf("DEBUG: split: div_token_id[%d] :: [%s] :: \n", id, *box);
-        // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", id, ft_mx_len(tab->token->cmd));
-
         //token_node  need 
         if (tab->tk_num > 0)
         {
@@ -77,22 +75,21 @@ static t_table *split_all(char **node, t_table *tab)
                 tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
             tab->tk_num--;
         }
-        else if (tab->tk_num == 0)
+        else 
         {
             tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+            // mx_display_tab(tab->cmds[tab->token->id]);
             tab->token->id++;           // can be place before dup
             ft_mx_free(&tab->token->cmd);
-        }
-            
-                // mx_display_tab(cmdx[id]);
-                // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
-            
+        } 
+        // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", tab->token->id, ft_mx_len(tab->token->cmd));
     }
+    // tab->token = token_nodes(tab);
+        // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
             // printf("DEBUG: .. .. FOCUS_id[%d]\n",focus_id);
             // tab->token = token_nodes(tab);
             // tab->cmds[id] = ft_mx_rpl(tab->cmds, tab->token->cmd, ft_mx_len(tab->token->cmd));
             // mx_display_tab(tab->token->cmd);
-    // tab->token = token_nodes(tab);
             // tab->token->tk_len += ft_mx_len(tab->node);
                     // mx_rpl (arg , node)
                     // ft_mx_rpl(&args, nodes, i);
@@ -125,7 +122,7 @@ static t_token  *parse_args(t_table *tab)
             
     tab = split_all(tab->node, tab); 
             // tab_len =  ft_mx_len(tab->node);
-            // printf("DEBUG: parse >>node_num = [%d] \n",tab_len);
+    printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
 
             // tab->cmds[tk_id] = ft_mx_rpl(tab->cmds, tab->node, tab_len);
             // tab_len = ft_mx_len(tab->cmds[i]);
@@ -134,15 +131,15 @@ static t_token  *parse_args(t_table *tab)
             //          pass nodes splited to be check /meta
             // token = token_nodes(tab);
             // printf("DEBUG: parse... tab->token >>\n");
-    if (tab->cmds[tk_id])
+    if (tab->cmds[tab->tk_num])
     {
         // mx_display_str(*tx[0]);
-        i = ft_mx_len(tab->cmds[tk_id]);
-         printf("DEBUG: parse >>tab->cmds[0] len = %d >>\n", i);
+        i = ft_mx_len(tab->cmds[tab->tk_num]);
+         printf("DEBUG: parse >>tab->cmds[%d] len = %d >>\n",tab->tk_num, i);
     }
 
-    token = token_nodes(tab);  
-    mx_display_tab(token->cmd);
+    // token = token_nodes(tab);  
+    // mx_display_tab(token->cmd);
     //          node breaker =>   node_token == token_builder ...
         
         /*  tab->node [*str]  sep.space. node -ID.less
