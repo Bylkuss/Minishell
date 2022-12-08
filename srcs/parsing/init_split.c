@@ -111,8 +111,6 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             i[1] = i[0]++;    // set spc - end of str...
             while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
                 i[0]++;
-                // printf("DEBUG: n_fill XX i[1] = [%d][%d][%c]\n", n, i[1], s[i[1]]);   // spc found
-                // printf("DEBUG: n_fill OO i[0] = [%d][%d][%c]\n", n, i[0], s[i[0]]);    // D: trouv
         }
         if (i[0] <= len && i[2] > -1)
         {

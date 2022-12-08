@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/03 19:27:32 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:30:37 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,9 @@ t_table	*get_trimmed(t_table *tab)
 	tab->node = temp;
 	return (tab);
 }
-	
+
+
+
 t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 {
 	int id;		// node_id
@@ -153,7 +155,7 @@ t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 		mx_display_str(*tab->cmds[id]);
 	}
 	if (tab->tk_num)
-		printf("DEBUG : tk_num = %d:: \n", tab->tk_num);
+		// printf("DEBUG : tk_num = %d:: \n", tab->tk_num);
 	if (*tab->cmds[id] && id < tab->tk_num)
 	{
 			// tab->token->id = i;
