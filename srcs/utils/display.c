@@ -5,17 +5,19 @@
 void mx_display_tab(char **tab)
 {
     int i = 0;
-    if (tab[i])// && tab[0])
-    {
-        while(tab[i++])
-            printf ("%s :: \n", tab[i]);
-        printf (" :: \n" );
-    }
+
+        printf("START:");
+        while(tab && (*tab[i] != '\0'))
+        {
+            printf ("(%s),", tab[i]);
+            i++;
+        }
+        printf(":END\n");
 }
 
 void mx_display_str(char *str)
 {
-    printf(" %s ++++  \n", str);
+    printf(" :_:%s:_: \n", str);
 }
 
 // void display_tkn(t_table *tab)

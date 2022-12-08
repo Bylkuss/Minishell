@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/29 19:07:39 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/07 21:30:37 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,57 @@
 		// 	return (token);
 // }
 
+
+static int  malloc_len(const char *s)
+{
+    int count;
+    int i;
+    int dquote;
+    int squote;
+
+    i = 0;
+    count = 0;
+    dquote = 0;
+    squote = 0;
+    while (s)
+    {
+        squote = (squote + (!dquote && s[i] == '\'')) % 2;
+        dquote = (dquote + (!squote && s[i] == '\"')) % 2; 
+        if ((s[i] == '\"' && !squote) || (s[i] == '\'' && !dquote)) 
+            count++;
+    }
+    if (squote || dquote)
+        return (-1);
+    return (count);
+}
+
+char        *ft_strtrim_all(const char *s, int squote, int dquote)
+{
+    int     count;
+    int     i[2];
+    char    *trimmed;
+
+    i[1] = -1;
+    i[0] = 0;
+    count = malloc_len(s);
+    if (!s || count == -1)
+        return (NULL);
+    trimmed = malloc(sizeof(char) * (ft_strlen(s) - count + 1));
+    if (!trimmed)
+        return (NULL);
+    while( s[i[0]])
+    {
+        squote = (squote + (!dquote && s[i[0]] == '\'')) % 2;
+        dquote = (dquote + (!squote && s[i[0]] == '\"')) % 2; 
+        if ((s[i[0]] != '\"' || squote) && (s[i[0]] != '\'' || dquote) \
+            && ++i[1] >= 0)
+            trimmed[i[1]] = s[i[0]]; 
+        i[0]++;
+    }
+    trimmed[++i[1]] = '\0';
+    return (trimmed);
+}
+
 t_table	*get_trimmed(t_table *tab)
 {
 	char	**temp;
@@ -70,16 +121,25 @@ t_table	*get_trimmed(t_table *tab)
 	tab->node = temp;
 	return (tab);
 }
-	
-		/* call by parse_  <<(token_ized)	*/
-t_table	*token_nodes(t_table *tab)	
+
+
+
+t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 {
-	int i;		// node_id
-	// int j;		// ptr pos
+	int id;		// node_id
+	// int tk_id;		// ptr pos
+	// t_token *token;	// frmd token instanc
 
-	i = 0;
 
-		// tab->cmds >> t_token	*token;
+
+// 		take some of node (remove them) and 
+//		place them at the right place cmd[0], cmd[len]
+//		then wrsap the token tk_id ++ , nodes --	
+	// token = tab->token;
+	id = 0; 
+	// tk_id = tab->tk_num;
+	
+	// tab->cmds >> t_token	*token;
 		// token->id 	(int)
 		// token->cmd	(char**)
 		// token->path	(**char)
@@ -87,36 +147,41 @@ t_table	*token_nodes(t_table *tab)
 		// token->infile :: token->outfile 
 		// token->tkn_len	(int)
 	// needed to token command
-	if (tab->cmds)
-		printf("DEBUG : token_node cmds [0][0] = %s ::\n", *tab->cmds[0]);
+	
+	if (!(tab->cmds[id]) && id < tab->tk_num)
+	{
+		printf("DEBUG : token_node cmds [0][0] =  ::\n");
+		// mx_display_tab(*tab->cmds);
+		mx_display_str(*tab->cmds[id]);
+	}
 	if (tab->tk_num)
-		printf("DUBUG : tk_num = %d:: \n", tab->tk_num);
-	while (*tab->cmds[i] && i < tab->tk_num)
+		// printf("DEBUG : tk_num = %d:: \n", tab->tk_num);
+	if (*tab->cmds[id] && id < tab->tk_num)
 	{
 			// tab->token->id = i;
-		// tab->cmds[i] = tab->node;
-				// ... // div_token to set end 
-				// endtype eval + default 
+			// tab->cmds[i] = tab->node;
+					// ... // div_token to set end 
+					// endtype eval + default 
 
-			// revert from list 
-				// need to set first arg => cmd 
-				// 			set last arg => endtype
-				//	middle arg (if so!) 	
-				// cmds[1] = ft_lstlast(cmds[0]);
+				// revert from list 
+					// need to set first arg => cmd 
+					// 			set last arg => endtype
+					//	middle arg (if so!) 	
+					// cmds[1] = ft_lstlast(cmds[0]);
 
-		// j = 0;
-		// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-		// {
-		// 	tab->token->id = i;
-		// 	// tab->token->cmd[i] = tab->node;
-		// 	printf("debug:: into tok_node");
-		// 	// if (tab->token->cmd)
-		// 		// 	mx_display_tab(tab->token->cmd);
-		// 		// 		/*	i += args[i][0] == '|';
-		// 		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-		// 		// 			cmds[1] = ft_lstlast(cmds[0]); 
-		// 		// 		*/
-		// }
+				// j = 0;
+				// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
+			// {
+		tab->token->id = id;
+		// token->cmd = tab->cmds[id];
+		printf("debug:: into tok_node");
+			// 	// if (tab->token->cmd)
+			// 		// 	mx_display_tab(tab->token->cmd);
+			// 		// 		/*	i += args[i][0] == '|';
+			// 		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
+			// 		// 			cmds[1] = ft_lstlast(cmds[0]); 
+			// 		// 		*/
+			// }
 			// temp[0] = args;
 			//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
 				// token->cmd = cmds[1]->content;
@@ -126,9 +191,9 @@ t_table	*token_nodes(t_table *tab)
 				// 	return (stop_fill(cmds[0], args, temp[1]));
 				// if (!args[i])
 				// 	break ;
-		i++;
+		id++;
 	}
-	return (tab);
+	return (tab->token);
 }
 
 /*

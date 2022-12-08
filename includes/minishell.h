@@ -87,21 +87,6 @@ struct s_table
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
-// struct s_dot		/*  ENVP BUILDER */  t_table
-	// {
-	// 	char 	**cmds;
-	// 	char 	**envp;
-	// 	pid_t	pid;
-	// 	t_token token;
-	// };
-	// struct s_mini 	 	/*	MATRIX COMMAND TABLE */  repl token
-	// {
-	// 	char **t_cmd;
-	// 	char *path;
-	// 	int infile;
-	// 	int outfile;
-	// };
-//
 
 //builtins
 // cd 
@@ -115,17 +100,19 @@ void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 
-char 		**init_split(const char *s, char *set);
+char **init_split(const char *s, char *set, t_table *tab);
+// char 		**init_split(const char *s, char *set);
 // char   		*getprompt(t_table tab);
 // void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
 
 //parsing
 // void		*check_args(char *out, t_dot *p);
-char		**div_token(char *s, char *set, t_table *tab);
+char		**div_token(const char *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-t_table		*token_nodes(t_table *tab);
+// t_table		*token_nodes(t_table *tab);
+t_token		*token_nodes(t_table *tab);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);
@@ -147,8 +134,7 @@ char		*node_check(char *input, char *meta);
 char		*pipe_check(char *input, char *meta);
 
 t_table 	*check_args(char *out, t_table *tab);
-t_table		*token_nodes(t_table *tab);
-t_table  	*parse_args(t_table *tab);
+// t_table  	*parse_args(t_table *tab);
 
 void    echo(char **cmd);
 void    cd(char **cmd, char **env);
