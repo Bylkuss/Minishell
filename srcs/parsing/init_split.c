@@ -131,7 +131,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     return (tab->node);
 }
 
-// ls -lat | wc -l > out.txt   
+//  ls -lat | wc -l > out.txt   
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
 char **init_split(const char *s, char *set, t_table *tab)
 {
