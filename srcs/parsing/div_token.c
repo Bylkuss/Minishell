@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/07 23:55:31 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 02:57:52 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,7 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 	// printf("DEBUG: div_token :: end...\n");
 	return (tkn);    
 }
-  //   ls  -lta| wc -l >> out.txt   
+  //   ls  -lta| wc -l>>out.txt   
 	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp
