@@ -33,7 +33,7 @@ all		:	$(NAME)
 			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 $(NAME): 	$(OBJS)
-		-@$(MAKE) -C $(F_DIR)
+		-@$(MAKE) -C $(F_DIR) -s
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 clean	:
@@ -43,7 +43,7 @@ clean	:
 				
 fclean	:	clean
 				@$(RM) -rf $(O_DIR)
-				@$(RM) $(NAME)
+				@$(RM) $(NAME) $(LIBFT)
 				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
 re		:	fclean all

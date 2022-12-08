@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 00:11:02 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 00:21:54 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ static t_table *split_all(char **node, t_table *tab)
     // tab->token = token_nodes(tab);
     }
     
+    //   ls -lta |wc -l >> out.txt   
+
     // mx_display_tab(cmdx[id]);
         // tab->token->tk_len += ft_mx_len(tab->node);
                 // mx_rpl (arg , node)
