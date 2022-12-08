@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 10:45:34 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 10:57:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ static t_table *split_all(char **node, t_table *tab)
             if (ft_strchar_i(node[i], set))        
                 tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
             tab->tk_num--;
+            if (tab->tk_num == 0) 
+            {
+                tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+                ft_mx_free(&tab->token->cmd);
+                tab->token->id++;           // can be place before dup
+            } 
         }
-        else 
-        {
-            tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
-            tab->token->id++;           // can be place before dup
-            ft_mx_free(&tab->token->cmd);
-        } 
         printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", tab->token->id, ft_mx_len(tab->token->cmd));
     }
     // tab->token = token_nodes(tab);
