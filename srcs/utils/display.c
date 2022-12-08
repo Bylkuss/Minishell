@@ -20,19 +20,19 @@ void mx_display_str(char *str)
     printf(" :_:%s:_: \n", str);
 }
 
-// void display_tkn(t_table *tab)
-// {
-//     int id;
+void display_tkn(t_table *tab)
+{
+    t_token *token;
+    
+    token = tab->token; 
+    if (!token)
+        exit(0);
+    token->id = 1;
+    printf("TOKEN_NUM:\t%d\n", tab->tk_num); // how many tkn
+    token->tk_len = fx_mx_len(tab->cmds[id])
+    mx_display_tab(tab->cmds[id])
+    // printf("\nCMD== %s ==  \t", tab->cmds[token->id]); // 
+        // printf("ARG == %s == \t", tab->token->cmd[++id]);   
+    // printf("END_TYPE == %d == \n", tab->token->endtype);   
 
-//     id = 0;
-//     // t_token *token;
-//     // token = tab->token; 
-//     // if (!token)
-//     //     exit(0);
-//     printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
-//     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-//     if (tab->token->tk_len > 2 )
-//         printf("ARG == %s == \t", tab->token->cmd[++id]);   
-//     printf("END_TYPE == %d == \n", tab->token->endtype);   
-
-// }
+}

@@ -19,31 +19,36 @@ char *pipe_check(char *input, char *meta)
     char *dest; //  end part str
     int p[4];   //ptr pos start/pos/end
 
-    p[3] = 0; // ptr strlen..    
-    p[1] = ft_strchar_i((char *)input, meta);
-    if (p[1] == -1)
-        return (input);
-    else
-    {
-        p[0] = p[1] - 1;
-        p[2] = p[1] + 1;
-        p[3] = ft_strlen(input);
-        if ((input[p[1] + 1]) == 124)
-            p[2] = p[1] + 2;
-        // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
-        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-        // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-        // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-        // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-        if (input[p[0]] != 32)// tmp -1
-            tmp = ft_strjoin(" ", tmp);
-        if (input[p[2]] != 32) //tmp + 1
-            tmp = ft_strjoin(tmp, " ");  
-        srcs = ft_strjoin(srcs, tmp);
-        input = ft_strjoin(srcs, dest);
-    }    
+ 
+        p[3] = 0; // ptr strlen..    
+        p[1] = ft_strchar_i((char *)input, meta);
+        if (p[1] == -1)
+            return (input);
+        else
+        {
+            p[0] = p[1] - 1;
+            p[2] = p[1] + 1;
+            p[3] = ft_strlen(input);
+            if (input[p[1] + 1] == (input[p[1]]))
+                p[2] = p[1] + 2;
+            // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
+            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+            if (input[p[0]] != 32)// tmp -1
+                tmp = ft_strjoin(" ", tmp);
+            if (input[p[2]] != 32) //tmp + 1
+                tmp = ft_strjoin(tmp, " ");  
+            srcs = ft_strjoin(srcs, tmp);
+            input = ft_strjoin(srcs, dest);
+            if (&input[p[2]] != NULL)
+                pipe_check(&input[p[2]], meta);
+
+        } 
+     
     return(input);
 }
 
@@ -111,8 +116,6 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             i[1] = i[0]++;    // set spc - end of str...
             while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
                 i[0]++;
-                // printf("DEBUG: n_fill XX i[1] = [%d][%d][%c]\n", n, i[1], s[i[1]]);   // spc found
-                // printf("DEBUG: n_fill OO i[0] = [%d][%d][%c]\n", n, i[0], s[i[0]]);    // D: trouv
         }
         if (i[0] <= len && i[2] > -1)
         {
@@ -145,10 +148,10 @@ char **init_split(const char *s, char *set, t_table *tab)
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    if (s)
-        input = pipe_check((char *)s, "|");
-    else
+    if (!s)
         return (NULL);
+    else
+        input = pipe_check((char *)s, "<|>");
     printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count((const char *)input, set, count);     // substr 
     // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
@@ -161,17 +164,6 @@ char **init_split(const char *s, char *set, t_table *tab)
     return (tab->node);   // ret(tab->node)
 }
 
-    // mx_display_str(input);
-        // t_token *token;
-            // token = tab->token; 
-            // if (!token)
-            //     exit(0);
-            //     printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
-            //     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-            //     if (tab->token->tk_len > 2 )
-            //         printf("ARG == %s == \t", tab->token->cmd[++id]);   
-        // printf("END_TYPE == %d == \n", tab->token->endtype);   
-    // mx_display_tab(arr);
 /*
 from parse.c
     init_split => split *str by space only (quote rule (ok if both))

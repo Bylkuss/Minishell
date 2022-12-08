@@ -24,9 +24,7 @@ t_table *init_token(t_table *tab)
 t_table *init_tab(t_table *tab)
 {
     tab->envp = NULL;
-    tab->cmds = NULL;
-    // *tab->cmds = NULL;
-    // **tab->cmds = NULL;
+    tab->cmds = NULL;   
     tab->node = NULL;
     tab->tk_num = 0;
     (void) tab->pid;

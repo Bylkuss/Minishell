@@ -107,7 +107,7 @@ char **init_split(const char *s, char *set, t_table *tab);
 
 //parsing
 // void		*check_args(char *out, t_dot *p);
-char		**div_token(const char *s, char *set, t_table *tab);
+char		**div_token(const char *s, char *set, t_table *tab, int id);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
@@ -139,5 +139,10 @@ t_table 	*check_args(char *out, t_table *tab);
 void    echo(char **cmd);
 void    cd(char **cmd, char **env);
 void	pwd(void);
+void    env(char **envp);
+void    exit_builtin(char **cmd);
+void    unset(char **cmd, char **envp);
+// void    export(char **cmd, char **envp);
+void    builtins_handler(char *input, char **envp);
 
 #endif
