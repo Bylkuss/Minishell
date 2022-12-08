@@ -110,7 +110,6 @@ static int	token_count(char *s, char *set, int tkn)
 	// 	return (tab->token->endtype);
 // }
 
-
 //	
 // set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	// static char	**token_fill(char *s, char *set, t_table *tab)
@@ -193,8 +192,8 @@ static int	token_count(char *s, char *set, int tkn)
 		// 				// 		// tab->token
 		// 				// 	}
 		// 				// mx_display_tab(aux);
+//
 	// 	}
-
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos

@@ -164,17 +164,6 @@ char **init_split(const char *s, char *set, t_table *tab)
     return (tab->node);   // ret(tab->node)
 }
 
-    // mx_display_str(input);
-        // t_token *token;
-            // token = tab->token; 
-            // if (!token)
-            //     exit(0);
-            //     printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
-            //     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-            //     if (tab->token->tk_len > 2 )
-            //         printf("ARG == %s == \t", tab->token->cmd[++id]);   
-        // printf("END_TYPE == %d == \n", tab->token->endtype);   
-    // mx_display_tab(arr);
 /*
 from parse.c
     init_split => split *str by space only (quote rule (ok if both))
