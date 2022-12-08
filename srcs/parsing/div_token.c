@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 10:51:56 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 11:04:46 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,9 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 		return (NULL);
 	//
 	if (!(tab->tk_num > 0))
+	{
 		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
+		tab->token->id++;}
 
 	if (tab->tk_num == (-1))
 		return (NULL);

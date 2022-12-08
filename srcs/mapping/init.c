@@ -11,7 +11,7 @@ t_table *init_token(t_table *tab)
     token = malloc(sizeof(t_token));
     
     tab->token = token;
-    token->id = 1;
+    token->id = 0;
     token->cmd = NULL;  
     token->path = NULL;
     token->endtype = DEAD_END;

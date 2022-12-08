@@ -42,7 +42,7 @@ clean	:
 				@echo "$(RED)$(S_OBJ) deleted!$(DEFAULT)"
 				
 fclean	:	clean
-				@$(RM) -rf $(O_DIR)
+				@$(RM) -rf $(O_DIR) $(LIBFT) 
 				@$(RM) $(NAME)
 				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
