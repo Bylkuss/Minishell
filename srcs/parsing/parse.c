@@ -58,12 +58,7 @@ static t_table *split_all(char **node, t_table *tab)
         box = div_token(node[i], set, tab); 
         //div_token ...
 
-                // if (!cmd_line)
-                //     cmd_line = ft_substr(node[i], 0, ft_strlen(node[0]));
-                // else
-                //     cmd_line = ft_strjoin(cmd_line, node[i]);
-                // if (ft_strchar_i("|", *box)) 
-                //     id++;
+           
         printf("DEBUG: split: div_token_id[%d]::[%s]::\n", id, *box);
 
     //token_node  need 
