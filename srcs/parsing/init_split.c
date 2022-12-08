@@ -19,8 +19,7 @@ char *pipe_check(char *input, char *meta)
     char *dest; //  end part str
     int p[4];   //ptr pos start/pos/end
 
-    // while (ft_strchar_i((char *)input, meta) != -1)
-    // {
+ 
         p[3] = 0; // ptr strlen..    
         p[1] = ft_strchar_i((char *)input, meta);
         if (p[1] == -1)
@@ -45,8 +44,11 @@ char *pipe_check(char *input, char *meta)
                 tmp = ft_strjoin(tmp, " ");  
             srcs = ft_strjoin(srcs, tmp);
             input = ft_strjoin(srcs, dest);
-        // } 
-    }   
+            if (&input[p[2]] != NULL)
+                pipe_check(&input[p[2]], meta);
+
+        } 
+     
     return(input);
 }
 
