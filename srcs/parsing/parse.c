@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 11:35:45 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 12:33:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_table *split_all(char **node, t_table *tab)
         //expand_var ...   
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...         
-        box = div_token(node[i], set, tab); 
+        box = div_token(node[i], set, tab, tab->tk_num); 
         //div_token ...
         focus_id = tab->token->id;               
         if (tab->tk_num > 0)
