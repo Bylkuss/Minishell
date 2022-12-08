@@ -6,13 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 22:13:16 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/06 12:44:23 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-extern int g_status;
+extern int	g_status;
 
 static char *get_home(t_table *tab)
 {
@@ -40,9 +40,9 @@ static char *get_home(t_table *tab)
 
 static char *get_user(t_table *tab)
 {
-    char **user;
-    char *tmp;
-    char *tmp2;
+	char	**user;
+	char	*tmp;
+	char	*tmp2;
 
     user = NULL;
     tmp2 = NULL;
@@ -77,7 +77,7 @@ char    *getprompt(t_table *tab)
         char *aux;
 
         tmp = get_user(tab);                    //
-        tmp2 = ft_strjoin(tmp, "@mishell");
+        tmp2 = ft_strjoin(tmp, "@minishell");
         free(tmp);
         aux = get_home(tab);                   //
         tmp = ft_strjoin(tmp2, aux);
