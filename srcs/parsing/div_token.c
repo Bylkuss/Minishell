@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 00:27:20 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/08 00:36:11 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static int	token_count(char *s, char *set, int tkn)
 // }
 
 
-//	`
+//	
 // set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	// static char	**token_fill(char *s, char *set, t_table *tab)
 		// {	
@@ -221,12 +221,14 @@ char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by par
 	tkn_len = 0;
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
+	//
+	if (!(tab->tk_num > 0))
+		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
 
-    tkn_len = token_count((char *)s, set, 0);	// how many end
-	tab->tk_num = tkn_len;
 	if (tab->tk_num == (-1))
 		return (NULL);
-	printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+		
+	// printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
 
     tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
     if (!(*tkn))

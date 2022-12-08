@@ -142,7 +142,7 @@ void	pwd(void);
 void    env(char **envp);
 void    exit_builtin(char **cmd);
 void    unset(char **cmd, char **envp);
-void    export(char **cmd, char **envp);
+// void    export(char **cmd, char **envp);
 void    builtins_handler(char *input, char **envp);
 
 #endif
