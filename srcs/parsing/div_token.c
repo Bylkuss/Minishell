@@ -12,8 +12,8 @@
 
 
 #include "../../includes/minishell.h"
-
 // set = endtype*char	count 0++; 
+
 static int	token_count(char *s, char *set, int tkn)
 {
 	int		q[2];
@@ -24,8 +24,7 @@ static int	token_count(char *s, char *set, int tkn)
 	q[1] = 0;
 	while (s && s[i] != '\0')
 	{
-		if (ft_strchr(set, s[i]))
-			tkn++;
+		tkn++;
 		if (!ft_strchr(set, s[i]))
 		{
 			while ((!ft_strchr(set, s[i]) || q[0] || q[1]) && s[i] != '\0')
@@ -41,7 +40,7 @@ static int	token_count(char *s, char *set, int tkn)
 		else 
 			i++;
 	}
-	printf("DEBUG: token_count :: tkn = %d\n", tkn);
+		printf("DEBUG: token_count :: tkn = %d\n", tkn);
 	return (tkn); //how many end..
 }
 
@@ -218,13 +217,12 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 			i[0]++;
 		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
 			// tab->token
-	}
-	printf("DEBUG: token_fill :: end...\n");
-	return (aux);
+		}
+		return (aux);
 }
 
 // 	set = {"<",">","|"} :: if(!set) ? end : err //	s = 
-char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split_all
+char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by parse>split_all
 {
 		
 	char    **tkn;			// token sub_split by endtype
@@ -239,20 +237,22 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 	if (!(tab->tk_num > 0))
 	{
 		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
-		printf("DEBUG: div_token_count :: tk_num = %d\n", tab->tk_num);
-		tab->token->id++;
-		tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
-		if (!(*tkn))
-			return (NULL);
-		if (tab->tk_num == (-1))
-			return (NULL);
-	}
-			
+		tab->token->id++;}
+
+	if (tab->tk_num == (-1))
+		return (NULL);
+		
+	// printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+
+    tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
+    if (!(*tkn))
+	    return (NULL);
+		
 	tkn = token_fill(tkn, (char *)s, set, 0);	
 	if (!(*tkn))
 	    return (NULL);
-	printf("DEBUG: div_token :: tkn_str_len = %d\n", ft_mx_len(tkn));	
-	printf("DEBUG: div_token :: tk_len = %s\n", tkn[0]);	
+	// printf("DEBUG: div_token :: tkn_str_len = %d\n", ft_mx_len(tkn));	
+	// printf("DEBUG: div_token :: tk_len = %s\n", tkn[0]);	
 			// tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
 			// if (!(tab->token->cmd))
 			// 	return (NULL);	
@@ -265,12 +265,13 @@ char	 **div_token(const char *s, char *set, t_table *tab) // call by parse>split
 			// tk_id = token_etype(tab);
 				// printf("DEBUG: div_token :: endtype = %d\n", tab->token->endtype);	
 	
-	
+	// printf("DEBUG: div_token :: end...\n");
 	return (tkn);    
 }
   //   ls  -lta| wc -l>>out.txt   
- //   ls  -lta | wc -l >> out.txt   
-
+  
+ // return (tab->cmds[i])
+ 
 /*
 from parse.c /split_all ->
 	div_token 	=> token spliter by ending char (<,>,|)
