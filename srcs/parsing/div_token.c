@@ -25,9 +25,9 @@ static int	token_count(char *s, char *set, int tkn)
 	while (s && s[i] != '\0')
 	{
 		tkn++;
-		if (!ft_strchar_i(s, set))
+		if (!ft_strchar_i(&s[i], set))
 		{
-			while ((!ft_strchar_i(s, set) || q[0] || q[1]) && s[i] != '\0')
+			while ((!ft_strchar_i(&s[i], set) || q[0] || q[1]) && s[i] != '\0')
 			{ 
 					q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
 					q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
@@ -155,41 +155,8 @@ static int	token_count(char *s, char *set, int tkn)
 		// 			// *tab->cmds[tk_id] = s;
 
 
-		// 			// while (s)
-		// 			// {
-
-		// 				// i[1] = i[0];
-		// 				// while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-		// 				// {
-		// 				// 	q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-		// 				// 	q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-		// 				// 	i[0]++;
-		// 				// }
-		// 				// if (i[1] >= len)
-		// 				// 	aux[i[2]++] = "\0";
-		// 				// else
-		// 				// 	aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-		// 				// 	// tab->token
-		// 				// while (s[i[0]] && i[0] <= len)
-		// 				// {
-		// 				// 	while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
-		// 				//     	i[0]++;
-		// 				// 	i[1] = i[0];
-		// 				// 	while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-		// 				// 	{
-		// 				// 		q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-		// 				// 		q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-		// 				// 		i[0]++;
-		// 				// 	}
-		// 				// 	if (i[1] >= len)
-		// 				//     	aux[i[2]++] = "\0";
-		// 				// 	else
-		// 				// 		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-		// 				// 		// tab->token
-		// 				// 	}
-		// 				// mx_display_tab(aux);
+					// // 	mx_display_tab(aux);
 	// 	}
-
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
@@ -236,7 +203,10 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 	if (!(tkn_num > 0))
 	{
 		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
-		tab->token->id++;}
+		tab->token->id++;if 
+		(tab->tk_num == 0) 
+        	ft_mx_free(&tab->token->cmd);
+	}
 
 	if (tab->tk_num == (-1))
 		return (NULL);

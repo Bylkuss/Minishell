@@ -20,8 +20,9 @@ char *pipe_check(char *input, char *meta)
     int p[4];   //ptr pos start/pos/end
 
  
+        p[2] = 0;
         p[3] = 0; // ptr strlen..    
-        p[1] = ft_strchar_i((char *)input, meta);
+        p[1] = ft_strchar_i(&input[p[2]], meta);
         if (p[1] == -1)
             return (input);
         else
