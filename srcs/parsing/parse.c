@@ -36,17 +36,19 @@ static t_table *split_all(char **node, t_table *tab)
 
     while (node && node[++i])       
     {
-        //args = tab->cmds[id]
+         //args = tab->cmds[id]
             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
-        node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...   
+        node[i] = expand_vars(node[i], -1, quotes, tab);  
         printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
-        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...         
+        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
-        box = div_token(node[i], set, tab, tab->tk_num); 
         //div_token ...
+        box = div_token(node[i], set, tab); 
+        printf("DEBUG: .. .. frm div_t =>BOX..\n");//[%s]\n",*box);
+
         if (tab->tk_num != 0)
         {
             if (tab->tk_num > 0)
@@ -62,7 +64,7 @@ static t_table *split_all(char **node, t_table *tab)
             {
                 tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
                 mx_display_tab(tab->cmds[tab->token->id]);
-                // printf("DEBUG: end...tkn_id[%d] :: {#args:%d} ::\n", tab->token->id, ft_mx_len(tab->cmds[tab->token->id]));
+                printf("DEBUG: end...tkn_id[%d] :: {#args:%d} ::\n", tab->token->id, ft_mx_len(tab->cmds[tab->token->id]));
                 // tab->token->id++;           // can be place before dup
                 ft_mx_free(&tab->token->cmd);
             }    

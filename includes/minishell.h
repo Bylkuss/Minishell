@@ -107,7 +107,7 @@ char **init_split(const char *s, char *set, t_table *tab);
 
 //parsing
 // void		*check_args(char *out, t_dot *p);
-char		**div_token(const char *s, char *set, t_table *tab, int id);
+char		**div_token(const char *s, char *set, t_table *tab);
 char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
