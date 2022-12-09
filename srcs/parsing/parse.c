@@ -61,12 +61,12 @@ static t_table *split_all(char **node, t_table *tab)
             tab->tk_num--;
             if (tab->tk_num == 0) 
             {
-                ft_mx_free(&tab->token->cmd);
+                // ft_mx_free(&tab->token->cmd);
                 // tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
                 // tab->token->id++;           // can be place before dup
             }
         } 
-        printf("DEBUG: split:token_id[%d]:: node_id[%d] :: [%s] :: \n",tab->token->id, id, *box);
+        // printf("DEBUG: split:token_id[%d]:: node_id[%d] :: [%s] :: \n",tab->token->id, id, *box);
         
  //  ls  -lta| wc -l>>out.txt 
 
