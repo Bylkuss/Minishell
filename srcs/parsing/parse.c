@@ -191,8 +191,8 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     if (tab->node)
     {   
         n = ft_mx_len(tab->node);
-        mx_display_tab(tab->node);
         printf("DEBUG: check :: node_num ::%d::\n", n);
+        // mx_display_tab(tab->node);
     }
     tab->token = parse_args(tab);    // tab->node        
      // while(tab->node)

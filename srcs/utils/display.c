@@ -29,8 +29,8 @@ void display_tkn(t_table *tab)
         exit(0);
     token->id = 1;
     printf("TOKEN_NUM:\t%d\n", tab->tk_num); // how many tkn
-    token->tk_len = fx_mx_len(tab->cmds[id])
-    mx_display_tab(tab->cmds[id])
+    token->tk_len = ft_mx_len(tab->cmds[token->id]);
+    mx_display_tab(tab->cmds[token->id]);
     // printf("\nCMD== %s ==  \t", tab->cmds[token->id]); // 
         // printf("ARG == %s == \t", tab->token->cmd[++id]);   
     // printf("END_TYPE == %d == \n", tab->token->endtype);   
