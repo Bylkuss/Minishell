@@ -46,20 +46,20 @@ static t_table *split_all(char **node, t_table *tab)
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         //div_token ...
-        box = div_token(node[i], set, tab, tab); 
-        printf("DEBUG: .. .. frm div_t =>BOX..\n");//[%s]\n",*box);
+        box = div_token(node[i], set, tab, tab->tk_num); 
+        // printf("DEBUG: .. .. frm div_t =>BOX..\n");//[%s]\n",*box);
 
-        if (tab->tk_num != 0)
+        // if (tab->tk_num != 0)
+        // {
+        if (tab->tk_num > 0)
         {
-            if (tab->tk_num > 0)
-            {
-                tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-                ++id;
-                focus_id = tab->token->id;               
-                if (ft_strchar_i(node[i], set))        
-                    tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
-                tab->tk_num--;
-            }
+            tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+            ++id;
+            focus_id = tab->token->id;               
+            if (ft_strchar_i(node[i], set))        
+                tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+            tab->tk_num--;
+        
             if (tab->tk_num == 0) 
             {
                 tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
