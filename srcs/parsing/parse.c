@@ -14,11 +14,6 @@
 
 extern int g_status;
 
-// t_token	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
-// {
-
-    
-// }
 
 /*       char **args = tab->cmds  :  token chunk    */
 static t_table *split_all(char **node, t_table *tab)  
@@ -46,33 +41,57 @@ static t_table *split_all(char **node, t_table *tab)
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         node[i] = expand_vars(node[i], -1, quotes, tab);  
         //expand_var ...   
+        printf("DEBUG: spl_ll vars_node_id[%d]::[%s]::\n", i, node[i]);
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...         
-             printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
+        printf("DEBUG: spl_ll path_node_id[%d]::[%s]::\n", i, node[i]);
         box = div_token(node[i], set, tab, tab->tk_num); 
         //div_token ...
-        // tab->token->id;               
-        if (tab->tk_num > 0)
+        if (tab->tk_num != 0)
         {
-            tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-            ++id;
-            if (ft_strchar_i(node[i], set))        
-                tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
-            tab->tk_num--;
-            if (tab->tk_num == 0) 
+            if (tab->tk_num > 0)
             {
-                ft_mx_free(&tab->token->cmd);
-                // tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
-                // tab->token->id++;           // can be place before dup
+                tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+                ++id;
+                focus_id = tab->token->id;               
+                if (ft_strchar_i(node[i], set))        
+                    tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+                tab->tk_num--;
             }
-        } 
-        printf("DEBUG: split:token_id[%d]:: node_id[%d] :: [%s] :: \n",tab->token->id, id, *box);
+            if(tab->tk_num == 0) 
+            {
+                tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+                mx_display_tab(tab->cmds[tab->token->id]);
+                // printf("DEBUG: end...tkn_id[%d] :: {#args:%d} ::\n", tab->token->id, ft_mx_len(tab->cmds[tab->token->id]));
+                // tab->token->id++;           // can be place before dup
+                ft_mx_free(&tab->token->cmd);
+            }    
+        }
         
- //  ls  -lta| wc -l>>out.txt 
-
-        // mx_display_tab(tab->cmds);
-        printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", focus_id, ft_mx_len(tab->token->cmd));
+        // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", tab->token->id, ft_mx_len(tab->token->cmd));
     }
+
+           //     if (tab->tk_num > 0)
+            //     {
+            //         tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+            //         ++id;
+            //         if (ft_strchar_i(node[i], set))        
+            //             tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+            //         tab->tk_num--;
+            //         if (tab->tk_num == 0) 
+            //         {
+            //             ft_mx_free(&tab->token->cmd);
+            //             // tab->cmds[tab->token->id] = ft_mx_dup(tab->token->cmd);
+            //             // tab->token->id++;           // can be place before dup
+            //         }
+            //     } 
+            //     printf("DEBUG: split:token_id[%d]:: node_id[%d] :: [%s] :: \n",tab->token->id, id, *box);
+                
+        // //  ls  -lta| wc -l >> out.txt 
+
+        //     // mx_display_tab(tab->cmds);
+        //     printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", focus_id, ft_mx_len(tab->token->cmd));
+        // }
     //     if (tab->tk_num > 0)
         //     {
         //         tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
@@ -244,7 +263,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
 /*
 from check.c
     check_args  => take input to be init_split to build table command
-    space_split    => will do that init_split into a tab **       ==> init_split.c
+    init_split   => will do that init_split into a tab **       ==> init_split.c
     parse_args  => call fill_node  return *p (list-> p.cmds)    ==> nodes.c
     split_all   =>  token's alternate end if it's not! 
                     div_token  ('<','>','|')                    ==> divide.c

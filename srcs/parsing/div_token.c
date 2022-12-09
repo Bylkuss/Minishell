@@ -237,8 +237,8 @@ char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by par
 	if (!(tab->tk_num > 0))
 	{
 		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
-		tab->token->id++;}
-
+		tab->token->id++;
+	}
 	if (tab->tk_num == (-1))
 		return (NULL);
 		
@@ -269,7 +269,7 @@ char	 **div_token(const char *s, char *set, t_table *tab, int id) // call by par
 	return (tkn);    
 }
   //   ls  -lta| wc -l>>out.txt   
-  
+
  // return (tab->cmds[i])
  
 /*
