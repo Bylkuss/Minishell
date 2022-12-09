@@ -185,7 +185,8 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 }
 
 
-	//  ls -lat | wc -l > out.txt  
+	//  ls -lat | wc -l > out.txti  
+	// 	ls -lt | head -2 | wc -c >> out.txt
 // 	set = {"<",">","|"} :: if(!set) ? end : err 
 char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call by parse>split_all
 {

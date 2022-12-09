@@ -12,7 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-char *pipe_check(char *input, char *meta)
+
+char *node_padd(char *input, char *meta)
 {
     char *srcs; //  start part str
     char *tmp;  //  sub str
@@ -21,8 +22,8 @@ char *pipe_check(char *input, char *meta)
 
  
         p[2] = 0;
-        p[3] = 0; // ptr strlen..    
-        p[1] = ft_strchar_i(&input[p[2]], meta);
+        p[3] = 0;
+        p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
         if (p[1] == -1)
             return (input);
         else
@@ -30,9 +31,9 @@ char *pipe_check(char *input, char *meta)
             p[0] = p[1] - 1;
             p[2] = p[1] + 1;
             p[3] = ft_strlen(input);
-            if (input[p[1] + 1] == (input[p[1]]))
+            if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
                 p[2] = p[1] + 2;
-            // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
+            // printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
             srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
             // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
             tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
@@ -40,18 +41,69 @@ char *pipe_check(char *input, char *meta)
             dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
             // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
             if (input[p[0]] != 32)// tmp -1
-                tmp = ft_strjoin(" ", tmp);
+                tmp = ft_strjoin(" ", tmp); //add spece before
             if (input[p[2]] != 32) //tmp + 1
-                tmp = ft_strjoin(tmp, " ");  
+                tmp = ft_strjoin(tmp, " ");  //add space after
             srcs = ft_strjoin(srcs, tmp);
             input = ft_strjoin(srcs, dest);
-            if (&input[p[2]] != NULL)
-                pipe_check(&input[p[2]], meta);
+            // if (&input[p[2]] != NULL)
+            //     type_check(&input[p[2]], meta);
 
         } 
      
     return(input);
 }
+
+char *type_check(char *input, char *meta)
+{
+    char *srcs; //  start part str
+    char *tmp;  //  sub str
+    char *dest; //  end part str
+    int p[4];   //ptr pos start/pos/end
+    int padd;   // detected
+ 
+        p[2] = 0; //index ptr count 
+        p[3] = ft_strchar_i(input, meta); // charset found at input[i]
+        while( padd = 0)
+        {
+            if (input[p[3]]  &&  ((&input[p[3] +1] != " ") || (&input[p[3] -1] != " "))) // charset not padded
+                padd = 0;
+            else
+                padd = 1;
+            if (padd = 0)
+                input = node_padd(input, meta);  // 
+        }
+        p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+        if (p[1] == -1)
+            return (input);
+        else
+        {
+            p[0] = p[1] - 1;
+            p[2] = p[1] + 1;
+            p[3] = ft_strlen(input);
+            if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
+                p[2] = p[1] + 2;
+            // printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
+            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+            if (input[p[0]] != 32)// tmp -1
+                tmp = ft_strjoin(" ", tmp); //add spece before
+            if (input[p[2]] != 32) //tmp + 1
+                tmp = ft_strjoin(tmp, " ");  //add space after
+            srcs = ft_strjoin(srcs, tmp);
+            input = ft_strjoin(srcs, dest);
+            // if (&input[p[2]] != NULL)
+            //     type_check(&input[p[2]], meta);
+
+        } 
+     
+    return(input);
+}
+
 
 static int node_count(const char *s, char *c, int i[2]) // 
 {
@@ -152,7 +204,7 @@ char **init_split(const char *s, char *set, t_table *tab)
     if (!s)
         return (NULL);
     else
-        input = pipe_check((char *)s, "<|>");
+        input = type_check((char *)s, "<|>");
     printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count((const char *)input, set, count);     // substr 
     // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
