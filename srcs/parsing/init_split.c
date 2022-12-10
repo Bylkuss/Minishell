@@ -94,7 +94,7 @@ char *type_check(char *input, char *meta)
 
         }
         input = ft_strjoin(res,dest);
-        printf("DEBUG oo output_check [%ld] ::%s: \n",ft_strlen(input), input);
+        // printf("DEBUG oo output_check [%ld] ::%s: \n",ft_strlen(input), input);
         return(input);
 }
 
