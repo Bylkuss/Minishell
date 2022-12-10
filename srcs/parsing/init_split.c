@@ -170,7 +170,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             // printf("DEBUG:  node[%d]_\n", n);
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             if(i[0] == len)
-                tab->node = ft_mx_ext(tab->node, "\0");
+                tab->node = ft_mx_ext(tab->node, "@\0");
             else
                 tab->node = ft_mx_ext(tab->node, tab->node[n]);
             // i[2] = i[0];  // set str
@@ -201,7 +201,7 @@ char **init_split(const char *s, char *set, t_table *tab)
         input = type_check((char *)s, "<|>");
     printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count((const char *)input, set, count);     // substr 
-    // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
+    printf("DEBUG: init_split  ::  node_count = %d \n", n);      // DEBUG
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1)); //str malloc
