@@ -62,7 +62,7 @@ static t_table *split_all(char **node, t_table *tab)
         // printf("DEBUG: split:token_id[%d]:: node_id[%d]  \n",tab->tk_num, id);
         
  //  ls  -lta | wc -l >> out.txt 
- //  ls  -lta | head -2 | wc -l >> out.txt 
+ //  ls  -lta| head -2| wc -l >> out.txt 
 
         // mx_display_tab(tab->cmds);
         // printf("DEBUG: focus->id[%d] :: tkn->len {%d} ::\n", focus_id, ft_mx_len(tab->token->cmd));

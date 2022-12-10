@@ -24,7 +24,7 @@ static int	token_count(char *s, char *set, int tkn)
 	q[1] = 0;
 	while (s && s[i] != '\0')
 	{
-		tkn++;
+		tkn++;	
 		if (!ft_strchar_i(&s[i], set))
 		{
 			while ((!ft_strchar_i(&s[i], set) || q[0] || q[1]) && s[i] != '\0')
@@ -203,7 +203,7 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 	//
 	if (!(tkn_num > 0))
 	{
-		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
+		tab->tk_num = token_count((char *)s, set, 0);	// how many end at_least_1
 		tab->token->id++;if 
 		(tab->tk_num == 0) 
         	ft_mx_free(&tab->token->cmd);
