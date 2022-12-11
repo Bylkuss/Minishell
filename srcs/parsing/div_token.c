@@ -45,70 +45,7 @@ static int	token_count(char *s, char *set, int tkn)
 	return (tkn ); //how many end..
 }
 
-// static int	token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
-	// {
-	// 	t_token *token;
-	// 	char **cmd;
-	// 	int id;
 
-	// 	id = 0;
-	// 	cmd = tab->node; //[id][node[;]
-	// 	token = tab->token;
-	// 	//
-	// 		//	get to *node[0]	== token->cmds
-	// 		//	get *node[len-1] == 
-	// 		//	get *node[len]	== token->endtype
-	// 			// DEAD_END  = 0,
-	// 			// PIPE_END  = 1,
-	// 			// OUTF1_END = 2,
-	// 			// OUTF2_END = 3,
-	// 			// INF1_END  = 4,
-	// 			// INF2_END  = 5,
-	// 			// ERR_END   = 6
-
-	// 	// while (id <= tab->tk_num)
-	// 	// {
-	// 			printf("\nendtype\n");
-	// 		if (token->cmd && (token->id < token->tk_len) && (token->id < token->tk_len))
-	// 		{
-	// 			// if (tab->cmds == ">" && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-	// 			// 	token = get_outfile2(token, mx[id]);//nod
-	// 			if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
-	// 				tab->token->endtype = 3;	
-	// 			// if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
-	// 			// 	token = get_outfile2(token, mx[id]);//nod
-
-
-	// 			else if (*cmd[id] == '>')
-	// 				tab->token->endtype = 2;
-	// 						// token = get_outfile1(token, mx[id]);//nod
-	// 						// else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
-	// 						// 	a[0][*i + 1][0] == '<')
-	// 						// 	m = get_infile2(m, a[1], i);*/
-	// 						// else if (mx[id][cmd][nod] == '<')
-	// 						// 	token = get_infile1(token, mx[id]);	//nod
-
-	// 			else if (*cmd[id] != '|')
-	// 				tab->token->endtype = 1;
-	// 			else if (*cmd[id] != '\0')
-	// 				tab->token->endtype = 0;
-					
-	// 		}
-	// 					// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
-	// 					// else
-	// 					// {
-	// 						//mini_perror(PIPENDERR, NULL, 2);
-	// 						// *i = -2;
-	// 					// }
-	// 					// return (token);
-	// 	// }	
-	// 	// mini_perror(PIPENDERR, NULL, 2);
-	// 	// *i = -2;
-	// 	return (tab->token->endtype);
-// }
-
-//	
-// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
 	// 
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
@@ -191,6 +128,7 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 	return (tkn);    
 }
   //   ls  -lta | wc -l >> out.txt   
+  //   ls  | head -2 | wc -l >> out.txt   
 	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp

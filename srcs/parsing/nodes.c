@@ -54,72 +54,157 @@
 // }
 
 
-static int  malloc_len(const char *s)
-{
-    int count;
-    int i;
-    int dquote;
-    int squote;
+// static int  malloc_len(const char *s)
+	// {
+	//     int count;
+	//     int i;
+	//     int dquote;
+	//     int squote;
 
-    i = 0;
-    count = 0;
-    dquote = 0;
-    squote = 0;
-    while (s)
+	//     i = 0;
+	//     count = 0;
+	//     dquote = 0;
+	//     squote = 0;
+	//     while (s)
+	//     {
+	//         squote = (squote + (!dquote && s[i] == '\'')) % 2;
+	//         dquote = (dquote + (!squote && s[i] == '\"')) % 2; 
+	//         if ((s[i] == '\"' && !squote) || (s[i] == '\'' && !dquote)) 
+	//             count++;
+	//     }
+	//     if (squote || dquote)
+	//         return (-1);
+	//     return (count);
+	// }
+
+	// char        *ft_strtrim_all(const char *s, int squote, int dquote)
+	// {
+	//     int     count;
+	//     int     i[2];
+	//     char    *trimmed;
+
+	//     i[1] = -1;
+	//     i[0] = 0;
+	//     count = malloc_len(s);
+	//     if (!s || count == -1)
+	//         return (NULL);
+	//     trimmed = malloc(sizeof(char) * (ft_strlen(s) - count + 1));
+	//     if (!trimmed)
+	//         return (NULL);
+	//     while( s[i[0]])
+	//     {
+	//         squote = (squote + (!dquote && s[i[0]] == '\'')) % 2;
+	//         dquote = (dquote + (!squote && s[i[0]] == '\"')) % 2; 
+	//         if ((s[i[0]] != '\"' || squote) && (s[i[0]] != '\'' || dquote) \
+	//             && ++i[1] >= 0)
+	//             trimmed[i[1]] = s[i[0]]; 
+	//         i[0]++;
+	//     }
+	//     trimmed[++i[1]] = '\0';
+	//     return (trimmed);
+	// }
+
+	// t_table	*get_trimmed(t_table *tab)
+	// {
+	// 	char	**temp;
+	// 	char	*aux;
+	// 	int		j;
+
+	// 	j = -1;
+	// 	temp = ft_mx_dup(tab->cmds[0]);
+	// 	while (temp && temp[++j])
+	// 	{
+	// 		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
+	// 		free(temp[j]);
+	// 		temp[j] = aux;
+	// 	}
+	// 	tab->node = temp;
+	// 	return (tab);
+// }
+
+char *node_padd(char *input, char *meta)
+{
+    char *srcs; //  start part str
+    char *tmp;  //  sub str
+    char *dest; //  end part str
+    int p[4];   //ptr pos start/pos/end
+
+    p[2] = 0;
+    p[3] = 0;
+    p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+    if (p[1] == -1)
+        return (input);
+    else
     {
-        squote = (squote + (!dquote && s[i] == '\'')) % 2;
-        dquote = (dquote + (!squote && s[i] == '\"')) % 2; 
-        if ((s[i] == '\"' && !squote) || (s[i] == '\'' && !dquote)) 
-            count++;
-    }
-    if (squote || dquote)
-        return (-1);
-    return (count);
+        p[0] = p[1] - 1;
+        p[2] = p[1] + 1;
+        p[3] = ft_strlen(input);
+        // printf("the padd p[3] len [%d] \n", p[3]);
+        if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
+            p[2] = p[1] + 2;
+        // printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
+        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+        // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+        // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+        // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+        if (input[p[0]] != 32)// tmp -1
+            tmp = ft_strjoin(" ", tmp); //add spece before
+        if (input[p[2]] != 32) //tmp + 1
+            tmp = ft_strjoin(tmp, " ");  //add space after
+        srcs = ft_strjoin(srcs, tmp);
+        input = ft_strjoin(srcs, dest);
+    } 
+    return(input);
 }
 
-char        *ft_strtrim_all(const char *s, int squote, int dquote)
+char *type_check(char *input, char *meta)
 {
-    int     count;
-    int     i[2];
-    char    *trimmed;
+    char *srcs; //  start part str
+    char *res;  //  sub str
+    char *tmp;
+    char *dest; //  end part str
+    int p[4];   //ptr pos start/pos/end
+    int padd;   // detected
 
-    i[1] = -1;
-    i[0] = 0;
-    count = malloc_len(s);
-    if (!s || count == -1)
-        return (NULL);
-    trimmed = malloc(sizeof(char) * (ft_strlen(s) - count + 1));
-    if (!trimmed)
-        return (NULL);
-    while( s[i[0]])
-    {
-        squote = (squote + (!dquote && s[i[0]] == '\'')) % 2;
-        dquote = (dquote + (!squote && s[i[0]] == '\"')) % 2; 
-        if ((s[i[0]] != '\"' || squote) && (s[i[0]] != '\'' || dquote) \
-            && ++i[1] >= 0)
-            trimmed[i[1]] = s[i[0]]; 
-        i[0]++;
-    }
-    trimmed[++i[1]] = '\0';
-    return (trimmed);
-}
+        res = "\0";
+        padd = 0;          
+        p[2] = 0; //index ptr count 
+        p[1] = 0;
+        p[3] = ft_strlen(input);
+        // printf("type_check:: str_end_p[3] = %d\n", p[3]);
+        while (padd == 0)
+        {
+            p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+            if (p[1] == -1)
+            {
+                // printf("bye\n");
+                padd = 1;
+                break ;
+            }
+            p[0] = p[1] - 1;
+            p[2] = p[1] + 1;
+            if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
+                p[2] = p[1] + 2;
+                
+            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[0]))); //bfore endtype
+            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            tmp = ft_substr((const char *)input, p[0] , p[2] - p[0]); //etype pad
+            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // left
+            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+            res = ft_strjoin(res, srcs);
+            if (p[1] && (input[p[0]] != 32) || (input[p[2]] != 32))
+                tmp = node_padd(tmp, meta);
+            res = ft_strjoin(res, tmp);
+            // printf("DEBUG oo res_check[%ld] ::%s: \n",ft_strlen(res), res);
+            input = dest;
 
-t_table	*get_trimmed(t_table *tab)
-{
-	char	**temp;
-	char	*aux;
-	int		j;
-
-	j = -1;
-	temp = ft_mx_dup(tab->cmds[0]);
-	while (temp && temp[++j])
-	{
-		aux = ft_strtrim_all(temp[j], 0, 0); /* malloc machine_short */
-		free(temp[j]);
-		temp[j] = aux;
-	}
-	tab->node = temp;
-	return (tab);
+        }
+        input = ft_strjoin(res,dest);
+        // printf("DEBUG oo output_check [%ld] ::%s: \n",ft_strlen(input), input);
+        return(input);
 }
 
 
