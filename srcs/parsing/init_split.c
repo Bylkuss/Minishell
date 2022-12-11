@@ -12,45 +12,8 @@
 
 #include "../../includes/minishell.h"
 
-char *pipe_check(char *input, char *meta)
-{
-    char *srcs; //  start part str
-    char *tmp;  //  sub str
-    char *dest; //  end part str
-    int p[4];   //ptr pos start/pos/end
 
- 
-        p[3] = 0; // ptr strlen..    
-        p[1] = ft_strchar_i((char *)input, meta);
-        if (p[1] == -1)
-            return (input);
-        else
-        {
-            p[0] = p[1] - 1;
-            p[2] = p[1] + 1;
-            p[3] = ft_strlen(input);
-            if (input[p[1] + 1] == (input[p[1]]))
-                p[2] = p[1] + 2;
-            // printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
-            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-            tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-            if (input[p[0]] != 32)// tmp -1
-                tmp = ft_strjoin(" ", tmp);
-            if (input[p[2]] != 32) //tmp + 1
-                tmp = ft_strjoin(tmp, " ");  
-            srcs = ft_strjoin(srcs, tmp);
-            input = ft_strjoin(srcs, dest);
-            if (&input[p[2]] != NULL)
-                pipe_check(&input[p[2]], meta);
 
-        } 
-     
-    return(input);
-}
 
 static int node_count(const char *s, char *c, int i[2]) // 
 {
@@ -123,7 +86,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             // printf("DEBUG:  node[%d]_\n", n);
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             if(i[0] == len)
-                tab->node = ft_mx_ext(tab->node, "\0");
+                tab->node = ft_mx_ext(tab->node, "@\0");
             else
                 tab->node = ft_mx_ext(tab->node, tab->node[n]);
             // i[2] = i[0];  // set str
@@ -134,7 +97,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     return (tab->node);
 }
 
-//  ls -lat | wc -l > out.txt   
+//  ls -lat |wc -l> out.txt   
 /*    (old spc_split) readline input _init_split_  NODE MAKER   */
 char **init_split(const char *s, char *set, t_table *tab)
 {
@@ -151,30 +114,21 @@ char **init_split(const char *s, char *set, t_table *tab)
     if (!s)
         return (NULL);
     else
-        input = pipe_check((char *)s, "<|>");
-    printf("DEBUG: pass_to_init :: %s \n", input);
+        input = type_check((char *)s, "<|>");
+    // printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count((const char *)input, set, count);     // substr 
-    // printf("DEBUG: init_split  ::  node = %d \n", n);      // DEBUG
+    // printf("DEBUG: init_split  ::  node_count = %d \n", n);      // DEBUG
     if (n == -1)
         return (NULL);
+
     tab->node = malloc(sizeof(char *) * (n + 1)); //str malloc
     if (!tab->node)
         return (NULL);
+
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->node);   // ret(tab->node)
 }
 
-    // mx_display_str(input);
-        // t_token *token;
-            // token = tab->token; 
-            // if (!token)
-            //     exit(0);
-            //     printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
-            //     printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-            //     if (tab->token->tk_len > 2 )
-            //         printf("ARG == %s == \t", tab->token->cmd[++id]);   
-        // printf("END_TYPE == %d == \n", tab->token->endtype);   
-    // mx_display_tab(arr);
 /*
 from parse.c
     init_split => split *str by space only (quote rule (ok if both))
