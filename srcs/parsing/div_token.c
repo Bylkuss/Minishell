@@ -128,6 +128,7 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 	return (tkn);    
 }
   //   ls  -lta | wc -l >> out.txt   
+  //   ls  | head -2 | wc -l >> out.txt   
 	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp

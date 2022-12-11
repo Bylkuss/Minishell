@@ -109,28 +109,29 @@ static t_table *split_all(char **node, t_table *tab)
         //div_token ...
         printf("DEBUG: spl_ll tkn[%d]_node_id[%d]::[%s]::\n", tab->token->id, i, node[i]);
         if (tab->tk_num > 0)
-        {
-            tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-            ++id;
-            if (ft_strchar_i(node[i], set))        
-            {
+                {
+       //goto token_node
+                    tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+                    ++id;
+                    if (ft_strchar_i(node[i], set))        
+                    {
 
-                tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
-                ++id;
-            }
-            tab->token->tk_len = id;
-            tab->tk_num--;
+                        tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+                        ++id;
+                    }
+                    tab->token->tk_len = id;
+                    tab->tk_num--;
 
-            // printf("DEBUG: split:token_len[%d]:: node left[%d]  \n",tab->token->tk_len, tab->tk_num);
-        } 
-        focus_id = tab->token->id;
-        if (tab->tk_num == 0 ) 
-        {
-            // printf("DEBUG: _ll token->len= %d \n", ft_mx_len(tab->token->cmd));
-            // mx_display_tab(tab->cmds[focus_id]);
-            tab->token->id++;
-            // ft_mx_free(&tab->token->cmd);
-        }
+                    // printf("DEBUG: split:token_len[%d]:: node left[%d]  \n",tab->token->tk_len, tab->tk_num);
+                } 
+                focus_id = tab->token->id;
+                if (tab->tk_num == 0 ) 
+                {
+                    // printf("DEBUG: _ll token->len= %d \n", ft_mx_len(tab->token->cmd));
+                    // mx_display_tab(tab->cmds[focus_id]);
+                    tab->token->id++;
+                    // ft_mx_free(&tab->token->cmd);
+                }
         
  //  ls  -lta | wc -l >> out.txt 
 
@@ -158,6 +159,8 @@ static t_token  *parse_args(t_table *tab)
     i = 0;
     tk_id = 0;
     type_id = 0;
+
+    
             
     tab = split_all(tab->node, tab); 
     // printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
@@ -226,6 +229,11 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     if (input[0] != '\0')
         add_history(input);
         
+    // should call node_spec 
+    //
+    // remove over_space
+    // add space padding
+    
     tab->node = init_split(input, " ", tab); // space split 
     if (tab->node)
     {   
