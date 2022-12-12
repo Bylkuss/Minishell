@@ -222,11 +222,13 @@ t_table 	*token_nodes(t_table *tab, char **cmd)	/* call by parse_  <<(token_ized
 		//		then wrsap the token tk_id ++ , nodes --	
 	id = 0; 
 	tk_len = ft_mx_len(cmd);
-	while (id != tk_len)
+	while (id < tk_len)
 	{
 		mx_display_str(cmd[id]);
 		id++;
 	}
+	printf("DEBUG : token_nodes cmds [0][0] = node[%d] ::\n", id);
+
 	// tab->cmds >> t_token	*token;
 		// token->id 	(int)
 		// token->cmd	(char**)
@@ -236,19 +238,15 @@ t_table 	*token_nodes(t_table *tab, char **cmd)	/* call by parse_  <<(token_ized
 		// token->tkn_len	(int)
 	// needed to token command
 	
-	printf("DEBUG : token_nodes cmds [0][0] = tk_len = (%d) ::\n", tk_len);
-
-	if (!(cmd[id] || cmd)) 
-		return (NULL);
 	
 		// tab->token->cmd = ft_mx_ext(tab->token->cmd, node);
 		// if (ft_strchar_i(node, "<|>"))
 		// {
 		
-		// tab->cmds[tab->token->id] = ft_mx_dup(cmd);
-		// tab->token->id++;
-		// printf("DEBUG : token_nodes[%d]::\n", tab->token->id);
-		// printf("DEBUG : token_cmd[%s]::\n", *tab->token->cmd);
+	tab->cmds[tab->token->id] = ft_mx_ext(tab-cmds[tab->token->id], cmd);
+	tab->token->id++;
+	printf("DEBUG : token_nodes[%d]::\n", tab->token->id);
+	// printf("DEBUG : token_cmd[%s]::\n", *tab->token->cmd);
 	
 	return (tab);
 }
