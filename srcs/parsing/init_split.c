@@ -92,7 +92,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     return (tab->node);
 }
 
-//  ls -lat |head -2|wc -l> out.txt   
+//    ls -lat |head -2|wc -l> out.txt   
 char **init_split(const char *s, char *set, t_table *tab)
 {
     int     n;

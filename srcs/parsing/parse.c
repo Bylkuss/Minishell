@@ -130,50 +130,53 @@ static t_table *split_all(char **node, t_table *tab)
         //expand_var ...   
         node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         //expand_path ...         
-        box = div_token(node[i], set, tab, tkn_id); 
+        tab = div_token(node[i], set, tab, tkn_id); 
         //div_token ...
-        printf("DEBUG: spl_ll tkn[%d]_node_id[%d]::[%s]::\n", tab->token->id, i, node[i]);
-        //
+
+        tkn_id++;
+        printf("DEBUG: split_all :: tk_id = %d\n", tkn_id);
+
+        tab = token_nodes(tab, tab->token->cmd); //cpy token to cmds ...
+        //token_node ...
+
+            //transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
+        tkn_id = tab->token->id;
+        printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
         // this is to build a token->cmd 
         // this token to be place into tab->cmds***
-        tab = token_nodes(tab, node[i]); //cpy token to cmds ...
         //
-        tkn_id = tab->token->id;
-        // goto token_node
-        // build 
-        // if (tab->tk_num > 0)
-        // {
-        //     tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
-        //     ++id;
-        //     if (ft_strchar_i(node[i], set))        
-        //     {
+                // goto token_node
+                // build 
+                // if (tab->tk_num > 0)
+                // {
+                //     tab->token->cmd = ft_mx_ext(tab->token->cmd, node[i]);
+                //     ++id;
+                //     if (ft_strchar_i(node[i], set))        
+                //     {
 
-        //         tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
-        //         ++id;
-        //     }
-        //     tab->token->tk_len = id;
-        //     tab->tk_num--;
+                //         tab->token->cmd = ft_mx_ext(tab->token->cmd, "\0");
+                //         ++id;
+                //     }
+                //     tab->token->tk_len = id;
+                //     tab->tk_num--;
 
-        //     // printf("DEBUG: split:token_len[%d]:: node left[%d]  \n",tab->token->tk_len, tab->tk_num);
-        // } 
-        // focus_id = tab->token->id;
-        // if (tab->tk_num == 0 ) 
-        // {
-        //     // printf("DEBUG: _ll token->len= %d \n", ft_mx_len(tab->token->cmd));
-        //     // mx_display_tab(tab->cmds[focus_id]);
-        //     tab->token->id++;
-        //     // ft_mx_free(&tab->token->cmd);
+                //     // printf("DEBUG: split:token_len[%d]:: node left[%d]  \n",tab->token->tk_len, tab->tk_num);
+                // } 
+                // focus_id = tab->token->id;
+                // if (tab->tk_num == 0 ) 
+                // {
+                //     // printf("DEBUG: _ll token->len= %d \n", ft_mx_len(tab->token->cmd));
+                //     // mx_display_tab(tab->cmds[focus_id]);
+                //     tab->token->id++;
+                //     // ft_mx_free(&tab->token->cmd);
         // }
         
  //  ls  -lta | wc -l >> out.txt 
 
- //  ls  -lta| head -2| wc -l >> out.txt 
+ //  ls  -lta| head -2| wc -l >> out.txt     
 
-         // tab->token = token_nodes(tab);
+       // tab->token = token_nodes(tab);
         // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
-
-
-        // printf("DEBUG: split_all :: tk_id = %d\n", id);
         // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
     }
     return (tab); 
