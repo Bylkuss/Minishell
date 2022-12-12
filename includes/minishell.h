@@ -84,6 +84,7 @@ struct s_table
 	char 	**node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t	pid;	//	fork dup wait 
 	int 	tk_num;	// 	how many tokens ref by div_token
+	int		*refs;	// id token // cmd len
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
@@ -112,7 +113,7 @@ char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
 // t_table		*token_nodes(t_table *tab);
-t_table	*token_nodes(t_table *tab, char **node);
+t_table		*token_nodes(t_table *tab, char **node, int tkn_id);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);

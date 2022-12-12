@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2022/11/29 14:09:50 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/12/12 05:58:27 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void    builtins_handler(char *input, char **envp)
         env(envp);
     else if(ft_strnstr(input, "unset", 10))
         unset(ft_split(input, ' ') , envp);
-    else if(ft_strnstr(input, "export", 10))
-        export(ft_split(input, ' ') , envp);
+    // else if(ft_strnstr(input, "export", 10))
+    //     export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "ls", 5))
         execve("/usr/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))
