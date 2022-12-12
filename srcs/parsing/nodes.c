@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/07 21:30:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:12:37 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,95 +209,58 @@ char *type_check(char *input, char *meta)
 
 
 
-t_table 	*token_nodes(t_table *tab, char **cmd)	/* call by parse_  <<(token_ized)	*/
-{
-	int id;		// node_id
-	int tk_len;		// 
-		// t_token *token;	// frmd token instanc
-
-
-
-		// 		take some of node (remove them) and 
-		//		place them at the right place cmd[0], cmd[len]
-		//		then wrsap the token tk_id ++ , nodes --	
-	id = 0; 
-	tk_len = ft_mx_len(cmd);
-	while (id != tk_len)
+t_table 	*token_nodes(t_table *tab, char **cmd, int tkn_id)	/* call by parse_  <<(token_ized)	*/
 	{
-		mx_display_str(cmd[id]);
-		id++;
-	}
-	// tab->cmds >> t_token	*token;
-		// token->id 	(int)
-		// token->cmd	(char**)
-		// token->path	(**char)
-		// token->endtype	(int)
-		// token->infile :: token->outfile 
-		// token->tkn_len	(int)
-	// needed to token command
-	
-	printf("DEBUG : token_nodes cmds [0][0] = tk_len = (%d) ::\n", tk_len);
+		int id;		// node_id
+		int tk_len;		// 
+		char **tok_cmds;
+		  // t_token *token;	// frmd token instanc
 
-	if (!(cmd[id] || cmd)) 
-		return (NULL);
-	
-		// tab->token->cmd = ft_mx_ext(tab->token->cmd, node);
-		// if (ft_strchar_i(node, "<|>"))
-		// {
+			// 		take some of node (remove them) and 
+			//		place them at the right place cmd[0], cmd[len]
+			//		then wrsap the token tk_id ++ , nodes --	
+			// tab->cmds >> t_token	*token;
+				// token->id 	(int)
+				// token->cmd	(char**)
+				// token->path	(**char)
+				// token->endtype	(int)
+				// token->infile :: token->outfile 
+				// token->tkn_len	(int)
+			// needed to token command
+		id = 0; 
+		if (!(cmd[id] || cmd)) 
+			return (NULL);
+		printf("DEBUG : start_dup:tkn_id[%d]::\n", tkn_id);	
+		// printf("DEBUG : pre_dup:token_id[%d]::\n", tab->token->id);	
+		tk_len = ft_mx_len(cmd);
+		printf("DEBUG : token_nodes tkn_id [%d] = tk_len = (%d) ::\n", tkn_id, tk_len);
 		
-		// tab->cmds[tab->token->id] = ft_mx_dup(cmd);
-		// tab->token->id++;
-		// printf("DEBUG : token_nodes[%d]::\n", tab->token->id);
-		// printf("DEBUG : token_cmd[%s]::\n", *tab->token->cmd);
-	
+		tok_cmds	=  (char **)malloc(sizeof(char *) * tk_len);
+
+		if (ft_mx_len(tab->cmds[tkn_id]) != 0)
+		{
+			printf("DEBUG : tkn_dup :cmds[tkn_id]:[%d]::\n", tkn_id);	
+			tok_cmds = ft_mx_dup(cmd);
+
+		}
+		// else 
+		// {
+		// 	printf("DEBUG : error :cmds[tkn_id]:[%d]::\n", tkn_id);	
+		// 	return (NULL);
+			
+		// }
+		while (id != tk_len)
+		{
+			mx_display_str(tab->token->cmd[id]);
+			id++;
+		}
+		tab->token->id++;
+		printf("DEBUG : exit:token_id[%d]::\n", tab->token->id);
 	return (tab);
 }
 
-//ls -lt| head -2 |wc -c>> out.txt  
-	// if (!(tab->cmds[tkn_id]) && id < tab->tk_num)
-	// {
-	// 	// mx_display_tab(*tab->cmds);
-	// 	mx_display_str(*tab->cmds[id]);
-	// }
-	// if (tab->tk_num)
-	// 	// printf("DEBUG : tk_num = %d:: \n", tab->tk_num);
-	// if (*tab->cmds[id] && id < tab->tk_num)
-	// {
-			// tab->token->id = i;
-			// tab->cmds[i] = tab->node;
-					// ... // div_token to set end 
-					// endtype eval + default 
-
-				// revert from list 
-					// need to set first arg => cmd 
-					// 			set last arg => endtype
-					//	middle arg (if so!) 	
-					// cmds[1] = ft_lstlast(cmds[0]);
-
-				// j = 0;
-				// if (i == 0 || (tab->node[0] == "|" && *tab->cmds[i + 1] && tab->cmds[i + 1][0]))
-			// {
-		// tab->token->id = id;
-		// // token->cmd = tab->cmds[id];
-		// printf("debug:: into tok_node");
-		// 	// 	// if (tab->token->cmd)
-		// 	// 		// 	mx_display_tab(tab->token->cmd);
-		// 	// 		// 		/*	i += args[i][0] == '|';
-		// 	// 		// 			ft_lstadd_back(&cmds[0], ft_lstnew(mx_init()));		// mx_start 
-		// 	// 		// 			cmds[1] = ft_lstlast(cmds[0]); 
-		// 	// 		// 		*/
-		// 	// }
-		// 	// temp[0] = args;
-		// 	//tab->token = get_params(tab, tab->node);//, &i); // params_ ended_ token_
-		// 		// token->cmd = cmds[1]->content;
-		// 		// token->arg = *temp[1];
-		// 		// token->endtype = cmds[1]->content;
-		// 		// if (i < 0)
-		// 		// 	return (stop_fill(cmds[0], args, temp[1]));
-		// 		// if (!args[i])
-		// 		// 	break ;
-		// id++;
-	// }
+	//   ls -lta| head -2 |wc -c>> out.txt  
+		
 
 /*
 from parse.c
