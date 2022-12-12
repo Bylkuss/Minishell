@@ -13,39 +13,35 @@
 #include "../../includes/minishell.h"
 
 
-
-
 static int node_count(const char *s, char *c, int i[2]) // 
 {
-        int     q[2];   // quotes match delimter
+    int     q[2];   // quotes match delimter
 
-        q[0] = 0;
-        q[1] = 0;
-        while (s[i[0]] != '\0')
+    q[0] = 0;
+    q[1] = 0;
+    while (s[i[0]] != '\0')
+    {
+        if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
         {
-            if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
+            while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
             {
-                // i[1]++;
-                while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0') // != '," % 2
-                {
-                    if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
-                        q[1] = s[i[0]];
-                    q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
-                    q[1] *= q[0] != 0;
-                    i[0]++;
-                }
-                if (q[0])
-                    return (-1);
+                if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
+                    q[1] = s[i[0]];
+                q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
+                q[1] *= q[0] != 0;
+                i[0]++;
             }
-            else if (ft_strchr(c, s[i[0]])) 
-            {
-                while (ft_strchr(c, s[i[0]]))
-                    i[0]++;
-                i[1]++;
-            }
-            // i[1]++;
+            if (q[0])
+                return (-1);
         }
-        return (i[1] + 1);
+        else if (ft_strchr(c, s[i[0]])) 
+        {
+            while (ft_strchr(c, s[i[0]]))
+                i[0]++;
+            i[1]++;
+        }
+    }
+    return (i[1] + 1);
 }
 
 /*   init_split_Form_           "..." "..." "..." */
@@ -61,7 +57,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     len = ft_strlen(s);
     printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
     i[2] = -1;
-    while (s[i[0]] && i[0] <= len)
+    while (s[i[0]] && i[0] < len)
     {
         if(!ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // spc found
         {
@@ -84,24 +80,21 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
             // printf("DEBUG:  node[%d]_\n", n);
+            tab->node = ft_mx_ext(tab->node, tab->node[n]);
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
-            if(i[0] == len)
-                tab->node = ft_mx_ext(tab->node, "@\0");
-            else
-                tab->node = ft_mx_ext(tab->node, tab->node[n]);
-            // i[2] = i[0];  // set str
             n++;
         }            
+        if(i[0] == len)
+            tab->node = ft_mx_ext(tab->node, "@");
+        // printf("node[%d] => ::%s::\n", n, tab->node[n]);
     }
     // mx_display_tab(tab->node);
     return (tab->node);
 }
 
-//  ls -lat |wc -l> out.txt   
-/*    (old spc_split) readline input _init_split_  NODE MAKER   */
+//  ls -lat |head -2|wc -l> out.txt   
 char **init_split(const char *s, char *set, t_table *tab)
 {
-    char    *input;
     int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
@@ -112,20 +105,16 @@ char **init_split(const char *s, char *set, t_table *tab)
     count[0] = 0;
     count[1] = 0;
     if (!s)
-        return (NULL);
-    else
-        input = type_check((char *)s, "<|>");
-    // printf("DEBUG: pass_to_init :: %s \n", input);
-    n = node_count((const char *)input, set, count);     // substr 
-    // printf("DEBUG: init_split  ::  node_count = %d \n", n);      // DEBUG
+        return (NULL);    
+    n = node_count((const char *)s, set, count);    // substr 
+    printf("DEBUG: init_split  ::  node_count = %d \n", n); 
     if (n == -1)
         return (NULL);
-
-    tab->node = malloc(sizeof(char *) * (n + 1)); //str malloc
+    tab->node = malloc(sizeof(char *) * (n + 2));   // malloc +2 EOT char
     if (!tab->node)
         return (NULL);
 
-    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    tab->node = node_fill(tab, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->node);   // ret(tab->node)
 }
 

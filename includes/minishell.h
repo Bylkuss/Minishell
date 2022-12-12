@@ -112,7 +112,7 @@ char    	*ft_strtrim_all(const char *s, int squote, int dquote);
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
 // t_table		*token_nodes(t_table *tab);
-t_token		*token_nodes(t_table *tab);
+t_table	*token_nodes(t_table *tab, char *node);
 //operators
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);

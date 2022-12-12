@@ -14,39 +14,44 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(char *s, char *set, int tkn)
+static int	token_count(char **nodes, char *set, int tkn)
 {
 	int		q[2];
 	int		i;
+	int		n;
+	int		etype;	// num ref. etype if not next
 
-	i = 0;
+	etype = -1;
+	n = 0;
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i] != '\0')
-	{		
-		// if (ft_strchr(set, s[i]))
-		tkn++;
-		if (!ft_strchr(set, s[i]))
-		{
-			while ((!ft_strchr(set, s[i])) && s[i] != '\0')
-			{ 
-					q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-					q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
-					i++;
+
+	while (etype < 0 && (nodes[n]))
+	{
+		i = 0;
+		while (nodes[n] && nodes[n][i] != '\0')
+		{		
+			if (ft_strchr(set, nodes[n][i]))
+				return(n);
+			if (!ft_strchr(set, nodes[n][i]))
+			{
+				while ((!ft_strchr(set, nodes[n][i])) && nodes[n][i] != '\0')
+				{ 
+						q[0] = (q[0] + (!q[1] && nodes[n][i] == '\'')) % 2;
+						q[1] = (q[1] + (!q[0] && nodes[n][i] == '\"')) % 2; 
+						i++;
+				}
+				if (q[0] || q[1])
+					return (-1);
 			}
-			if (q[0] || q[1])
-				return (-1);
+			i++;
 		}
-		i++;
-		// if (ft_strchar_i(&s[i], set))
-		// 	tkn++;
+		n++;
 	}
-			printf("DEBUG: token_count :: tkn = %d\n", tkn);
-	return (tkn ); //how many end..
+
+	// printf("DEBUG: token_count :: tkn = %d\n", tkn);
+	return (n); //how many end..
 }
-
-
-	// 
 
 static char	**token_fill(char **aux, char *s, char *set, int i[3])
 {	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
@@ -76,9 +81,9 @@ static char	**token_fill(char **aux, char *s, char *set, int i[3])
 
 
 	//  ls -lat | wc -l > out.txti  
-	// 	ls -lt| head -2 |wc -c>> out.txt
+	// 	ls -lt| head -2 |wc -c>> out.txt   
 // 	set = {"<",">","|"} :: if(!set) ? end : err 
-char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call by parse>split_all
+char	 **div_token(const char *s, char *set, t_table *tab, int tkn_id) // call by parse>split_all
 {
 	
 	char    **tkn;			// token sub_split by endtype
@@ -91,9 +96,16 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 	if (!s)					// s <<  args[i]  << tab->cmds
 		return (NULL);
 	//
-	if (!(tkn_num > 0))
+
+	// new div_token purpose : how many token
+	// when call check if token begin or ends
+	// 
+
+
+	if ((tkn_id <tab->token->id))
 	{
-		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
+		tab->token->tk_len = token_count(tab->node, set, tkn_id);	// how many node into this token
+			printf("DEBUG: div_token_count div_tkn = %d\n", tab->token->tk_len);
 		// tab->token->id++;
 	}
 		
