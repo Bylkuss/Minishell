@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/12 10:12:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:51:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,30 +230,38 @@ t_table 	*token_nodes(t_table *tab, char **cmd, int tkn_id)	/* call by parse_  <
 		id = 0; 
 		if (!(cmd[id] || cmd)) 
 			return (NULL);
+			
 		printf("DEBUG : start_dup:tkn_id[%d]::\n", tkn_id);	
 		// printf("DEBUG : pre_dup:token_id[%d]::\n", tab->token->id);	
+		
 		tk_len = ft_mx_len(cmd);
 		printf("DEBUG : token_nodes tkn_id [%d] = tk_len = (%d) ::\n", tkn_id, tk_len);
 		
-		tok_cmds	=  (char **)malloc(sizeof(char *) * tk_len);
+		// tok_cmds = (char **)malloc(sizeof(char *) * tk_len);
 
-		if (ft_mx_len(tab->cmds[tkn_id]) != 0)
-		{
+		// if (ft_mx_len(tab->cmds[tkn_id]) != 0)
+		// {
+			while(id <= tk_len)
+			{
+				tab->cmds[tkn_id] = ft_mx_ext(tab->cmds[tkn_id], cmd[id]);
+           		printf("cmd[%d] => ::%s::\n", id, cmd[id]);
+           		id++;
+				
+			}
 			printf("DEBUG : tkn_dup :cmds[tkn_id]:[%d]::\n", tkn_id);	
-			tok_cmds = ft_mx_dup(cmd);
-
-		}
+			// tok_cmds = ft_mx_dup(cmd);
+		// }
 		// else 
 		// {
 		// 	printf("DEBUG : error :cmds[tkn_id]:[%d]::\n", tkn_id);	
 		// 	return (NULL);
 			
 		// }
-		while (id != tk_len)
-		{
-			mx_display_str(tab->token->cmd[id]);
-			id++;
-		}
+		// while (id != tk_len)
+		// {
+		// 	mx_display_str(tab->token->cmd[id]);
+		// 	id++;
+		// }
 		tab->token->id++;
 		printf("DEBUG : exit:token_id[%d]::\n", tab->token->id);
 	return (tab);

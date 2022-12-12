@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/12 09:51:27 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/12 10:41:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ static char	**token_fill(char **nodes, int len, int strt)
 	init = strt;
 	tk_cmd = NULL;//ft_mx_dup(aux);
 	
-	// printf("DEBUG: token_fill :: init = %d \n", init);	
-	// printf("DEBUG: token_fill :: len = %d \n", len);
-	// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
+		// printf("DEBUG: token_fill :: init = %d \n", init);	
+		// printf("DEBUG: token_fill :: len = %d \n", len);
+		// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
 	while (i <= (len ))
 	{
 		tk_cmd = ft_mx_ext(tk_cmd, nodes[init]);
@@ -74,8 +74,8 @@ static char	**token_fill(char **nodes, int len, int strt)
 		i++;
 	}
 	tk_cmd = ft_mx_ext(tk_cmd, "\0");
-	// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
-	// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
+		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
+		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
 	return (tk_cmd);
 }
 
@@ -89,12 +89,10 @@ t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call 
 	int 	pass_len;
 	
 	token = tab->token;
-	pass_len = 0;	
-	printf("DEBUG: div_token_count div_token_id = %d\n", token->id);
-	printf("DEBUG: div_token_count parse_tkn_id = %d\n", tkn_id);
-	
+	pass_len = 0;
 	if (tkn_id != 0)
 	{	
+		// pass_len = tab->refs[tkn_id];	
 		pass_len = (ft_mx_len(tab->token->cmd) - 1);
 		ft_mx_free(&tab->token->cmd);
 		// printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
@@ -102,8 +100,10 @@ t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call 
 	
 	if ((tkn_id < token->id))// start at zero < token->id start at 1
 	{
+		pass_len = tab->refs[tkn_id];	
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
 		token->tk_len =	token->tk_len - pass_len;
+		printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
 		printf("DEBUG: token_fill sub_str (%d) \n", token->tk_len);		
 			// tab->token->cmd check!!
 
@@ -111,7 +111,7 @@ t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call 
 		if (!(tkn))
 			return (NULL);
 
-		tkn = token_fill(tab->node, token->tk_len, pass_len);	
+		tkn = token_fill(tab->node, token->tk_len, tab->refs[tkn_id]);	
 		token->cmd = ft_mx_dup(tkn);
 		tab->token->id++;	
 	}	
@@ -127,7 +127,8 @@ t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call 
 	return (tab);    
 }
   //   ls  -lta | wc -l >> out.txt   
-  //   ls  |head -2| wc -l >> out.txt   
+  //   ls -lt|head -2| wc -l >> out.txt   
+
 	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp

@@ -84,6 +84,7 @@ struct s_table
 	char 	**node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t	pid;	//	fork dup wait 
 	int 	tk_num;	// 	how many tokens ref by div_token
+	int		*refs;	// id token // cmd len
 	struct s_token	*token;	//	multi_referenciels *ptr->
 };					//t_table;
 
