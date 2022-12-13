@@ -145,16 +145,16 @@ static t_table *split_all(char **node, t_table *tab)
         tab = div_token(node[i], set, tab, tkn_id); 
         //div_token ...
         
-        // tab = token_nodes(tab, tab->token->cmd, tkn_id); //cpy token to cmds ...
         tkn_id++;
-        printf("DEBUG: split_all :: tkn_id = %d\n", tkn_id);
-        mx_display_tab(tab->token->cmd);
+        tab = token_nodes(tab, tab->token->cmd, tkn_id); //cpy token to cmds ...
+        // printf("DEBUG: split_all :: tkn_id = %d\n", tkn_id);
+        tkn_id = tab->token->id;
+        // mx_display_tab(tab->token->cmd);
      
 
         //token_node ...
 
             //transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
-        // tkn_id = tab->token->id;
         // printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
         // this is to build a token->cmd 
         // this token to be place into tab->cmds***
@@ -187,7 +187,7 @@ static t_table  *parse_args(t_table *tab)
     // token_etype ... should set >endtype< token[id]  (tab->tk_num)
     //             ... store   as >endtype< node[pos] (token->tk_len) 
     tab = token_etype(tab);
-    printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);
+    // printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);
     //
     //
     // printf("DEBUG: parse >>tab->tk_num[%d]\n",tab->tk_num);
@@ -268,15 +268,15 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 // len = ft_mx_len(tab->node);
                 // printf("\n%d :::\n", len);
                 // return (tab);
-        // if (tab->cmds[0])
-        //     printf("DEBUG : into... check_arg\n");
-        // exit(0);
-            // if (tab->cmds && tab->tk_num > 0)
-            // else
-            //     return (NULL);
-        /*
-                    if (tab && tab->token)
-                        display_tkn(tab);
+            // if (tab->cmds[0])
+            //     printf("DEBUG : into... check_arg\n");
+            // exit(0);
+                // if (tab->cmds && tab->tk_num > 0)
+                // else
+                //     return (NULL);
+            /*
+                        if (tab && tab->token)
+                            display_tkn(tab);
 
         token need to be ID _cmd, _attr, _end         */
                 /*
