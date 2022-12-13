@@ -190,6 +190,7 @@ char **init_split(const char *s, char *set, t_table *tab)
     count[1] = 0;
     if (!s)
         return (NULL);    
+    printf("DEBUG: ");
         
     s = type_check((char *)s, "<|>");
     n = node_count((const char *)s, set, count);    // substr 

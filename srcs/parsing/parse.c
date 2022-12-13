@@ -16,6 +16,97 @@ extern int g_status;
 
 /*       char **args = tab->cmds  :  token chunk    */
 
+static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
+{
+    char    **cmd;
+    int     n;
+    int     id;
+    int     *ref;
+
+    id = -1;
+    cmd = tab->node; 
+    n = ft_mx_len(cmd);
+   
+    // token = tab->token;
+		//
+			//	get to *node[0]	== token->cmds
+			//	get *node[len-1] == 
+			//	get *node[len]	== token->endtype
+				// DEAD_END  = 0,
+				// PIPE_END  = 1,
+				// OUTF1_END = 2,
+				// OUTF2_END = 3,
+				// INF1_END  = 4,
+				// INF2_END  = 5,
+				// ERR_END   = 6
+
+        // printf("\nendtype #[%d] node long\n", n);
+        //  printf("\nendtype #[%d]tk_num\n", tab->tk_num);
+        //  printf  ("DEBUG: token->id[%d]: ref_pos[%d]  \n", tab->token->id, tab->refs[tab->token->id]); 
+    tab->token->id = 0;
+    ref[tab->token->id] = 0; 
+    printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+    while (id++ <= n)
+    {
+        tab->token->id = tab->tk_num; 
+        ref[tab->token->id] = id;
+        if (cmd[id] && (id < n))
+        {
+            if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
+            {
+                tab->token->endtype = 5;
+                tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '<')
+            {
+                tab->token->endtype = 4;
+                 tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
+            {
+                tab->token->endtype = 3;
+                 tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '>')
+            {
+                tab->token->endtype = 2;
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id;  
+            }
+
+            else if (*cmd[id] == '|')
+            {
+                tab->token->endtype = 1;
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id;     
+            }
+            else if (*cmd[id] == '@')
+            {
+                tab->token->endtype = 0;     
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+                        // token = get_outfile1(token, mx[id]);//nod
+                        // else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+                        // 	a[0][*i + 1][0] == '<')
+                        // 	m = get_infile2(m, a[1], i);*/
+                        // else if (mx[id][cmd][nod] == '<')
+                        // 	token = get_infile1(token, mx[id]);	//nod
+            if (tab->token->endtype != -1)
+            {
+                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                tab->token->endtype = -1;   
+            }
+            
+        }
+    }
+    tab->refs = ref;
+    return (tab);
+}
+
 static t_table *split_all(t_table *tab)  
 {
   
@@ -42,7 +133,7 @@ static t_table *split_all(t_table *tab)
         //expand_path ...         
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         // 
-         printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, tab->node[i], tkn_id); 
+        //  printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, tab->node[i], tkn_id); 
      
 
 
@@ -53,7 +144,7 @@ static t_table *split_all(t_table *tab)
         // tkn_id++; 
 
 
-        printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
+        // printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
             // mx_display_tab(tab->token->cmd);
             // this is to build a token->cmd 
                 // this token to be place into tab->cmds***        
@@ -85,7 +176,7 @@ static t_table  *parse_args(t_table *tab)
     set = "<|>";
     tab->token->id = 0;
     
-
+      printf("DEBUG: parse... tab->token >>\n");
         // token_etype ... should set >endtype< token[id]  (tab->tk_num)
         //             ... store   as >endtype< node[pos] (token->tk_len) 
     tab = token_etype(tab);
@@ -174,12 +265,12 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         // remove over_space // add space padding
         printf("DEBUG: pass_to_init :: %s \n", input);
     tab->node = init_split(input, " ", tab); // space split 
-    if (tab->node)
-    {   
+    // if (tab->node)
+    // {   
         n = ft_mx_len(tab->node);
         printf("DEBUG: check :: node_num ::%d::\n", n);
-        // mx_display_tab(tab->node);
-    }
+    //     mx_display_tab(tab->node);  
+    // }
     tab = parse_args(tab);    // tab->node        
 
         // }

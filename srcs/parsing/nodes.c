@@ -175,8 +175,8 @@ t_table 	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 		// 	mx_display_str(tab->token->cmd[id]);
 		// 	id++;
 		// }
-	tab->token->id++;
-	printf("DEBUG : exit:token_id[%d]::\n", tab->token->id);
+	// tab->token->id++;
+	// printf("DEBUG : exit:token_id[%d]::\n", tab->token->id);
 	return (tab);
 }
 
