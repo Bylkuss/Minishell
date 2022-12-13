@@ -14,6 +14,7 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
+
 static int	token_count(char **nodes, char *set, int strt)
 {
 	int		q[2];
@@ -80,35 +81,136 @@ static t_table *token_fill(t_table *tab, int len, int strt)
 		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
 	return (tab);
 }
-
 	// 	   ls -lt| head -2 |wc -c>> out.txt   
    
-// >> node[x]  >> set  >> tab  >> tkn_id  (focus id)
-t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call by parse>split_all
+		// >> node[x]  >> set  >> tab  >> tkn_id  (focus id)
+t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
+{
+    char    **cmd;
+    int     n;
+    int     id;
+    int     *ref;
+
+    id = -1;
+    cmd = tab->node; 
+    n = ft_mx_len(cmd);
+   
+    // token = tab->token;
+		//
+			//	get to *node[0]	== token->cmds
+			//	get *node[len-1] == 
+			//	get *node[len]	== token->endtype
+				// DEAD_END  = 0,
+				// PIPE_END  = 1,
+				// OUTF1_END = 2,
+				// OUTF2_END = 3,
+				// INF1_END  = 4,
+				// INF2_END  = 5,
+				// ERR_END   = 6
+
+        // printf("\nendtype #[%d] node long\n", n);
+        //  printf("\nendtype #[%d]tk_num\n", tab->tk_num);
+        //  printf  ("DEBUG: token->id[%d]: ref_pos[%d]  \n", tab->token->id, tab->refs[tab->token->id]); 
+    tab->token->id = 0;
+    ref[tab->token->id] = 0; 
+    printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+    while (id++ <= n)
+    {
+        tab->token->id = tab->tk_num; 
+        ref[tab->token->id] = id;
+        if (cmd[id] && (id < n))
+        {
+            if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
+            {
+                tab->token->endtype = 5;
+                tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '<')
+            {
+                tab->token->endtype = 4;
+                 tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
+            {
+                tab->token->endtype = 3;
+                 tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+            else if (*cmd[id] == '>')
+            {
+                tab->token->endtype = 2;
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id;  
+            }
+
+            else if (*cmd[id] == '|')
+            {
+                tab->token->endtype = 1;
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id;     
+            }
+            else if (*cmd[id] == '@')
+            {
+                tab->token->endtype = 0;     
+                  tab->token->id = tab->tk_num++; 
+                ref[tab->token->id] = id; 
+            }
+                        // token = get_outfile1(token, mx[id]);//nod
+                        // else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
+                        // 	a[0][*i + 1][0] == '<')
+                        // 	m = get_infile2(m, a[1], i);*/
+                        // else if (mx[id][cmd][nod] == '<')
+                        // 	token = get_infile1(token, mx[id]);	//nod
+            if (tab->token->endtype != -1)
+            {
+                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                tab->token->endtype = -1;   
+            }
+            
+        }
+    }
+    tab->refs = ref;
+    return (tab);
+}
+
+
+
+t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 {
 	t_token	*token;			// token sub_split by endtype
 	char **tkn;
 	int 	pass_len;		// pos to start
+	int 	tk_id;
 	
 	token = tab->token;
 	pass_len = 0;
 
-		printf("DEBUG: div_token_ parse_ tkn_id = %d\n", tkn_id);
+		// printf("DEBUG: div_token_ parse_ tkn_id = %d\n", tkn_id);
 			// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
 			// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
 			// printf("DEBUG: div_token_ ref_ tab->token->id = %d\n", tab->refs[tab->token->id]);
 				// pass_len = (ft_mx_len(tab->token->cmd) - 1);
 				// printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
-		if (tkn_id != 0)
-		{	
-			pass_len = tab->refs[tkn_id];	
-			ft_mx_free(&tab->token->cmd);
-		}
+		// if (tkn_id != 0)
+		// {	
+		// 	pass_len = tab->refs[tkn_id];	
+		// 	ft_mx_free(&tab->token->cmd);
+		// }
+		// tab->cmds >> t_token	*token;
+			// token->id 	(int)
+			// token->cmd	(char**)
+			// token->path	(**char)
+			// token->endtype	(int)
+			// token->infile :: token->outfile 
+			// token->tkn_len	(int)
+		// needed to token command
 	
-	if ((tkn_id < token->id))// start at zero < token->id start at 1
+	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
-		printf("DEBUG: token_count len (%d) \n", token->tk_len);		
+		// printf("DEBUG: token_count len (%d) \n", token->tk_len);		
 			// pass_len = tab->refs[tab->token->id];	
 			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
 			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
