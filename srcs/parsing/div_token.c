@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/13 09:17:47 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/13 11:01:41 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,30 +53,32 @@ static int	token_count(char **nodes, char *set, int strt)
 	return (n); 
 }
 
-static char	**token_fill(char **nodes, int len, int strt)
+static t_table *token_fill(t_table *tab, int len, int strt)
 {	
 	int i;
 	int pos;	//node pos
-	char **tk_cmd;
-
+	int id;
+	
+	// char **tk_cmd;
+	id = tab->token->id;
 	i = 0;
 	pos = strt;
-	tk_cmd = NULL;//ft_mx_dup(aux);
+	// tk_cmd = NULL;//ft_mx_dup(aux);
 	
-		// printf("DEBUG: token_fill :: init = %d \n", init);	
-		// printf("DEBUG: token_fill :: len = %d \n", len);
+		printf("DEBUG: token_fill :: init = %d \n", tab->refs[id]);	
+		printf("DEBUG: token_fill :: pos[%d] \n", pos);
 		// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
-	while (i <= (len ))
+	while (i <= (tab->refs[id] ))
 	{
-		tk_cmd = ft_mx_ext(tk_cmd, nodes[pos]);
-		printf("DEBUG: 		token_fill cmd [%d], _%s_ \n", pos, tk_cmd[i]);	
+		tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[pos]);
+		printf("DEBUG: 		token_fill cmds[%d] node[%d] {%s} \n", id, pos, tab->node[pos]);	
 		pos++;
 		i++;
 	}
-	tk_cmd = ft_mx_ext(tk_cmd, "\0");
+	tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
 		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
 		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
-	return (tk_cmd);
+	return (tab);
 }
 
 	// 	   ls -lt| head -2 |wc -c>> out.txt   
@@ -119,7 +121,7 @@ t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call 
 		if (!(tkn))
 			return (NULL);
 
-		tkn = token_fill(tab->node, token->tk_len, pass_len);	
+		tab = token_fill(tab, token->tk_len, pass_len);	
 		tab->token->cmd = ft_mx_dup(tkn);
 		// tab->token->id++;	
 	}	
