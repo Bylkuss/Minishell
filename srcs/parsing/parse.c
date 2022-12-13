@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/13 07:47:18 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/13 10:24:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,11 @@ static t_table *split_all(char **node, t_table *tab)
      
         //div_token ...
         tab = div_token(node[i], set, tab, tkn_id); 
-        
         //token_node ...
             //transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
-        tab = token_nodes(tab, tab->token->cmd, tkn_id); //cpy token to cmds ...
-        tkn_id++;
-        printf("DEBUG: split_all :: tkn_id = %d\n", tkn_id);
+        tkn_id++; 
+        // tab = token_nodes(tab, tab->token->cmd, tkn_id); //cpy token to cmds ...
+        printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
         // mx_display_tab(tab->token->cmd);
         // this is to build a token->cmd 
             // this token to be place into tab->cmds***        
