@@ -78,8 +78,8 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	{
 		tk_len = tab->refs[strt];
 		tab->cmds[id] = ft_mx_dup(tkn);
-		printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
-		printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
+		// printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
+		// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
