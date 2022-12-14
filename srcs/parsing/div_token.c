@@ -54,17 +54,18 @@ static int	token_count(char **nodes, char *set, int strt)
 	return (n); 
 }
 
-static t_table *token_fill(t_table *tab, int len, int strt)
+static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 {	
 	int i;	//node pos
 	int id;
 	int tk_len;
+	// char **tkn;
 	
 	tk_len = 0;
 	i = 0;
 	id = tab->token->id;
-		printf("DEBUG :token_fill :: r[strt](%d)::\n", tab->refs[strt]);	
-		printf("DEBUG: token_fill :: pos[%d] \n", strt);
+		// printf("DEBUG :token_fill :: r[strt](%d)::\n", tab->refs[strt]);	
+		// printf("DEBUG: token_fill :: pos[%d] \n", strt);
 		// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
 				// if (i <= (tab->refs[pos]))
 				// 	printf("DEBUG: token_fill :: NOTready !!!  \n");
@@ -72,18 +73,19 @@ static t_table *token_fill(t_table *tab, int len, int strt)
 				// 	printf("DEBUG: token_fill ::or maybe ready !!!  \n");
 				// else
 				// 	printf("DEBUG: token_fill :: i dont know!!! !!!  \n");
-	mx_display_tab(tab->node);
+	// mx_display_tab(tab->node);
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[strt];
+		tab->cmds[id] = ft_mx_dup(tkn);
 		printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
 		printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+
 			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
-			// pos++;
 		}
 		strt = id;
 		id++;
@@ -104,32 +106,35 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	
 	token = tab->token;
 	pass_len = 0;
-
+	tk_id = 0;
 
 		// printf("DEBUG: div_token_ parse_ tkn_id = %d\n", tkn_id);
-			// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
-			// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
-			// printf("DEBUG: div_token_ ref_ tab->token->id = %d\n", tab->refs[tab->token->id]);
-				// pass_len = (ft_mx_len(tab->token->cmd) - 1);
-				// printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
-		// if (tkn_id != 0)
-		// {	
-		// 	pass_len = tab->refs[tkn_id];	
-		// 	ft_mx_free(&tab->token->cmd);
-		// }
-		// tab->cmds >> t_token	*token;
-			// token->id 	(int)
-			// token->cmd	(char**)
-			// token->path	(**char)
-			// token->endtype	(int)
-			// token->infile :: token->outfile 
-			// token->tkn_len	(int)
-		// needed to token command
+				// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
+				// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
+				// printf("DEBUG: div_token_ ref_ tab->token->id = %d\n", tab->refs[tab->token->id]);
+					// pass_len = (ft_mx_len(tab->token->cmd) - 1);
+					// printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
+			// if (tkn_id != 0)
+			// {	
+			// 	pass_len = tab->refs[tkn_id];	
+			// 	ft_mx_free(&tab->token->cmd);
+			// }
+			// tab->cmds >> t_token	*token;
+				// token->id 	(int)
+				// token->cmd	(char**)
+				// token->path	(**char)
+				// token->endtype	(int)
+				// token->infile :: token->outfile 
+				// token->tkn_len	(int)
+			// needed to token command
 	// mx_display_tab(tab->node);
 
 	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
+		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
+		if (!(tkn))
+			return (NULL);
 		// printf("DEBUG: token_count len (%d) \n", token->tk_len);		
 			// pass_len = tab->refs[tab->token->id];	
 			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
@@ -139,13 +144,12 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			// token->tk_len =	token->tk_len - pass_len;
 			// tab->token->cmd check!!
 
-		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 2)); 
-		if (!(tkn))
-			return (NULL);
+		
 
-		tab = token_fill(tab, token->tk_len, pass_len);	
+		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		// tab->token->cmd = ft_mx_dup(tkn);
 		// tab->token->id++;	
+		// tk_id++;
 	}	
 		
 

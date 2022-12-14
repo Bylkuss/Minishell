@@ -24,20 +24,6 @@ static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype
     id = -1;
     cmd = tab->node; 
     n = ft_mx_len(cmd);
-   
-    // token = tab->token;
-		//
-			//	get to *node[0]	== token->cmds
-			//	get *node[len-1] == 
-			//	get *node[len]	== token->endtype
-				// DEAD_END  = 0,
-				// PIPE_END  = 1,
-				// OUTF1_END = 2,
-				// OUTF2_END = 3,
-				// INF1_END  = 4,
-				// INF2_END  = 5,
-				// ERR_END   = 6
-
         // printf("\nendtype #[%d] node long\n", n);
         //  printf("\nendtype #[%d]tk_num\n", tab->tk_num);
         //  printf  ("DEBUG: token->id[%d]: ref_pos[%d]  \n", tab->token->id, tab->refs[tab->token->id]); 
@@ -165,40 +151,24 @@ static t_table  *parse_args(t_table *tab)
 
     t_token *token;
     token = tab->token;
-
     i = 0;
     tk_id = 0;
     set = "<|>";
     tab->token->id = 0;
     
       printf("DEBUG: parse... tab->token >>\n");
-        // token_etype ... should set >endtype< token[id]  (tab->tk_num)
-        //             ... store   as >endtype< node[pos] (token->tk_len) 
     tab = token_etype(tab);
-    printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);
-        //
-        //  token_node must e token fram/builder malloc x/y/z/...
-        
+        //  >endtype< token[id]  (tab->tk_num)
+        //  >endtype< node[pos] (token->tk_len) 
+        printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
     // token_node ...
+        //  token_node must e token fram/builder malloc x/y/z/...
     tab = token_nodes(tab); //cpy token to cmds ...
-
-        // transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
-
- 
-            // printf("DEBUG: parse >>tab->tk_num[%d]\n",tab->tk_num);
     // split_all
     tab = split_all(tab); 
-        //
-
-
     //  div_token could be after that ... in fact. div. dont need to b loop...
     tab = div_token(tab, set); 
     // tk_id++; 
-
-
-
-
-
       // printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
         // while( token->endtype != 0)
         // {

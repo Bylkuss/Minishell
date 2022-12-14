@@ -132,14 +132,14 @@ t_table 	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	id = 0; 
 	i = -1;
 	tk_len = tab->refs[id];
-	// token node after etype ... known #token #node & #node/token 
-	// ... so malloc it!
-	// first tab->cmds(***) => tab->cmds[tk_num]  tk_num = #token
-		 //	malloc *tab->cmds * tk_num + 1
-	// next ... tab->node ==> {cmd[0],cmd[1],cmd[2]} ...tk_len = = tab->refs[tk_id]
-		//	malloc tab->node[id] * tk_len + 1
-	// then it should result a 3D struct tab->cmds[tk_id[tab->node[id]]]
-		// ??
+		// token node after etype ... known #token #node & #node/token 
+		// ... so malloc it!
+		// first tab->cmds(***) => tab->cmds[tk_num]  tk_num = #token
+			//	malloc *tab->cmds * tk_num + 1
+		// next ... tab->node ==> {cmd[0],cmd[1],cmd[2]} ...tk_len = = tab->refs[tk_id]
+			//	malloc tab->node[id] * tk_len + 1
+		// then it should result a 3D struct tab->cmds[tk_id[tab->node[id]]]
+			// ??
 	
 	printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
 	printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
@@ -157,22 +157,22 @@ t_table 	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 			// printf("DEBUG: token_nodes ::t->t->id[%d] ::id[%d]\n", tab->token->id, id);
 			// printf("DEBUG: token_nodes ::id[%d]::tk_len(%d)::\n\n", id, tk_len);
 		
-		// if ((tab->cmds[tkn_id]) != NULL)
-		// {
-		// 	printf("yeah!, welcome!(%d) \n",ft_mx_len(tab->cmds[tkn_id]));
-		// 	tab->cmds[tkn_id] = ft_mx_dup(cmd);
-		// 	// while(id <= tk_len)
-		// 	// {
-		// 		// tab->cmds[tkn_id] = ft_mx_ext(tab->cmds[tkn_id], cmd[id]);
-		// 		// printf("cmd[%d] => ::%s::\n", id, cmd[id]);
-		// 		// id++;
-		// 	// }
-		// }
-		// else 
-		// 	printf("sorry!, try again!\n");
-		
-		// tk_len = ft_mx_len(tab->cmds[tab->token->id]);	
-		// printf("DEBUG : token_nodes tab->cmds(%d) len:: \n", tk_len);
+			// if ((tab->cmds[tkn_id]) != NULL)
+			// {
+			// 	printf("yeah!, welcome!(%d) \n",ft_mx_len(tab->cmds[tkn_id]));
+			// 	tab->cmds[tkn_id] = ft_mx_dup(cmd);
+			// 	// while(id <= tk_len)
+			// 	// {
+			// 		// tab->cmds[tkn_id] = ft_mx_ext(tab->cmds[tkn_id], cmd[id]);
+			// 		// printf("cmd[%d] => ::%s::\n", id, cmd[id]);
+			// 		// id++;
+			// 	// }
+			// }
+			// else 
+			// 	printf("sorry!, try again!\n");
+			
+			// tk_len = ft_mx_len(tab->cmds[tab->token->id]);	
+			// printf("DEBUG : token_nodes tab->cmds(%d) len:: \n", tk_len);
 			// tok_cmds = ft_mx_dup(cmd);
 			// }
 			// else 
