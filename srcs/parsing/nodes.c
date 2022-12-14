@@ -124,10 +124,8 @@ static t_table	*node_mx(t_table *tab)
 t_table 	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 {
 	int i;
-	int id;		// node_id
+	int id;			// node_id
 	int tk_len;		// array width
-	// char ***nod_cmds;	//bones
-
 
 	id = 0; 
 	i = -1;
