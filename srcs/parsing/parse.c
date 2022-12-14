@@ -14,6 +14,8 @@
 
 extern int g_status;
 
+/*       char **args = tab->cmds  :  token chunk    */
+
 static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
 {
     char    **cmd;
@@ -104,11 +106,10 @@ static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype
     return (tab);
 }
 
-/*       char **args = tab->cmds  :  token chunk    */
-static t_table *split_all(char **node, t_table *tab)  
+static t_table *split_all(t_table *tab)  
 {
   
-    char *set;
+    
     int     i;
     int     tkn_id;     // tkn_id     
     int quotes[2];
@@ -118,36 +119,37 @@ static t_table *split_all(char **node, t_table *tab)
     tkn_id = 0;
     quotes[0] = 0;
     quotes[1] = 0;
-    set = "<|>";
 
 
-    while (node[++i] && tkn_id <= tab->tk_num)       
+
+    while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
          //args = tab->cmds[id]
             //        :: node_id[0]/node_id[len-1] {(attr = null) if (len = 2)}
             //        :: token->[cmd][attr][end] ==>> token->[cmd=id[0]] [attr] [end=id[len-1]] */
         //expand_var ...   
-        node[i] = expand_vars(node[i], -1, quotes, tab);  
+        tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
         //expand_path ...         
-        node[i] = expand_path(node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         // 
-         // printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, node[i], tkn_id); 
+        //  printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, tab->node[i], tkn_id); 
      
-        //div_token ...
-        tab = div_token(node[i], set, tab, tkn_id); 
-        //token_node ...
-            //transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
-        tkn_id++; 
-        // tab = token_nodes(tab, tab->token->cmd, tkn_id); //cpy token to cmds ...
-        printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
-        // mx_display_tab(tab->token->cmd);
-        // this is to build a token->cmd 
-            // this token to be place into tab->cmds***        
-            // tkn_id = tab->token->id;
-            // printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
-            // tab->token = token_nodes(tab);
-                // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
-        // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
+        // //div_token ...
+        // tab = div_token(node[i], set, tab, tkn_id); 
+
+
+                // tkn_id++; 
+
+
+                // printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
+                    // mx_display_tab(tab->token->cmd);
+                    // this is to build a token->cmd 
+                        // this token to be place into tab->cmds***        
+                        // tkn_id = tab->token->id;
+                        // printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
+                        // tab->token = token_nodes(tab);
+                            // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
+                    // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
         
         //  ls  -lta | wc -l >> out.txt 
 
@@ -161,23 +163,44 @@ static t_table  *parse_args(t_table *tab)
     int i; // int is_exit; // is_exit = 0;
     int type_id;
     int tk_id;
+    char *set;
 
     t_token *token;
     token = tab->token;
 
     i = 0;
     tk_id = 0;
+    set = "<|>";
     tab->token->id = 0;
     
-
-    // token_etype ... should set >endtype< token[id]  (tab->tk_num)
-    //             ... store   as >endtype< node[pos] (token->tk_len) 
+      printf("DEBUG: parse... tab->token >>\n");
+        // token_etype ... should set >endtype< token[id]  (tab->tk_num)
+        //             ... store   as >endtype< node[pos] (token->tk_len) 
     tab = token_etype(tab);
-    // printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);
-    //
-    //
-    // printf("DEBUG: parse >>tab->tk_num[%d]\n",tab->tk_num);
-    tab = split_all(tab->node, tab); 
+    printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);
+        //
+        //  token_node must e token fram/builder malloc x/y/z/...
+        
+    // token_node ...
+    tab = token_nodes(tab); //cpy token to cmds ...
+
+        // transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
+
+ 
+            // printf("DEBUG: parse >>tab->tk_num[%d]\n",tab->tk_num);
+    // split_all
+    tab = split_all(tab); 
+        //
+
+
+    //  div_token could be after that ... in fact. div. dont need to b loop...
+    tab = div_token(tab, set); 
+    // tk_id++; 
+
+
+
+
+
         // printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
         // while( token->endtype != 0)
         // {
@@ -235,17 +258,16 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    input = type_check(input, "<|>");
-            // remove over_space // add space padding
-    printf("DEBUG: pass_to_init :: %s \n", input);
+        
+        // remove over_space // add space padding
+        
     tab->node = init_split(input, " ", tab); // space split 
-    
-    if (tab->node)
-    {   
+    // if (tab->node)
+    // {   
         n = ft_mx_len(tab->node);
         printf("DEBUG: check :: node_num ::%d::\n", n);
-        // mx_display_tab(tab->node);
-    }
+    //     mx_display_tab(tab->node);  
+    // }
     tab = parse_args(tab);    // tab->node        
 
         // }
@@ -257,13 +279,13 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 // return (tab);
             // if (tab->cmds[0])
             //     printf("DEBUG : into... check_arg\n");
-            // exit(0);
-                // if (tab->cmds && tab->tk_num > 0)
-                // else
-                //     return (NULL);
-            /*
-                        if (tab && tab->token)
-                            display_tkn(tab);
+          // exit(0);
+            // if (tab->cmds && tab->tk_num > 0)
+            // else
+            //     return (NULL);
+        /*
+                    if (tab && tab->token)
+                        display_tkn(tab);
 
         token need to be ID _cmd, _attr, _end         */
                 /*
@@ -274,7 +296,6 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                             //     ft_lstclear(&p->cmds, free_content);
         */
     // }
-
     // free(input);
     return (tab); 
 

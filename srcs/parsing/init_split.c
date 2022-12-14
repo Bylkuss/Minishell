@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-char *node_padd(char *input, char *meta)
+static char *node_padd(char *input, char *meta)
 {
     char *srcs; //  start part str
     char *tmp;  //  sub str
@@ -139,7 +139,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     q[0] = 0;
     q[1] = 0;
     len = ft_strlen(s);
-    printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
+        printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
     i[2] = -1;
     while (s[i[0]] && i[0] < len)
     {
@@ -148,7 +148,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             i[2] = i[0];
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
             {
-                // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
+                    // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
                 i[0]++;
@@ -163,42 +163,46 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         if (i[0] <= len && i[2] > -1)
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
-            // printf("DEBUG:  node[%d]_\n", n);
+                // printf("DEBUG:  node[%d]_\n", n);
             tab->node = ft_mx_ext(tab->node, tab->node[n]);
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
         }            
         if(i[0] == len)
             tab->node = ft_mx_ext(tab->node, "@");
-        // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+              // printf("node[%d] => ::%s::\n", n, tab->node[n]);
     }
     // mx_display_tab(tab->node);
     return (tab->node);
 }
 
 //    ls -lat |head -2|wc -l> out.txt   
-char **init_split(const char *s, char *set, t_table *tab)
+char **init_split(char *input, char *set, t_table *tab)
 {
     int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
+    // char *input;
 
     i[0] = 0;
     i[1] = 0;
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    if (!s)
+    if (!input)
         return (NULL);    
-    n = node_count((const char *)s, set, count);    // substr 
-    printf("DEBUG: init_split  ::  node_count = %d \n", n); 
+    printf("DEBUG: ");
+        
+    input = type_check(input, "<|>");
+    printf("DEBUG: pass_to_init :: %s \n", input);
+    n = node_count(input, set, count);    // substr 
+        printf("DEBUG: init_split  ::  node_count = %d \n", n); 
     if (n == -1)
         return (NULL);
-    tab->node = malloc(sizeof(char *) * (n + 2));   // malloc +2 EOT char
+    tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->node)
         return (NULL);
-
-    tab->node = node_fill(tab, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->node);   // ret(tab->node)
 }
 
