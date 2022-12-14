@@ -79,7 +79,7 @@ static t_table *token_fill(t_table *tab, int len, int strt)
 		// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
 		while (i <= (tk_len))
 		{
-			// tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
 			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 			// pos++;

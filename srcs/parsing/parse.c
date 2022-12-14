@@ -43,7 +43,7 @@ static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype
         //  printf  ("DEBUG: token->id[%d]: ref_pos[%d]  \n", tab->token->id, tab->refs[tab->token->id]); 
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
-    printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+    // printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
     while (id++ <= n)
     {
         tab->token->id = tab->tk_num; 
@@ -74,11 +74,10 @@ static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype
                   tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id;  
             }
-
             else if (*cmd[id] == '|')
             {
                 tab->token->endtype = 1;
-                  tab->token->id = tab->tk_num++; 
+                  tab->token->id = tab->tk_num++;   
                 ref[tab->token->id] = id;     
             }
             else if (*cmd[id] == '@')
