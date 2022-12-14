@@ -49,7 +49,7 @@ static char *node_padd(char *input, char *meta)
     return(input);
 }
 
-static char *type_check(char *input, char *meta)
+char *type_check(char *input, char *meta)
 {
     char *srcs; //  start part str
     char *res;  //  sub str
@@ -177,30 +177,32 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
 }
 
 //    ls -lat |head -2|wc -l> out.txt   
-char **init_split(const char *s, char *set, t_table *tab)
+char **init_split(char *input, char *set, t_table *tab)
 {
     int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
+    // char *input;
 
     i[0] = 0;
     i[1] = 0;
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    if (!s)
+    if (!input)
         return (NULL);    
     printf("DEBUG: ");
         
-    s = type_check((char *)s, "<|>");
-    n = node_count((const char *)s, set, count);    // substr 
+    input = type_check(input, "<|>");
+    printf("DEBUG: pass_to_init :: %s \n", input);
+    n = node_count(input, set, count);    // substr 
         printf("DEBUG: init_split  ::  node_count = %d \n", n); 
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->node)
         return (NULL);
-    tab->node = node_fill(tab, s, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->node);   // ret(tab->node)
 }
 

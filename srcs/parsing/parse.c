@@ -135,24 +135,22 @@ static t_table *split_all(t_table *tab)
         // 
         //  printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, tab->node[i], tkn_id); 
      
-
-
         // //div_token ...
         // tab = div_token(node[i], set, tab, tkn_id); 
 
 
-        // tkn_id++; 
+                // tkn_id++; 
 
 
-        // printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
-            // mx_display_tab(tab->token->cmd);
-            // this is to build a token->cmd 
-                // this token to be place into tab->cmds***        
-                // tkn_id = tab->token->id;
-                // printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
-                // tab->token = token_nodes(tab);
-                    // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
-            // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
+                // printf("DEBUG: split_all  (aft_t-n):: tkn_id = %d\n", tkn_id);
+                    // mx_display_tab(tab->token->cmd);
+                    // this is to build a token->cmd 
+                        // this token to be place into tab->cmds***        
+                        // tkn_id = tab->token->id;
+                        // printf("DEBUG: spl_ll tkn[%d]::[%s]::\n", tab->token->id, node[i]);
+                        // tab->token = token_nodes(tab);
+                            // printf("tk_id[%d] ==> ...%s... \n", id, tab->token->cmd[i]);
+                    // printf("DEBUG: split all :: t->cmd = %s\n", tab->token->cmd[i]);
         
         //  ls  -lta | wc -l >> out.txt 
 
@@ -187,18 +185,18 @@ static t_table  *parse_args(t_table *tab)
     // token_node ...
     tab = token_nodes(tab); //cpy token to cmds ...
 
-        //
         // transfere token into tab->cmds*** w/ cmds[tk_id][token->cmd]
 
  
             // printf("DEBUG: parse >>tab->tk_num[%d]\n",tab->tk_num);
+    // split_all
     tab = split_all(tab); 
         //
 
 
     //  div_token could be after that ... in fact. div. dont need to b loop...
     tab = div_token(tab, set); 
-    tk_id++; 
+    // tk_id++; 
 
 
 
@@ -263,7 +261,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         add_history(input);
         
         // remove over_space // add space padding
-        printf("DEBUG: pass_to_init :: %s \n", input);
+        
     tab->node = init_split(input, " ", tab); // space split 
     // if (tab->node)
     // {   
