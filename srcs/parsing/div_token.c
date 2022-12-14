@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/08 11:04:46 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/14 10:25:14 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,121 +14,140 @@
 #include "../../includes/minishell.h"
 // set = endtype*char	count 0++; 
 
-static int	token_count(char *s, char *set, int tkn)
+static int	token_count(char **nodes, char *set, int strt)
 {
 	int		q[2];
 	int		i;
+	int		n;
+	int		etype;	// num ref. etype if not next
 
-	i = 0;
+	etype = -1;
+	n = strt;
 	q[0] = 0;
 	q[1] = 0;
-	while (s && s[i] != '\0')
-	{		
-		// if (ft_strchr(set, s[i]))
-		tkn++;
-		if (!ft_strchr(set, s[i]))
-		{
-			while ((!ft_strchr(set, s[i])) && s[i] != '\0')
-			{ 
-					q[0] = (q[0] + (!q[1] && s[i] == '\'')) % 2;
-					q[1] = (q[1] + (!q[0] && s[i] == '\"')) % 2; 
-					i++;
-			}
-			if (q[0] || q[1])
-				return (-1);
-		}
-		i++;
-		// if (ft_strchar_i(&s[i], set))
-		// 	tkn++;
-	}
-			printf("DEBUG: token_count :: tkn = %d\n", tkn);
-	return (tkn ); //how many end..
-}
-
-
-	// 
-
-static char	**token_fill(char **aux, char *s, char *set, int i[3])
-{	// set == endtype char_split	i[x] == start_pos/sub_end/end_pos
-	int		q[2];
-
-	q[0] = 0;
-	q[1] = 0;
-	while (s && s[i[0]] != '\0')
+	printf("DEBUG: token_count :: strt = [%d]\n", strt);
+	while (etype < 0 && (nodes[n]))
 	{
-		i[1] = i[0];
-		if (!ft_strchr(set, s[i[0]]))
-		{
-			while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+		i = 0;
+		while (nodes[n] && nodes[n][i] != '\0')
+		{		
+			if (ft_strchr(set, nodes[n][i]))
+				return(n);
+			if (!ft_strchr(set, nodes[n][i]))
 			{
-				q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
-				q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2; 
-				i[0]++;
+				while ((!ft_strchr(set, nodes[n][i])) && nodes[n][i] != '\0')
+				{ 
+						q[0] = (q[0] + (!q[1] && nodes[n][i] == '\'')) % 2;
+						q[1] = (q[1] + (!q[0] && nodes[n][i] == '\"')) % 2; 
+						i++;
+				}
+				if (q[0] || q[1])
+					return (-1);
 			}
+			i++;
 		}
-		else
-			i[0]++;
-		aux[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);
-			// tab->token
-		}
-		return (aux);
+		n++;
+	}
+
+	printf("DEBUG: 		token_count :: \tn = (%d)\n", n);
+	return (n); 
 }
 
-
-	//  ls -lat | wc -l > out.txti  
-	// 	ls -lt| head -2 |wc -c>> out.txt
-// 	set = {"<",">","|"} :: if(!set) ? end : err 
-char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call by parse>split_all
-{
+static t_table *token_fill(t_table *tab, int len, int strt)
+{	
+	int i;	//node pos
+	int id;
+	int tk_len;
 	
-	char    **tkn;			// token sub_split by endtype
-	int i[3];
-
-		// int 	tk_id;		// focus token	// tk_id = 0;
-	i[0] = 0;				// set start pos ptr
-	i[1] = 0;				// set sub_end pos ptr
-	i[2] = 0;	
-	if (!s)					// s <<  args[i]  << tab->cmds
-		return (NULL);
-	//
-	if (!(tkn_num > 0))
+	tk_len = 0;
+	i = 0;
+	id = tab->token->id;
+		printf("DEBUG: token_fill :: ref[strt](%d)::\n", tab->refs[strt]);	
+		// printf("DEBUG: token_fill :: strt_pos[%d];; \n", strt);
+		// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
+				// if (i <= (tab->refs[pos]))
+				// 	printf("DEBUG: token_fill :: NOTready !!!  \n");
+				// if (tab->cmds )
+				// 	printf("DEBUG: token_fill ::or maybe ready !!!  \n");
+				// else
+				// 	printf("DEBUG: token_fill :: i dont know!!! !!!  \n");
+	// mx_display_tab(tab->node);
+	while (id <= tab->tk_num)
 	{
-		tab->tk_num = token_count((char *)s, set, 1);	// how many end at_least_1
-		// tab->token->id++;
+		tk_len = tab->refs[strt];
+		// printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
+		// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
+		while (i <= (tk_len))
+		{
+			// tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+			i++;
+			// pos++;
+		}
+		strt = id;
+		id++;
 	}
-		
-	
-	if (tab->tk_num == (-1))
-		return (NULL);
-		
-	// printf("DEBUG: div_token :: tk_num = %d\n", tab->tk_num);
+	// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
+		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
+		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
+	return (tab);
+}
 
-	tkn = (char **)malloc(sizeof(char *) * (tab->tk_num + 2)); 
-	if (!(*tkn))
-	    return (NULL);
-		
-	tkn = token_fill(tkn, (char *)s, set, i);	
-	if (!(*tkn))
-	    return (NULL);
-	// printf("DEBUG: div_token :: tkn_str_len = %d\n", ft_mx_len(tkn));	
-	// printf("DEBUG: div_token :: tk_len = %s\n", tkn[0]);	
-			// tab->token->cmd = (char **)malloc(sizeof(char *) * (tab->tk_num + 1)); 
-			// if (!(tab->token->cmd))
-			// 	return (NULL);	
-			// else
-			// {
-			// mx_display_tab(tkn);
-			// }
-	  
-			// tab->token->endtype = token_etype(tab);
-			// tk_id = token_etype(tab);
-				// printf("DEBUG: div_token :: endtype = %d\n", tab->token->endtype);	
+	// 	   ls -lt| head -2 |wc -c>> out.txt   
+   
+// >> node[x]  >> set  >> tab  >> tkn_id  (focus id)
+t_table	 *div_token(const char *s, char *set, t_table *tab, int tkn_id) // call by parse>split_all
+{
+	t_token	*token;			// token sub_split by endtype
+	char **tkn;
+	int 	pass_len;		// pos to start
 	
-	// printf("DEBUG: div_token :: end...\n");
-	return (tkn);    
+	token = tab->token;
+	pass_len = 0;
+
+		printf("DEBUG: div_token_ parse_ tkn_id = %d\n", tkn_id);
+			// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
+			// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
+			// printf("DEBUG: div_token_ ref_ tab->token->id = %d\n", tab->refs[tab->token->id]);
+				// pass_len = (ft_mx_len(tab->token->cmd) - 1);
+				// printf("DEBUG:   ...past_len -> token->cmd = (%d)\n", pass_len);
+			// if (tkn_id != 0)
+			// {	
+			// 	pass_len = tab->refs[tkn_id];	
+			// 	ft_mx_free(&tab->token->cmd);
+			// }
+	
+	if ((tkn_id < token->id))// start at zero < token->id start at 1
+	{
+		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
+		// printf("DEBUG: token_count len (%d) \n", token->tk_len);		
+			// pass_len = tab->refs[tab->token->id];	
+			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
+			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
+			// printf("DEBUG:  t->t->id:%d] => supp ==> t->refs[t->t->id:%d]\n", tab->token->id, tab->refs[tab->token->id]);
+			// printf("DEBUG:  refs[tk_num:%d] => supp ==> past_len[pos:%d]\n", tab->token->id, tab->refs[tab->token->id]);
+			// token->tk_len =	token->tk_len - pass_len;
+			// tab->token->cmd check!!
+
+		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 2)); 
+		if (!(tkn))
+			return (NULL);
+
+		tab = token_fill(tab, token->tk_len, pass_len);	
+		// tab->token->cmd = ft_mx_dup(tkn);
+		// tab->token->id++;	
+	}	
+		
+
+		// pass_len = ft_mx_len(tab->token->cmd);
+		// printf("DEBUG: div_token:: tab->token->cmd(%d)len\n", pass_len);
+		// mx_display_tab(token->cmd);
+	printf("DEBUG: div_token:: end...\n");
+	return (tab);    
 }
   //   ls  -lta | wc -l >> out.txt   
-  //   ls  | head -2 | wc -l >> out.txt   
+  //   ls -lt|head -2| wc -l >> out.txt   
+//	
 	// tab->token->tk_len = ft_mx_len(tkn);
 	
 		// t_fill reciv array *str endtyp
@@ -149,17 +168,17 @@ char	 **div_token(const char *s, char *set, t_table *tab, int tkn_num) // call b
 			// 	}
 				// mx_display_tab(tkn);
 			// }
-	/*
-		while (nb < tknum)
-		{
-			token->id = nb;
-			token->cmd = aux[0];
-			token->endtype = 
-		}
-		aux ** == tab->node[id][str]] 
-		tab->node[token_id] = NULL;
-	*/
- // return (tab->cmds[i])
+		/*
+			while (nb < tknum)
+			{
+				token->id = nb;
+				token->cmd = aux[0];
+				token->endtype = 
+			}
+			aux ** == tab->node[id][str]] 
+			tab->node[token_id] = NULL;
+		*/
+	// return (tab->cmds[i])
  
 /*
 from parse.c /split_all ->
