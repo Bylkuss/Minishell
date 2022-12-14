@@ -12,7 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-
 /*	token get-set */
 		// static t_token	*get_params(t_table *tab, char **nodes) //, char **a[2])//, int *i) // endtype (int)
 		// {
@@ -53,7 +52,6 @@
 		// 	// *i = -2;
 		// 	return (token);
 // }
-
 
 static int  node_len(const char *s)
 {

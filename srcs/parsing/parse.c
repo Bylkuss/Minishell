@@ -14,8 +14,6 @@
 
 extern int g_status;
 
-/*       char **args = tab->cmds  :  token chunk    */
-
 static t_table	*token_etype(t_table *tab) //, char **a[2])//, int *i) // endtype (int)
 {
     char    **cmd;
@@ -201,7 +199,7 @@ static t_table  *parse_args(t_table *tab)
 
 
 
-        // printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
+      // printf("DEBUG: parse >>token_num = [%d] \n",tab->tk_num);
         // while( token->endtype != 0)
         // {
         //     token->tk_len = ft_mx_len(tab->cmds[tk_id]);
