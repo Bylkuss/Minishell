@@ -80,7 +80,6 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
 	return (tab);
 }
-	
    
 t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 {

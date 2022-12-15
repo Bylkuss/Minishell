@@ -36,29 +36,29 @@ static void getmypid(t_table *tab)
 
 static t_table *init_vars(t_table *tab, char *str, char **av)
 {
-        char *num;
+    char *num;
 
-        str = getcwd(NULL, 0);                                            
-        tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
-        free(str);
-        str = ms_getenv("SHLVL", tab->envp, 5); 
+    str = getcwd(NULL, 0);                                            
+    tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
+    free(str);
+    str = ms_getenv("SHLVL", tab->envp, 5); 
 
-        if (!str || ft_atoi(str) <= 0)
-            num = ft_strdup("1");
-        else
-            num = ft_itoa(ps_atoi(str) + 1);
-        free(str);
-        tab->envp = ms_setenv("SHLVL", num, tab->envp, 5);      
-        free(num);
-        str = ms_getenv("PATH", tab->envp, 4);                      
-        if(!str)
-            tab->envp = ms_setenv("PATH", "/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin", tab->envp, 4);  //
-        free(str);
-        str = ms_getenv("_", tab->envp, 1);                          
-        if (!str)
-            tab->envp = ms_setenv("_", av[0], tab->envp, 1);         
-        free(str);
-            return (tab); 
+    if (!str || ft_atoi(str) <= 0)
+        num = ft_strdup("1");
+    else
+        num = ft_itoa(ps_atoi(str) + 1);
+    free(str);
+    tab->envp = ms_setenv("SHLVL", num, tab->envp, 5);      
+    free(num);
+    str = ms_getenv("PATH", tab->envp, 4);                      
+    if(!str)
+        tab->envp = ms_setenv("PATH", "/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin", tab->envp, 4);  //
+    free(str);
+    str = ms_getenv("_", tab->envp, 1);                          
+    if (!str)
+        tab->envp = ms_setenv("_", av[0], tab->envp, 1);         
+    free(str);
+        return (tab); 
 }
 
 static t_table *init_prompt(char **av, char **envp) 
