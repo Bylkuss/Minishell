@@ -22,13 +22,12 @@ static void getmypid(t_table *tab)
     pid = fork();                                             
     if (pid < 0)
     {
-        //mini_perror(FORKERR, NULL, 1);                        
         ft_mx_free(&tab->envp);                              
         exit(1);
     }
     if (!pid)
     {
-    ft_mx_free(&tab->envp);                                  
+        ft_mx_free(&tab->envp);                                  
         exit(1);
     }
     waitpid(pid, NULL, 0);                                    
@@ -71,7 +70,6 @@ static t_table *init_prompt(char **av, char **envp)
         init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -85,9 +83,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);    
-        //tab->envp , pid --> init_vars
     tab = init_token(tab);          
-        // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -97,16 +93,10 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
-        // 
-      //fonction on his own { built_outs }
-        // builtins_handler(input, envp);
-        // 
         free(str);
         tab = check_args(input, tab);
         if (!tab)
             break;
-        // else
-        //     mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }

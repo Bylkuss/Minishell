@@ -69,18 +69,11 @@ static t_table	*token_etype(t_table *tab)
                   tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id; 
             }
-                        // token = get_outfile1(token, mx[id]);//nod
-                        // else if (a[0][*i][0] == '<' && a[0][*i + 1] && 
-                        // 	a[0][*i + 1][0] == '<')
-                        // 	m = get_infile2(m, a[1], i);*/
-                        // else if (mx[id][cmd][nod] == '<')
-                        // 	token = get_infile1(token, mx[id]);	//nod
             if (tab->token->endtype != -1)
             {
                 printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
-            
         }
     }
     tab->refs = ref;
@@ -103,13 +96,10 @@ static t_table *split_all(t_table *tab)
 
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
-        
         //expand_var ...   
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
         //expand_path ...         
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-        // 
-        //  printf("DEBUG: split_all :: node[%d] = {%s} :: tkn_id[%d]\n", i, tab->node[i], tkn_id); 
     }
     return (tab); 
 }
@@ -127,41 +117,29 @@ static t_table  *parse_args(t_table *tab)
     tk_id = 0;
     set = "<|>";
     tab->token->id = 0;
-    
-      printf("DEBUG: parse... tab->token >>\n");
     tab = token_etype(tab);
         //  >endtype< token[id]  (tab->tk_num)
         //  >endtype< node[pos] (token->tk_len) 
-        printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
+        // printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
     // token_node ...
-        //  token_node must e token fram/builder malloc x/y/z/...
     tab = token_nodes(tab); //cpy token to cmds ...
     // split_all
     tab = split_all(tab); 
     //  div_token could be after that ... in fact. div. dont need to b loop...
     tab = div_token(tab, set); 
-
-    mx_display_str(tab->cmds[1][1]);
-    // tk_id++; 
-      
-        // token = token_nodes(tab);  
-        // mx_display_tab(token->cmd);
-        //     node breaker =>   node_token == token_builder ...
-        
-        /*  tab->node [*str]  sep.space. node -ID.less
-            tab >> tab->token-> ... arg-set value ...TBD            
-            // tab->
-            // i = ft_lstsize(tab->cmds);
-            // g_status = builtin(p, p->cmds, &is_exit, 0);             
-         */    
-         
+    // mx_display_str(tab->cmds[1][1]);
+    /*  tab->node [*str]  sep.space. node -ID.less
+        tab >> tab->token-> ... arg-set value ...TBD            
+        // tab->
+        // i = ft_lstsize(tab->cmds);
+        // g_status = builtin(p, p->cmds, &is_exit, 0);             
+    */       
     i = 0;
     while (i-- > 0)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
-    
-       // if (!is_exit && &g_status == 13)
+    // if (!is_exit && &g_status == 13)
         //     g_status = 0;
         // if (args && is_exit)
         // {
@@ -174,23 +152,18 @@ static t_table  *parse_args(t_table *tab)
 
 t_table  *check_args(char *input, t_table *tab)  // main deply >parse
 {
-     int n;     //int node
+    //  int n;     //int node
      
-     n = 0;
+    //  n = 0;
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-        
-        // remove over_space // add space padding
-        
     tab->node = init_split(input, " ", tab); // space split 
-    // if (tab->node)
-    // {   
-        n = ft_mx_len(tab->node);
-        printf("DEBUG: check :: node_num ::%d::\n", n);
-    //     mx_display_tab(tab->node);  
-    // }
+        // n = ft_mx_len(tab->node);
+        // printf("DEBUG: check :: node_num ::%d::\n", n);
+        //     mx_display_tab(tab->node);  
+        // }
     tab = parse_args(tab);    // tab->node        
         // if (tab->cmds[0])
         //     printf("DEBUG : into... check_arg\n");
@@ -202,7 +175,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 //  - 1], p->envp, 1);                                    
                 //     ft_lstclear(&p->cmds, free_content);
             // }
-    // free(input);
+      // free(input);
     return (tab); 
 
 /*

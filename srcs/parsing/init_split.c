@@ -139,7 +139,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     q[0] = 0;
     q[1] = 0;
     len = ft_strlen(s);
-        printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
+        // printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
     i[2] = -1;
     while (s[i[0]] && i[0] < len)
     {
@@ -165,7 +165,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
                 // printf("DEBUG:  node[%d]_\n", n);
             tab->node = ft_mx_ext(tab->node, tab->node[n]);
-            printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
         }            
         if(i[0] == len)
@@ -194,9 +194,9 @@ char **init_split(char *input, char *set, t_table *tab)
     printf("DEBUG: ");
         
     input = type_check(input, "<|>");
-    printf("DEBUG: pass_to_init :: %s \n", input);
+    // printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count(input, set, count);    // substr 
-        printf("DEBUG: init_split  ::  node_count = %d \n", n); 
+        // printf("DEBUG: init_split  ::  node_count = %d \n", n); 
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char

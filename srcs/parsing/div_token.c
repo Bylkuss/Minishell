@@ -12,8 +12,6 @@
 
 
 #include "../../includes/minishell.h"
-// set = endtype*char	count 0++; 
-
 
 static int	token_count(char **nodes, char *set, int strt)
 {
@@ -61,16 +59,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	tk_len = 0;
 	i = 0;
 	id = tab->token->id;
-		// printf("DEBUG :token_fill :: r[strt](%d)::\n", tab->refs[strt]);	
-		// printf("DEBUG: token_fill :: pos[%d] \n", strt);
-		// printf("DEBUG: token_fill str {%s} \n", nodes[init]);	
-				// if (i <= (tab->refs[pos]))
-				// 	printf("DEBUG: token_fill :: NOTready !!!  \n");
-				// if (tab->cmds )
-				// 	printf("DEBUG: token_fill ::or maybe ready !!!  \n");
-				// else
-				// 	printf("DEBUG: token_fill :: i dont know!!! !!!  \n");
-	// mx_display_tab(tab->node);
+			
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[strt];
@@ -80,11 +69,9 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-
 			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
-		// mx_display_tab(tab->cmds[id]);
 		strt = id;
 		id++;
 	}
