@@ -124,12 +124,13 @@ static t_table  *parse_args(t_table *tab)
         printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
     // token_node ...
     tab = token_nodes(tab); //cpy token to cmds ...
-        printf("DEBUG : into... t_node\n");
+        // printf("DEBUG : into... t_node\n");
     // split_all
     tab = split_all(tab); 
     //  div_token could be after that ... in fact. div. dont need to b loop...
     tab = div_token(tab, set); 
     // mx_display_str(tab->cmds[1][1]);
+    tab = get_token(tab, token);
     /*  tab->node [*str]  sep.space. node -ID.less
         tab >> tab->token-> ... arg-set value ...TBD            
         // tab->

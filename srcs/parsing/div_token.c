@@ -70,40 +70,43 @@
 // 		return (token);
 // }
 
-	static t_table	*get_token(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+//char ** tab->node, token->id, endtype (int)
+t_table	*get_token(t_table *tab, t_token *token)  
+{
+	int id;
+	int cmd;	
+	int nod;	
+		// char ***mx;
+		// mx = NULL;
+		// mx[id] = tab->cmds;//[cmd][nod];
+	id = 1;
+	cmd = 0;
+	nod = 0;
+
+	if ((tab->token->id) && id < tab->tk_num && tab->cmds[id])
 	{
-		int id;
-		int cmd;	
-		int nod;	
-			// char ***mx;
-			// mx = NULL;
-			// mx[id] = tab->cmds;//[cmd][nod];
-		id = 0;
-		cmd = 0;
-		nod = 0;
-
-		if (!(tab->token->id) && id < tab->tk_num && tab->cmds[id])
+		printf("DEBUG : into... into... get_token\n");	
+		while(id < tab->tk_num)
 		{
-			while(id < tab->tk_num)
-			{
-				tab->token->id = id;
-				tab->token->cmd = ft_mx_dup(tab->cmds[id]);
-				tab->token->endtype = tab->refs[id];
-				id++;
-			}
+			tab->token->id = id;
+			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
+			tab->token->endtype = tab->refs[id];
+			id++;
 		}
-
-		// got to do token with tab data
-		// 		- token->id = 1; parce que! tab->cmds[id]...
-		//		- token->cmd** = {"","",""} start with cmd[0] to exec
-		//		-				=  follow by args (if so) cmd[1]
-		//		-				= cmd[eot] : eot= endoftoken - aka endtype
-		//		redir set by endtype
-		//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
-			// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
-
-		return (tab);
+		display_tkn(tab);
 	}
+
+	// got to do token with tab data
+	// 		- token->id = 1; parce que! tab->cmds[id]...
+	//		- token->cmd** = {"","",""} start with cmd[0] to exec
+	//		-				=  follow by args (if so) cmd[1]
+	//		-				= cmd[eot] : eot= endoftoken - aka endtype
+	//		redir set by endtype
+	//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
+		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
+
+	return (tab);
+}
 
 static int	token_count(char **nodes, char *set, int strt)
 {

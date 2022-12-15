@@ -17,18 +17,32 @@ void mx_display_tab(char **tab)
 
 void mx_display_str(char *str)
 {
-    printf(" :_:%s:_: \n", str);
+    printf("_[%s]_ \n", str);
 }
 
 void display_tkn(t_table *tab)
 {
     t_token *token;
-    
+    int id;
+    int i;
+
+    id = 1;
+    i = 0;
+
     token = tab->token; 
     if (!token)
         exit(0);
-    token->id = 1;
-    printf("TOKEN_NUM:\t%d\n", tab->tk_num); // how many tkn
-    token->tk_len = ft_mx_len(tab->cmds[token->id]);
-    mx_display_tab(tab->cmds[token->id]);
+    // token->id = 1;
+    // printf("TOKEN_NUM:[%d]", tab->tk_num); // how many tkn
+    // printf("TOKEN_LEN:[%d]\n", token->tk_len); // tkn cmd / tkn
+    while(id < tab->tk_num)
+    {
+        token->tk_len = ft_mx_len(tab->cmds[id]);
+        i = 0;
+        printf("token[%d]\n", id);
+        while(++i < token->tk_len)
+            mx_display_str(tab->cmds[id][i]);
+        // tab->token++;
+        id++;
+    }
 }
