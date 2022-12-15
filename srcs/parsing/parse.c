@@ -71,7 +71,7 @@ static t_table	*token_etype(t_table *tab)
             }
             if (tab->token->endtype != -1)
             {
-                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                // prinmatf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
         }
@@ -117,12 +117,14 @@ static t_table  *parse_args(t_table *tab)
     tk_id = 0;
     set = "<|>";
     tab->token->id = 0;
+        printf("DEBUG : into... parse\n");
     tab = token_etype(tab);
         //  >endtype< token[id]  (tab->tk_num)
         //  >endtype< node[pos] (token->tk_len) 
-        // printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
+        printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
     // token_node ...
     tab = token_nodes(tab); //cpy token to cmds ...
+        printf("DEBUG : into... t_node\n");
     // split_all
     tab = split_all(tab); 
     //  div_token could be after that ... in fact. div. dont need to b loop...
@@ -140,28 +142,28 @@ static t_table  *parse_args(t_table *tab)
     if (g_status > 255)
         g_status = g_status / 255;
     // if (!is_exit && &g_status == 13)
-        //     g_status = 0;
-        // if (args && is_exit)
-        // {
-        //     ft_lstclear(&p->cmds, free_content);
-        //     return (NULL);
-        // }
+    //     g_status = 0;
+    // if (args && is_exit)
+    // {
+    //     ft_mx_free(tab->cmds);
+    //     return (NULL);
+    // }
     
     return (tab);
 }
 
 t_table  *check_args(char *input, t_table *tab)  // main deply >parse
 {
-    //  int n;     //int node
+     int n;     //int node
      
-    //  n = 0;
+     n = 0;
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
     tab->node = init_split(input, " ", tab); // space split 
-        // n = ft_mx_len(tab->node);
-        // printf("DEBUG: check :: node_num ::%d::\n", n);
+        n = ft_mx_len(tab->node);
+        printf("DEBUG: check :: node_num ::%d::\n", n);
         //     mx_display_tab(tab->node);  
         // }
     tab = parse_args(tab);    // tab->node        

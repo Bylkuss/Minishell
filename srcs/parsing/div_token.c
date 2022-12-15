@@ -13,6 +13,98 @@
 
 #include "../../includes/minishell.h"
 
+// /*	token get-set */
+// 	static t_token	*set_token(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+// 	{
+// 		int id;
+// 		int cmd;	
+// 		int nod;	
+// 			// char ***mx;
+// 			// mx = NULL;
+// 			// mx[id] = tab->cmds;//[cmd][nod];
+// 		id = 0;
+// 		cmd = 0;
+// 		nod = 0;
+
+// 		// got to do token with tab data
+// 		// 		- token->id = 1; parce que! tab->cmds[id]...
+// 		//		- token->cmd** = {"","",""} start with cmd[0] to exec
+// 		//		-				=  follow by args (if so) cmd[1]
+// 		//		-				= cmd[eot] : eot= endoftoken - aka endtype
+// 		//		redir set by endtype
+// 		//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
+// 			// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
+
+			
+// 		if (!tab->token[id] && id < tab->tk_num && tab->cmds[id])
+// 		{
+// 			printf("\n\n\n");
+
+// 			while(tab->cmds[id] && id < tab->tk_num)
+// 			{
+
+// 				if (mx[id][cmd][nod] == '>' && mx[id][cmd + 1] && mx[id][cmd + 1][nod] == '>')
+// 					token = get_outfile2(token, mx[id]);//nod
+
+// 				else if (mx[id][cmd][nod] == '>')
+// 					token = get_outfile1(token, mx[id]);
+
+// 				else if (a[0][*i][0] == '<' && a[0][*i + 1] && 	a[0][*i + 1][0] == '<')
+// 					m = get_infile2(m, a[1], i);
+
+// 				else if (mx[id][cmd][nod] == '<')
+// 					token = get_infile1(token, mx[id]);	//nod
+
+// 				else if (mx[id][cmd][nod] != '|')
+// 				// 	m->full_cmd = ft_mx_ext(m->full_cmd, a[1][*i]);
+// 				// else
+// 				{
+// 					//mini_perror(PIPENDERR, NULL, 2);
+// 					// *i = -2;
+// 				}
+// 				return (token);
+// 			}
+// 			//mini_perror(PIPENDERR, NULL, 2);
+// 			// *i = -2;
+// 		}
+// 		return (token);
+// }
+
+	static t_table	*get_token(t_table *tab, t_token *token) //, char **a[2])//, int *i) // endtype (int)
+	{
+		int id;
+		int cmd;	
+		int nod;	
+			// char ***mx;
+			// mx = NULL;
+			// mx[id] = tab->cmds;//[cmd][nod];
+		id = 0;
+		cmd = 0;
+		nod = 0;
+
+		if (!(tab->token->id) && id < tab->tk_num && tab->cmds[id])
+		{
+			while(id < tab->tk_num)
+			{
+				tab->token->id = id;
+				tab->token->cmd = ft_mx_dup(tab->cmds[id]);
+				tab->token->endtype = tab->refs[id];
+				id++;
+			}
+		}
+
+		// got to do token with tab data
+		// 		- token->id = 1; parce que! tab->cmds[id]...
+		//		- token->cmd** = {"","",""} start with cmd[0] to exec
+		//		-				=  follow by args (if so) cmd[1]
+		//		-				= cmd[eot] : eot= endoftoken - aka endtype
+		//		redir set by endtype
+		//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
+			// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
+
+		return (tab);
+	}
+
 static int	token_count(char **nodes, char *set, int strt)
 {
 	int		q[2];
