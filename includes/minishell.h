@@ -49,15 +49,13 @@
 // };
 
 /* Token's end type */
-enum EndType{
-	DEAD_END  = 0,
-	PIPE_END  = 1,
-	OUTF1_END = 2,
-	OUTF2_END = 3,
-	INF1_END  = 4,
-	INF2_END  = 5,
-	ERR_END   = 6
-};
+# define DEAD_END  0
+# define PIPE_END  1
+# define OUTF1_END 2
+# define OUTF2_END 3
+# define INF1_END  4
+# define INF2_END  5
+# define ERR_END   6
 
 typedef struct s_token t_token;
 typedef struct s_table t_table;
