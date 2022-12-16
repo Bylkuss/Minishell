@@ -25,27 +25,29 @@ void display_tkn(t_table *tab)
     t_token *token;
     int id;
     int i;
+    int etype;
+    int tk_len;
 
     id = 1;
     i = 0;
-
     token = tab->token; 
     if (!token)
         exit(0);
     
-    token->endtype = 0;
+    // token->endtype = 0;
     while (id <= tab->tk_num)
     {
-        token->tk_len = ft_mx_len(tab->cmds[id]);
+        tk_len = ft_mx_len(tab->cmds[id]);
         printf("\ntoken->id:[%d]::", id);
         // printf("token->tk_len   :[%d]\n", token->tk_len-1);
         i = 0;
-        while(++i < token->tk_len)
+        while(++i < tk_len)
         {
             mx_display_str(tab->cmds[id][i]);
         }
-        token->endtype = tab->refs[id-1];
-        printf("_:: endtype:[%s]\n\n", tab->node[token->endtype]);
+        printf("_:: endtype:[%s]", tab->cmds[id][tk_len - 1]);
+        etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
+        printf("_:: etype:[%d]\n", etype);
         id++;
     }
 }

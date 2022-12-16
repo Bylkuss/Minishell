@@ -71,7 +71,7 @@ static t_table	*token_etype(t_table *tab)
             }
             if (tab->token->endtype != -1)
             {
-                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                // printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
         }
