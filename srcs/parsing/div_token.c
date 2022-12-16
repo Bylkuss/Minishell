@@ -94,8 +94,6 @@ t_table	*get_token(t_table *tab, t_token *token)
 			nod = ft_mx_len(tab->cmds[id]);
 			// tab->token->endtype = tab->node[tab->refs[id]];
 			typ = set_endtype(tab,tab->cmds[id][nod - 1]);
-			
-			// printf("token[%d]->endtype : [%d]\n", id, typ);
 			id++;
 		}
 		display_tkn(tab);

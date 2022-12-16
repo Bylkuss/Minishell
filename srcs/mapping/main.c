@@ -93,6 +93,8 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
+        //fonction on his own { built_outs }
+        builtins_handler(input, envp);
         free(str);
         tab = check_args(input, tab);
         if (!tab)
