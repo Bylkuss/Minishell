@@ -32,17 +32,20 @@ void display_tkn(t_table *tab)
     token = tab->token; 
     if (!token)
         exit(0);
-    // token->id = 1;
-    // printf("TOKEN_NUM:[%d]", tab->tk_num); // how many tkn
-    // printf("TOKEN_LEN:[%d]\n", token->tk_len); // tkn cmd / tkn
-    while(id < tab->tk_num)
+    
+    while (id < tab->tk_num)
     {
+        token->endtype = 0;
         token->tk_len = ft_mx_len(tab->cmds[id]);
+        printf("token->id       :[%d]\n", id);
+        printf("token->tk_len   :[%d]\n", token->tk_len);
         i = 0;
-        printf("token[%d]\n", id);
         while(++i < token->tk_len)
+        {
             mx_display_str(tab->cmds[id][i]);
-        // tab->token++;
+        }
+        token->endtype = tab->refs[id];
+        printf("token->endtype : [%d]\n", token->endtype);
         id++;
     }
 }

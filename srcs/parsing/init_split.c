@@ -128,7 +128,6 @@ static int node_count(const char *s, char *c, int i[2]) //
     return (i[1] + 1);
 }
 
-/*   init_split_Form_           "..." "..." "..." */
 static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
     int     n;      //node id
