@@ -35,37 +35,37 @@ static t_table	*token_etype(t_table *tab)
         {
             if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
             {
-                tab->token->endtype = 5;
+                // tab->token->endtype = 5;
                 tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id; 
             }
             else if (*cmd[id] == '<')
             {
-                tab->token->endtype = 4;
+                // tab->token->endtype = 4;
                  tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id; 
             }
             else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
             {
-                tab->token->endtype = 3;
+                // tab->token->endtype = 3;
                  tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id; 
             }
             else if (*cmd[id] == '>')
             {
-                tab->token->endtype = 2;
+                // tab->token->endtype = 2;
                   tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id;  
             }
             else if (*cmd[id] == '|')
             {
-                tab->token->endtype = 1;
+                // tab->token->endtype = 1;
                   tab->token->id = tab->tk_num++;   
                 ref[tab->token->id] = id;     
             }
             else if (*cmd[id] == '@')
             {
-                tab->token->endtype = 0;     
+                // tab->token->endtype = 0;     
                   tab->token->id = tab->tk_num++; 
                 ref[tab->token->id] = id; 
             }
@@ -118,12 +118,10 @@ static t_table  *parse_args(t_table *tab)
     set = "<|>";
     tab->token->id = 0;
         printf("DEBUG : into... parse\n");
-    tab = token_etype(tab);
-        //  >endtype< token[id]  (tab->tk_num)
-        //  >endtype< node[pos] (token->tk_len) 
-        printf("DEBUG: token endtype #[%d]\n\n", tab->tk_num);     
+    tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
+        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
     // token_node ...
-    tab = token_nodes(tab); //cpy token to cmds ...
+    tab = token_nodes(tab); // malloc each token + each token[cmd]
         // printf("DEBUG : into... t_node\n");
     // split_all
     tab = split_all(tab); 

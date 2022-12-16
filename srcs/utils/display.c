@@ -17,7 +17,7 @@ void mx_display_tab(char **tab)
 
 void mx_display_str(char *str)
 {
-    printf("_[%s]", str);
+    printf(" {%s} ", str);
 }
 
 void display_tkn(t_table *tab)
@@ -38,16 +38,16 @@ void display_tkn(t_table *tab)
     while (id <= tab->tk_num)
     {
         tk_len = ft_mx_len(tab->cmds[id]);
-        printf("\ntoken->id:[%d]::", id);
+        printf("token->id:[%d]:: {", id);
         // printf("token->tk_len   :[%d]\n", token->tk_len-1);
         i = 0;
         while(++i < tk_len)
         {
             mx_display_str(tab->cmds[id][i]);
         }
-        printf("_:: endtype:[%s]", tab->cmds[id][tk_len - 1]);
+        // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
         etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
-        printf("_:: etype:[%d]\n", etype);
+        printf("} :: etype:[%d]\n", etype);
         id++;
     }
 }
