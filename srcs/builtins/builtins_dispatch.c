@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2022/11/29 14:09:50 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/12/19 13:39:49 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void    exit_builtin(char **cmd)
     exit(exiit);
 }
 
+
 void    builtins_handler(char *input, char **envp)
 {
+    envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
             cd(ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "pwd", 10))
@@ -36,5 +38,4 @@ void    builtins_handler(char *input, char **envp)
         execve("/usr/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
-        
 }
