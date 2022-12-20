@@ -6,9 +6,9 @@ extern int g_status;
 static char *get_substr_var(char *str, int i, t_table *tab)
 {
     char *aux;  // result str
-    int pos;    // where to cut // pos ?: ptr to substr
     char *path;
     char *var;  // spec char path check ...
+    int pos;    // where to cut // pos ?: ptr to substr
     
     pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0); 
     if (pos == -1)
@@ -25,11 +25,6 @@ static char *get_substr_var(char *str, int i, t_table *tab)
     free(var);
     free(path);
     free(str);
-    // if (aux)
-    //{
-    //  mx_display_str(aux);
-    //  exit(0);
-    //}
     return (aux);
 }
 
@@ -76,6 +71,7 @@ char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
              && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1])))
             return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
     }
+    
     return (str);
 }
 

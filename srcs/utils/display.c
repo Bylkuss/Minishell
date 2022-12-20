@@ -5,32 +5,49 @@
 void mx_display_tab(char **tab)
 {
     int i = 0;
-    if (tab[i])// && tab[0])
-    {
-        while(tab[i++])
-            printf ("%s :: \n", tab[i]);
-        printf (" :: \n" );
-    }
+
+        printf("START:");
+        while(tab && (*tab[i] != '\0'))
+        {
+            printf ("(%s),", tab[i]);
+            i++;
+        }
+        printf(":END\n");
 }
 
 void mx_display_str(char *str)
 {
-    printf(" %s ++++  \n", str);
+    printf(" {%s} ", str);
 }
 
 void display_tkn(t_table *tab)
 {
+    t_token *token;
     int id;
+    int i;
+    int etype;
+    int tk_len;
 
-    id = 0;
-    // t_token *token;
-    // token = tab->token; 
-    // if (!token)
-    //     exit(0);
-    printf("TOKEN_ID:\t%d\n", tab->tk_num); // how many tkn
-    printf("\nCMD== %s ==  \t", tab->token->cmd[id]); // 
-    if (tab->token->tk_len > 2 )
-        printf("ARG == %s == \t", tab->token->cmd[++id]);   
-    printf("END_TYPE == %d == \n", tab->token->endtype);   
-
+    id = 1;
+    i = 0;
+    token = tab->token; 
+    if (!token)
+        exit(0);
+    
+    // token->endtype = 0;
+    while (id <= tab->tk_num)
+    {
+        tk_len = ft_mx_len(tab->cmds[id]);
+        printf("token->id:[%d]:: {", id);
+        // printf("token->tk_len   :[%d]\n", token->tk_len-1);
+        i = 0;
+        while(++i < tk_len)
+        {
+            mx_display_str(tab->cmds[id][i]);
+        }
+        // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
+        etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
+        printf("} :: etype:[%d]\n", etype);
+        id++;
+    }
 }

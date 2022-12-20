@@ -32,8 +32,8 @@ void    builtins_handler(char *input, char **envp)
         env(envp);
     else if(ft_strnstr(input, "unset", 10))
         unset(ft_split(input, ' ') , envp);
-    else if(ft_strnstr(input, "export", 10))
-        export(ft_split(input, ' ') , envp);
+    // else if(ft_strnstr(input, "export", 10))
+    //     export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "ls", 5))
         execve("/usr/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))
