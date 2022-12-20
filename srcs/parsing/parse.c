@@ -161,8 +161,8 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
     if (input[0] != '\0')
         add_history(input);
     tab->node = init_split(input, " ", tab); // space split 
-        n = ft_mx_len(tab->node);
-        printf("DEBUG: check :: node_num ::%d::\n", n);
+        // n = ft_mx_len(tab->node);
+        // printf("DEBUG: check :: node_num ::%d::\n", n);
         //     mx_display_tab(tab->node);  
         // }
     tab = parse_args(tab);    // tab->node        
