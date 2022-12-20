@@ -3,16 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 18:00:00 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/29 16:24:33 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/12/19 14:15:59 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+char	**save_old_pwd(char **envp)
+{
+	char *cwd;
+
+	cwd = getcwd(NULL, 0);
+	if (cwd== NULL)
+        perror("getcwd() error");
+	envp = ms_setenv("OLDPWD", cwd, envp, 1);
+	return(envp);
+}
+
 void	pwd(void)
 {
 	printf("%s\n", getcwd(NULL, 0));//path));
 }
+

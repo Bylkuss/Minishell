@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/30 11:02:32 by bylkus           ###   ########.fr       */
+/*   Updated: 2022/12/20 11:45:38 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int main(int ac, char **av, char **envp)
       //fonction on his own { built_outs }
         builtins_handler(input, envp);
         // 
-        free(str);
+        // free(str);
         tab = check_args(input, tab);
         if (!tab)
             break;

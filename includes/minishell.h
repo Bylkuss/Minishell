@@ -152,6 +152,7 @@ t_table  	*parse_args(t_table *tab);
 
 void    echo(char **cmd);
 void    cd(char **cmd, char **env);
+char	**save_old_pwd(char **envp);
 void	pwd(void);
 void    env(char **envp);
 void    exit_builtin(char **cmd);
