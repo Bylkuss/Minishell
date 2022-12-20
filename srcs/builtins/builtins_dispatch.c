@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2022/12/19 15:54:03 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/12/20 13:40:16 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    exit_builtin(char **cmd)
 
 void    builtins_handler(char *input, char **envp)
 {
-    envp = save_old_pwd(envp);    
+    // envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
             cd(ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "pwd", 10))
