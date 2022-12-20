@@ -97,6 +97,7 @@ void	pwd(void);
 // void    export(char **cmd, char **envp);
 void    env(char **envp);
 void    exit_builtin(char **cmd);
+char	**save_old_pwd(char **envp);
 void    unset(char **cmd, char **envp);
 //main
 char    	*getprompt(t_table *tab);
@@ -131,30 +132,6 @@ t_token		*get_infile1(t_token *token, char **args);
 void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
-
-//check	new
-
-char    	*getprompt(t_table *tab);
-t_table 	*init_token(t_table *tab);
-t_table 	*init_tab(t_table *tab);
-
-char		*node_check(char *input, char *meta);
-char		*pipe_check(char *input, char *meta);
-
-t_table 	*check_args(char *out, t_table *tab);
-t_table		*token_nodes(t_table *tab);
-// t_table  	*parse_args(t_table *tab);
-
-void    echo(char **cmd);
-void    cd(char **cmd, char **env);
-char	**save_old_pwd(char **envp);
-void	pwd(void);
-void    env(char **envp);
-void    exit_builtin(char **cmd);
-void    unset(char **cmd, char **envp);
-void    export(char **cmd, char **envp);
-void    builtins_handler(char *input, char **envp);
-
 //void
 // char		*node_check(char *input, char *meta);
 // char		*type_check(char *input, char *meta);
