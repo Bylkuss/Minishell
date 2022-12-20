@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/23 20:04:53 by gehebert         ###   ########.fr       */
+/*   Updated: 2022/12/03 19:24:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void    handle_sigint(int sig)
     } 
 }
 
-char    *ms_getenv(char *var, char **envp, int n)
+char    *ms_getenv(char *var, char **envp, int n) // get => search.info ret.(ptr)
 {
     int i;
     int n2;

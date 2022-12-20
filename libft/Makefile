@@ -42,14 +42,14 @@ WHITE = \033[0;97m
 
 # Make variables
 $(DIR_OBJS)/%.o :	$(DIR_SRCS)/%.c
-			@mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
-			@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+			@-mkdir -p $(DIR_OBJS) $(OBJS_DIRS)
+			@-$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 all:		$(NAME)
 
 $(NAME):	$(OBJS)
-			@ar -r $(NAME) $(OBJS)
-			@ranlib $(NAME)
+			@-ar -r $(NAME) $(OBJS)
+			@-ranlib $(NAME)
 
 clean:
 			@$(RM) $(OBJS)
