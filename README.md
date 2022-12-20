@@ -1,31 +1,30 @@
 # MiniShell42
 Mimic of Shell command
-Makefile
+* Makefile
+  * Libft
+  * Readline
 
-  ## Shell(main)
-  * while loop    				__(prompt)
-    * getline user     		__(input)
-    * linebuffer define	
-  * signal checker 		  	__(errSystm)
-  * treeNode 				      __(jobList)
-  ## Lexer
-   * Token Type init.			__(enum char)
-   * Lexer_Builer				  __(table command)
-      * Buffer_split		  __(Tree_node)
-        * Quotes, “|” , “&” , “$” …
-      * Token _list 		(Linked_list)
-        * “JOB”:”ARGS”:”REDIR”...
-      * Wrap_Command	(Complete_Final)
-        * Call _Exec 
-  ## Parser
-   * Tree_Node_Set	
-   * Seq_Job_Exec
-  ## Execute
-   * Seq. Event
+## Shell(main)
+  * Envp
+    * user, path, ...
+  * Main loop    				__(prompt)
+    * readline       		__(input)
+  * Signal       		  	__(errSystm)
+    * handling error    __(sigaction)
+## Parsing
+   * Init. args   			__(enum char)
+   * Manage quotes		  __(split_able)
+   * Node split	    	  __(space_divide)
+      * Meta_char  “|” , “<” , “>” ...
+   * Token_izer      		__(command line)
+      * “JOB”:”ARGS”:”REDIR”...
+   * Endtype redirs     __(behavior_ctrl)
+     * redirs <,<<,>>,>,| 
+## Execute
+   * Token Event
     * ...cmds :: args :: endtype...
-   * Sig. Event
-    * parent, child, error
-  ## Command
-   * Path = /bin 
-   * Pid  = 0
-   * Redir <,<<,>>,>,|,(EOT) ... end Of Type 
+   * Signal Event
+    * Error 
+   * Builtins
+    * parent, child
+   * pid, path 

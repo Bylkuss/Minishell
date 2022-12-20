@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2022/12/19 15:54:03 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/12/20 11:54:23 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void    builtins_handler(char *input, char **envp)
         env(envp);
     else if(ft_strnstr(input, "unset", 10))
         unset(ft_split(input, ' ') , envp);
-    else if(ft_strnstr(input, "export", 10))
-        export(ft_split(input, ' ') , envp);
+    // else if(ft_strnstr(input, "export", 10))
+    //     export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "ls", 5))
         execve("/usr/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))

@@ -12,145 +12,197 @@
 
 #include "../../includes/minishell.h"
 
-
-//  set dbl pipe
-//      spc-bef / spc-aft
-//
-
-char *pipe_check(char *input, char *meta)
+static char *node_padd(char *input, char *meta)
 {
     char *srcs; //  start part str
     char *tmp;  //  sub str
     char *dest; //  end part str
     int p[4];   //ptr pos start/pos/end
 
-    p[3] = 0; // ptr strlen..    
-    p[1] = ft_strchr_i((char *)input, *meta);
-    if (p[1])
+    p[2] = 0;
+    p[3] = 0;
+    p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+    if (p[1] == -1)
+        return (input);
+    else
     {
         p[0] = p[1] - 1;
         p[2] = p[1] + 1;
         p[3] = ft_strlen(input);
-        if ((input[p[1] + 1]) == 124)
+        // printf("the padd p[3] len [%d] \n", p[3]);
+        if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
             p[2] = p[1] + 2;
-        printf("DEBUG : pipe_check :[%d]: %s \n\n", p[3], input);
-        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+        // printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
+        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+        // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+        // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+        // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
         if (input[p[0]] != 32)// tmp -1
-            tmp = ft_strjoin(" ", tmp);
+            tmp = ft_strjoin(" ", tmp); //add spece before
         if (input[p[2]] != 32) //tmp + 1
-            tmp = ft_strjoin(tmp, " ");  
+            tmp = ft_strjoin(tmp, " ");  //add space after
         srcs = ft_strjoin(srcs, tmp);
         input = ft_strjoin(srcs, dest);
-    }    
+    } 
     return(input);
+}
+
+char *type_check(char *input, char *meta)
+{
+    char *srcs; //  start part str
+    char *res;  //  sub str
+    char *tmp;
+    char *dest; //  end part str
+    int p[4];   //ptr pos start/pos/end
+    int padd;   // detected
+
+        res = "\0";
+        padd = 0;          
+        p[2] = 0; //index ptr count 
+        p[1] = 0;
+        p[3] = ft_strlen(input);
+        // printf("type_check:: str_end_p[3] = %d\n", p[3]);
+        while (padd == 0)
+        {
+            p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+            if (p[1] == -1)
+            {
+                // printf("bye\n");
+                padd = 1;
+                break ;
+            }
+            p[0] = p[1] - 1;
+            p[2] = p[1] + 1;
+            if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
+                p[2] = p[1] + 2;
+                
+            srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[0]))); //bfore endtype
+            // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            tmp = ft_substr((const char *)input, p[0] , p[2] - p[0]); //etype pad
+            // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+            dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // left
+            // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+            res = ft_strjoin(res, srcs);
+            if (p[1] && (input[p[0]] != 32) || (input[p[2]] != 32))
+                tmp = node_padd(tmp, meta);
+            res = ft_strjoin(res, tmp);
+            // printf("DEBUG oo res_check[%ld] ::%s: \n",ft_strlen(res), res);
+            input = dest;
+
+        }
+        input = ft_strjoin(res,dest);
+        // printf("DEBUG oo output_check [%ld] ::%s: \n",ft_strlen(input), input);
+        return(input);
 }
 
 static int node_count(const char *s, char *c, int i[2]) // 
 {
-        int     q[2];   // quotes match delimter
+    int     q[2];   // quotes match delimter
 
-        q[0] = 0;
-        q[1] = 0;
-        while (s[i[0]] != '\0')
+    q[0] = 0;
+    q[1] = 0;
+    while (s[i[0]] != '\0')
+    {
+        if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
         {
-            if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
+            while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
             {
-                i[1]++;
-                while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0') // != '," % 2
-                {
-                    if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
-                        q[1] = s[i[0]];
-                    q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
-                    q[1] *= q[0] != 0;
-                    i[0]++;
-                }
-                if (q[0])
-                    return (-1);
-                // if (ft_strchr(c, s[i[0]])) 
-                //     i[1]++;
-            }
-            else
+                if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
+                    q[1] = s[i[0]];
+                q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
+                q[1] *= q[0] != 0;
                 i[0]++;
+            }
+            if (q[0])
+                return (-1);
         }
-        return (i[1]);
+        else if (ft_strchr(c, s[i[0]])) 
+        {
+            while (ft_strchr(c, s[i[0]]))
+                i[0]++;
+            i[1]++;
+        }
+    }
+    return (i[1] + 1);
 }
 
-/*   init_split_Form_           "..." "..." "..." */
-static char **node_fill(char **arr, const char *s, char *set, int i[3]) 
+static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
-        int     len;
-        int     q[2];       // uniq_quotes ignore
+    int     n;      //node id
+    int     len;
+    int     q[2];       // uniq_quotes ignore
 
-        q[0] = 0;
-        q[1] = 0;
-        len = ft_strlen(s);
-        // printf("\n::NODE_FILL_ BEGIN ::len =%d", len);      // DEBUG
-        while (s[i[0]])// && i[0] <= len)
+    n = 0;
+    q[0] = 0;
+    q[1] = 0;
+    len = ft_strlen(s);
+        // printf("DEBUG: node_fill  :: len = %d \n", len);        // strlen
+    i[2] = -1;
+    while (s[i[0]] && i[0] < len)
+    {
+        if(!ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // spc found
         {
-            if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')   // set = space
-                i[0]++;
-            i[1] = i[0];
-            while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) & s[i[0]])
+            i[2] = i[0];
+            while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
             {
+                    // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore
                 i[0]++;
             }
-            if (i[1] >= len)
-                arr[i[2]++] = "\0";
-            else
-                arr[i[2]++] = ft_substr(s, i[1], i[0] - i[1]);  
-            i[0]++;
         }
-            // printf("\n::NODE_FILL_ INNER:: %d", i[0]);      // DEBUG
-            // // mx_display_tab(arr);
-            // printf("DEBUG: arr[0] >>:: %s ::\n", arr[0]);
-            // printf("::NODE_FILL_ END \n");      // DEBUG
-                // printf("DEBUG: NODE >> len[%d]:: %s ::\n", len, s);
-        return (arr);
+        if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')                      // spc found
+        {
+            i[1] = i[0]++;    // set spc - end of str...
+            while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+                i[0]++;
+        }
+        if (i[0] <= len && i[2] > -1)
+        {
+            tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2])); 
+                // printf("DEBUG:  node[%d]_\n", n);
+            tab->node = ft_mx_ext(tab->node, tab->node[n]);
+            // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            n++;
+        }            
+        if(i[0] == len)
+            tab->node = ft_mx_ext(tab->node, "@");
+              // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+    }
+    // mx_display_tab(tab->node);
+    return (tab->node);
 }
 
-/*    (old spc_split) readline input _init_split_  NODE MAKER   */
-char **init_split(const char *s, char *set)
+//    ls -lat |head -2|wc -l> out.txt   
+char **init_split(char *input, char *set, t_table *tab)
 {
-    char    **arr;
-    char    *input;
-    int     nodes;
+    int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
+    // char *input;
 
     i[0] = 0;
     i[1] = 0;
     i[2] = 0;
     count[0] = 0;
     count[1] = 0;
-    arr = NULL;
-    printf("\nOK TEST INPUT!S_S BEGIN\n");      // DEBUG
-        // node_chk >> insert space in before/after it if needed
-        //  input divided by space ::  error if no-space-too
-    if (s)
-        input = pipe_check((char *)s, "|");
-    else
+    if (!input)
+        return (NULL);    
+    printf("DEBUG: ");
+        
+    input = type_check(input, "<|>");
+    // printf("DEBUG: pass_to_init :: %s \n", input);
+    n = node_count(input, set, count);    // substr 
+        // printf("DEBUG: init_split  ::  node_count = %d \n", n); 
+    if (n == -1)
         return (NULL);
-    printf("DEBUG  :pass_to_init :: %s \n", input);
-        // arr = ft_mx_ext(arr, (char *)s);    // start arr w/ empty
-                    // arr[0] = node_check((char *)s, ">|<"); // dbl / smpl 've to be check
-                    // insert spc. where it needs watch for dbl..
-
-    /// watch out input *char  /// arr**
-    nodes = node_count((const char *)input, set, count);     // substr 
-    if (nodes == -1)
+    tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
+    if (!tab->node)
         return (NULL);
-    printf("DEBUG ::: %d nodes :: spc_split end \n", nodes);      // DEBUG
-    arr = malloc(sizeof(char *) * (nodes + 1)); //strc malloc
-    if (!arr)
-        return (NULL);
-    arr = node_fill(arr, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    arr[nodes] = NULL;
-    // printf("DEBUG: init_split end!\n");
-    return (arr);   // ret(tab->node)
+    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    return (tab->node);   // ret(tab->node)
 }
 
 /*

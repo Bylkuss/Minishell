@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/20 11:45:38 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/12/20 11:53:11 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ static void getmypid(t_table *tab)
     pid = fork();                                             
     if (pid < 0)
     {
-        //mini_perror(FORKERR, NULL, 1);                        
         ft_mx_free(&tab->envp);                              
         exit(1);
     }
     if (!pid)
     {
-    ft_mx_free(&tab->envp);                                  
+        ft_mx_free(&tab->envp);                                  
         exit(1);
     }
     waitpid(pid, NULL, 0);                                    
@@ -37,29 +36,29 @@ static void getmypid(t_table *tab)
 
 static t_table *init_vars(t_table *tab, char *str, char **av)
 {
-        char *num;
+    char *num;
 
-        str = getcwd(NULL, 0);                                            
-        tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
-        free(str);
-        str = ms_getenv("SHLVL", tab->envp, 5); 
+    str = getcwd(NULL, 0);                                            
+    tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
+    free(str);
+    str = ms_getenv("SHLVL", tab->envp, 5); 
 
-        if (!str || ft_atoi(str) <= 0)
-            num = ft_strdup("1");
-        else
-            num = ft_itoa(ps_atoi(str) + 1);
-        free(str);
-        tab->envp = ms_setenv("SHLVL", num, tab->envp, 5);      
-        free(num);
-        str = ms_getenv("PATH", tab->envp, 4);                      
-        if(!str)
-            tab->envp = ms_setenv("PATH", "/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin", tab->envp, 4);  //
-        free(str);
-        str = ms_getenv("_", tab->envp, 1);                          
-        if (!str)
-            tab->envp = ms_setenv("_", av[0], tab->envp, 1);         
-        free(str);
-            return (tab); 
+    if (!str || ft_atoi(str) <= 0)
+        num = ft_strdup("1");
+    else
+        num = ft_itoa(ps_atoi(str) + 1);
+    free(str);
+    tab->envp = ms_setenv("SHLVL", num, tab->envp, 5);      
+    free(num);
+    str = ms_getenv("PATH", tab->envp, 4);                      
+    if(!str)
+        tab->envp = ms_setenv("PATH", "/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin", tab->envp, 4);  //
+    free(str);
+    str = ms_getenv("_", tab->envp, 1);                          
+    if (!str)
+        tab->envp = ms_setenv("_", av[0], tab->envp, 1);         
+    free(str);
+        return (tab); 
 }
 
 static t_table *init_prompt(char **av, char **envp) 
@@ -71,7 +70,6 @@ static t_table *init_prompt(char **av, char **envp)
         init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
-        // tab->token = malloc(sizeof(t_token));   
         g_status = 0;
         getmypid(tab);                          
         tab = init_vars(tab, str, av);  //set envp. vars. frame
@@ -85,9 +83,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);    
-        //tab->envp , pid --> init_vars
     tab = init_token(tab);          
-        // token frame
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -97,16 +93,12 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
-        // 
-      //fonction on his own { built_outs }
-        builtins_handler(input, envp);
-        // 
-        // free(str);
+        //fonction on his own { built_outs }
+        // builtins_handler(input, envp);
+        free(str);
         tab = check_args(input, tab);
         if (!tab)
             break;
-        // else
-        //     mx_display_tab(tab->cmds);          //::    :://
     }
     exit(g_status); 
 }
