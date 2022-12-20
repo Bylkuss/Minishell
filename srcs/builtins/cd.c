@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2022/12/19 14:18:38 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/12/19 16:14:04 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ void	cd(char **cmd, char **env)
 	
 	if(cmd[2])
 		ft_putstr_fd("cd: too many arguments\n", 2);
-	path = get_cd_path(cmd, env);
+	path = (const char*)get_cd_path(cmd, env);
 	if(path)
 	{
 		if(chdir(path) != 0)
 			printf("cd: no such file or directory: %s\n", path);
-		// free(path);
+		free(path);
 	}
 	else
 	{
