@@ -97,6 +97,7 @@ void	pwd(void);
 // void    export(char **cmd, char **envp);
 void    env(char **envp);
 void    exit_builtin(char **cmd);
+char	**save_old_pwd(char **envp);
 void    unset(char **cmd, char **envp);
 //main
 char    	*getprompt(t_table *tab);

@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/20 11:45:38 by loadjou          ###   ########.fr       */
+/*   Updated: 2022/12/20 13:40:57 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,11 @@ int main(int ac, char **av, char **envp)
             input = readline("guest@minishell $ ");
         //fonction on his own { built_outs }
         builtins_handler(input, envp);
-        // 
+
         // free(str);
-        tab = check_args(input, tab);
-        if (!tab)
-            break;
+        // tab = check_args(input, tab);
+        // if (!tab)
+        //     break;
     }
     exit(g_status); 
 }
