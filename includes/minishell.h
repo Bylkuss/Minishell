@@ -65,7 +65,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 {
 	int 	id;			//	# command id 
 	char	**cmd;		//	... cmd[id][node]
-	char 	**path;		// relative || absolute
+	char 	*path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
@@ -137,6 +137,6 @@ void		mx_display_str(char *str);
 // char		*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
-// void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
+void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
 #endif

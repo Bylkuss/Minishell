@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/04 08:34:54 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
     // }
 
-static void update_output(char ***mx, int fd)
+static void update_output(char **out, int fd)
 {
     char **aux;
     char *tmp;
@@ -35,15 +35,15 @@ static void update_output(char ***mx, int fd)
         aux = ft_mx_ext(aux, tmp);                       
         free(tmp);
     }
-    ft_mx_free(mx);
-    *mx = aux; 
+    ft_mx_free(&out);
+    out = aux; 
 }
 
-void    exec_custom(char ***out, char *full, char *args, char **envp) 
+void    execustom(char **out, char *full, char *args, char **envp) 
 {
     pid_t   pid;
     int     fd[2];
-    char    **mx;
+    char    **mx; //token->cmd 
 
     pipe(fd);                                             
     pid = fork();                                          
