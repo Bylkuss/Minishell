@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 06:07:06 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/04 08:59:30 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         //fonction on his own { built_outs }
-        builtins_handler(input, envp);
+        // builtins_handler(input, envp);
         
 
         free(str);

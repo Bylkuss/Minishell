@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 06:12:04 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/04 09:00:37 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,8 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 //  - 1], p->envp, 1);                                    
                 //     ft_lstclear(&p->cmds, free_content);
             // }
-      // free(input);
+    builtins_handler(input, tab->envp);
+    free(input);
     return (tab); 
 
 /*

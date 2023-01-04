@@ -139,4 +139,14 @@ void		mx_display_str(char *str);
 // char   		*getprompt(t_table tab);
 void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
+// xcve.c
+char	*path_join(char *path, char *bin);
+int		str_ncmp(char *str1, char *str2, int n);
+int		str_ichr(char *str, char c);
+char	*str_ndup(char *str, unsigned int n);
+char	**str_split(char *str, char sep);
+char	*getpath(char **env);
+char	*getcmd(char **paths, char *cmd);
+
+
 #endif
