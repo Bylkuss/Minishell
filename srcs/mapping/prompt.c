@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 08:34:56 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/05 05:46:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static char *get_user(t_table *tab)
     user = NULL;
     tmp2 = NULL;
 
-    execustom(tab->envp, "/usr/bin/whoami", "whoami", tab->envp);  
+    // execustom(tab->envp, "/usr/bin/whoami", "whoami", tab->envp);  
     if (!user)
         user = ft_mx_ext(user, "guest");                          
     if (!ft_strncmp(user[0], "root", 4))
