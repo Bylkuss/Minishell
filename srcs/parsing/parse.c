@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/13 10:24:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/05 05:58:40 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,14 +160,11 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    tab->node = init_split(input, " ", tab); // space split 
-        n = ft_mx_len(tab->node);
-        printf("DEBUG: check :: node_num ::%d::\n", n);
-        //     mx_display_tab(tab->node);  
-        // }
+    builtins_handler(input, tab->envp);
+            printf("DEBUG : into... check_arg\n");
+    tab->node = init_split(input, " ", tab); // space split  
     tab = parse_args(tab);    // tab->node        
-        // if (tab->cmds[0])
-        //     printf("DEBUG : into... check_arg\n");
+        if (tab->cmds[0])
         // if (tab->cmds && tab->tk_num > 0)
         // exit(0);
         //    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
@@ -176,7 +173,7 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
                 //  - 1], p->envp, 1);                                    
                 //     ft_lstclear(&p->cmds, free_content);
             // }
-      // free(input);
+    free(input);
     return (tab); 
 
 /*
