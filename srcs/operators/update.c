@@ -6,30 +6,30 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/06 08:45:39 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/06 11:24:59 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-//full_path maker 
-char	*getcmd(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*command;
+// //full_path maker 
+// char	*getcmd(char **paths, char *cmd)
+// {
+// 	char	*tmp;
+// 	char	*command;
 
-	while (*paths)
-	{
-		tmp = path_join(*paths, "/");
-		command = path_join(tmp, cmd);
-		free(tmp);
-		if (access(command, 0) == 0)
-			return (command);
-		free(command);
-		paths++;
-	}
-	return (NULL);
-}
+// 	while (*paths)
+// 	{
+// 		tmp = path_join(*paths, "/");
+// 		command = path_join(tmp, cmd);
+// 		free(tmp);
+// 		if (access(command, 0) == 0)
+// 			return (command);
+// 		free(command);
+// 		paths++;
+// 	}
+// 	return (NULL);
+// }
 
 // char	*getpath(char *cmd, char **env)
     // {
