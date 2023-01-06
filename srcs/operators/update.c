@@ -6,20 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 09:50:56 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/06 08:45:39 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-    // char *ins_spc_ptr(char *str, int ptr)
-    // {
-
-    // }
-
-    
-// execve twin ... 
-// 
+//full_path maker 
 char	*getcmd(char **paths, char *cmd)
 {
 	char	*tmp;
@@ -39,29 +32,29 @@ char	*getcmd(char **paths, char *cmd)
 }
 
 // char	*getpath(char *cmd, char **env)
-// {
-//     char	*path;
-//     char	*dir;
-//     char	*bin;
-//     int		i;
+    // {
+    //     char	*path;
+    //     char	*dir;
+    //     char	*bin;
+    //     int		i;
 
-//     i = 0;
-//     while (env[i] && str_ncmp(env[i], "PATH=", 5))
-//         i++;
-//     if (!env[i])
-//         return (cmd);
-//     path = env[i] + 5;
-//     while (path && str_ichr(path, ':') > -1)
-//     {
-//         dir = str_ndup(path, str_ichr(path, ':'));
-//         bin = path_join(dir, cmd);
-//         free(dir);
-//         if (access(bin, F_OK) == 0)
-//             return (bin);
-//         free(bin);
-//         path += str_ichr(path, ':') + 1;
-//     }
-//     return (cmd);
+    //     i = 0;
+    //     while (env[i] && str_ncmp(env[i], "PATH=", 5))
+    //         i++;
+    //     if (!env[i])
+    //         return (cmd);
+    //     path = env[i] + 5;
+    //     while (path && str_ichr(path, ':') > -1)
+    //     {
+    //         dir = str_ndup(path, str_ichr(path, ':'));
+    //         bin = path_join(dir, cmd);
+    //         free(dir);
+    //         if (access(bin, F_OK) == 0)
+    //             return (bin);
+    //         free(bin);
+    //         path += str_ichr(path, ':') + 1;
+    //     }
+    //     return (cmd);
 // }
 
 static void update_output(char **out, int fd)

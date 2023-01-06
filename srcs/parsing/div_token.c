@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/14 10:25:14 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/06 09:04:19 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@
 // /*	token get-set */
 int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtype (int)
 {
-		int type;			// int cmd;	
-		type = 0;	// cmd = 0;
-			// int tk_len;
-				
-			// tk_len = 0;
-
-			// if (tab->cmds[id])
-			// {
-		// tk_len = ft_mx_len(tab->cmds[id]) ;
+	int type;	// int cmd;	
+	
+	type = 0;	// cmd = 0;
 	if (ft_strcmp(etype, "<<") == 0)
 		tab->token->endtype = INF2_END;    
 	else if (ft_strcmp(etype, "<") == 0)

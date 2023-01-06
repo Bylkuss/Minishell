@@ -137,6 +137,7 @@ void		mx_display_str(char *str);
 // char		*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
+char		*getcmd(char **paths, char *cmd);
 void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
 // xcve.c
@@ -145,8 +146,7 @@ int		str_ncmp(char *str1, char *str2, int n);
 int		str_ichr(char *str, char c);
 char	*str_ndup(char *str, unsigned int n);
 char	**str_split(char *str, char sep);
-char	*getpath(char **env);
-char	*getcmd(char **paths, char *cmd);
+// char	*getpath(char **env);
 
 
 #endif
