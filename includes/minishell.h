@@ -127,7 +127,9 @@ int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);
 t_token		*get_outfile2(t_token *token, char **args);
 t_token		*get_infile1(t_token *token, char **args);
-// t_token		*get_infile2(t_mini *token, char **args, int *i);
+t_token		*get_infile2(t_token *token, char **args, int *i);
+//heredoc
+int	get_here_doc(char *str[2], char *aux[2]);
 //utils
 void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
