@@ -12,56 +12,50 @@
 
 #include "../../includes/minishell.h"
 
-    // char *ins_spc_ptr(char *str, int ptr)
-    // {
-
-    // }
-
-    
 // execve twin ... 
 // 
-char	*getcmd(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*command;
+// char	*getcmd(char **paths, char *cmd)
+// {
+// 	char	*tmp;
+// 	char	*command;
 
-	while (*paths)
-	{
-		tmp = path_join(*paths, "/");
-		command = path_join(tmp, cmd);
-		free(tmp);
-		if (access(command, 0) == 0)
-			return (command);
-		free(command);
-		paths++;
-	}
-	return (NULL);
-}
+// 	while (*paths)
+// 	{
+// 		tmp = path_join(*paths, "/");
+// 		command = path_join(tmp, cmd);
+// 		free(tmp);
+// 		if (access(command, 0) == 0)
+// 			return (command);
+// 		free(command);
+// 		paths++;
+// 	}
+// 	return (NULL);
+// }
 
 // char	*getpath(char *cmd, char **env)
 // {
-//     char	*path;
-//     char	*dir;
-//     char	*bin;
-//     int		i;
+    //     char	*path;
+    //     char	*dir;
+    //     char	*bin;
+    //     int		i;
 
-//     i = 0;
-//     while (env[i] && str_ncmp(env[i], "PATH=", 5))
-//         i++;
-//     if (!env[i])
-//         return (cmd);
-//     path = env[i] + 5;
-//     while (path && str_ichr(path, ':') > -1)
-//     {
-//         dir = str_ndup(path, str_ichr(path, ':'));
-//         bin = path_join(dir, cmd);
-//         free(dir);
-//         if (access(bin, F_OK) == 0)
-//             return (bin);
-//         free(bin);
-//         path += str_ichr(path, ':') + 1;
-//     }
-//     return (cmd);
+    //     i = 0;
+    //     while (env[i] && str_ncmp(env[i], "PATH=", 5))
+    //         i++;
+    //     if (!env[i])
+    //         return (cmd);
+    //     path = env[i] + 5;
+    //     while (path && str_ichr(path, ':') > -1)
+    //     {
+    //         dir = str_ndup(path, str_ichr(path, ':'));
+    //         bin = path_join(dir, cmd);
+    //         free(dir);
+    //         if (access(bin, F_OK) == 0)
+    //             return (bin);
+    //         free(bin);
+    //         path += str_ichr(path, ':') + 1;
+    //     }
+    //     return (cmd);
 // }
 
 static void update_output(char **out, int fd)

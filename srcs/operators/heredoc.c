@@ -1,6 +1,7 @@
 
 
 #include "../../includes/minishell.h"
+
 extern int g_status;
 
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
@@ -36,7 +37,7 @@ int	get_here_doc(char *str[2], char *aux[2])
 	g_status = 0;
 	if (pipe(fd) == -1)
 	{
-		mini_perror(PIPERR, NULL, 1);
+		chk_error(PIPERR, NULL, 1);
 		return (-1);
 	}
 	str[1] = get_here_str(str, 0, aux[0], aux[1]);

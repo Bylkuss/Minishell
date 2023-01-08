@@ -125,29 +125,29 @@ t_token	*get_infile1(t_token *token, char **args)
 }
 
 t_token	*get_infile2(t_token *token, char **args, int *i)
+{
+	char	*aux[2];
+	char	*nl;
+	char	*str[2];
+	str[0] = NULL;
+	str[1] = NULL;
+	aux[0] = NULL;
+	aux[1] = "minishell: warning: here-document delimited by end-of-file";
+	nl = "minishell: syntax error near unexpected token `newline'";
+	(*i)++;
+	if (args[++(*i)])
 	{
-		char	*aux[2];
-		char	*nl;
-		char	*str[2];
-		str[0] = NULL;
-		str[1] = NULL;
-		aux[0] = NULL;
-		aux[1] = "minishell: warning: here-document delimited by end-of-file";
-		nl = "minishell: syntax error near unexpected token `newline'";
-		(*i)++;
-		if (args[++(*i)])
+		aux[0] = args[*i];
+		token->infile = get_here_doc(str, aux);  /*later */
+	}
+	if (!args[*i] || token->infile == -1)
+	{
+		*i = -1;
+		if (token->infile != -1)
 		{
-			aux[0] = args[*i];
-			token->infile = get_here_doc(str, aux);  /*later */
+			ft_putendl_fd(nl, 2);
+			g_status = 2;
 		}
-		if (!args[*i] || token->infile == -1)
-		{
-			*i = -1;
-			if (token->infile != -1)
-			{
-				ft_putendl_fd(nl, 2);
-				g_status = 2;
-			}
-		}
-		return (token);
+	}
+	return (token);
 }

@@ -12,6 +12,33 @@
 
 #include "../../includes/minishell.h"
 
+int is_builtin(t_token *t)
+{
+    int l;
+
+    if (!t->cmd[0])
+		return (0);
+	if (t->cmd && ft_strchr(*t->cmd, '/'))// || (n->path && ft_strchr(n->path, '/')))
+		return (0);
+	l = ft_strlen(t->cmd[0]);
+	if (!ft_strncmp(t->cmd[0], "pwd", l) && l == 3)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "env", l) && l == 3)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "cd", l) && l == 2)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "export", l) && l == 6)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "unset", l) && l == 5)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "echo", l) && l == 4)
+		return (1);
+	if (!ft_strncmp(t->cmd[0], "exit", l) && l == 4)
+		return (1);
+	return (0);
+}
+
+
 void    exit_builtin(char **cmd)
 {
     int exiit = ft_atoi(cmd[1]);
