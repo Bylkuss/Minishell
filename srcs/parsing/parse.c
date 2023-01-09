@@ -130,14 +130,15 @@ static t_table  *parse_args(t_table *tab)
     tab = get_token(tab, token);
     /*  tab->node [*str]  sep.space. node -ID.less
         tab >> tab->token-> ... arg-set value ...TBD            
+
         i = ft_lstsize(tab->cmds);     */
     // g_status = builtin(p, p->cmds, &is_exit, 0);       
     // g_status = is_builtin(token);       
     // printf("DEBUG : is_builtin {%d}::\n", g_status);      
     // if (g_status == 1)
-        // builtins_handler(tab->cmds, tab->envp);
 
 
+    builtins_handler(tab->node[0], tab->envp);
     // builtins_handler(input, tab->envp);
    
     tk_id = tab->tk_num;
@@ -158,30 +159,31 @@ static t_table  *parse_args(t_table *tab)
     return (tab);
 }
 
-void  *check_args(char *input, t_table *tab)  // main deply >parse
+void  *check_args(char *input, t_table *tab)    // main deply >parse
 {
      int n;     //int node
      
-     n = 0;
+    n = 0;
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
     
-    // tab->node = init_split(input, " ", tab); // space split  
-    // tab = parse_args(tab);    // tab->node        
-
-    builtins_handler(input, tab->envp);
+    // builtins_handler(input, tab->envp);
+    tab->node = init_split(input, " ", tab);    // space split  
+    // builtins_handler(tab->node[0], tab->envp);
+    tab = parse_args(tab);                      // tab->node        
+    // printf("\n try me node[0] = %s\n", *tab->node);
     
         // if (tab->cmds[0])
         // if (tab->cmds && tab->tk_num > 0)
         // exit(0);
         //    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
-          //  {
+        //  {
                 // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
                 //  - 1], p->envp, 1);                                    
                 //     ft_lstclear(&p->cmds, free_content);
-            // }
+        // }
     free(input);
     return (tab); 
 

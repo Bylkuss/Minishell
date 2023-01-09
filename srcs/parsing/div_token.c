@@ -225,7 +225,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
 		if (!(tkn))
 			return (NULL);
-		// printf("DEBUG: token_count len (%d) \n", token->tk_len);		
+		printf("DEBUG: token_count len (%d) \n", token->tk_len);		
 			// pass_len = tab->refs[tab->token->id];	
 			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
 			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
