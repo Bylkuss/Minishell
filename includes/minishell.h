@@ -109,7 +109,7 @@ void    	handle_sigint(int sig);
 char		*ms_getenv(char *var, char **envp, int n);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 //parsing
-t_table 	*check_args(char *out, t_table *tab);
+void 	*check_args(char *out, t_table *tab);
 // init_split
 char		**init_split(char *input, char *set, t_table *tab);
 // div_token

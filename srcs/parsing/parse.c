@@ -106,42 +106,49 @@ static t_table *split_all(t_table *tab)
 
 static t_table  *parse_args(t_table *tab)
 {
-    int i; // int is_exit; // is_exit = 0;
-    int type_id;
+    // int i;    // i = 0;
+    // int type_id;    // tk_id = 0;
+    int is_exit;
     int tk_id;
     char *set;
-
     t_token *token;
+
     token = tab->token;
-    i = 0;
-    tk_id = 0;
+    is_exit = 0;
     set = "<|>";
     tab->token->id = 0;
         printf("DEBUG : into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
-        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
+        // printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
     // token_node ...
     tab = token_nodes(tab); // malloc each token + each token[cmd]
-        // printf("DEBUG : into... t_node\n");
     // split_all
     tab = split_all(tab); 
     //  div_token could be after that ... in fact. div. dont need to b loop...
     tab = div_token(tab, set); 
-    // mx_display_str(tab->cmds[1][1]);
+
     tab = get_token(tab, token);
     /*  tab->node [*str]  sep.space. node -ID.less
         tab >> tab->token-> ... arg-set value ...TBD            
-        // tab->
-        // i = ft_lstsize(tab->cmds);
-        // g_status = builtin(p, p->cmds, &is_exit, 0);             
-    */       
-    i = 0;
-    while (i-- > 0)
+        i = ft_lstsize(tab->cmds);     */
+    // g_status = builtin(p, p->cmds, &is_exit, 0);       
+    // g_status = is_builtin(token);       
+    // printf("DEBUG : is_builtin {%d}::\n", g_status);      
+    // if (g_status == 1)
+        // builtins_handler(tab->cmds, tab->envp);
+
+
+    // builtins_handler(input, tab->envp);
+   
+    tk_id = tab->tk_num;
+    while (tk_id-- > 0)
         waitpid(-1, &g_status, 0);
     if (g_status > 255)
         g_status = g_status / 255;
-    // if (!is_exit && &g_status == 13)
-    //     g_status = 0;
+        //
+    if (!is_exit && g_status == 13)
+        g_status = 0;
+
     // if (args && is_exit)
     // {
     //     ft_mx_free(tab->cmds);
@@ -151,7 +158,7 @@ static t_table  *parse_args(t_table *tab)
     return (tab);
 }
 
-t_table  *check_args(char *input, t_table *tab)  // main deply >parse
+void  *check_args(char *input, t_table *tab)  // main deply >parse
 {
      int n;     //int node
      
@@ -160,11 +167,13 @@ t_table  *check_args(char *input, t_table *tab)  // main deply >parse
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
+    
+    // tab->node = init_split(input, " ", tab); // space split  
+    // tab = parse_args(tab);    // tab->node        
+
     builtins_handler(input, tab->envp);
-            printf("DEBUG : into... check_arg\n");
-    tab->node = init_split(input, " ", tab); // space split  
-    tab = parse_args(tab);    // tab->node        
-        if (tab->cmds[0])
+    
+        // if (tab->cmds[0])
         // if (tab->cmds && tab->tk_num > 0)
         // exit(0);
         //    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
