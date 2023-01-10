@@ -130,13 +130,8 @@ t_token		*get_outfile2(t_token *token, char **args);
 t_token		*get_infile1(t_token *token, char **args);
 t_token		*get_infile2(t_token *token, char **args, int *i);
 //heredoc
-<<<<<<< HEAD
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 int	get_here_doc(char *str[2], char *aux[2]);
-=======
-char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
-int			get_here_doc(char *str[2], char *aux[2]);
->>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
 //utils
 void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
@@ -146,11 +141,7 @@ void		mx_display_str(char *str);
 // char		*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
-<<<<<<< HEAD
 char		*getcmd(char **paths, char *cmd);
-=======
-
->>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
 void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
 
@@ -160,26 +151,7 @@ int			str_ncmp(char *str1, char *str2, int n);
 int			str_ichr(char *str, char c);
 char		*str_ndup(char *str, unsigned int n);
 char		**str_split(char *str, char sep);
-<<<<<<< HEAD
 // char	*getpath(char **env);
-=======
-// char		*getpath(char **env);
-// char		*getcmd(char **paths, char *cmd);
-
-//execmd.c
-void		*execmd(t_table *tab, t_token *token, int id);
-void		get_cmd(t_table *tab, t_token *token);
-
-//error
-void		*chk_error(int err_type, char *param, int err);
-void		free_cont(void *content, int id);
-
-//child
-void		child_builtin(t_table *tab, t_token *t, int id);
-void		*born_child(t_table *tab, t_token *token, int id, int fd[2]);
-void		*chk_fork(t_table *tab, t_token *token, int id, int fd[2]);
-void    	exc_fork(t_table *tab, t_token *token, int id, int fd[2]);
->>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
 
 
 #endif

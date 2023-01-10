@@ -6,18 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/06 11:24:59 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/10 13:19:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-<<<<<<< HEAD
 // //full_path maker 
-=======
-// execve twin ... 
-// 
->>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
 // char	*getcmd(char **paths, char *cmd)
 // {
 // 	char	*tmp;
@@ -37,11 +32,7 @@
 // }
 
 // char	*getpath(char *cmd, char **env)
-<<<<<<< HEAD
     // {
-=======
-// {
->>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
     //     char	*path;
     //     char	*dir;
     //     char	*bin;
