@@ -91,8 +91,8 @@ t_table 	*token_nodes(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	i = -1;
 	tk_len = tab->refs[id];
 	
-	// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
-	// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
+	printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+	printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
 	while( ++i < tab->tk_num)
 	{

@@ -24,6 +24,7 @@ static t_table	*token_etype(t_table *tab)
     id = -1;
     cmd = tab->node; 
     n = ft_mx_len(cmd);
+    printf  ("DEBUG: etype::  total node:[%d] \n", n);
    
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
@@ -71,7 +72,7 @@ static t_table	*token_etype(t_table *tab)
             }
             if (tab->token->endtype != -1)
             {
-                // printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
         }
@@ -117,9 +118,9 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     set = "<|>";
     tab->token->id = 0;
-        printf("DEBUG : into... parse\n");
+        printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
-        // printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
+        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
     // token_node ...
     tab = token_nodes(tab); // malloc each token + each token[cmd]
     // split_all
@@ -128,17 +129,18 @@ static t_table  *parse_args(t_table *tab)
     tab = div_token(tab, set); 
 
     tab = get_token(tab, token);
-    /*  tab->node [*str]  sep.space. node -ID.less
-        tab >> tab->token-> ... arg-set value ...TBD            
+        /*  tab->node [*str]  sep.space. node -ID.less
+            tab >> tab->token-> ... arg-set value ...TBD            
 
-        i = ft_lstsize(tab->cmds);     */
-    // g_status = builtin(p, p->cmds, &is_exit, 0);       
-    // g_status = is_builtin(token);       
-    // printf("DEBUG : is_builtin {%d}::\n", g_status);      
-    // if (g_status == 1)
+            i = ft_lstsize(tab->cmds);     */
+        // g_status = builtin(p, p->cmds, &is_exit, 0);       
+        g_status = is_builtin(token);       
+        printf("DEBUG : is_builtin {%d}::\n", g_status);      
+        // if (g_status == 1)
 
 
     builtins_handler(tab->node[0], tab->envp);
+
     // builtins_handler(input, tab->envp);
    
     tk_id = tab->tk_num;
@@ -170,10 +172,15 @@ void  *check_args(char *input, t_table *tab)    // main deply >parse
         add_history(input);
     
     // builtins_handler(input, tab->envp);
-    tab->node = init_split(input, " ", tab);    // space split  
+
+    // tab->node        
+    tab->node = init_split(input, " ", tab);    // space split  checked!!!
+    
+    printf("\n try me node[0] = %s\n", tab->node[0]);
+
+    tab = parse_args(tab);
+
     // builtins_handler(tab->node[0], tab->envp);
-    tab = parse_args(tab);                      // tab->node        
-    // printf("\n try me node[0] = %s\n", *tab->node);
     
         // if (tab->cmds[0])
         // if (tab->cmds && tab->tk_num > 0)

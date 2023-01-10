@@ -217,12 +217,12 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 				// token->infile :: token->outfile 
 				// token->tkn_len	(int)
 			// needed to token command
-	// mx_display_tab(tab->node);
+	
 
 	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
-		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
+		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
 		printf("DEBUG: token_count len (%d) \n", token->tk_len);		
@@ -237,8 +237,9 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		
 
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
-		// tk_id++;
+		tk_id++;
 	}	
+	display_tkn(tab);
 	printf("DEBUG: div_token:: end...\n");
 	return (tab);    
 }
