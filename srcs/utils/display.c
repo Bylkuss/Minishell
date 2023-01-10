@@ -38,9 +38,9 @@ void display_tkn(t_table *tab)
     while (id <= tab->tk_num)
     {
         tk_len = ft_mx_len(tab->cmds[id]);
-        printf("token->id:[%d]:: {", id);
-        // printf("token->tk_len   :[%d]\n", token->tk_len-1);
-        i = 0;
+        printf("token->id:[%d/%d]:: {", id, tab->tk_num);
+        // printf("token->tk_len   :[%d]\n", token->tk_len);
+        i = -1;
         while(++i < tk_len)
         {
             mx_display_str(tab->cmds[id][i]);

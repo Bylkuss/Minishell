@@ -118,7 +118,7 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     set = "<|>";
     tab->token->id = 0;
-        printf("DEBUG: into... parse\n");
+        // printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
     // token_node ...
@@ -176,7 +176,7 @@ void  *check_args(char *input, t_table *tab)    // main deply >parse
     // tab->node        
     tab->node = init_split(input, " ", tab);    // space split  checked!!!
     
-    printf("\n try me node[0] = %s\n", tab->node[0]);
+    // printf("\n try me node[0] = %s\n", tab->node[0]);
 
     tab = parse_args(tab);
 
