@@ -133,10 +133,17 @@ static t_table  *parse_args(t_table *tab)
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
     // g_status = builtin(p, p->cmds, &is_exit, 0);       
+   
+   
     g_status = is_builtin(token);       
     if (g_status == 1)
         builtins_handler(tab->node[0], tab->envp);
     else
+        execmd(tab, tab->token, tk_id);
+    // {
+    //     signal(SIGINT, SIG_IGN);
+    //     signal(SIGQUIT, SIG_IGN);
+    // }
 
     printf("DEBUG : is_builtin {%d}::\n\n", g_status);      
 

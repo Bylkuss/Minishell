@@ -85,6 +85,7 @@ struct s_table
 
 
 //builtins
+// void    builtins_handler(t_table *tab, t_token *token, int id);
 void    	builtins_handler(char *input, char **envp);
 int			is_builtin(t_token *t);
 void	    exit_builtin(char **cmd);
