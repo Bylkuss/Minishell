@@ -139,6 +139,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
                 i[0]++; // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
             }   // ... spaceless node ++
+            i[1] = i[0]; 
         }
         // str avec espace
         if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  // ++ until spc found
@@ -180,7 +181,7 @@ char **init_split(char *input, char *set, t_table *tab)
     input = type_check(input, "<|>");   // purify endtype
             // printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count(input, set, count);    // substr 
-            // printf("DEBUG: init_split  ::  node_count = %d \n", n + 1); 
+            printf("DEBUG: init_split  ::  node_count = %d \n", n ); 
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char

@@ -118,7 +118,7 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     set = "<|>";
     tab->token->id = 0;
-        // printf("DEBUG: into... parse\n");
+        printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
     // token_node ...
@@ -134,9 +134,9 @@ static t_table  *parse_args(t_table *tab)
 
             i = ft_lstsize(tab->cmds);     */
         // g_status = builtin(p, p->cmds, &is_exit, 0);       
-        g_status = is_builtin(token);       
-        printf("DEBUG : is_builtin {%d}::\n", g_status);      
-        // if (g_status == 1)
+    g_status = is_builtin(token);       
+    // if (g_status == 1)
+        // printf("DEBUG : is_builtin {%d}::\n", g_status);      
 
 
     builtins_handler(tab->node[0], tab->envp);
