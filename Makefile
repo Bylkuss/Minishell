@@ -30,11 +30,11 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 all		:	$(NAME)
-			@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 $(NAME): 	$(OBJS)
 		-@$(MAKE) -C $(F_DIR) -s
 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+		@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 clean	:
 				@$(RM) $(OBJ_F) 
