@@ -32,13 +32,13 @@ static char *node_padd(char *input, char *meta)
         // printf("the padd p[3] len [%d] \n", p[3]);
         if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
             p[2] = p[1] + 2;
-        printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
+        // printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
         srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-        printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+        // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-        printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+        // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
         dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-        printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+        // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
         if (input[p[0]] != 32)// tmp -1
             tmp = ft_strjoin(" ", tmp); //add spece before
         if (input[p[2]] != 32) //tmp + 1
@@ -152,12 +152,12 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
             tab->node = ft_mx_ext(tab->node, tab->node[n]);          
-            printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
             if(i[0] == len)
             {
                 tab->node[n] = ft_strdup("@\0");
-                printf("node[%d] => ::%s::\n", n, tab->node[n]);
+                // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             }
         }           
     }

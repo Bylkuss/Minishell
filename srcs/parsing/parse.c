@@ -121,25 +121,24 @@ static t_table  *parse_args(t_table *tab)
         printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
-    // token_node ...
+        // token_node ...
     tab = token_nodes(tab); // malloc each token + each token[cmd]
-    // split_all
+        // split_all
     tab = split_all(tab); 
-    //  div_token could be after that ... in fact. div. dont need to b loop...
+        //  div_token 
     tab = div_token(tab, set); 
-
+        // get_tiken 
     tab = get_token(tab, token);
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
-
             i = ft_lstsize(tab->cmds);     */
-        // g_status = builtin(p, p->cmds, &is_exit, 0);       
+    // g_status = builtin(p, p->cmds, &is_exit, 0);       
     g_status = is_builtin(token);       
-    // if (g_status == 1)
-        // printf("DEBUG : is_builtin {%d}::\n", g_status);      
+    if (g_status == 1)
+        builtins_handler(tab->node[0], tab->envp);
+    else
 
-
-    builtins_handler(tab->node[0], tab->envp);
+    printf("DEBUG : is_builtin {%d}::\n\n", g_status);      
 
     // builtins_handler(input, tab->envp);
    
@@ -152,44 +151,43 @@ static t_table  *parse_args(t_table *tab)
     if (!is_exit && g_status == 13)
         g_status = 0;
 
-    // if (args && is_exit)
-    // {
-    //     ft_mx_free(tab->cmds);
-    //     return (NULL);
-    // }
+    if (tab->cmds && is_exit)
+    {
+
+        ft_mx_free(tab->cmds);
+        return (NULL);
+    }
     
     return (tab);
 }
 
 void  *check_args(char *input, t_table *tab)    // main deply >parse
 {
-     int n;     //int node
+    int n;     //int node
      
     n = 0;
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    
-    // builtins_handler(input, tab->envp);
-
     // tab->node        
     tab->node = init_split(input, " ", tab);    // space split  checked!!!
-    
-    // printf("\n try me node[0] = %s\n", tab->node[0]);
-
+    // parse
     tab = parse_args(tab);
 
-    // builtins_handler(tab->node[0], tab->envp);
+    //token should be execute here...
+    ///
+        // builtins_handler(tab->node[0], tab->envp);
+        // builtins_handler(input, tab->envp);
     
         // if (tab->cmds[0])
         // if (tab->cmds && tab->tk_num > 0)
-        // exit(0);
         //    if (tab && tab->cmds && tab->token && tab->tk_num > 0)
         //  {
                 // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
                 //  - 1], p->envp, 1);                                    
                 //     ft_lstclear(&p->cmds, free_content);
+        // exit(0);
         // }
     free(input);
     return (tab); 

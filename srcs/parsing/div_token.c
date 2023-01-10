@@ -87,7 +87,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		printf("DEBUG : into... into... get_token\n");	
-		while(id < tab->tk_num)
+		while(id <= tab->tk_num)
 		{
 			tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
