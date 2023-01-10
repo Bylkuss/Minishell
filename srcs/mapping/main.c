@@ -97,9 +97,9 @@ int main(int ac, char **av, char **envp)
         // builtins_handler(input, envp);
         
 
-        // free(str);
+        free(str);
         tab = check_args(input, tab);
-        if (!tab)
+        if (!(tab))
             break;
     }
     exit(g_status); 

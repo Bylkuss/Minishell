@@ -12,7 +12,12 @@
 
 #include "../../includes/minishell.h"
 
+<<<<<<< HEAD
 // //full_path maker 
+=======
+// execve twin ... 
+// 
+>>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
 // char	*getcmd(char **paths, char *cmd)
 // {
 // 	char	*tmp;
@@ -32,7 +37,11 @@
 // }
 
 // char	*getpath(char *cmd, char **env)
+<<<<<<< HEAD
     // {
+=======
+// {
+>>>>>>> 15c38402876667bfd17012b32f474eb98ad07e96
     //     char	*path;
     //     char	*dir;
     //     char	*bin;

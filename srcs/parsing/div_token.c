@@ -78,10 +78,10 @@ t_table	*get_token(t_table *tab, t_token *token)
 	typ = 0;
 	nod = 0;
 
-	if ((tab->token->id) && id < tab->tk_num && tab->cmds[id])
+	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		printf("DEBUG : into... into... get_token\n");	
-		while(id < tab->tk_num)
+		while(id <= tab->tk_num)
 		{
 			tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
@@ -211,15 +211,15 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 				// token->infile :: token->outfile 
 				// token->tkn_len	(int)
 			// needed to token command
-	// mx_display_tab(tab->node);
+	
 
 	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
-		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
+		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
-		// printf("DEBUG: token_count len (%d) \n", token->tk_len);		
+		// printf("DEBUG: tk_len (%d) \n", token->tk_len);		
 			// pass_len = tab->refs[tab->token->id];	
 			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
 			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
@@ -231,9 +231,10 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		
 
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
-		// tk_id++;
+		tk_id++;
 	}	
-	printf("DEBUG: div_token:: end...\n");
+	// display_tkn(tab);
+	// printf("DEBUG: div_token:: end...\n");
 	return (tab);    
 }
   //   ls -lt| head -2 |wc -c>> out.txt   
