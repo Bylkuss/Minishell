@@ -32,12 +32,27 @@ void *chk_error(int err_type, char *param, int err)
     return (NULL);
 }
 
+// void free_cont(void *content, int id)
+// {
+//     t_token *token;
+
+//     token->cmd = content;
+//     ft_mx_free(&token->cmd);
+//     free(token->path);
+//     if (token->infile != STDIN_FILENO)
+//         close(token->infile);
+//     if (token->outfile != STDOUT_FILENO)
+//         close(token->outfile);
+//     free(token);
+// }
+
 void free_cont(void *content, int id)
 {
     t_token *token;
 
     token->cmd = content;
     ft_mx_free(&token->cmd);
+	(void)token->path;
     free(token->path);
     if (token->infile != STDIN_FILENO)
         close(token->infile);
