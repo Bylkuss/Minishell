@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/15 10:20:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/11 10:31:41 by loadjou          ###   ########.fr       */
+/*   Created: 2023/01/11 12:14:30 by loadjou           #+#    #+#             */
+/*   Updated: 2023/01/11 12:15:54 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "../../incs/libft.h"
+#include "../../includes/minishell.h"
 
-
-char *ft_strcpy(char *s1, char *s2)
+void    error_msg(char *msg, int exiit)
 {
-	int i = 0;
-
-	while (s2[i])
-	{
-		s1[i] = s2[i];
-		i++;
-	}
-	s1[i] = '\0';
-	return (s1);
+    ft_putstr_fd(msg, 2);
+    exit(exiit);
 }
-

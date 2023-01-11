@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/10 16:18:52 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/11 12:18:08 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 
 void    exit_builtin(char **cmd)
 {
-    int exiit = ft_atoi(cmd[1]);
+    int exiit = 0;
+    int i = 0;
+    if(cmd[1] && !cmd[2])
+    {
+        while(cmd[1][i])
+        {
+            if(!ft_isdigit(cmd[1][i]))
+                error_msg("Bads args\n", 255);
+                // printf("Bad args\n");
+            i++;                
+        }
+        exiit = ft_atoi(cmd[1]);
+    }
     exit(exiit);
 }
 

@@ -132,6 +132,7 @@ t_token					*get_infile1(t_token *token, char **args);
 // t_token		*get_infile2(t_mini *token, char **args, int *i);
 //utils
 void					display_tkn(t_table *tab);
+void					error_msg(char *msg, int exiit);
 void					mx_display_tab(char **tab);
 void					mx_display_str(char *str);
 //void
