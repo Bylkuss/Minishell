@@ -1,19 +1,19 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/incs/libft.h"
 # include "../includes/get_next_line.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <fcntl.h>
-# include <signal.h>
-# include <sys/wait.h>
+# include "../libft/incs/libft.h"
 # include <dirent.h>
-# include <sys/ioctl.h>
-# include <sys/types.h>
-# include <unistd.h>
+# include <fcntl.h>
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <signal.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/ioctl.h>
+# include <sys/types.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 /* fd Refs*/
 # define READ_END 0
@@ -32,8 +32,8 @@
 
 
 /* Token's end type */
-# define DEAD_END  0
-# define PIPE_END  1
+# define DEAD_END 0
+# define PIPE_END 1
 # define OUTF1_END 2
 # define OUTF2_END 3
 # define INF1_END  4
@@ -71,18 +71,17 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 	struct s_table	*table; 
 };						//t_token;
 
-
-struct s_table
+struct					s_table
 {
-	char 	**envp;	//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
-	char 	***cmds;	//	[#][*str] 	: command seq.		CMD[#_id]["ls"]	
-	char 	**node;	//	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
-	pid_t	pid;	//	fork dup wait 
-	int 	tk_num;	// 	how many tokens ref by div_token
-	int		*refs;	// id token // cmd len
-	struct s_token	*token;	//	multi_referenciels *ptr->
-};					//t_table;
-
+	char **envp;          
+					//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	char ***cmds;          //	[#][*str] 	: command seq.		CMD[#_id]["ls"]
+	char **node;           //	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
+	pid_t pid;             //	fork dup wait
+	int tk_num;            // 	how many tokens ref by div_token
+	int *refs;             // id token // cmd len
+	struct s_token *token; //	multi_referenciels *ptr->
+};                         //t_table;
 
 //builtins
 // void    builtins_handler(t_table *tab, t_token *token, int id);
@@ -92,8 +91,15 @@ void	    exit_builtin(char **cmd);
 // cd 
 void    	cd(char **cmd, char **env);
 // echo
-void    	echo(char **cmd);
+int							echo(char **cmd);
 // pwd
+int						pwd(void);
+int						export(char **cmd, char **envp);
+void					env(char **envp);
+void					exit_builtin(char **cmd);
+char					**save_old_pwd(char **envp);
+int						unset(char **cmd, char **envp);
+char					**edit_env(char **envp, int pos);
 void		pwd(void);
 // void    export(char **cmd, char **envp);
 void    	env(char **envp);
@@ -101,28 +107,28 @@ void    	exit_builtin(char **cmd);
 char		**save_old_pwd(char **envp);
 void    	unset(char **cmd, char **envp);
 //main
-char    	*getprompt(t_table *tab);
+char					*getprompt(t_table *tab);
 //mapping
-t_table 	*init_token(t_table *tab);
-t_table 	*init_tab(t_table *tab);
+t_table					*init_token(t_table *tab);
+t_table					*init_tab(t_table *tab);
 //signal.c
-void    	handle_sigint(int sig);
-char		*ms_getenv(char *var, char **envp, int n);
-char		**ms_setenv(char *var, char *value, char **envp, int n);
+void					handle_sigint(int sig);
+char					*ms_getenv(char *var, char **envp, int n);
+char					**ms_setenv(char *var, char *value, char **envp, int n);
 //parsing
 void 	*check_args(char *out, t_table *tab);
 // init_split
-char		**init_split(char *input, char *set, t_table *tab);
+char					**init_split(char *input, char *set, t_table *tab);
 // div_token
-int			set_endtype(t_table *tab, char *etype);
-t_table		*div_token(t_table *tab, char *set);
-t_table		*get_token(t_table *tab, t_token *token);
+int						set_endtype(t_table *tab, char *etype);
+t_table					*div_token(t_table *tab, char *set);
+t_table					*get_token(t_table *tab, t_token *token);
 
 //expand
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
 //nodes
-t_table		*token_nodes(t_table *tab);
+t_table					*token_nodes(t_table *tab);
 //redir
 int			get_fd(int oldfd, char *path, t_token *token);
 t_token		*get_outfile1(t_token *token, char **args);

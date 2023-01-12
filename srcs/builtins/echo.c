@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2022/11/29 10:27:16 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/01/10 10:10:04 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 static void	print_echo(char **cmd, int flag)
 {
 	int	i;
+	int	j;
 
-	int j= 0;
+	j = 0;
 	i = flag + 1;
 	while (cmd[i])
 	{
@@ -31,7 +32,7 @@ static void	print_echo(char **cmd, int flag)
 	}
 }
 
-void	echo(char **cmd)
+int	echo(char **cmd)
 {
 	int	i;
 	int	j;
@@ -41,14 +42,16 @@ void	echo(char **cmd)
 	if (!cmd[1])
 	{
 		printf("\n");
-		return ;
+		return (1);
 	}
 	if (ft_strcmp(cmd[1], "-n") == 0)
 		flag = 1;
 	if (cmd[1])
-	{
 		print_echo(cmd, flag);
-	}
 	if (flag == 0)
+	{
 		printf("\n");
+		return (1);
+	}
+	return (0);
 }

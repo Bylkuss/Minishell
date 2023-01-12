@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2022/12/20 13:51:54 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/11 12:18:08 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,58 +41,48 @@ int is_builtin(t_token *t)
 
 void    exit_builtin(char **cmd)
 {
-    int exiit = ft_atoi(cmd[1]);
+    int exiit = 0;
+    int i = 0;
+    if(cmd[1] && !cmd[2])
+    {
+        while(cmd[1][i])
+        {
+            if(!ft_isdigit(cmd[1][i]))
+                error_msg("Bads args\n", 255);
+                // printf("Bad args\n");
+            i++;                
+        }
+        exiit = ft_atoi(cmd[1]);
+    }
     exit(exiit);
 }
 
 
 void    builtins_handler(char *input, char **envp)
 {
+    int i = 0;
     // envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
-            cd(ft_split(input, ' '), envp);
+        i = cd(ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "pwd", 10))
-        pwd();
+        i = pwd();
     else if(ft_strnstr(input, "echo", 10))
-        echo(ft_split(input, ' '));
+        i = echo(ft_split(input, ' '));
     else if(ft_strnstr(input, "env", 5))
         env(envp);
     else if(ft_strnstr(input, "unset", 10))
-        unset(ft_split(input, ' ') , envp);
-    // else if(ft_strnstr(input, "export", 10))
-    //     export(ft_split(input, ' ') , envp);
-    // else if (ft_strnstr(input, "ls", 5))
-    //     execve("/usr/bin/ls", ft_split(input, ' '), envp);
-    if (ft_strnstr(input, "exit", 5))
+    {
+        if(unset(ft_split(input, ' '), envp) == 0)
+            printf("No such variable\n");
+    } 
+    else if(ft_strnstr(input, "export", 10))
+        i = export(ft_split(input, ' ') , envp);
+    else if (ft_strnstr(input, "ls", 5))
+        execve("/bin/ls", ft_split(input, ' '), envp);
+    else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
 }
 
-// void    builtins_handler(t_table *tab, t_token *token, int id)
-// {
-//     char *input;
-//     char **envp;
 
-//     envp = tab->envp;
-//     input = token->cmd[0];
-//     // envp = save_old_pwd(envp);    
-//     if(ft_strnstr(input, "cd", 10))
-//             cd(ft_split(input, ' '), envp);
-//     else if (ft_strnstr(input, "pwd", 10))
-//         pwd();
-//     else if(ft_strnstr(input, "echo", 10))
-//         echo(ft_split(input, ' '));
-//     else if(ft_strnstr(input, "env", 5))
-//         env(envp);
-//     else if(ft_strnstr(input, "unset", 10))
-//         unset(ft_split(input, ' ') , envp);
-//     // else if(ft_strnstr(input, "export", 10))
-//     //     export(ft_split(input, ' ') , envp);
-//     else if (ft_strnstr(input, "exit", 5))
-//         exit_builtin(ft_split(input, ' '));
-//     else 
-//     {
-//         signal(SIGINT, SIG_IGN);
-//         signal(SIGQUIT, SIG_IGN);
-//         execmd(tab, tab->token, id);
-//     }
-// }
+
+
