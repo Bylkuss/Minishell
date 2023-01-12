@@ -86,18 +86,19 @@ t_table	*get_token(t_table *tab, t_token *token)
 
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
-		printf("DEBUG : into... into... get_token\n");	
+		// printf("DEBUG : into... into... get_token\n");	
 		while(id <= tab->tk_num)
 		{
 			tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
 			nod = ft_mx_len(tab->cmds[id]);
-			// tab->token->endtype = tab->node[tab->refs[id]];
-			typ = set_endtype(tab,tab->cmds[id][nod - 1]);
+			// tab->token->path = ms_getenv("PATH",tab->envp,4);
+			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			id++;
 		}
 		display_tkn(tab);
 	}
+	// tab->token->cmd[nod - 1] = NULL;
 
 			// got to do token with tab data
 			// 		- token->id = 1; parce que! tab->cmds[id]...

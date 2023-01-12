@@ -73,8 +73,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 
 struct					s_table
 {
-	char **envp;          
-					//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	char **envp;          					//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char ***cmds;          //	[#][*str] 	: command seq.		CMD[#_id]["ls"]
 	char **node;           //	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t pid;             //	fork dup wait
@@ -84,14 +83,14 @@ struct					s_table
 };                         //t_table;
 
 //builtins
-// void    builtins_handler(t_table *tab, t_token *token, int id);
-void    	builtins_handler(char *input, char **envp);
-int			is_builtin(t_token *t);
-void	    exit_builtin(char **cmd);
+int    			builtins_handler(t_table *tab, t_token *token, int id);
+// void    			builtins_handler(char *input, char **envp);
+int					is_builtin(t_token *t);
+// void	    		exit_builtin(char **cmd);
 // cd 
-void    	cd(char **cmd, char **env);
+int	cd(char **cmd, char **env);
 // echo
-int							echo(char **cmd);
+int						echo(char **cmd);
 // pwd
 int						pwd(void);
 int						export(char **cmd, char **envp);
@@ -100,12 +99,12 @@ void					exit_builtin(char **cmd);
 char					**save_old_pwd(char **envp);
 int						unset(char **cmd, char **envp);
 char					**edit_env(char **envp, int pos);
-void		pwd(void);
-// void    export(char **cmd, char **envp);
-void    	env(char **envp);
-void    	exit_builtin(char **cmd);
-char		**save_old_pwd(char **envp);
-void    	unset(char **cmd, char **envp);
+		// void		pwd(void);
+		// // void    export(char **cmd, char **envp);
+		// void    	env(char **envp);
+		// void    	exit_builtin(char **cmd);
+		// char		**save_old_pwd(char **envp);
+		// void    	unset(char **cmd, char **envp);
 //main
 char					*getprompt(t_table *tab);
 //mapping
@@ -157,14 +156,15 @@ int			str_ncmp(char *str1, char *str2, int n);
 int			str_ichr(char *str, char c);
 char		*str_ndup(char *str, unsigned int n);
 char		**str_split(char *str, char sep);
-// char		*getpath(char **env);
-// char		*getcmd(char **paths, char *cmd);
+char		*getpath(char **env);
+char		*getcmd(char **paths, char *cmd);
 
 //execmd.c
 void		*execmd(t_table *tab, t_token *token, int id);
 void		get_cmd(t_table *tab, t_token *token);
 
 //error
+void    error_msg(char *msg, int exiit);
 void		*chk_error(int err_type, char *param, int err);
 void		free_cont(void *content, int id);
 

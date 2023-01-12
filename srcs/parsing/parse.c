@@ -99,8 +99,10 @@ static t_table *split_all(t_table *tab)
     {
         //expand_var ...   
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
+        	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
         //expand_path ...         
-        tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        tab->token->path = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     return (tab); 
 }
@@ -120,7 +122,7 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 0;
         printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
-        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
+        printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
         // token_node ...
     tab = token_nodes(tab); // malloc each token + each token[cmd]
         // split_all
@@ -134,23 +136,27 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
     // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-   while (token->endtype >= 0)
+   while (tab->token->endtype >= 0)
    {
         g_status = is_builtin(token);       
-        printf("DEBUG : is_builtin {%d}::\n\n", g_status);      
+        printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        if (tab->token->endtype == 0)
+            tab->token->cmd[ft_mx_len(token->cmd)] = ft_strdup("\0");
         if (g_status == 1)
-            builtins_handler(*token->cmd, tab->envp);
+            builtins_handler(tab, token, tk_id);
         else
             execmd(tab, tab->token, tk_id);
+        printf("DEBUG : g_status << {%d} >>::\n", g_status);     
         // {
         //     signal(SIGINT, SIG_IGN);
         //     signal(SIGQUIT, SIG_IGN);
         // }
 
-        free_cont(token, tk_id);
+        // free_cont(token, tk_id);
         tk_id--;
         tab->tk_num--;
-        if (tk_id <= 0)
+        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
+        if (tk_id <= 0 || tab->tk_num == 0)
             break;
 
    }
