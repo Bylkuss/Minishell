@@ -137,6 +137,7 @@ static t_table  *parse_args(t_table *tab)
    while (token->endtype >= 0)
    {
         g_status = is_builtin(token);       
+        printf("DEBUG : is_builtin {%d}::\n\n", g_status);      
         if (g_status == 1)
             builtins_handler(*token->cmd, tab->envp);
         else
@@ -146,7 +147,6 @@ static t_table  *parse_args(t_table *tab)
         //     signal(SIGQUIT, SIG_IGN);
         // }
 
-        printf("DEBUG : is_builtin {%d}::\n\n", g_status);      
         free_cont(token, tk_id);
         tk_id--;
         tab->tk_num--;

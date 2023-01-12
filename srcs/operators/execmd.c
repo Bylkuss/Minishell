@@ -39,13 +39,13 @@ static DIR	*cmd_checks(t_table *tab, t_token *token, char **s, char *path)
 	t = token;
 	if (t && t->cmd)
 		dir = opendir(*t->cmd);
-	// if (t && t->cmd && ft_strchr(*t->cmd, '/') && !dir) //*tab instead of tab!?
-	// {
-	// 	*s = ft_split(*t->cmd, '/');
-	// 	t->path = ft_strdup(*t->cmd);
-	// 	free(t->cmd);
-	// 	t->cmd[0] = ft_strdup(s[0][ft_mx_len(*s) - 1]);
-	// }
+	if (t && t->cmd && ft_strchr(*t->cmd, '/') && !dir) //*tab instead of tab!?
+	{
+		*s = ft_split(*t->cmd, '/');
+		t->path = ft_strdup(*t->cmd);
+		free(t->cmd);
+		t->cmd[0] = ft_strdup(s[0][ft_mx_len(*s) - 1]);
+	}
 	else if (!is_builtin(t) && t && t->cmd && !dir)
 	{
 		path = ms_getenv("PATH", tab->envp, 4);
