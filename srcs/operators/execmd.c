@@ -52,10 +52,10 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 		path = ms_getenv("PATH", tab->envp, 4);
 		s = ft_split(path, ':');
 		free(t->path);
-		t->path = find_command(s, t->cmd[0], path);
+		t->path = find_command(s, *t->cmd[0], path);
 
 		if (!t->path || !t->cmd[0])// || !t->cmd[0][0])
-			chk_error(NCMD, *t->cmd, 127);
+			chk_error(NCMD, *t->cmd[0], 127);
 	}		
 	return (dir);
 }
@@ -94,7 +94,7 @@ void 	get_cmd(t_table *tab, t_token *t)
 
 	// t = token;
 	// printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
-	full_path = getpath(t->cmd[0], tab->envp);
+	full_path = getpath(*t->cmd[0], tab->envp);
 	t->path = ft_strdup((const char*)full_path);
 	// printf("DEBUG::: cmd_path {%s} \n", t->path);
 	dir = cmd_checks(tab, t, tab->envp, full_path);
@@ -117,7 +117,7 @@ void *execmd(t_table *tab, t_token *t, int id)
 	// printf("DEBUG: TEST execmd  ");
     get_cmd(tab, t);
 	if (t->path)
-		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
+		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd[0]);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, id, fd))
