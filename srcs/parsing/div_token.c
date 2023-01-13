@@ -83,7 +83,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 	id = 1;
 	typ = 0;
 	nod = 0;
-
+	printf("ok ici \n");
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		// printf("DEBUG : into... into... get_token\n");	
@@ -93,6 +93,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 			nod = ft_mx_len(tab->cmds[id]);
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+				printf("ok ici ++\n");
 			id++;
 		}
 	}
@@ -110,7 +111,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
-	printf("ok ici \n");
+	// printf("ok ici \n");
 	return (tab);
 }
 
@@ -175,7 +176,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		}
 
 		
-		// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+		tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
 		// if (tab->token->endtype == 0)
@@ -222,6 +223,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			// needed to token command
 	
 
+	printf("ok ici \n");
 	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
@@ -243,10 +245,9 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tk_id++;
 	}	
 	// display_tkn(tab);
-
+	printf("ok ici \n");
 	// printf("DEBUG: div_token:: end...\n");
 	// tab = get_token(tab, token);
-	printf("ok ici \n");
 	return (tab);    
 }
   //   ls -lt| head -2 |wc -c>> out.txt   

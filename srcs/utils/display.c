@@ -51,3 +51,32 @@ void display_tkn(t_table *tab)
         id++;
     }
 }
+
+void display_tkn_id(t_token *t, int id)
+{
+
+    int i;
+    int etype;
+    int tk_len;
+
+    i = 0;
+    if (!t)
+        exit(0);
+    
+    // token->endtype = 0;
+    // while (id <= tab->tk_num)
+    // {
+        tk_len = ft_mx_len(t->cmd[id]);
+        printf("token->id:[%d]:: {", id);
+        // printf("token->tk_len   :[%d]\n", token->tk_len);
+        i = -1;
+        while(++i < tk_len)
+        {
+            mx_display_str(t->cmd[id][i]);
+        }
+        // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
+        // etype = set_endtype(tab, t->cmd[id][tk_len - 1]);
+        printf("} :: etype:[%d]\n", t->endtype);
+        id++;
+    // }
+}

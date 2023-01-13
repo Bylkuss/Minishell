@@ -141,6 +141,7 @@ int			get_here_doc(char *str[2], char *aux[2]);
 void		display_tkn(t_table *tab);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
+void		display_tkn_id(t_token *t, int id);
 
 // char		*node_check(char *input, char *meta);
 // char		*type_check(char *input, char *meta);
