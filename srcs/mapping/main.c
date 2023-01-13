@@ -98,8 +98,7 @@ int main(int ac, char **av, char **envp)
         
 
         free(str);
-        tab = check_args(input, tab);
-        if (!(tab))
+        if (!check_args(input, tab))
             break;
     }
     exit(g_status); 
