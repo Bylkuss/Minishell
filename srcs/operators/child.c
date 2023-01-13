@@ -42,7 +42,7 @@ static void	*child_redir(t_token *t, int id, int fd[2])
 	else if (t->endtype && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
 	close(fd[WRITE_END]);
-	return ("");
+	// return ("");
 }
 
 void	*born_child(t_table *tab, t_token *t, int id, int fd[2])

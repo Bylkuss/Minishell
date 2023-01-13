@@ -66,9 +66,9 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     char *input;
     char **envp;
     int i = 0;
-    envp = tab->envp;
+    // envp = tab->envp;
     input = token->cmd[0];
-    // envp = save_old_pwd(envp);    
+    envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
         i = cd(ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "pwd", 10))
@@ -88,6 +88,12 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     //     execve("/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
+    else 
+    {
+        // signal(SIGINT, SIG_IGN);
+        // signal(SIGQUIT, SIG_IGN);
+        execmd(tab, tab->token, id);
+    }
     return (i);
 }
 

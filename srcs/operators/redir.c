@@ -22,12 +22,12 @@ int	get_fd(int oldfd, char *path, t_token *token)
 		close(oldfd);
 	if (!path)
 		return (-1);
-	// if (access(path, F_OK) == -1 && !token->infile )
-	// 	mini_perror(NDIR, path, 127);
-	// else if (!token->infile && access(path, R_OK) == -1)
-	// 	mini_perror(NPERM, path, 126);
-	// else if (token->infile && access(path, W_OK) == -1 && access(path, F_OK) == 0)
-	// 	mini_perror(NPERM, path, 126); 
+	if (access(path, F_OK) == -1 && !token->infile )
+		chk_error(NDIR, path, 127);
+	else if (!token->infile && access(path, R_OK) == -1)
+		chk_error(NPERM, path, 126);
+	else if (token->infile && access(path, W_OK) == -1 && access(path, F_OK) == 0)
+		chk_error(NPERM, path, 126); 
 
 	if (token->infile && token->outfile)
 		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);

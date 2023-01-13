@@ -136,18 +136,23 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-    tab = get_token(tab, token);
     while (tab->token->endtype >= 0)
     {
+        // first get token 
+            // all of them 
+        // then do it
+        // free content...
+
+        tab = get_token(tab, token);
 
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
-        if (tab->token->endtype == 0)
-            tab->token->tk_len--;
-        if (g_status == 1)
             builtins_handler(tab, token, tk_id);
-        else
-            execmd(tab, tab->token, tk_id);
+        // if (tab->token->endtype == 0)
+        //     tab->token->tk_len--;
+        // if (g_status == 1)
+        // else
+        //     execmd(tab, tab->token, tk_id);
         // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
         // free_cont(token, tk_id);
