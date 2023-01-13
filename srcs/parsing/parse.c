@@ -136,14 +136,15 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-    while (tab->token->endtype >= 0)
+    while (tab->token->id <= tab->tk_num)
     {
         // first get token 
             // all of them 
         // then do it
         // free content...
 
-        tab = get_token(tab, token);
+        tab->token = get_token(tab, token, token->id);
+        display_one_tkn(token, token->id);
 
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
@@ -157,9 +158,10 @@ static t_table  *parse_args(t_table *tab)
 
         // free_cont(token, tk_id);
         tk_id--;
-        tab->tk_num--;
+        tab->token->id++;
+        // tab->tk_num--;
         // printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
-        if (tk_id <= 0 || tab->tk_num == 0)
+        if (tk_id <= 0 )//|| tab->tk_num == 0)
             break;
 
    }

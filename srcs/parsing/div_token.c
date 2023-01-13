@@ -74,29 +74,29 @@ int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtyp
 }
 
 //char ** tab->node, token->id, endtype (int)
-t_table	*get_token(t_table *tab, t_token *token)  
+t_token	*get_token(t_table *tab, t_token *token, int id)  
 {
-	int id;
+	// int id;
 	int typ;	
 	int nod;	
 		
-	id = 1;
+	tab->token->id = id;
 	typ = 0;
 	nod = 0;
 
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		// printf("DEBUG : into... into... get_token\n");	
-		while(id <= tab->tk_num)
-		{
-			tab->token->id = id;
+		// while(id <= tab->tk_num)
+		// {
+			// tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
 			nod = ft_mx_len(tab->cmds[id]);
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
-			id++;
-		}
+			// id++;
+		// }
 	}
-	display_tkn(tab);
+	// display_tkn(tab);
 	if (tab->token->endtype == 0)
 		tab->token->cmd[nod - 1] = NULL;	
 
@@ -109,7 +109,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
-	return (tab);
+	return (token);
 }
 
 static int	token_count(char **nodes, char *set, int strt)

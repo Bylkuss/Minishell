@@ -121,7 +121,7 @@ char					**init_split(char *input, char *set, t_table *tab);
 // div_token
 int						set_endtype(t_table *tab, char *etype);
 t_table					*div_token(t_table *tab, char *set);
-t_table					*get_token(t_table *tab, t_token *token);
+t_token					*get_token(t_table *tab, t_token *token, int id);
 
 //expand
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
@@ -139,6 +139,7 @@ char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 int			get_here_doc(char *str[2], char *aux[2]);
 //utils
 void		display_tkn(t_table *tab);
+void		display_one_tkn(t_token *token, int id);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
 
