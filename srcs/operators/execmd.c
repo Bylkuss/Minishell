@@ -37,24 +37,16 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 
 	dir = NULL;
 	printf("DEBUG: START cmd_chk ... \n");
-	if (path)
-	{
-		// printf("DEBUG: TRY_TO_cmd_chk \n");//{%s}path \n", t->path);
-		// printf("DEBUG: {%s} path \n", path);
-		dir = opendir(t->path);
-		printf("DEBUG: TRY_TO_cmd_chk \n");//{%s}path \n", t->path);
-	}
-	else
-		printf("DEBUG: IF NO_DIR	cmd_chk ... \n");
-	if (t && t->path && ft_strchr(t->path, '/') && !dir) //*tab instead of tab!?
+	dir = opendir(path);
+	if (t && path && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 	{
 		printf("DEBUG: FIRST_IF cmd_chk ... \n");
-		s = ft_split(t->path, '/');
-		path = ft_strdup(t->path);
-		free(t->path);
-		t->path = ft_strdup(s[ft_mx_len(s) - 1]);
+		s = ft_split(path, '/');
+		path = ft_strdup(s);
+		// free(path);
+		// t->path = ft_strdup(s[ft_mx_len(s) - 1]);
 	}
-	else if (!is_builtin(t) && t && t->path && !dir)
+	else if (!is_builtin(t) && t && path && !dir)
 	{
 		printf("DEBUG: TEST -- ELSE --cmd_chk ... \n");
 		path = ms_getenv("PATH", tab->envp, 4);
@@ -102,9 +94,10 @@ void 	get_cmd(t_table *tab, t_token *t)
 	DIR		*dir;
 
 	// t = token;
-	printf("::: get_cmd ==> {%s}\n", t->cmd[0]);
+	printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
 	full_path = getpath(t->cmd[0], tab->envp);
-	printf("::: cmd_path {%s} \n", full_path);
+	t->path = ft_strdup((const char*)full_path);
+	printf("DEBUG::: cmd_path {%s} \n", t->path);
 	dir = cmd_checks(tab, t, tab->envp, full_path);
 	if (!is_builtin(t) && t && t->cmd && dir)
 		chk_error(IS_DIR, *t->cmd, 126);
@@ -130,7 +123,6 @@ void *execmd(t_table *tab, t_token *t, int id)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, id, fd))
         return (NULL);
-	printf("DEBUG: TEST execmd 2 \n");
     close(fd[WRITE_END]);
 	if (t->endtype > 3 && !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
@@ -140,6 +132,7 @@ void *execmd(t_table *tab, t_token *t, int id)
 		close(t->infile);
 	if (t->outfile > 2)
 		close(t->outfile);
+	printf("DEBUG: TEST execmd 2 \n");
 	return (NULL);
 
 }
