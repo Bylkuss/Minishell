@@ -8,7 +8,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	int		i;
 
 	i = -1;
-		printf("DEBUG: TEST find_command >> path{%s}  \n", path);
+		// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
@@ -36,15 +36,15 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 	DIR		*dir;
 
 	dir = NULL;
-	printf("DEBUG: START cmd_chk ... \n");
+	// printf("DEBUG: START cmd_chk ... \n");
 	dir = opendir(path);
 	if (t && path && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 	{
 		printf("DEBUG: FIRST_IF cmd_chk ... \n");
 		s = ft_split(path, '/');
-		path = ft_strdup(s);
+		path = ft_strdup((const char *)s);
 		// free(path);
-		// t->path = ft_strdup(s[ft_mx_len(s) - 1]);
+		path = ft_strdup(s[ft_mx_len(s) - 1]);
 	}
 	else if (!is_builtin(t) && t && path && !dir)
 	{
@@ -56,8 +56,7 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 
 		if (!t->path || !t->cmd[0])// || !t->cmd[0][0])
 			chk_error(NCMD, *t->cmd, 127);
-	}
-		
+	}		
 	return (dir);
 }
 
@@ -69,7 +68,7 @@ char	*getpath(char *cmd, char **env)
 	int		i;
 
 	i = 0;
-	printf("DEBUG: TEST getpath ");
+	// printf("DEBUG: TEST getpath ");
 	while (env[i] && str_ncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
@@ -94,10 +93,10 @@ void 	get_cmd(t_table *tab, t_token *t)
 	DIR		*dir;
 
 	// t = token;
-	printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
+	// printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
 	full_path = getpath(t->cmd[0], tab->envp);
 	t->path = ft_strdup((const char*)full_path);
-	printf("DEBUG::: cmd_path {%s} \n", t->path);
+	// printf("DEBUG::: cmd_path {%s} \n", t->path);
 	dir = cmd_checks(tab, t, tab->envp, full_path);
 	if (!is_builtin(t) && t && t->cmd && dir)
 		chk_error(IS_DIR, *t->cmd, 126);
@@ -115,7 +114,7 @@ void *execmd(t_table *tab, t_token *t, int id)
     int fd[2];
 	char *path;
 
-	printf("DEBUG: TEST execmd  ");
+	// printf("DEBUG: TEST execmd  ");
     get_cmd(tab, t);
 	if (t->path)
 		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[0]);
@@ -132,7 +131,6 @@ void *execmd(t_table *tab, t_token *t, int id)
 		close(t->infile);
 	if (t->outfile > 2)
 		close(t->outfile);
-	printf("DEBUG: TEST execmd 2 \n");
 	return (NULL);
 
 }

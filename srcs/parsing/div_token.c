@@ -92,16 +92,13 @@ t_table	*get_token(t_table *tab, t_token *token)
 			tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
 			nod = ft_mx_len(tab->cmds[id]);
-			
-			//ms_getenv("PATH",tab->envp,4);
-			// try before 
-					//find a path  + chek if it exist  and rely
-				//
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			id++;
 		}
-		display_tkn(tab);
+		// if (tab->token->endtype == 0)
+		// 	tab->token->cmd[nod - 1] = ft_strdup("\0");	
 	}
+	display_tkn(tab);
 	// tab->token->cmd[nod - 1] = NULL;
 
 			// got to do token with tab data
@@ -175,7 +172,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		}
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
-		if (tab->token->endtype == 3)
+		if (tab->token->endtype == 0)
 			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
 		id++;

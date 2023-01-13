@@ -95,8 +95,7 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
 
     // token_node ...
-    tab = token_nodes(tab); // malloc each token + each token[cmd]
-    
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
     while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
     {
         //expand_var ...   
@@ -137,12 +136,12 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-   tab = get_token(tab, token);
-   while (tab->token->endtype >= 0)
-   {
+    tab = get_token(tab, token);
+    while (tab->token->endtype >= 0)
+    {
 
         g_status = is_builtin(token);       
-        printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        // printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         if (tab->token->endtype == 0)
             tab->token->cmd[ft_mx_len(token->cmd)] = ft_strdup("\0");
         if (g_status == 1)
@@ -154,7 +153,7 @@ static t_table  *parse_args(t_table *tab)
         // free_cont(token, tk_id);
         tk_id--;
         tab->tk_num--;
-        printf("DEBUG: #token[%d]\n...\n", tab->tk_num);     
+        // printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         if (tk_id <= 0 || tab->tk_num == 0)
             break;
 

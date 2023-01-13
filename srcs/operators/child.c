@@ -13,19 +13,20 @@ void	child_builtin(t_table *tab, t_token *t, int id)
 	// else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
 	// 	g_status = pwd();
 	// else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
-	// 	g_status = echo(cmd);
-	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
-	{
-		// ft_putmatrix_fd(tab->envp, 1, 1);
-		g_status = 0;
-	}
+	// // 	g_status = echo(cmd);
+	// else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
+	// {
+	// 	// ft_putmatrix_fd(tab->envp, 1, 1);
+	// 	g_status = 0;
+	// }
 }
 
-static void	*child_redir(t_token *token, int id, int fd[2])
+static void	*child_redir(t_token *t, int id, int fd[2])
 {
-    t_token	*t;
+    // t_token	*t;
 
-	t = token;
+	// t = token;
+		// printf("DEBUG: TEST child_redir \n");
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -44,12 +45,12 @@ static void	*child_redir(t_token *token, int id, int fd[2])
 	return ("");
 }
 
-void	*born_child(t_table *tab, t_token *token, int id, int fd[2])
+void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 {
-    t_token*t;
+    // t_token*t;
 	int		l;
 
-	t = token;
+	// t = token;
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(*t->cmd);
@@ -65,7 +66,7 @@ void	*born_child(t_table *tab, t_token *token, int id, int fd[2])
 	exit(g_status);
 }
 
-void    exc_fork(t_table *tab, t_token *token, int id, int fd[2])
+void    exc_fork(t_table *tab, t_token *t, int id, int fd[2])
 {
     pid_t	pid;
 
@@ -77,27 +78,27 @@ void    exc_fork(t_table *tab, t_token *token, int id, int fd[2])
 		chk_error(FORKERR, NULL, 1);
 	}
 	else if (!pid)
-		born_child(tab, token, id, fd);
+		born_child(tab, t, id, fd);
 }
 
-void *chk_fork(t_table *tab, t_token *token, int id, int fd[2])
+void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
 {
-    t_token *t;
+    // t_token *t;
     DIR     *dir;
-
-    t = token;
+	// printf("DEBUG: TEST chk_fork \n");
+    // t = token;
     dir = NULL;
     if (t->cmd)
         dir = opendir(*t->cmd);
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
-        exc_fork(tab, token, id, fd);
+        exc_fork(tab, t, id, fd);
     else if (!is_builtin(t) && ((t->path && !access(t->path, F_OK)) || dir))
         g_status = 126;
     else if (!is_builtin(t) && t->cmd[0])
         g_status = 127;
     if (dir)
         closedir(dir);
-    return ("");
+    // return ("");
 }

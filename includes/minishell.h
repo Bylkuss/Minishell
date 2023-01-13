@@ -172,8 +172,8 @@ void		free_cont(void *content, int id);
 //child
 void		child_builtin(t_table *tab, t_token *t, int id);
 void		*born_child(t_table *tab, t_token *token, int id, int fd[2]);
-void		*chk_fork(t_table *tab, t_token *token, int id, int fd[2]);
-void    	exc_fork(t_table *tab, t_token *token, int id, int fd[2]);
+void		*chk_fork(t_table *tab, t_token *t, int id, int fd[2]);
+void    	exc_fork(t_table *tab, t_token *t, int id, int fd[2]);
 
 
 #endif
