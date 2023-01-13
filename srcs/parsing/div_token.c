@@ -92,7 +92,11 @@ t_table	*get_token(t_table *tab, t_token *token)
 			tab->token->id = id;
 			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
 			nod = ft_mx_len(tab->cmds[id]);
-			// tab->token->path = ms_getenv("PATH",tab->envp,4);
+			
+			//ms_getenv("PATH",tab->envp,4);
+			// try before 
+					//find a path  + chek if it exist  and rely
+				//
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			id++;
 		}
@@ -163,8 +167,6 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	{
 		tk_len = tab->refs[strt];
 		tab->cmds[id] = ft_mx_dup(tkn);
-			// printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
-			// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
@@ -175,10 +177,6 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		tab->token->endtype = set_endtype(tab, endt);
 		if (tab->token->endtype == 3)
 			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-			
-			// printf("DEBUG: token_fill :: etype = [%d] \n", tab->token->endtype);	
-			// printf(":: endtype = [%d] \n", type);	
-		
 		strt = id;
 		id++;
 	}
@@ -199,7 +197,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	pass_len = 0;
 	tk_id = 0;
 
-		// printf("DEBUG: div_token_ parse_ tkn_id = %d\n", tkn_id);
+		// printf("DEBUG: div_token_ parse_ tk_id = %d\n", tk_id);
 				// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
 				// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
 				// printf("DEBUG: div_token_ ref_ tab->token->id = %d\n", tab->refs[tab->token->id]);
@@ -241,7 +239,9 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tk_id++;
 	}	
 	// display_tkn(tab);
+
 	// printf("DEBUG: div_token:: end...\n");
+	// tab = get_token(tab, token);
 	return (tab);    
 }
   //   ls -lt| head -2 |wc -c>> out.txt   

@@ -115,7 +115,7 @@ void					handle_sigint(int sig);
 char					*ms_getenv(char *var, char **envp, int n);
 char					**ms_setenv(char *var, char *value, char **envp, int n);
 //parsing
-void 	*check_args(char *out, t_table *tab);
+void 					*check_args(char *out, t_table *tab);
 // init_split
 char					**init_split(char *input, char *set, t_table *tab);
 // div_token
@@ -156,12 +156,13 @@ int			str_ncmp(char *str1, char *str2, int n);
 int			str_ichr(char *str, char c);
 char		*str_ndup(char *str, unsigned int n);
 char		**str_split(char *str, char sep);
-char		*getpath(char **env);
-char		*getcmd(char **paths, char *cmd);
+// char		*getpath(t_table *tab);
+char		*getpath(char *cmd, char **env);
+// void		*getcmd(char **paths, char *cmd);
 
 //execmd.c
-void		*execmd(t_table *tab, t_token *token, int id);
-void		get_cmd(t_table *tab, t_token *token);
+void		*execmd(t_table *tab, t_token *t, int id);
+void 		get_cmd(t_table *tab, t_token *t);
 
 //error
 void    error_msg(char *msg, int exiit);
