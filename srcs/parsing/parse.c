@@ -35,41 +35,18 @@ static t_table	*token_etype(t_table *tab)
         if (cmd[id] && (id < n))
         {
             if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
-            {
-                // tab->token->endtype = 5;
                 tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '<')
-            {
-                // tab->token->endtype = 4;
                  tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
-            {
-                // tab->token->endtype = 3;
                  tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '>')
-            {
-                // tab->token->endtype = 2;
                   tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id;  
-            }
             else if (*cmd[id] == '|')
-            {
-                // tab->token->endtype = 1;
                   tab->token->id = tab->tk_num++;   
-                ref[tab->token->id] = id;     
-            }
             else if (*cmd[id] == '@')
-            {
-                // tab->token->endtype = 0;     
                   tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
+            ref[tab->token->id] = id; 
             if (tab->token->endtype != -1)
             {
                 printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
@@ -136,6 +113,7 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
+    tab = get_token(tab, token);
     while (tab->token->endtype >= 0)
     {
         // first get token 
@@ -143,11 +121,10 @@ static t_table  *parse_args(t_table *tab)
         // then do it
         // free content...
 
-        tab = get_token(tab, token);
 
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
-            builtins_handler(tab, token, tk_id);
+            builtins_handler(tab, token, token->id);
         // if (tab->token->endtype == 0)
         //     tab->token->tk_len--;
         // if (g_status == 1)
