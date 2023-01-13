@@ -90,7 +90,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 		while(id <= tab->tk_num)
 		{
 			tab->token->id = id;
-			tab->token->cmd = ft_mx_dup(tab->cmds[id]);
+			tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 			nod = ft_mx_len(tab->cmds[id]);
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			id++;
@@ -98,7 +98,7 @@ t_table	*get_token(t_table *tab, t_token *token)
 	}
 	display_tkn(tab);
 	if (tab->token->endtype == 0)
-		tab->token->cmd[nod - 1] = NULL;	
+		*tab->token->cmd[nod - 1] = NULL;	
 
 			// got to do token with tab data
 			// 		- token->id = 1; parce que! tab->cmds[id]...
@@ -163,9 +163,11 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	{
 		tk_len = tab->refs[strt];
 		tab->cmds[id] = ft_mx_dup(tkn);
+		tab->token->cmd[id] = ft_mx_dup(tkn);
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+			tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
 				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
