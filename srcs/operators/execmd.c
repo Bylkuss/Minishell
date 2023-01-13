@@ -117,7 +117,7 @@ void *execmd(t_table *tab, t_token *t, int id)
 	// printf("DEBUG: TEST execmd  ");
     get_cmd(tab, t);
 	if (t->path)
-		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[0]);
+		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, id, fd))

@@ -141,14 +141,14 @@ static t_table  *parse_args(t_table *tab)
     {
 
         g_status = is_builtin(token);       
-        // printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         if (tab->token->endtype == 0)
-            tab->token->cmd[ft_mx_len(token->cmd)] = ft_strdup("\0");
+            tab->token->tk_len--;
         if (g_status == 1)
             builtins_handler(tab, token, tk_id);
         else
             execmd(tab, tab->token, tk_id);
-        printf("DEBUG : g_status << {%d} >>::\n", g_status);     
+        // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
         // free_cont(token, tk_id);
         tk_id--;

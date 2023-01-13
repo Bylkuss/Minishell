@@ -165,7 +165,7 @@ void		*execmd(t_table *tab, t_token *t, int id);
 void 		get_cmd(t_table *tab, t_token *t);
 
 //error
-void    error_msg(char *msg, int exiit);
+void	    error_msg(char *msg, int exiit);
 void		*chk_error(int err_type, char *param, int err);
 void		free_cont(void *content, int id);
 
