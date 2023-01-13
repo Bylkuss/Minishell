@@ -100,5 +100,5 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-    // return ("");
+    return ("");
 }

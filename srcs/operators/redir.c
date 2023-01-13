@@ -28,7 +28,6 @@ int	get_fd(int oldfd, char *path, t_token *token)
 		chk_error(NPERM, path, 126);
 	else if (token->infile && access(path, W_OK) == -1 && access(path, F_OK) == 0)
 		chk_error(NPERM, path, 126); 
-
 	if (token->infile && token->outfile)
 		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);
 	else if (token->infile && !token->outfile) //(flags[0] && !flags[1]) 
@@ -64,7 +63,7 @@ t_token	*get_outfile1(t_token *token, char **args)
 		else
 			g_status = 1;
 	}
-	token->endtype = 1;
+	// token->endtype = 1;
 	return (token);
 }
 
@@ -92,7 +91,7 @@ t_token	*get_outfile2(t_token *token, char **args)
 		else
 			g_status = 1;
 	}
-	token->endtype = 2;
+	// token->endtype = 2;
 	return (token);
 }
 
@@ -100,11 +99,11 @@ t_token	*get_infile1(t_token *token, char **args)
 {
 	char	*nl;
 	int 	id;
-	// int		flags[2];
+	int		flags[2];
 
 	id = 0;
-	// flags[0] = 0;
-	// flags[1] = 0;
+	flags[0] = 0;
+	flags[1] = 0;
 	nl = "minishell: syntax error near unexpected token `newline'";
 	// (*i)++;
 	if (args[id])
@@ -120,7 +119,7 @@ t_token	*get_infile1(t_token *token, char **args)
 		else
 			g_status = 1;
 	}
-	token->endtype = 3;
+	// token->endtype = 3;
 	return (token);
 }
 

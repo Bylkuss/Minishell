@@ -24,7 +24,7 @@ static t_table	*token_etype(t_table *tab)
     id = -1;
     cmd = tab->node; 
     n = ft_mx_len(cmd);
-    printf  ("DEBUG: etype::  total node:[%d] \n", n);
+    // printf  ("DEBUG: etype::  total node:[%d] \n", n);
    
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
@@ -121,16 +121,11 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     set = "<|>";
     tab->token->id = 0;
-        printf("DEBUG: into... parse\n");
+    printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
-         // token_node ...
-        // tab = token_nodes(tab); // malloc each token + each token[cmd]
-          // split_all
     tab = split_all(tab); 
-        //  div_token 
     tab = div_token(tab, set); 
-        // get_tiken 
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
@@ -140,21 +135,20 @@ static t_table  *parse_args(t_table *tab)
     {
         // first get token 
             // all of them 
-        // then do it
-        // free content...
+            // then do it
+            // free content...
 
         tab->token = get_token(tab, token, token->id);
-        display_one_tkn(token, token->id);
-
+           // display_one_tkn(token, token->id);
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
-            builtins_handler(tab, token, tk_id);
-        // if (tab->token->endtype == 0)
-        //     tab->token->tk_len--;
-        // if (g_status == 1)
-        // else
-        //     execmd(tab, tab->token, tk_id);
-        // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
+        builtins_handler(tab, token, token->id);
+            // if (tab->token->endtype == 0)
+            //     tab->token->tk_len--;
+            // if (g_status == 1)
+            // else
+            //     execmd(tab, tab->token, tk_id);
+            // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
         // free_cont(token, tk_id);
         tk_id--;

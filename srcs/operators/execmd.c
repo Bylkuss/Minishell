@@ -115,6 +115,7 @@ void *execmd(t_table *tab, t_token *t, int id)
 	char *path;
 
 	// printf("DEBUG: TEST execmd  ");
+	display_one_tkn(t, t->id);
     get_cmd(tab, t);
 	if (t->path)
 		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);

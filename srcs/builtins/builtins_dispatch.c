@@ -25,8 +25,6 @@ int is_builtin(t_token *t)
 		return (1);
 	if (!ft_strncmp(t->cmd[0], "env", l) && l == 3)
 		return (1);
-    // if (!ft_strncmp(t->cmd[0], "ls", l) && l == 2)
-	// 	return (1);
 	if (!ft_strncmp(t->cmd[0], "cd", l) && l == 2)
 		return (1);
 	if (!ft_strncmp(t->cmd[0], "export", l) && l == 6)
@@ -98,33 +96,3 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
 }
 
 
-
-// void    builtins_handler(t_table *tab, t_token *token, int id)
-// {
-//     char *input;
-//     char **envp;
-
-//     envp = tab->envp;
-//     input = token->cmd[0];
-//     // envp = save_old_pwd(envp);    
-//     if(ft_strnstr(input, "cd", 10))
-//             cd(ft_split(input, ' '), envp);
-//     else if (ft_strnstr(input, "pwd", 10))
-//         pwd();
-//     else if(ft_strnstr(input, "echo", 10))
-//         echo(ft_split(input, ' '));
-//     else if(ft_strnstr(input, "env", 5))
-//         env(envp);
-//     else if(ft_strnstr(input, "unset", 10))
-//         unset(ft_split(input, ' ') , envp);
-//     // else if(ft_strnstr(input, "export", 10))
-//     //     export(ft_split(input, ' ') , envp);
-//     else if (ft_strnstr(input, "exit", 5))
-//         exit_builtin(ft_split(input, ' '));
-//     // else 
-//     // {
-//     //     signal(SIGINT, SIG_IGN);
-//     //     signal(SIGQUIT, SIG_IGN);
-//     //     execmd(tab, tab->token, id);
-//     // }
-// }
