@@ -90,7 +90,7 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     {
         // signal(SIGINT, SIG_IGN);
         // signal(SIGQUIT, SIG_IGN);
-        execmd(tab, tab->token, id);
+        execmd(tab, token, id);
     }
     return (i);
 }

@@ -139,7 +139,8 @@ static t_table  *parse_args(t_table *tab)
             // free content...
 
         tab->token = get_token(tab, token, token->id);
-           // display_one_tkn(token, token->id);
+
+        display_one_tkn(token, token->id);
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         builtins_handler(tab, token, token->id);

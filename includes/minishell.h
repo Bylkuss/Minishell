@@ -129,11 +129,11 @@ char		*expand_path(char *str, int i, int quotes[2], char *var);
 //nodes
 t_table					*token_nodes(t_table *tab);
 //redir
-int			get_fd(int oldfd, char *path, t_token *token);
-t_token		*get_outfile1(t_token *token, char **args);
-t_token		*get_outfile2(t_token *token, char **args);
-t_token		*get_infile1(t_token *token, char **args);
-t_token		*get_infile2(t_token *token, char **args, int *i);
+int			get_fd(int oldfd, char *path, int flags[2]);
+t_token		*get_outfile1(t_token *t, int i);
+t_token		*get_outfile2(t_token *t, int i);
+t_token		*get_infile1(t_token *t, int i);
+t_token		*get_infile2(t_token *t, int i);
 //heredoc
 char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 int			get_here_doc(char *str[2], char *aux[2]);

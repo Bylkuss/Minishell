@@ -79,7 +79,8 @@ void display_one_tkn(t_token *token, int id)
         }
         // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
         // etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
-        printf("} :: etype:[%d]\n", token->endtype);
+        printf("}::t->i:[%d]::", token->infile);
+        printf("t->o[%d]::\n", token->outfile);
         // id++;
     }
 }
