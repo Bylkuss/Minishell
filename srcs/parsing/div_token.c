@@ -165,27 +165,28 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		{
 			tab->token->cmd[id] = ft_mx_unx(tab->token->cmd[id], tab->node, tk_len);
 			// tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
-				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+				printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
 
-		
-		// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
-			// if (tab->token->endtype == 0)
-			// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+		printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+		printf("DEBUG: token_fill endt[%d]  \n", tab->token->endtype);	
+			if (tab->token->endtype == 2 || tab->token->endtype == 4)
+			{
+				tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+				tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+			}
+		// if (tab->token->endtype == 2 ||tab->token->endtype == 3)
+		// 	tab->cmds[id + 1] = ft_mx_ext(tab->cmds[id + 1], tab->node[i - 1]);
+		// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+		// if (tab->token->endtype == 0)
 		strt = id;
 		id++;
-			// if (tab->token->endtype == 2 ||tab->token->endtype == 4)
-			// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
 				// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-			// if (tab->token->endtype == 2 || tab->token->endtype == 4)
-			// {
-			// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-			// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-			// 	exts++;
-			// }
+				// exts++;
+			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 	}
 			// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
 			// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
