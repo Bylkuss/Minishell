@@ -69,13 +69,13 @@ void display_one_tkn(t_token *token, int id)
     // token->endtype = 0;
     if (token->id)
     {
-        tk_len = ft_mx_len(token->cmd);
+        tk_len = ft_mx_len(token->cmd[id]);
         printf("ONLY_ONE:: token->id:[%d]:: {", id);
         // printf("token->tk_len   :[%d]\n", token->tk_len);
         i = -1;
         while(++i < tk_len)
         {
-            mx_display_str(token->cmd[i]);
+            mx_display_str(token->cmd[id][i]);
         }
         // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
         // etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);

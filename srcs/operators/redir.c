@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:25:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:50:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_token	*get_infile2(t_token *t, int i)
 	// (*i)++;
 	if (t->path)
 	{
-		aux[0] = *t->cmd;
+		aux[0] = *t->cmd[t->id];
 		t->infile = get_here_doc(str, aux);  /*later */
 	}
 	if (!t->path || t->infile == -1)

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:23:14 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:54:29 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-    tab = get_token(tab, token);
+    token = get_token(tab, token, tk_id);
     while (tab->token->endtype >= 0)
     {
         // first get token 

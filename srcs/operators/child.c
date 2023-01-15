@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   child.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
+/*   Updated: 2023/01/14 21:34:08 by gehebert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../../includes/minishell.h"
 extern int g_status;
 
@@ -42,7 +55,7 @@ static void	*child_redir(t_token *t, int id, int fd[2])
 	else if (t->endtype && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
 	close(fd[WRITE_END]);
-	// return ("");
+	return ("");
 }
 
 void	*born_child(t_table *tab, t_token *t, int id, int fd[2])

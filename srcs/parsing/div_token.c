@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:28:05 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:51:48 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
 	// printf("ok ici \n");
-	return (tab);
+	return (token);
 }
 
 static int	token_count(char **nodes, char *set, int strt)
@@ -170,23 +170,23 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
-		// if (tab->token->endtype == 0)
-		// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+			// if (tab->token->endtype == 0)
+			// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
 		id++;
-		// if (tab->token->endtype == 2 ||tab->token->endtype == 4)
-		// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-			// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-		// if (tab->token->endtype == 2 || tab->token->endtype == 4)
-		// {
-		// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-		// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-		// 	exts++;
-		// }
+			// if (tab->token->endtype == 2 ||tab->token->endtype == 4)
+			// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+				// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+			// if (tab->token->endtype == 2 || tab->token->endtype == 4)
+			// {
+			// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+			// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+			// 	exts++;
+			// }
 	}
-		// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
-		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
-		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
+			// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
+			// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
+			// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
 	return (tab);
 }
    

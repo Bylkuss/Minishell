@@ -135,8 +135,8 @@ t_token		*get_outfile2(t_token *t, int i);
 t_token		*get_infile1(t_token *t, int i);
 t_token		*get_infile2(t_token *t, int i);
 //heredoc
-char	*get_here_str(char *str[2], size_t len, char *limit, char *warn);
-int	get_here_doc(char *str[2], char *aux[2]);
+char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
+int			get_here_doc(char *str[2], char *aux[2]);
 //utils
 void		display_tkn(t_table *tab);
 void		display_one_tkn(t_token *token, int id);
@@ -159,12 +159,12 @@ int			str_ichr(char *str, char c);
 char		*str_ndup(char *str, unsigned int n);
 char		**str_split(char *str, char sep);
 // char		*getpath(t_table *tab);
-char		*getpath(char *cmd, char **env);
 // void		*getcmd(char **paths, char *cmd);
 
 //execmd.c
 void		*execmd(t_table *tab, t_token *t, int id);
-void 		get_cmd(t_table *tab, t_token *t);
+void 		get_cmd(t_table *tab, t_token *t, int id);
+char		*getpath(char *cmd, char **env);
 
 //error
 void	    error_msg(char *msg, int exiit);
