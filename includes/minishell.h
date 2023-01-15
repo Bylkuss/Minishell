@@ -62,7 +62,7 @@ typedef struct s_table t_table;
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	*/
 {
 	int 	id;			//	# command id 
-	char	**cmd;		//	... cmd[id][node]
+	char	***cmd;		//	... cmd[id][node]
 	char 	*path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
@@ -142,6 +142,7 @@ void		display_tkn(t_table *tab);
 void		display_one_tkn(t_token *token, int id);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
+void		display_tkn_id(t_token *t, int id);
 
 // char		*node_check(char *input, char *meta);
 // char		*type_check(char *input, char *meta);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/11 12:18:08 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/14 21:22:12 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,29 @@
 int is_builtin(t_token *t)
 {
     int l;
-
+    int id;
+    
+    id = 0; 
     if (!t->cmd[0])
 		return (0);
-	if (t->cmd && ft_strchr(*t->cmd, '/') || (t->path && ft_strchr(t->path, '/')))
+	if (t->cmd && ft_strchr(*t->cmd[id], '/') || (t->path && ft_strchr(t->path, '/')))
 		return (0);
-	l = ft_strlen(t->cmd[0]);
-	if (!ft_strncmp(t->cmd[0], "pwd", l) && l == 3)
+	l = ft_strlen(*t->cmd[id]);
+	if (!ft_strncmp(*t->cmd[id], "pwd", l) && l == 3)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "env", l) && l == 3)
+	if (!ft_strncmp(*t->cmd[id], "env", l) && l == 3)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "cd", l) && l == 2)
+    // if (!ft_strncmp(t->cmd[0], "ls", l) && l == 2)
+	// 	return (1);
+	if (!ft_strncmp(*t->cmd[id], "cd", l) && l == 2)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "export", l) && l == 6)
+	if (!ft_strncmp(*t->cmd[id], "export", l) && l == 6)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "unset", l) && l == 5)
+	if (!ft_strncmp(*t->cmd[id], "unset", l) && l == 5)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "echo", l) && l == 4)
+	if (!ft_strncmp(*t->cmd[id], "echo", l) && l == 4)
 		return (1);
-	if (!ft_strncmp(t->cmd[0], "exit", l) && l == 4)
+	if (!ft_strncmp(*t->cmd[id], "exit", l) && l == 4)
 		return (1);
 	return (0);
 }
@@ -65,7 +69,8 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     char **envp;
     int i = 0;
     // envp = tab->envp;
-    input = token->cmd[0];
+    // input = token->cmd[0];
+    input = tab->token->cmd[id][0];
     envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
         i = cd(ft_split(input, ' '), envp);

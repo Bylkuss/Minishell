@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/06 09:13:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:25:54 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_token	*get_outfile1(t_token *t, int i)
 	nl = "minishell: syntax error near unexpected token `newline'";
 	i++;
 	if (t->cmd)
-		t->outfile = get_fd(t->outfile, t->cmd, flags);
+		t->outfile = get_fd(t->outfile, *t->cmd[i], flags);
 	if (!t->cmd || t->outfile == -1)
 	{
 		i = -1;
