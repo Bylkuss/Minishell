@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:51:48 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 22:43:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,7 +230,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
-		// printf("DEBUG: tk_len (%d) \n", token->tk_len);		
+		printf("DEBUG: tk_len (%d) \n", token->tk_len);		
 			// pass_len = tab->refs[tab->token->id];	
 			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
 			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
@@ -246,7 +246,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	}	
 	// display_tkn(tab);
 	printf("ok ici \n");
-	// printf("DEBUG: div_token:: end...\n");
+	printf("DEBUG: div_token:: end...\n");
 	return (tab);    
 }
   //   ls -lt| head -2 |wc -c>> out.txt   

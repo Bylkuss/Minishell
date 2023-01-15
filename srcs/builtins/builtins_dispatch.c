@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/14 21:22:12 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 22:53:05 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ int is_builtin(t_token *t)
 		return (1);
 	if (!ft_strncmp(*t->cmd[id], "env", l) && l == 3)
 		return (1);
-    // if (!ft_strncmp(t->cmd[0], "ls", l) && l == 2)
-	// 	return (1);
 	if (!ft_strncmp(*t->cmd[id], "cd", l) && l == 2)
 		return (1);
 	if (!ft_strncmp(*t->cmd[id], "export", l) && l == 6)
@@ -87,8 +85,6 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     } 
     else if(ft_strnstr(input, "export", 10))
         i = export(ft_split(input, ' ') , envp);
-    // else if (ft_strnstr(input, "ls", 5))
-    //     execve("/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
     else 

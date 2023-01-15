@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:50:07 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 23:02:15 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 {
 	int	fd;
 
-	printf("\ntoken->path = {%s}\n", path);
+	// printf("\ntoken->path = {%s}\n", path);
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
