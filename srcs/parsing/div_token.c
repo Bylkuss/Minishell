@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 22:43:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/15 02:49:25 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,18 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
-			tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
-				printf("ok ici ++\n");
+			// ended token
+			token->cmd[id] = ft_mx_unx(token->cmd[id], tab->cmds[id], nod);
+			//
+			// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+			printf("ok ici ++\n");
 			id++;
 		}
 	}
 	// display_tkn(tab);
 	if (tab->token->endtype == 0)
-		*tab->token->cmd[nod - 1] = NULL;	
+		printf("ok ici \n");
+		// *tab->token->cmd[nod - 1] = NULL;	
 	// display_tkn(tab);
 
 			// got to do token with tab data
@@ -100,7 +104,6 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
-	// printf("ok ici \n");
 	return (token);
 }
 
@@ -156,18 +159,18 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[strt];
-		tab->token->cmd[id] = ft_mx_dup(tkn);
+		// tab->token->cmd[id] = ft_mx_dup(tkn);
 		// printf("ok ici \n");
 		while (i <= (tk_len))
 		{
-			tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
+			tab->token->cmd[id] = ft_mx_unx(tab->token->cmd[id], tab->node, tk_len);
 			// tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
 				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
 
 		
-		tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+		// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
 			// if (tab->token->endtype == 0)
