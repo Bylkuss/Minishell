@@ -6,9 +6,11 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2022/12/20 13:38:09 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/10 10:00:29 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #include "../../includes/minishell.h"
 /**
@@ -38,6 +40,7 @@ static const char *get_cd_path(char **cmd, char **env)
 {
 	char *path;
 	
+	
 	path = NULL;
 	if(!cmd[1] || ft_strcmp(cmd[1], "#") == 0 || ft_strcmp(cmd[1], "~") == 0)
 		path = ms_getenv("HOME", env, 4);
@@ -45,6 +48,7 @@ static const char *get_cd_path(char **cmd, char **env)
 		path = ft_strdup("..");
 	else if (ft_strcmp(cmd[1], "/") == 0)
 		path = ft_strdup("/");
+	
 	else if (ft_strcmp(cmd[1], "-") == 0)
 		path = ft_strdup(cd_hyphen(env));
 	else
@@ -52,22 +56,30 @@ static const char *get_cd_path(char **cmd, char **env)
 	return path;
 }
 
-void	cd(char **cmd, char **env)
+int	cd(char **cmd, char **env)
 {
 	const char *path;
 	
-	if(cmd[2])
-		ft_putstr_fd("cd: too many arguments\n", 2);
+	
 	path = (const char*)get_cd_path(cmd, env);
-	if(path)
+	if (path)
 	{
 		if(chdir(path) != 0)
+		{
 			printf("cd: no such file or directory: %s\n", path);
-		// free(path);
+			return 0;
+		}
+		// free(path)
+	}
+	else if (cmd[2])
+	{
+		ft_putstr_fd("cd: too many arguments\n", 2);
+		return 0;		
 	}
 	else
 	{
 		printf("Minishell: command not found: %s\n", cmd[0]);
-		exit(2);
+		return 0;
 	}
+	return 1;
 }

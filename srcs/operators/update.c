@@ -14,21 +14,21 @@
 
 // //full_path maker 
 // char	*getcmd(char **paths, char *cmd)
-// {
-// 	char	*tmp;
-// 	char	*command;
+    // {
+    // 	char	*tmp;
+    // 	char	*command;
 
-// 	while (*paths)
-// 	{
-// 		tmp = path_join(*paths, "/");
-// 		command = path_join(tmp, cmd);
-// 		free(tmp);
-// 		if (access(command, 0) == 0)
-// 			return (command);
-// 		free(command);
-// 		paths++;
-// 	}
-// 	return (NULL);
+    // 	while (*paths)
+    // 	{
+    // 		tmp = path_join(*paths, "/");
+    // 		command = path_join(tmp, cmd);
+    // 		free(tmp);
+    // 		if (access(command, 0) == 0)
+    // 			return (command);
+    // 		free(command);
+    // 		paths++;
+    // 	}
+    // 	return (NULL);
 // }
 
 // char	*getpath(char *cmd, char **env)
