@@ -63,6 +63,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 {
 	int 	id;			//	# command id 
 	char	**cmd;		//	... cmd[id][node]
+	char 	*full;		// multi **str into  *str
 	char 	*path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 

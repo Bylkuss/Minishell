@@ -13,7 +13,9 @@
 #include "../../includes/minishell.h"
 
 extern int g_status;
-
+/*
+* etype spot endtype index (tk_len, tk_num)
+*/
 static t_table	*token_etype(t_table *tab) 
 {
     char    **cmd;
@@ -24,7 +26,7 @@ static t_table	*token_etype(t_table *tab)
     id = -1;
     cmd = tab->node; 
     n = ft_mx_len(cmd);
-    // printf  ("DEBUG: etype::  total node:[%d] \n", n);
+    //  printf  ("DEBUG: etype::  total node:[%d] \n", n);
    
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
@@ -49,7 +51,7 @@ static t_table	*token_etype(t_table *tab)
             ref[tab->token->id] = id; 
             if (tab->token->endtype != -1)
             {
-                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                // printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
         }
@@ -71,18 +73,26 @@ static t_table *split_all(t_table *tab)
     quotes[0] = 0;
     quotes[1] = 0;
 
-    // token_node ...
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    
+       printf("ok ici \n");
+    tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len_
+
+    tab = token_nodes(tab); // malloc each token + each token[cmd]
+    // token builder ...
     while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
     {
-        //expand_var ...   
+        //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
         	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
-        //expand_path ...         
+        //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        //must be token->path here
+        // could add token->full here-now ... 
+        //  token->cmd[0] ==> char *:"cmd"
+        //  token->cmd[1] ==> char *:"full cmd arg etype" ...etype will fall later
+
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
+    
     return (tab); 
 }
 
@@ -92,27 +102,30 @@ static t_table  *parse_args(t_table *tab)
     // int type_id;    // tk_id = 0;
     int is_exit;
     int tk_id;
-    char *set;
+    // char *set;
     t_token *token;
 
     token = tab->token;
     is_exit = 0;
-    set = "<|>";
+    // set = "<|>";
     tab->token->id = 0;
-    printf("DEBUG: into... parse\n");
-    tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
-        // printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
-         // token_node ...
-    tab = token_nodes(tab); // malloc each token + each token[cmd]
+        printf("DEBUG: into... parse\n");
+        // tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
+            // printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
+        //      // token_node ...
+        // tab = token_nodes(tab); // malloc each token + each token[cmd]
           // split_all
     tab = split_all(tab); 
-    tab = div_token(tab, set); 
+        // printf("ok ici around _div\n");
+    tab = div_token(tab, "<|>"); 
+    token = get_token(tab, token, tk_id);
+    // token = div_token(tab, "<|>"); 
+
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-    token = get_token(tab, token, tk_id);
     while (tab->token->endtype >= 0)
     {
         // first get token 

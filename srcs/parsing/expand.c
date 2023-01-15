@@ -57,7 +57,7 @@ char    *expand_path(char *str, int i, int quotes[2], char *var)
     return (str);
 }
 
-char    *expand_vars(char *str, int i, int quotes[2], t_table *tab)
+char    *expand_vars(char *str, int i, int quotes[2], t_table *tab) // bonus check
 {
     quotes[0] = 0;
     quotes[1] = 0;
