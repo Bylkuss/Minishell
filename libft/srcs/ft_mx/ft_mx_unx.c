@@ -23,24 +23,24 @@ char *ft_mx_unx(char *full, char **tab, int len)
     if (!tab)
         return (full);   
     if (!len)
-    len = ft_mx_len(tab);
-        // tab = malloc(sizeof(char *) * (len + 2));
+        len = ft_mx_len(tab);
+    full = malloc(sizeof(char *) * (len + 1));
         // tab[len + 1] = NULL;
         // if (!tab)
         //     return (stk);
     while(++i < len)
     {
         full = ft_strjoin(full, tab[i]);
-        if (++i < len)
-        {
+        if (i + 1 < len)
             full = ft_strjoin(full, " ");
-            i--;
+        // {
+            // i--;
             
             // ft_mx_free(&stk);
             // ft_mx_free(&tab);
-        }
+        // }
     }
     //  = ft_strdup(str);
-    ft_mx_free(&tab);
+    // ft_mx_free(&tab);
     return (full);
 }

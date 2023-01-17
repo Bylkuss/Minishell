@@ -72,28 +72,37 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		
 	typ = 0;
 	nod = 0;
-	printf("ok ici \n");
+	printf("ok ici id [%d]\n", id);
+	printf("ok ici tk_num [%d]\n", tab->tk_num);
+	printf("ok ici token->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
-		// printf("DEBUG : into... into... get_token\n");	
+		printf("DEBUG : into... into... get_token\n");	
 		while(id <= tab->tk_num)
 		{
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
-			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
-			// ended token
-			token->cmd[id] = ft_mx_unx(token->cmd[id], tab->cmds[id], nod);
+			printf("ok ici tk_len [%d]\n", nod);
 			//
+			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
+			tab->token->full = ft_mx_unx(tab->token->full, tab->cmds[id], nod);
+			//
+			// if (tab->token->full)
+			printf(("DEBUG: token->full {%s}\n", tab->token->full));
+			// ended token
+			//
+			// mx_display_str(token->cmd[id]);
 			// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
 			printf("ok ici ++\n");
 			id++;
 		}
+
+		// display_one_tkn(tab->token, tab->token->id);	
 	}
 	// display_tkn(tab);
 	if (tab->token->endtype == 0)
-		printf("ok ici \n");
-		// *tab->token->cmd[nod - 1] = NULL;	
-	// display_tkn(tab);
+		printf("ok ici endtype\n");
+		// tab->token->cmd[nod - 1] = NULL;	
 
 			// got to do token with tab data
 			// 		- token->id = 1; parce que! tab->cmds[id]...
@@ -207,7 +216,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[strt];
-		printf("ok ici id[%d] len(%d)\n", id, tk_len);
+		printf("ok ici id[%d] idx(%d)\n", id, tk_len);
 		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i <= (tk_len))
 		{
@@ -294,8 +303,12 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	}	
 	printf("ok ici \n");
 
-	// tab->token = get_token(tab, token, 1);
 	printf("DEBUG: div_token:: end...\n");
+	tab->token = get_token(tab, token, 1);
+	/*
+	now tab->cmds[id][cmd[0]] 				char *
+	and then so ... tab->cmds[id][cmd[i++]] char *
+	*/
 
 	// display_tkn(tab);
 	return (tab);    

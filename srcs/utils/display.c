@@ -17,7 +17,7 @@ void mx_display_tab(char **tab)
 
 void mx_display_str(char *str)
 {
-    printf(" {%s} ", str);
+    printf(" \n{%s}\n ", str);
 }
 
 // void display_tkn(t_table *tab)

@@ -108,7 +108,7 @@ static t_table  *parse_args(t_table *tab)
     token = tab->token;
     is_exit = 0;
     // set = "<|>";
-    tab->token->id = 0;
+    tab->token->id = 1;
         printf("DEBUG: into... parse\n");
         // tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
             // printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
@@ -118,7 +118,7 @@ static t_table  *parse_args(t_table *tab)
     tab = split_all(tab); 
         // printf("ok ici around _div\n");
     tab = div_token(tab, "<|>"); 
-    token = get_token(tab, token, tk_id);
+    // token = get_token(tab, token, tk_id);
     // token = div_token(tab, "<|>"); 
 
         /*  tab->node [*str]  sep.space. node -ID.less
