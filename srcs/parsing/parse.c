@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/05 05:58:40 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 21:54:29 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,18 @@ static t_table	*token_etype(t_table *tab)
         if (cmd[id] && (id < n))
         {
             if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
-            {
-                // tab->token->endtype = 5;
                 tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '<')
-            {
-                // tab->token->endtype = 4;
                  tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
-            {
-                // tab->token->endtype = 3;
                  tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
             else if (*cmd[id] == '>')
-            {
-                // tab->token->endtype = 2;
                   tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id;  
-            }
             else if (*cmd[id] == '|')
-            {
-                // tab->token->endtype = 1;
                   tab->token->id = tab->tk_num++;   
-                ref[tab->token->id] = id;     
-            }
             else if (*cmd[id] == '@')
-            {
-                // tab->token->endtype = 0;     
                   tab->token->id = tab->tk_num++; 
-                ref[tab->token->id] = id; 
-            }
+            ref[tab->token->id] = id; 
             if (tab->token->endtype != -1)
             {
                 printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
@@ -95,7 +72,8 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
 
     // token_node ...
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    
     while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
     {
         //expand_var ...   
@@ -124,6 +102,9 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
+         // token_node ...
+    tab = token_nodes(tab); // malloc each token + each token[cmd]
+          // split_all
     tab = split_all(tab); 
     tab = div_token(tab, set); 
         /*  tab->node [*str]  sep.space. node -ID.less
@@ -131,25 +112,25 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
    
-    while (tab->token->id <= tab->tk_num)
+    token = get_token(tab, token, tk_id);
+    while (tab->token->endtype >= 0)
     {
         // first get token 
             // all of them 
             // then do it
             // free content...
 
-        tab->token = get_token(tab, token, token->id);
 
         display_one_tkn(token, token->id);
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
-        builtins_handler(tab, token, token->id);
-            // if (tab->token->endtype == 0)
-            //     tab->token->tk_len--;
-            // if (g_status == 1)
-            // else
-            //     execmd(tab, tab->token, tk_id);
-            // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
+            builtins_handler(tab, token, token->id);
+        // if (tab->token->endtype == 0)
+        //     tab->token->tk_len--;
+        // if (g_status == 1)
+        // else
+        //     execmd(tab, tab->token, tk_id);
+        // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
         // free_cont(token, tk_id);
         tk_id--;

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 08:48:23 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/14 23:02:15 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 {
 	int	fd;
 
-	printf("\ntoken->path = {%s}\n", path);
+	// printf("\ntoken->path = {%s}\n", path);
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
@@ -52,7 +52,7 @@ t_token	*get_outfile1(t_token *t, int i)
 	nl = "minishell: syntax error near unexpected token `newline'";
 	i++;
 	if (t->cmd)
-		t->outfile = get_fd(t->outfile, t->cmd, flags);
+		t->outfile = get_fd(t->outfile, *t->cmd[i], flags);
 	if (!t->cmd || t->outfile == -1)
 	{
 		i = -1;
@@ -137,7 +137,7 @@ t_token	*get_infile2(t_token *t, int i)
 	// (*i)++;
 	if (t->path)
 	{
-		aux[0] = *t->cmd;
+		aux[0] = *t->cmd[t->id];
 		t->infile = get_here_doc(str, aux);  /*later */
 	}
 	if (!t->path || t->infile == -1)

@@ -62,7 +62,7 @@ typedef struct s_table t_table;
 struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	*/
 {
 	int 	id;			//	# command id 
-	char	**cmd;		//	... cmd[id][node]
+	char	***cmd;		//	... cmd[id][node]
 	char 	*path;		// relative || absolute
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
@@ -142,12 +142,13 @@ void		display_tkn(t_table *tab);
 void		display_one_tkn(t_token *token, int id);
 void		mx_display_tab(char **tab);
 void		mx_display_str(char *str);
+void		display_tkn_id(t_token *t, int id);
 
 // char		*node_check(char *input, char *meta);
 // char		*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
-
+char		*getcmd(char **paths, char *cmd);
 void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
 
@@ -158,12 +159,12 @@ int			str_ichr(char *str, char c);
 char		*str_ndup(char *str, unsigned int n);
 char		**str_split(char *str, char sep);
 // char		*getpath(t_table *tab);
-char		*getpath(char *cmd, char **env);
 // void		*getcmd(char **paths, char *cmd);
 
 //execmd.c
 void		*execmd(t_table *tab, t_token *t, int id);
-void 		get_cmd(t_table *tab, t_token *t);
+void 		get_cmd(t_table *tab, t_token *t, int id);
+char		*getpath(char *cmd, char **env);
 
 //error
 void	    error_msg(char *msg, int exiit);

@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execmd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
+/*   Updated: 2023/01/14 21:49:26 by gehebert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "../../includes/minishell.h"
 extern int g_status;
 
@@ -52,20 +65,20 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 		path = ms_getenv("PATH", tab->envp, 4);
 		s = ft_split(path, ':');
 		free(t->path);
-		t->path = find_command(s, t->cmd[0], path);
+		t->path = find_command(s, *t->cmd[0], path);
 
 		if (!t->path || !t->cmd[0])// || !t->cmd[0][0])
-			chk_error(NCMD, *t->cmd, 127);
+			chk_error(NCMD, *t->cmd[0], 127);
 	}		
 	return (dir);
 }
 
 char	*getpath(char *cmd, char **env)
 {
-	char	*path;
 	char	*dir;
 	char	*bin;
 	int		i;
+	char *path;
 
 	i = 0;
 	// printf("DEBUG: TEST getpath ");
@@ -87,19 +100,22 @@ char	*getpath(char *cmd, char **env)
 	return (cmd);
 }
 
-void 	get_cmd(t_table *tab, t_token *t)
+void 	get_cmd(t_table *tab, t_token *t, int id)
 {
 	char	*full_path;
 	DIR		*dir;
 
 	// t = token;
 	// printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
-	full_path = getpath(t->cmd[0], tab->envp);
-	t->path = ft_strdup((const char*)full_path);
-	// printf("DEBUG::: cmd_path {%s} \n", t->path);
+	if (!t->path)
+	{
+		full_path = getpath(*t->cmd[id], tab->envp);
+		t->path = ft_strdup((const char*)full_path);
+		printf("DEBUG::: cmd_path {%s} \n", t->path);
+	}
 	dir = cmd_checks(tab, t, tab->envp, full_path);
 	if (!is_builtin(t) && t && t->cmd && dir)
-		chk_error(IS_DIR, *t->cmd, 126);
+		chk_error(IS_DIR, t->path, 126);
 	else if (!is_builtin(t) && t && t->path && access(t->path, F_OK) == -1)
 		chk_error(NDIR, t->path, 127);
 	else if (!is_builtin(t) && t && t->path && access(t->path, X_OK) == -1)
@@ -115,10 +131,10 @@ void *execmd(t_table *tab, t_token *t, int id)
 	char *path;
 
 	// printf("DEBUG: TEST execmd  ");
-	display_one_tkn(t, t->id);
-    get_cmd(tab, t);
+	// display_one_tkn(t, t->id);
+    get_cmd(tab, t, id);
 	if (t->path)
-		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
+		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd[0]);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, id, fd))
