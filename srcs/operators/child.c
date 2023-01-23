@@ -18,7 +18,7 @@ void	child_builtin(t_table *tab, t_token *t, int id)
 {
     int l;  //cmd len
 
-    l = ft_strlen(t->cmd[0]);
+    l = ft_strlen(t->cmd[0]);	
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(t) && t->cmd)
@@ -98,18 +98,21 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
 {
     // t_token *t;
     DIR     *dir;
-	// printf("DEBUG: TEST chk_fork \n");
+	printf("DEBUG: TEST chk_fork \n");
     // t = token;
     dir = NULL;
     if (t->cmd)
-        dir = opendir(t->cmd[0]);
+        dir = opendir(t->path);
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
         exc_fork(tab, t, id, fd);
     else if (!is_builtin(t) && ((t->path && !access(t->path, F_OK)) || dir))
+	{
+		printf("DEBUG: GRR.. exc_frk\n");
         g_status = 126;
-    else if (!is_builtin(t) && t->cmd[0])
+	}
+    else if (!is_builtin(t) && t->full)
         g_status = 127;
     if (dir)
         closedir(dir);

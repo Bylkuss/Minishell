@@ -66,37 +66,34 @@ static t_table *split_all(t_table *tab)
 
     i = -1;
     tab->token->id = 1;
-    tkn_id = 0;
+    tkn_id = 1;
     quotes[0] = 0;
     quotes[1] = 0;
 
     // need to build get_token HERE...
-
-    // set token->cmd** ==> node[cmd] + node[arg]
-    // set token->path* =>> (!is_buitins) 
-    // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
-    // set endtype  ==>  token->endtype  ==> behavior related!
-    // infile=0; outfile=1; 
+        // set token->cmd** ==> node[cmd] + node[arg]
+        // set token->path* =>> (!is_buitins) 
+        // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
+        // set endtype  ==>  token->endtype  ==> behavior related!
+        // infile=0; outfile=1; 
 
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
-
         	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
-
+            
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-        
 
         //must be token->path here
-        // could add token->full here-now ... 
-        //  token->cmd[0] ==> char *:"cmd"
-        //  token->cmd[1] ==> char *:"full cmd arg etype" ...etype will fall later
+            // could add token->full here-now ... 
+            //  token->cmd[0] ==> char *:"cmd"
+            //  token->cmd[1] ==> char *:"full cmd arg etype" ...etype will fall later
 
-        // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
+            // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
-    
+    tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
 
@@ -123,6 +120,7 @@ static t_table  *parse_args(t_table *tab)
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
+    // if (tab->token->endtype >= 0)
     while (tab->token->endtype >= 0)
     {
         // first get token 
@@ -135,40 +133,47 @@ static t_table  *parse_args(t_table *tab)
         //  // fill is form ... t->cmd** t->path t->endtype
         //  // 
         g_status = is_builtin(token);       
-        printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        if (g_status == 1)
+            printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        builtins_handler(tab, tab->token, token->id);
+            
+                // {
         
-        builtins_handler(tab, token, token->id);
-        
-        if (tab->token->endtype == 0)
-            execmd(tab, tab->token, tk_id);
+            // if (tab->token->endtype == 0)
+            // {
+            //     execmd(tab, tab->token, tk_id);
+
+            // }
         //     tab->token->tk_len--;
-        // if (g_status == 1)
         // else
         // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
-        // free_cont(token, tk_id);
+        free_cont(tab->token, tk_id);
         tk_id--;
         tab->token->id++;
+        if (tk_id > 0 )//|| tab->tk_num == 0)
+        tab->token = get_token(tab, tab->token, tk_id);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
-        if (tk_id <= 0 )//|| tab->tk_num == 0)
-            break;
+        //     break;
 
    }
    
     tk_id = tab->tk_num;
     while (tk_id-- > 0)
         waitpid(-1, &g_status, 0);
-    if (g_status > 255)
-        g_status = g_status / 255;
         //
     if (!is_exit && g_status == 13)
         g_status = 0;
 
+    if (g_status > 255)
+        g_status = g_status / 255;
     if (tab->cmds && is_exit)
     {
-
         ft_mx_free(tab->cmds);
+        ft_mx_free(&tab->node);
+        free_cont(tab->token,tk_id);
+        ft_mx_free(&tab->token->cmd);
         return (NULL);
     }
     

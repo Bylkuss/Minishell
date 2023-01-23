@@ -68,13 +68,15 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 {
 	int typ;	
 	int nod;	
+	int i;
 	// int *i;
 		
 	typ = 0;
 	nod = 0;
-	printf("ok ici id [%d]\n", id);
-	printf("ok ici tk_num [%d]\n", tab->tk_num);
-	printf("ok ici token->id [%d]\n", tab->token->id);
+	i = -1;
+	// printf("ok ici id [%d]\n", id);
+	// printf("ok ici tk_num [%d]\n", tab->tk_num);
+	// printf("ok ici token->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		printf("DEBUG : into... into... get_token\n");	
@@ -82,26 +84,41 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		{
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
-			// printf("ok ici tk_len [%d]\n", nod);
+			printf("ok ici tk_len [%d]\n", nod);
 			//
-			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
-			tab->token->full = ft_mx_unx(tab->token->full, tab->cmds[id], nod);
+			// tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
+			// tab->token->cmd = ft_mx_dup(tab->cmds[id]);
+			printf("DEBUG: t->cmd len= %d \n",ft_mx_len(tab->token->cmd));
 			//
 			// if (tab->token->full)
-			// printf(("DEBUG: token->full {%s}\n", tab->token->full));
+			while(++i < (nod - 1))
+			{
+				tab->token->cmd = ft_mx_ext(tab->token->cmd, tab->cmds[id][i]);
+				tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
+				if ((i + 1) < (nod - 1))
+					tab->token->full = ft_strjoin(tab->token->full, " ");
+
+			}
+			printf("DEBUG: token->full __%s__\n", tab->token->full);
+			i = -1;
 			// ended token
 			//
-			// mx_display_str(token->cmd[id]);
+			if (tab->token->endtype == 0)
+			{
+
+				printf("\nok ici endtype= 0\n");
+				return(tab->token);
+			}
 			// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
-			// printf("ok ici ++\n");
+			printf("ok ici ++\n");
+			mx_display_tab(tab->token->cmd);
 			id++;
 		}
+
 
 		// display_one_tkn(tab->token, tab->token->id);	
 	}
 	// display_tkn(tab);
-	if (tab->token->endtype == 0)
-		printf("ok ici endtype\n");
 		// tab->token->cmd[nod - 1] = NULL;	
 
 			// got to do token with tab data
@@ -113,7 +130,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
-	return (token);
+	return (tab->token);
 }
 
 static int	token_count(char **nodes, char *set, int strt)
