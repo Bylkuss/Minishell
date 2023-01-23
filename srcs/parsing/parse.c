@@ -113,8 +113,8 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
     printf("DEBUG: #token[] ... ...\n");//, tab->tk_num);             
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    // tab = div_token(tab, "<|>"); // padd endtype + set token 
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
