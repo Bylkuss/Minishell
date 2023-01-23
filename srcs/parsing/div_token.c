@@ -72,9 +72,9 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		
 	typ = 0;
 	nod = 0;
-	// printf("ok ici id [%d]\n", id);
-	// printf("ok ici tk_num [%d]\n", tab->tk_num);
-	// printf("ok ici token->id [%d]\n", tab->token->id);
+	printf("ok ici id [%d]\n", id);
+	printf("ok ici tk_num [%d]\n", tab->tk_num);
+	printf("ok ici token->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		printf("DEBUG : into... into... get_token\n");	
@@ -153,6 +153,7 @@ static int	token_count(char **nodes, char *set, int strt)
 	return (n); 
 }
 
+// token_fill : use tab->cmds[] to stack token... former tab->node[]
 static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 {	
 	int i;	//node pos
@@ -177,14 +178,17 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		}
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
+		
 	/***
 	
 	
 	*/
-		// if (tab->token->endtype == 0)
-		// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+		if (tab->token->endtype == 0)
+			break;
+			// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
 		id++;
+		// tab->token->id++;
 			// if (tab->token->endtype == 2 ||tab->token->endtype == 4)
 			// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], 	tab->node[i]);
 				// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
@@ -257,16 +261,13 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		tk_id++;
 	}	
-	// printf("ok ici \n");
+	printf("DEBUG: div_token:: end...\n ... go for get_token \n");
+		// tab->token = get_token(tab, token, 1);
+		/*
+		now tab->cmds[id][cmd[0]] 				char *
+		and then so ... tab->cmds[id][cmd[i++]] char *
+		*/
 
-	printf("DEBUG: div_token:: end...\n");
-	// tab->token = get_token(tab, token, 1);
-	/*
-	now tab->cmds[id][cmd[0]] 				char *
-	and then so ... tab->cmds[id][cmd[i++]] char *
-	*/
-
-	// display_tkn(tab);
 	return (tab);    
 }
   //   ls -lt| head -2 |wc -c>> out.txt   

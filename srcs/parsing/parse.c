@@ -29,7 +29,7 @@ static t_table	*token_etype(t_table *tab)
     tab->token->id = 0;
     tab->tk_num = 0;
     ref[tab->token->id] = 0; 
-    printf  ("DEBUG: mx_len[%d]\n", n);
+    // printf  ("DEBUG: mx_len[%d]\n", n);
     while (id++ <= n)
     {
         tab->token->id = tab->tk_num; 
@@ -51,7 +51,7 @@ static t_table	*token_etype(t_table *tab)
             ref[tab->token->id] = id; 
         }
     }
-    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    // printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
 
     tab->refs = ref;
     return (tab);
@@ -70,22 +70,31 @@ static t_table *split_all(t_table *tab)
     quotes[0] = 0;
     quotes[1] = 0;
 
-    // token_node ...
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    // tab = div_token(tab, "<|>"); // padd endtype + set token 
-    while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
+    // need to build get_token HERE...
+
+    // set token->cmd** ==> node[cmd] + node[arg]
+    // set token->path* =>> (!is_buitins) 
+    // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
+    // set endtype  ==>  token->endtype  ==> behavior related!
+    // infile=0; outfile=1; 
+
+    while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
+
         	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
+
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
+        
+
         //must be token->path here
         // could add token->full here-now ... 
         //  token->cmd[0] ==> char *:"cmd"
         //  token->cmd[1] ==> char *:"full cmd arg etype" ...etype will fall later
 
-            // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
+        // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     
     return (tab); 
@@ -114,7 +123,7 @@ static t_table  *parse_args(t_table *tab)
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
-    while (tab->token->endtype > -1 )
+    while (tab->token->endtype >= 0)
     {
         // first get token 
             // all of them 
