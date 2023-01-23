@@ -47,7 +47,7 @@ void    execustom(char **out, char *full, char *args, char **envp)
     {
         close(fd[READ_END]);
         mx = ft_split(args, ' ');
-        mx = ft_split(args, ' ');                                  
+        // mx = ft_split(args, ' ');                                  
         dup2(fd[WRITE_END], STDOUT_FILENO);
         close(fd[WRITE_END]);
         if(!access(full, F_OK))

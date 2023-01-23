@@ -111,27 +111,23 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 0;
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
-        printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
-            // token_node ...
-            // tab = token_nodes(tab); // malloc each token + each token[cmd]
-        
-    // split_all
-    tab = split_all(tab); 
-        // tab = div_token(tab, set); 
-        
+    printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);             
+    tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
-   
-    while (tab->token->endtype >= 0)
+    while (tab->token->endtype != 0)
     {
         // first get token 
             // all of them 
             // then do it
             // free content...
 
-
+        // set a token for each endtype
+        //
+        //  // fill is form ... t->cmd** t->path t->endtype
+        //  // 
         // display_one_tkn(token, token->id);
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
