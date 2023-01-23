@@ -93,18 +93,13 @@ int	cd(char **cmd, char **env);
 int						echo(char **cmd);
 // pwd
 int						pwd(void);
-int						export(char **cmd, char **envp);
+int						ms_export(char **cmd, char **envp);
 void					env(char **envp);
 void					exit_builtin(char **cmd);
 char					**save_old_pwd(char **envp);
 int						unset(char **cmd, char **envp);
 char					**edit_env(char **envp, int pos);
-		// void		pwd(void);
-		// // void    export(char **cmd, char **envp);
-		// void    	env(char **envp);
-		// void    	exit_builtin(char **cmd);
-		// char		**save_old_pwd(char **envp);
-		// void    	unset(char **cmd, char **envp);
+		
 //main
 char					*getprompt(t_table *tab);
 //mapping

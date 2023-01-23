@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:54:29 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:31:30 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_table	*token_etype(t_table *tab)
     id = -1;
     cmd = tab->node; 
     n = ft_mx_len(cmd);
+    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
     // printf  ("DEBUG: etype::  total node:[%d] \n", n);
    
     tab->token->id = 0;
@@ -49,7 +50,8 @@ static t_table	*token_etype(t_table *tab)
             ref[tab->token->id] = id; 
             if (tab->token->endtype != -1)
             {
-                printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
+                printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+                //    printf  ("DEBUG: tk_num[%d]: etype_pos[%d]  \n", tab->tk_num, ref[tab->token->id]);
                 tab->token->endtype = -1;   
             }
         }
@@ -72,8 +74,8 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
 
     // token_node ...
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
     while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
     {
         //expand_var ...   
@@ -92,21 +94,23 @@ static t_table  *parse_args(t_table *tab)
     // int type_id;    // tk_id = 0;
     int is_exit;
     int tk_id;
-    char *set;
+    // char *set;
     t_token *token;
 
     token = tab->token;
     is_exit = 0;
-    set = "<|>";
+    // set = "<|>";
     tab->token->id = 0;
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
         printf("DEBUG: #token[%d] ... ...\n", tab->tk_num);     
-         // token_node ...
-    tab = token_nodes(tab); // malloc each token + each token[cmd]
-          // split_all
+            // token_node ...
+            // tab = token_nodes(tab); // malloc each token + each token[cmd]
+        
+    // split_all
     tab = split_all(tab); 
-    tab = div_token(tab, set); 
+        // tab = div_token(tab, set); 
+        
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
@@ -121,7 +125,7 @@ static t_table  *parse_args(t_table *tab)
             // free content...
 
 
-        display_one_tkn(token, token->id);
+        // display_one_tkn(token, token->id);
         g_status = is_builtin(token);       
         printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
             builtins_handler(tab, token, token->id);
