@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/22 18:30:07 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:35:36 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     char **envp;
     int i = 0;
     // envp = tab->envp;
-    // input = token->cmd[0];
-    input = tab->token->cmd[id][0];
+    input = token->cmd[0];
+    // input = tab->token->cmd[id][0];
     envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
         i = cd(ft_split(input, ' '), envp);

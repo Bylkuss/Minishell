@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/14 21:34:08 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/22 21:43:04 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	child_builtin(t_table *tab, t_token *t, int id)
 {
     int l;  //cmd len
 
-    l = ft_strlen(*t->cmd[0]);
+    l = ft_strlen(t->cmd[0]);
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(t) && t->cmd)
-		execve(t->path, *t->cmd, tab->envp);
+		execve(t->path, t->cmd, tab->envp);
 	// else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
 	// 	g_status = pwd();
 	// else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
@@ -66,7 +66,7 @@ void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 	// t = token;
 	l = 0;
 	if (t->cmd)
-		l = ft_strlen(*t->cmd[0]);
+		l = ft_strlen(t->cmd[0]);
 
 	child_redir(t, id, fd);
 
@@ -102,14 +102,14 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
     // t = token;
     dir = NULL;
     if (t->cmd)
-        dir = opendir(*t->cmd[0]);
+        dir = opendir(t->cmd[0]);
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
         exc_fork(tab, t, id, fd);
     else if (!is_builtin(t) && ((t->path && !access(t->path, F_OK)) || dir))
         g_status = 126;
-    else if (!is_builtin(t) && *t->cmd[0])
+    else if (!is_builtin(t) && t->cmd[0])
         g_status = 127;
     if (dir)
         closedir(dir);

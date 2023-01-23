@@ -51,7 +51,7 @@ void free_cont(void *content, int id)
     t_token *token;
 
     token->cmd = content;
-    ft_mx_free(&token->cmd[id]);
+    // ft_mx_free(&token->cmd[id]);
 	(void)token->path;
     free(token->path);
     if (token->infile != STDIN_FILENO)

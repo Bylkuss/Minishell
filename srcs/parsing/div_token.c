@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/15 02:49:25 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/22 22:02:45 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->full = ft_mx_unx(tab->token->full, tab->cmds[id], nod);
 			//
 			// if (tab->token->full)
-			printf(("DEBUG: token->full {%s}\n", tab->token->full));
+			// printf(("DEBUG: token->full {%s}\n", tab->token->full));
 			// ended token
 			//
 			// mx_display_str(token->cmd[id]);
@@ -113,7 +113,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
 
-	// return (token);
+	return (token);
 }
 
 static int	token_count(char **nodes, char *set, int strt)
@@ -153,99 +153,143 @@ static int	token_count(char **nodes, char *set, int strt)
 	return (n); 
 }
 
-// static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
-	// {	
-	// 	int i;	//node pos
-	// 	int id;
-	// 	int tk_len;
-	// 	char *endt;
-	// 	// int exts;
-		
-	// 	// exts = 0;
-	// 	tk_len = 0;
-	// 	i = 0;
-	// 	id = tab->token->id;
-	// 	while (id <= tab->tk_num)
-	// 	{
-	// 		tk_len = tab->refs[strt];
-	// 		tab->token->cmd[id] = ft_mx_dup(tkn);
-	// 		// printf("ok ici \n");
-	// 		while (i <= (tk_len))
-	// 		{
-	// 			tab->cmds[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
-	// 				printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
-	// 			i++;
-	// 		}
-	// 		tab->token->cmd[id] = ft_mx_unx(tab->token->cmd[id], tab->node, tk_len);
-
-	// 		endt = tab->node[tab->refs[id-1]];
-	// 		tab->token->endtype = set_endtype(tab, endt);
-	// 				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
-	// 				// printf("DEBUG: token_fill endt[%d]  \n", tab->token->endtype);	
-	// 		id++;
-	// 		if (tab->token->endtype > 1 )//|| tab->token->endtype == 4)
-	// 		{
-	// 			tab->token->cmd[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-	// 			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-	// 		}
-	// 		// if (tab->token->endtype == 2 ||tab->token->endtype == 3)
-	// 		// 	tab->cmds[id + 1] = ft_mx_ext(tab->cmds[id + 1], tab->node[i - 1]);
-	// 		// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
-	// 		// if (tab->token->endtype == 0)
-	// 		strt = id;
-	// 				// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-	// 				// exts++;
-	// 			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-	// 	}
-	// 			// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
-	// 			// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
-	// 			// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
-	// 	return (tab);
-// }
 static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 {	
 	int i;	//node pos
 	int id;
 	int tk_len;
 	char *endt;
+	// int exts;
 	
+	// exts = 0;
 	tk_len = 0;
 	i = 0;
-	id = 1;//tab->token->id;
-
+	id = tab->token->id;
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[strt];
-		printf("ok ici id[%d] idx(%d)\n", id, tk_len);
 		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-				printf("DEBUG: token_fill tab->cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+				printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
 		endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, endt);
-		
+		if (tab->token->endtype == 0)
+			tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
 		id++;
-	}
-		// if (tab->token->endtype > 1)
-		// 	i--;
-			// tab->cmds[id + 1] = ft_mx_ext(tab->cmds[id + 1], tab->node[i]);
-
-			// printf("DEBUG: token_fill :: etype = [%d] \n", tab->token->endtype);	
-						// tab->token->full = ft_mx_unx(tab->token->full, tab->token->cmd, tk_len);	
-		
+		// if (tab->token->endtype == 2 ||tab->token->endtype == 4)
+		// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
 			// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
-
-				// printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
-				// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
+		// if (tab->token->endtype == 2 || tab->token->endtype == 4)
+		// {
+		// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+		// 	tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+		// 	exts++;
+		// }
+	}
 		// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
 		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
 		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
 	return (tab);
 }
+
+// static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
+// 	{	
+// 		int i;	//node pos
+// 		int id;
+// 		int tk_len;
+// 		char *endt;
+// 		// int exts;
+		
+// 		// exts = 0;
+// 		tk_len = 0;
+// 		i = 0;
+// 		id = tab->token->id;
+// 		while (id <= tab->tk_num)
+// 		{
+// 			tk_len = tab->refs[strt];
+// 			tab->token->cmd[id] = ft_mx_dup(tkn);
+// 			// printf("ok ici \n");
+// 			while (i <= (tk_len))
+// 			{
+// 				tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
+// 					printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+// 				i++;
+// 			}
+// 			tab->token->cmd[id] = ft_mx_unx(tab->token->cmd[id], tab->node, tk_len);
+
+// 			endt = tab->node[tab->refs[id-1]];
+// 			tab->token->endtype = set_endtype(tab, endt);
+// 					// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+// 					// printf("DEBUG: token_fill endt[%d]  \n", tab->token->endtype);	
+// 			id++;
+// 			if (tab->token->endtype > 1 )//|| tab->token->endtype == 4)
+// 			{
+// 				tab->token->cmd[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+// 				tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+// 			}
+// 			// if (tab->token->endtype == 2 ||tab->token->endtype == 3)
+// 			// 	tab->cmds[id + 1] = ft_mx_ext(tab->cmds[id + 1], tab->node[i - 1]);
+// 			// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
+// 			// if (tab->token->endtype == 0)
+// 			strt = id;
+// 					// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+// 					// exts++;
+// 				tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+// 		}
+// 				// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
+// 				// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
+// 				// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
+// 		return (tab);
+// }
+		// static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
+		// {	
+		// 	int i;	//node pos
+		// 	int id;
+		// 	int tk_len;
+		// 	char *endt;
+			
+		// 	tk_len = 0;
+		// 	i = 0;
+		// 	id = 1;//tab->token->id;
+
+		// 	while (id <= tab->tk_num)
+		// 	{
+		// 		tk_len = tab->refs[strt];
+		// 		printf("ok ici id[%d] idx(%d)\n", id, tk_len);
+		// 		tab->cmds[id] = ft_mx_dup(tkn);
+		// 		while (i <= (tk_len))
+		// 		{
+		// 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+		// 				printf("DEBUG: token_fill tab->cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+		// 			i++;
+		// 		}
+		// 		endt = tab->node[tab->refs[id-1]];
+		// 		tab->token->endtype = set_endtype(tab, endt);
+				
+		// 		strt = id;
+		// 		id++;
+		// 	}
+		// 		// if (tab->token->endtype > 1)
+		// 		// 	i--;
+		// 			// tab->cmds[id + 1] = ft_mx_ext(tab->cmds[id + 1], tab->node[i]);
+
+		// 			// printf("DEBUG: token_fill :: etype = [%d] \n", tab->token->endtype);	
+		// 						// tab->token->full = ft_mx_unx(tab->token->full, tab->token->cmd, tk_len);	
+				
+		// 			// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+
+		// 				// printf("DEBUG: token_fill :: t->r[] = (%d) \n", tab->refs[strt]);	
+		// 				// printf("DEBUG: token_fill :: tk_len = (%d) \n", tk_len);	
+		// 		// tab->cmds[id] = ft_mx_ext(tab->cmds[id], "\0");
+		// 		// printf("DEBUG: token_fill_ end = %d\n", ft_mx_len(tk_cmd));	
+		// 		// printf("DEBUG: token_fill_cmd_len_check = (%d) \n", ft_mx_len(tk_cmd));	
+		// 	return (tab);
+// }
    
 t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 {
