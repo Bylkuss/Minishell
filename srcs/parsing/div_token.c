@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/22 22:02:45 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/23 01:00:51 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	// printf("ok ici \n");
 
 	printf("DEBUG: div_token:: end...\n");
-	tab->token = get_token(tab, token, 1);
+	// tab->token = get_token(tab, token, 1);
 	/*
 	now tab->cmds[id][cmd[0]] 				char *
 	and then so ... tab->cmds[id][cmd[i++]] char *

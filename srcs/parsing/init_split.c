@@ -155,14 +155,13 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
             if(i[0] == len)
-                tab->node[n] = ft_strdup("@\0");
-                // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+                tab->node[n] = ft_strdup("@");
+                printf("node[%d] => ::%s::\n", n, tab->node[n]);
         }           
     }
     return (tab->node);
 }
 
-//    ls -lat |head -2|wc -l> out.txt   
 char **init_split(char *input, char *set, t_table *tab)
 {
     int     n;
@@ -177,16 +176,14 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
-        // printf("DEBUG: pass_to_init :: %s \n", input);
+    printf("DEBUG: pass_to_init :: %s \n", input);
     n = node_count(input, set, count);  // word_count >.<
-        // printf("DEBUG: init_split  ::  node_count = %d \n", n ); 
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->node)
         return (NULL);
     tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    // printf  ("DEBUG: end_init ::: node:[%d] \n", ft_mx_len(tab->node));
     return (tab->node);   // ret(tab->node)
 }
 
