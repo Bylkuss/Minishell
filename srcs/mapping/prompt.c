@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/06 12:44:23 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/05 05:46:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,27 +47,27 @@ static char *get_user(t_table *tab)
     user = NULL;
     tmp2 = NULL;
 
-  //  // exec_custom(user, "/usr/bin/whoami", "whoami", prompt.envp);  
-        if (!user)
-            user = ft_mx_ext(user, "guest");                          
-        if (!ft_strncmp(user[0], "root", 4))
-            tmp2 = ft_strjoin(NULL, RED);
-        else if ((int)(user[0][0]) % 5 == 0)
-            tmp2 = ft_strjoin(NULL, CYAN);
-        else if ((int)(user[0][0]) % 5 == 1)
-            tmp2 = ft_strjoin(NULL, GRAY);
-        else if ((int)(user[0][0]) % 5 == 2)
-            tmp2 = ft_strjoin(NULL, GREEN);
-        else if ((int)(user[0][0]) % 5 == 3)
-            tmp2 = ft_strjoin(NULL, MAGENTA);
-        else 
-            tmp2 = ft_strjoin(NULL, YELLOW);
-        tmp = ft_strjoin(tmp2, *user);
-        if (!(tab->envp))
-            return (tmp);
-        free(tmp2);
-        ft_mx_free(&user);
-        return (tmp); 
+    // execustom(tab->envp, "/usr/bin/whoami", "whoami", tab->envp);  
+    if (!user)
+        user = ft_mx_ext(user, "guest");                          
+    if (!ft_strncmp(user[0], "root", 4))
+        tmp2 = ft_strjoin(NULL, RED);
+    else if ((int)(user[0][0]) % 5 == 0)
+        tmp2 = ft_strjoin(NULL, CYAN);
+    else if ((int)(user[0][0]) % 5 == 1)
+        tmp2 = ft_strjoin(NULL, GRAY);
+    else if ((int)(user[0][0]) % 5 == 2)
+        tmp2 = ft_strjoin(NULL, GREEN);
+    else if ((int)(user[0][0]) % 5 == 3)
+        tmp2 = ft_strjoin(NULL, MAGENTA);
+    else 
+        tmp2 = ft_strjoin(NULL, YELLOW);
+    tmp = ft_strjoin(tmp2, *user);
+    if (!(tab->envp))
+        return (tmp);
+    free(tmp2);
+    ft_mx_free(&user);
+    return (tmp); 
 }
 
 char    *getprompt(t_table *tab)

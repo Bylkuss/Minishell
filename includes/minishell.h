@@ -63,15 +63,15 @@ typedef struct s_table	t_table;
 struct s_token /*		THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l",
 					"eof",	*/
 {
-	int id;      //	# command id
-	char **cmd;  //	... cmd[id][node]
-	char **path; // relative || absolute
-	int endtype; // enum endtype : err, end, redir
-	int infile;  // staring [fd] : arg/file "<" cmd
-	int outfile; // resultd [fd] : arg/file ">" endtype
-	int tk_len;  // how many node by token (min 2) ref by
-	struct s_table *table;
-}; //t_token;
+	int 	id;			//	# command id 
+	char	**cmd;		//	... cmd[id][node]
+	char 	*path;		// relative || absolute
+	int		endtype;	// enum endtype : err, end, redir
+	int 	infile;		// staring [fd] : arg/file "<" cmd 
+ 	int		outfile;	// resultd [fd] : arg/file ">" endtype
+	int 	tk_len;	// how many node by token (min 2) ref by
+	struct s_table	*table; 
+};						//t_token;
 
 struct					s_table
 {
@@ -140,6 +140,16 @@ void					mx_display_str(char *str);
 // char		*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
-// void    	exec_custom(char ***out, char *full, char *args, char **envp) ;
+void    	execustom(char **out, char *full, char *args, char **envp) ;
 // char    	node_trim_q(const char *s, int squote, int dquote);
+// xcve.c
+char	*path_join(char *path, char *bin);
+int		str_ncmp(char *str1, char *str2, int n);
+int		str_ichr(char *str, char c);
+char	*str_ndup(char *str, unsigned int n);
+char	**str_split(char *str, char sep);
+char	*getpath(char **env);
+char	*getcmd(char **paths, char *cmd);
+
+
 #endif

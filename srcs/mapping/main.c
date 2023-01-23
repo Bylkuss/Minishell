@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/22 19:22:11 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/23 10:41:09 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static t_table *init_vars(t_table *tab, char *str, char **av)
     char *num;
 
     str = getcwd(NULL, 0);                                            
-    tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
-    free(str);
+    tab->envp = ms_setenv("PWD", str, tab->envp, 3);
+        free(str);
     str = ms_getenv("SHLVL", tab->envp, 5); 
 
     if (!str || ft_atoi(str) <= 0)
@@ -94,12 +94,13 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");
         //fonction on his own { built_outs }
-        builtins_handler(input, envp);
+        // builtins_handler(input, envp);
+        
 
         // free(str);
-        // tab = check_args(input, tab);
-        // if (!tab)
-        //     break;
+        tab = check_args(input, tab);
+        if (!tab)
+            break;
     }
     exit(g_status); 
 }

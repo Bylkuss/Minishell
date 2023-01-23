@@ -26,15 +26,15 @@ SRCS_PATH = src/
 
 #	BUILD FOLDER
 $(S_OBJ)/%.o :	$(S_DIR)/%.c
-			@mkdir -p $(S_OBJ) $(OBJS_DIRS)
-			@$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
-
-all		:	$(NAME)
+				@-mkdir -p $(S_OBJ) $(OBJS_DIRS)
+				@-$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 $(NAME): 	$(OBJS)
-		-@$(MAKE) -C $(F_DIR) -s
-		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
-		@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+				@$(MAKE) -C $(F_DIR) -s
+				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+				@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+
+all		:	$(NAME)
 
 clean	:
 				@$(RM) $(OBJ_F) 
@@ -47,8 +47,6 @@ fclean	:	clean
 				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
 
 re		:	fclean all
-
-make ref		:	fclean all
 
 
 

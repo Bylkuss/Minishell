@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 02:11:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/04 09:50:56 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,54 @@
 
     // }
 
-static void update_output(char ***mx, int fd)
+    
+// execve twin ... 
+// 
+char	*getcmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*command;
+
+	while (*paths)
+	{
+		tmp = path_join(*paths, "/");
+		command = path_join(tmp, cmd);
+		free(tmp);
+		if (access(command, 0) == 0)
+			return (command);
+		free(command);
+		paths++;
+	}
+	return (NULL);
+}
+
+// char	*getpath(char *cmd, char **env)
+// {
+//     char	*path;
+//     char	*dir;
+//     char	*bin;
+//     int		i;
+
+//     i = 0;
+//     while (env[i] && str_ncmp(env[i], "PATH=", 5))
+//         i++;
+//     if (!env[i])
+//         return (cmd);
+//     path = env[i] + 5;
+//     while (path && str_ichr(path, ':') > -1)
+//     {
+//         dir = str_ndup(path, str_ichr(path, ':'));
+//         bin = path_join(dir, cmd);
+//         free(dir);
+//         if (access(bin, F_OK) == 0)
+//             return (bin);
+//         free(bin);
+//         path += str_ichr(path, ':') + 1;
+//     }
+//     return (cmd);
+// }
+
+static void update_output(char **out, int fd)
 {
     char **aux;
     char *tmp;
@@ -35,15 +82,15 @@ static void update_output(char ***mx, int fd)
         aux = ft_mx_ext(aux, tmp);                       
         free(tmp);
     }
-    ft_mx_free(mx);
-    *mx = aux; 
+    ft_mx_free(&out);
+    out = aux; 
 }
 
-void    exec_custom(char ***out, char *full, char *args, char **envp) 
+void    execustom(char **out, char *full, char *args, char **envp) 
 {
     pid_t   pid;
     int     fd[2];
-    char    **mx;
+    char    **mx; //token->cmd 
 
     pipe(fd);                                             
     pid = fork();                                          
@@ -62,6 +109,7 @@ void    exec_custom(char ***out, char *full, char *args, char **envp)
     update_output(out, fd[READ_END]);                      
     close(fd[READ_END]); 
 }
+
 /*
         update_output   => building matrix info
         exec_custum     => framed outcome process
