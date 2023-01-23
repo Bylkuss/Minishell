@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/05 08:02:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/23 10:41:09 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static t_table *init_vars(t_table *tab, char *str, char **av)
     char *num;
 
     str = getcwd(NULL, 0);                                            
-    tab->envp = ms_setenv("PWD", str, tab->envp, 3);         
-    free(str);
+    tab->envp = ms_setenv("PWD", str, tab->envp, 3);
+        free(str);
     str = ms_getenv("SHLVL", tab->envp, 5); 
 
     if (!str || ft_atoi(str) <= 0)
