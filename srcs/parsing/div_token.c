@@ -72,9 +72,9 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		
 	typ = 0;
 	nod = 0;
-	printf("ok ici id [%d]\n", id);
-	printf("ok ici tk_num [%d]\n", tab->tk_num);
-	printf("ok ici token->id [%d]\n", tab->token->id);
+	// printf("ok ici id [%d]\n", id);
+	// printf("ok ici tk_num [%d]\n", tab->tk_num);
+	// printf("ok ici token->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		printf("DEBUG : into... into... get_token\n");	
@@ -82,7 +82,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		{
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
-			printf("ok ici tk_len [%d]\n", nod);
+			// printf("ok ici tk_len [%d]\n", nod);
 			//
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
 			tab->token->full = ft_mx_unx(tab->token->full, tab->cmds[id], nod);
@@ -93,7 +93,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//
 			// mx_display_str(token->cmd[id]);
 			// tab->token->cmd[id] = ft_mx_dup(tab->cmds[id]);
-			printf("ok ici ++\n");
+			// printf("ok ici ++\n");
 			id++;
 		}
 
@@ -236,7 +236,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			// needed to token command
 	
 
-	printf("ok ici \n");
+	// printf("ok ici \n");
 	if ((tk_id < token->id))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
@@ -257,7 +257,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		tk_id++;
 	}	
-	printf("ok ici \n");
+	// printf("ok ici \n");
 
 	printf("DEBUG: div_token:: end...\n");
 	tab->token = get_token(tab, token, 1);
