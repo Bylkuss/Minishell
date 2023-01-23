@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 01:21:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/23 02:33:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
     printf("DEBUG: #token[] ... ...\n");//, tab->tk_num);             
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    tab = div_token(tab, "<|>"); // padd endtype + set token 
+    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    // tab = div_token(tab, "<|>"); // padd endtype + set token 
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
