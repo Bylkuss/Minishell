@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/11 12:18:08 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/22 20:18:52 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void    builtins_handler(char *input, char **envp)
             printf("No such variable\n");
     } 
     else if(ft_strnstr(input, "export", 10))
+    {
         i = export(ft_split(input, ' ') , envp);
+    }
     else if (ft_strnstr(input, "ls", 5))
         execve("/bin/ls", ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "exit", 5))

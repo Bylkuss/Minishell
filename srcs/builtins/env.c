@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/11 13:27:43 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/01/23 10:37:21 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	env(char **envp)
 		printf("%s\n", envp[i]);
 		i++;
 	}
-	printf("**********END***********\n");
+	// printf("**********END***********\n");
 }
 
 char	**edit_env(char **envp, int pos)
@@ -157,13 +157,16 @@ int	export(char **cmd, char **envp)
 	if (cmd[1] && check_export_cmd(cmd[1]))
 	{
 		pos = is_already_var(envp, cmd[1]);
-		printf("pos [%d]\n", is_already_var(envp, cmd[1]));
+		// printf("pos [%d]\n", is_already_var(envp, cmd[1]));
 		if (pos > -1)
 			envp[pos] = ft_strdup(cmd[1]);
 		else
+		{
+			
 			envp = new_envp(envp, cmd[1]);
-			print_tab(envp);
-		printf("%s is a valid var\n\n\n", cmd[1]);
+			// print_tab(envp);
+		}
+		// printf("%s is a valid var\n\n\n", cmd[1]);
 		// print_tab(envp);
 		if (!envp)
 			return (0);
