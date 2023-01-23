@@ -27,7 +27,7 @@ static t_table	*token_etype(t_table *tab)
     cmd = tab->node; 
     n = ft_mx_len(cmd);   
     tab->token->id = 0;
-    tab->tk_num = 1;
+    tab->tk_num = 0;
     ref[tab->token->id] = 0; 
     printf  ("DEBUG: mx_len[%d]\n", n);
     while (id++ <= n)
@@ -114,7 +114,7 @@ static t_table  *parse_args(t_table *tab)
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
-    while (tab->token->endtype != 0)
+    while (tab->token->endtype > -1 )
     {
         // first get token 
             // all of them 
@@ -130,11 +130,11 @@ static t_table  *parse_args(t_table *tab)
         
         builtins_handler(tab, token, token->id);
         
-        // if (tab->token->endtype == 0)
+        if (tab->token->endtype == 0)
+            execmd(tab, tab->token, tk_id);
         //     tab->token->tk_len--;
         // if (g_status == 1)
         // else
-        //     execmd(tab, tab->token, tk_id);
         // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
         // free_cont(token, tk_id);
