@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 01:21:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/23 02:33:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
 
     // token_node ...
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    // tab = div_token(tab, "<|>"); // padd endtype + set token 
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
     while (tab->node[++i] )//&& tkn_id <= tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
@@ -107,14 +107,14 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: into... parse\n");
     tab = token_etype(tab); // *refs[id] tk_num [end_pos] == tk_len
     printf("DEBUG: #token[] ... ...\n");//, tab->tk_num);             
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
-    tab = div_token(tab, "<|>"); // padd endtype + set token 
+    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    // tab = div_token(tab, "<|>"); // padd endtype + set token 
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
-    while (tab->token->endtype > -1 )
+    while (tab->token->endtype >= 0 )
     {
         // first get token 
             // all of them 
