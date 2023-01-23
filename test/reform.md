@@ -34,7 +34,7 @@ init_split      : init_split, node_count, node_fill.
 
 div_token       : div_token, token_count, token_fill
 
-nodes           : token_node, ...type_check, ...node_padd 
+nodes           : token_node, ...type_check, ...type_padd 
 
 
 

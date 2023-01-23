@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static char *node_padd(char *input, char *meta)
+static char *type_padd(char *input, char *meta)
 {
     char *srcs; //  start part str
     char *tmp;  //  sub str
@@ -77,7 +77,7 @@ char *type_check(char *input, char *meta)
         dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // left                // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
         res = ft_strjoin(res, srcs);
         if (p[1] && (input[p[0]] != 32) || (input[p[2]] != 32))
-            tmp = node_padd(tmp, meta);
+            tmp = type_padd(tmp, meta);
         res = ft_strjoin(res, tmp); 
         input = dest;
     }
@@ -155,10 +155,8 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
             if(i[0] == len)
-            {
                 tab->node[n] = ft_strdup("@\0");
-                // printf("node[%d] => ::%s::\n", n, tab->node[n]); 
-                }
+                // printf("node[%d] => ::%s::\n", n, tab->node[n]);
         }           
     }
     return (tab->node);
@@ -178,10 +176,10 @@ char **init_split(char *input, char *set, t_table *tab)
     count[1] = 0;
     if (!input)
         return (NULL);    
-    input = type_check(input, "<|>");   // purify endtype
-            // printf("DEBUG: pass_to_init :: %s \n", input);
-    n = node_count(input, set, count);    // substr 
-            printf("DEBUG: init_split  ::  node_count = %d \n", n ); 
+    input = type_check(input, "<|>");   // padding endtype count 
+        // printf("DEBUG: pass_to_init :: %s \n", input);
+    n = node_count(input, set, count);  // word_count >.<
+        // printf("DEBUG: init_split  ::  node_count = %d \n", n ); 
     if (n == -1)
         return (NULL);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char

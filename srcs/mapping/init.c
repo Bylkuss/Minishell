@@ -29,7 +29,6 @@ t_table *init_tab(t_table *tab)
     tab->cmds = NULL ;   
     tab->tk_num = 0;
     tab->refs  = NULL;
-    // tab->etype = NULL
     (void) tab->pid;
     tab->token = NULL;
     return (tab);

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/14 22:53:05 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/22 18:30:07 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
             printf("No such variable\n");
     } 
     else if(ft_strnstr(input, "export", 10))
-        i = export(ft_split(input, ' ') , envp);
+        i = ms_export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
     else 
