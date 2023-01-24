@@ -19,19 +19,25 @@ void	child_builtin(t_table *tab, t_token *t, int id)
     int l;  //cmd len
 
     l = ft_strlen(t->cmd[0]);	
-    signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
+    // signal(SIGINT, SIG_DFL);
+	// signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(t) && t->cmd)
+	{
+		printf("DEBUG:@@ chk_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
+		printf("DEBUG:@@ chk_bltn :: t->cmd len (%d) \n", ft_mx_len(t->cmd)); 
+		// mx_display_tab(t->cmd);
 		execve(t->path, t->cmd, tab->envp);
-	// else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
-	// 	g_status = pwd();
-	// else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
-	// // 	g_status = echo(cmd);
-	// else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
-	// {
-	// 	// ft_putmatrix_fd(tab->envp, 1, 1);
-	// 	g_status = 0;
-	// }
+	}
+	else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
+		g_status = pwd();
+	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
+		g_status = echo(t->cmd);
+	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
+	{
+		// ft_putmatrix_fd(tab->envp, 1, 1);
+		env(tab->envp);
+		g_status = 0;
+	}
 }
 
 static void	*child_redir(t_token *t, int id, int fd[2])
@@ -67,7 +73,7 @@ void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
-
+	printf("DEBUG: chk_fork :: t->cmd \n");//len[%d]", l);
 	child_redir(t, id, fd);
 
 	close(fd[READ_END]);
@@ -106,15 +112,17 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
-        exc_fork(tab, t, id, fd);
+        {exc_fork(tab, t, id, fd);
+		printf("DEBUG: GRR.. exc_frk\n");}
     else if (!is_builtin(t) && ((t->path && !access(t->path, F_OK)) || dir))
 	{
-		printf("DEBUG: GRR.. exc_frk\n");
+		printf("DEBUG: GRR..NO_BUILTIN exc_frk \n");
         g_status = 126;
 	}
-    else if (!is_builtin(t) && t->full)
+    else if (!is_builtin(t) && *t->cmd)
         g_status = 127;
     if (dir)
         closedir(dir);
+	// printf("DEBUG: wanna_exit_ _ _ exc_frk\n");
     return ("");
 }

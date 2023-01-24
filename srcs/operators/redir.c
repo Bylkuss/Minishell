@@ -18,7 +18,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 {
 	int	fd;
 
-	// printf("\ntoken->path = {%s}\n", path);
+	printf("\nDEBUG: get_fd:: token->file = {%s}\n", path);
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
@@ -39,8 +39,8 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		fd = oldfd;
 	return (fd);
 }
-
-t_token	*get_outfile1(t_token *t, int i)
+// t_token	*get_outfile1(t_token *t, int i)
+t_token	*get_outfile1(t_token *t, t_table *tab)
 {
 	char	*nl;
 	int		flags[2];
@@ -50,12 +50,12 @@ t_token	*get_outfile1(t_token *t, int i)
 	flags[0] = 1;
 	flags[1] = 0;
 	nl = "minishell: syntax error near unexpected token `newline'";
-	i++;
-	if (t->cmd)
-		t->outfile = get_fd(t->outfile, t->cmd[i], flags);
+	// i++;
+	if (t->ofile)
+		t->outfile = get_fd(t->outfile, t->ofile, flags);
 	if (!t->cmd || t->outfile == -1)
 	{
-		i = -1;
+		// i = -1;
 		if (t->outfile != -1)
 		{
 			ft_putendl_fd(nl, 2);
@@ -67,8 +67,8 @@ t_token	*get_outfile1(t_token *t, int i)
 	// token->endtype = 1;
 	return (t);
 }
-
-t_token	*get_outfile2(t_token *t, int i)
+// t_token	*get_outfile2(t_token *t, int i)
+t_token	*get_outfile2(t_token *t, t_table *tab)
 {
 	char	*nl;
 	int 	id;
@@ -79,8 +79,8 @@ t_token	*get_outfile2(t_token *t, int i)
 	flags[1] = 1;
 	nl = "minishell: syntax error near unexpected token `newline'";
 	// (*i)++;
-	if (t->path)
-		t->outfile = get_fd(t->outfile, t->path, flags);
+	if (t->ofile)
+		t->outfile = get_fd(t->outfile, t->ofile, flags);
 	if (!t->path || t->outfile == -1)
 	{
 		// *i = -1;
@@ -96,7 +96,8 @@ t_token	*get_outfile2(t_token *t, int i)
 	return (t);
 }
 
-t_token	*get_infile1(t_token *t, int i)
+// t_token	*get_infile1(t_token *t, int i)
+t_token	*get_infile1(t_token *t, t_table *tab)
 {
 	char	*nl;
 	int 	id;
@@ -124,7 +125,8 @@ t_token	*get_infile1(t_token *t, int i)
 	return (t);
 }
 
-t_token	*get_infile2(t_token *t, int i)
+// t_token	*get_infile2(t_token *t, int i)
+t_token	*get_infile2(t_token *t, t_table *tab)
 {
 	char	*aux[2];
 	char	*nl;
@@ -142,7 +144,7 @@ t_token	*get_infile2(t_token *t, int i)
 	}
 	if (!t->path || t->infile == -1)
 	{
-		i = -1;
+		// i = -1;
 		if (t->infile != -1)
 		{
 			ft_putendl_fd(nl, 2);

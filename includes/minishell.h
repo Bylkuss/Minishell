@@ -64,7 +64,8 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 	int 	id;			//	# command id 
 	char	**cmd;		//	... cmd[id][node]
 	char 	*full;		// multi **str into  *str
-	char 	*path;		// relative || absolute
+	char 	*path;		// outfile???
+	char 	*ofile;		// open file char*
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
@@ -74,7 +75,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 
 struct					s_table
 {
-	char **envp;          					//	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	char **envp;          //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char ***cmds;          //	[#][*str] 	: command seq.		CMD[#_id]["ls"]
 	char **node;           //	[id][*str]	: linked attrib.	NODE[#_id]["-l"]
 	pid_t pid;             //	fork dup wait
@@ -126,10 +127,14 @@ char		*expand_path(char *str, int i, int quotes[2], char *var);
 t_table					*token_nodes(t_table *tab);
 //redir
 int			get_fd(int oldfd, char *path, int flags[2]);
-t_token		*get_outfile1(t_token *t, int i);
-t_token		*get_outfile2(t_token *t, int i);
-t_token		*get_infile1(t_token *t, int i);
-t_token		*get_infile2(t_token *t, int i);
+t_token		*get_outfile1(t_token *t, t_table *tab);
+t_token		*get_outfile2(t_token *t, t_table *tab);
+t_token		*get_infile1(t_token *t, t_table *tab);
+t_token		*get_infile2(t_token *t, t_table *tab);
+// t_token		*get_outfile1(t_token *t, int i);
+// t_token		*get_outfile2(t_token *t, int i);
+// t_token		*get_infile1(t_token *t, int i);
+// t_token		*get_infile2(t_token *t, int i);
 //heredoc
 char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 int			get_here_doc(char *str[2], char *aux[2]);

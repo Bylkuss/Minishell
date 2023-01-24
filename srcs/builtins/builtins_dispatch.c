@@ -91,7 +91,9 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     {
         // signal(SIGINT, SIG_IGN);
         // signal(SIGQUIT, SIG_IGN);
+        // printf("DEBUG: b_handler:: chk_bltn :: t->path { %s }\n", token->path); 	//len[%d]", l);
         execmd(tab, token, id);
+        
     }
     return (i);
 }

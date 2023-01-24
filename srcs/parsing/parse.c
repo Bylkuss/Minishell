@@ -150,9 +150,9 @@ static t_table  *parse_args(t_table *tab)
 
         free_cont(tab->token, tk_id);
         tk_id--;
-        tab->token->id++;
+        // tab->token->id++;
         if (tk_id > 0 )//|| tab->tk_num == 0)
-        tab->token = get_token(tab, tab->token, tk_id);
+        tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;
