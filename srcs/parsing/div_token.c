@@ -80,8 +80,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 		// printf("ok ici token->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
-		// if (id > 1)
-		// 	free_cont(token, 1);
+				// if (id > 1) : free_cont(token, 1);
 		if(id <= tab->tk_num)
 		{
 			tab->token->id = id;
@@ -98,16 +97,12 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
 				if ((i + 1) < (nod - 1))
 					tab->token->full = ft_strjoin(tab->token->full, " ");
-
 			}
 			i = -1;
 			// ended token
-			//
-			// {
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 				tab->token->ofile = ft_strdup(*tab->cmds[id + 1]);
-
-
+			// setting t->ofile value OUTFILE 1 & 2
 			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 				tab->token = get_outfile1(token, tab);
 			else if (tab->token->endtype == 3)

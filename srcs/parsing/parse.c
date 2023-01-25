@@ -29,7 +29,7 @@ static t_table	*token_etype(t_table *tab)
     tab->token->id = 0;
     tab->tk_num = 0;
     ref[tab->token->id] = 0; 
-    // printf  ("DEBUG: mx_len[%d]\n", n);
+    printf  ("DEBUG: mx_len[%d]\n", n);
     while (id++ <= n)
     {
         tab->token->id = tab->tk_num; 
@@ -51,7 +51,7 @@ static t_table	*token_etype(t_table *tab)
             ref[tab->token->id] = id; 
         }
     }
-    // printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
 
     tab->refs = ref;
     return (tab);
