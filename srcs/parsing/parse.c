@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 02:33:17 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/24 21:39:11 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_table	*token_etype(t_table *tab)
     tab->token->id = 0;
     tab->tk_num = 0;
     ref[tab->token->id] = 0; 
-    printf  ("DEBUG: mx_len[%d]\n", n);
+    // printf  ("DEBUG: mx_len[%d]\n", n);
     while (id++ <= n)
     {
         tab->token->id = tab->tk_num; 
@@ -51,7 +51,7 @@ static t_table	*token_etype(t_table *tab)
             ref[tab->token->id] = id; 
         }
     }
-    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    // printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
 
     tab->refs = ref;
     return (tab);
@@ -152,7 +152,7 @@ static t_table  *parse_args(t_table *tab)
         tk_id--;
         // tab->token->id++;
         if (tk_id > 0 )//|| tab->tk_num == 0)
-        tab->token = get_token(tab, tab->token, 1);
+            tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;

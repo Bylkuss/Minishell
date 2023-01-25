@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 01:00:51 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/24 21:25:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			// ended token
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 				tab->token->ofile = ft_strdup(*tab->cmds[id + 1]);
+				
 			// setting t->ofile value OUTFILE 1 & 2
 			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 				tab->token = get_outfile1(token, tab);
@@ -203,7 +204,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+				printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
 		endt = tab->node[tab->refs[id-1]];
