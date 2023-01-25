@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 02:33:17 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/24 21:39:11 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ static t_table  *parse_args(t_table *tab)
         tk_id--;
         // tab->token->id++;
         if (tk_id > 0 )//|| tab->tk_num == 0)
-        tab->token = get_token(tab, tab->token, 1);
+            tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;
