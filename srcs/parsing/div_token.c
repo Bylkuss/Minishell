@@ -120,9 +120,9 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			// printf("ok ici ++\n");
 			// mx_display_tab(tab->token->cmd);
 			// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-			printf("DEBUG: token->full __%s__\n", tab->token->full);
-			printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
-			printf("DEBUG: token->ofile {%s} \n", tab->token->ofile);
+			// printf("DEBUG: token->full __%s__\n", tab->token->full);
+			// printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+			// printf("DEBUG: token->ofile {%s} \n", tab->token->ofile);
 			// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
 			id++;
 			// free_cont(token);

@@ -104,8 +104,6 @@ static t_table  *parse_args(t_table *tab)
     int is_exit;
     int tk_id;
     t_token *token;
-    // char *set;
-    // set = "<|>";
 
     token = tab->token;
     is_exit = 0;
@@ -115,6 +113,12 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: #token[] ... ...\n");//, tab->tk_num);             
     tab = token_nodes(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
+    //
+    ///
+    //  OK NOW HERE : tab->cmds[id] shld have every node set... 
+    //  SO IF INFILE2 GET ENDTYPE at the begening ... 
+    ///
+    //
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
