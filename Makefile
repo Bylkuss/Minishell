@@ -7,6 +7,7 @@ F_DIR	=	libft/
 F_PTH	=	$(addprefix $(F_DIR), $(FSRC))
 O_DIR 	=	libft/objs/
 LIBFT	=	libft/libft.a
+PIPEX	=	test/pipex/pipex
 
 S_DIR	=	srcs
 S_OBJ	=	objs
