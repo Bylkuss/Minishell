@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bonus.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 13:19:35 by gehebert          #+#    #+#             */
-/*   Updated: 2022/09/09 11:14:08 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/30 14:25:49 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ int	main(int ac, char **av, char **env)
 		exec(av[i], env);
 	}
 	else
-		write(STDERR, "Invalid number of arguments.\n", 29);
+		write(STDERR, "Invalid number of arguments.\n", 30);
 	return (1);
 }
