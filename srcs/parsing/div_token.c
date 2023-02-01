@@ -29,11 +29,11 @@ int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtyp
 		tab->token->endtype = OUTF1_END;  	// token = get_outfile1(token, token->cmd[id]);
 	else if (ft_strcmp(etype ,"|") == 0)
 		tab->token->endtype = PIPE_END;		// exec_custom???
-	else if (ft_strcmp(etype ,"@") == 0)
+	else //if (ft_strcmp(etype ,"@") == 0)
 		tab->token->endtype = DEAD_END;     
 	// printf("etype = { %s }", etype);
 	// printf("DEBUG: set_ endtype = [%d]\n", tab->token->endtype);
-	// printf("\netype = [%d]\n", tab->token->endtype);
+		// printf("\netype = [%d]\n", tab->token->endtype);
 			// }
 			//  && id < tab->tk_num && tab->cmds[id])
 
@@ -146,7 +146,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	return (tab->token);
 }
 
-static int	token_count(char **nodes, char *set, int strt)
+static int	div_count(char **nodes, char *set, int strt)
 {
 	int		q[2];
 	int		i;
@@ -199,7 +199,8 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	id = 1;
 	while (id <= tab->tk_num)
 	{
-		tk_len = tab->refs[strt];
+		// tk_len = tab->refs[strt];
+
 		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i <= (tk_len))
 		{
@@ -251,7 +252,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	tk_id = 0;
 	
 
-		printf("DEBUG: div_token_ tk_num = %d\n", tab->tk_num);
+	printf("DEBUG: div_token_ tk_num = %d\n", tab->tk_num);
 
 			// printf("DEBUG: div_token_ div_ token->id = %d\n", token->id);
 			// printf("DEBUG: div_token_ token->id[%d] = ref_[%d]\n", tab->token->id, tab->refs[tab->token->id]);
@@ -276,7 +277,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		// printf("ok ici \n");
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
-		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
+		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
 		printf("DEBUG: tk_len (%d) \n", token->tk_len);		
 		printf("DEBUG: tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 

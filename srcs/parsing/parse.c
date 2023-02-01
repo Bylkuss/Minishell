@@ -21,14 +21,14 @@ static t_table	*redir_type(t_table *tab)
     char    **cmd;
     int     n;
     int     id;
-    // int     *ref;
+    int     *ref;
 
     id = -1;
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);    
-    printf  ("DEBUG: node_num[%d]\n", n);
+    printf  ("DEBUG: REDIR_TYPE...node_num[%d]\n", n);
     tab->token->id = 0;
-    // ref[tab->token->id] = 0; 
+    ref[tab->token->id] = 0; 
     while (id++ <= n)
     {
         tab->token->id = tab->tk_num;
@@ -45,13 +45,17 @@ static t_table	*redir_type(t_table *tab)
                   tab->tk_num++;  
             else if (*cmd[id] == '|')
                 tab->tk_num++;  
-            // else if (*cmd[id] == '@')
+            else if (*cmd[id] == '\0')
             //       tab->token->id = tab->tk_num++; 
-            // ref[tab->token->id] = id; 
-            if (tab->token->id < tab->tk_num)
+            ref[tab->token->id] = id; 
+            if (tab->token->id != tab->tk_num)
                 printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
         }
+    
+
     }
+    if (tab->tk_num == 0)
+        tab->tk_num == 1;
     printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
     // tab->refs = ref;
     return (tab);
@@ -76,8 +80,8 @@ static t_table *split_all(t_table *tab)
         // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
-
-    // tab = div_token(tab, "<|>");
+    tab = token_alloc(tab); // malloc each token + each token[cmd]    
+    tab = div_token(tab, "<|>");
 
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
@@ -106,18 +110,16 @@ static t_table  *parse_args(t_table *tab)
     int is_exit;
     int tk_id;
     t_token *token;
-    // char *set;
-    // set = "<|>";
 
     token = tab->token;
     is_exit = 0;
-    tab->token->id = 1;
+    // tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
     
-    printf("\nDEBUG:  %d redir_ token... ...\n", tab->tk_num);             
+    printf("\nDEBUG:  _%d redir_ token... ...\n", tab->tk_num);             
 
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less

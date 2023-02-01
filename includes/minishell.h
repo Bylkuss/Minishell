@@ -119,12 +119,12 @@ char					**init_split(char *input, char *set, t_table *tab);
 int						set_endtype(t_table *tab, char *etype);
 t_table					*div_token(t_table *tab, char *set);
 t_token					*get_token(t_table *tab, t_token *token, int id);
+//nodes
+t_table					*token_alloc(t_table *tab);
 
 //expand
 char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char		*expand_path(char *str, int i, int quotes[2], char *var);
-//nodes
-t_table					*token_nodes(t_table *tab);
 //redir
 int			get_fd(int oldfd, char *path, int flags[2]);
 t_token		*get_outfile1(t_token *t, t_table *tab);
