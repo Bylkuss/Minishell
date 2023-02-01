@@ -86,11 +86,11 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
 			tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);
-				printf("ok ici tk_len [%d]\n", nod);
-				//
-				// tab->token->cmd = ft_mx_dup(tab->cmds[id]);
-				//
-				// if (tab->token->full)
+			printf("ok ici tk_len [%d]\n", nod);
+					//
+					// tab->token->cmd = ft_mx_dup(tab->cmds[id]);
+					//
+					// if (tab->token->full)
 			while(++i < (nod - 1))
 			{
 				tab->token->cmd[i] = ft_substr(tab->cmds[id][i], 0, ft_mx_len(tab->cmds[id]));
@@ -117,15 +117,15 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//else 
 			//	pipex...
 			
-			// printf("ok ici ++\n");
-			// mx_display_tab(tab->token->cmd);
-			// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-			// printf("DEBUG: token->full __%s__\n", tab->token->full);
-			// printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
-			// printf("DEBUG: token->ofile {%s} \n", tab->token->ofile);
-			// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
 			id++;
-			// free_cont(token);
+				// printf("ok ici ++\n");
+				// mx_display_tab(tab->token->cmd);
+				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
+				// printf("DEBUG: token->full __%s__\n", tab->token->full);
+				// printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+				// printf("DEBUG: token->ofile {%s} \n", tab->token->ofile);
+				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
+				// free_cont(token);
 		}
 
 
@@ -213,13 +213,13 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		if (tab->token->endtype == 0)
 			break;
 		
-		//  if (tab->token->endtype == 2 || tab->token->endtype == 4)
-		// {
+				//  if (tab->token->endtype == 2 || tab->token->endtype == 4)
+				// {
 
-		// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-		// 	printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
-		// }
-			// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
+				// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
+				// 	printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+				// }
+					// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
 		id++;
 		// tab->token->id++;

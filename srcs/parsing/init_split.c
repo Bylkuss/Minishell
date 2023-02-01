@@ -68,6 +68,7 @@ char *type_check(char *input, char *meta)
         p[3] = ft_strlen(srcs);      
         if ((p[1]) && (input[p[1] - 1] != 32) )
         {
+            printf("DEBUG ::AV_\n");
             dest = ft_substr(srcs, 0, p[1]); //bfore endtype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest);
@@ -75,8 +76,9 @@ char *type_check(char *input, char *meta)
             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
             // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         }    
-        else if ((input[p[1]+1] != 32) && (p[1]+1 != p[1]))
+        else if ((input[p[1] + 1] != 32) && (p[1] + 1 != p[1]))
         {
+            printf("DEBUG ::AP_\n");
             p[2] = p[1] + 1;
             if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
                 p[2] = p[1] + 2;
@@ -87,10 +89,13 @@ char *type_check(char *input, char *meta)
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
             // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         }        
+        else 
+            break;
+        //     srcs = ft_substr(srcs, 0, p[3]); // untouched
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;
-    // printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
+    printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
     return(input);
 }
 
