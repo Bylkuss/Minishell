@@ -12,44 +12,44 @@
 
 #include "../../includes/minishell.h"
 
-static char *type_padd(char *input, char *meta)
-{
-    char *srcs; //  start part str
-    char *tmp;  //  sub str
-    char *dest; //  end part str
-    int p[4];   //ptr pos start/pos/end
+// static char *type_padd(char *input, char *meta)
+// {
+//     char *srcs; //  start part str
+//     char *tmp;  //  sub str
+//     char *dest; //  end part str
+//     int p[4];   //ptr pos start/pos/end
 
-    p[2] = 0;
-    p[3] = 0;
-    p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
-    if (p[1] == -1)
-        return (input);
-    else
-    {
-        p[0] = p[1] - 1;
-        // if (p[0] < 0)
-        //     p[0] = 0;
-        p[2] = p[1] + 1;
-        p[3] = ft_strlen(input);
-        printf("the padd p[3] len [%d] \n", p[3]);
-        if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
-            p[2] = p[1] + 2;
-        printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
-        srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-        printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-        printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-        dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-        printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-        if (input[p[0]] != 32)// tmp -1
-            tmp = ft_strjoin(" ", tmp); //add spece before
-        if (input[p[2]] != 32) //tmp + 1
-            tmp = ft_strjoin(tmp, " ");  //add space after  
-        srcs = ft_strjoin(srcs, tmp);
-        input = ft_strjoin(srcs, dest);
-    } 
-    return(input);
-}
+//     p[2] = 0;
+//     p[3] = 0;
+//     p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
+//     if (p[1] == -1)
+//         return (input);
+//     else
+//     {
+//         p[0] = p[1] - 1;
+//         // if (p[0] < 0)
+//         //     p[0] = 0;
+//         p[2] = p[1] + 1;
+//         p[3] = ft_strlen(input);
+//         printf("the padd p[3] len [%d] \n", p[3]);
+//         if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
+//             p[2] = p[1] + 2;
+//         printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
+//         srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
+//         printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+//         tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
+//         printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
+//         dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
+//         printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
+//         if (input[p[0]] != 32)// tmp -1
+//             tmp = ft_strjoin(" ", tmp); //add spece before
+//         if (input[p[2]] != 32) //tmp + 1
+//             tmp = ft_strjoin(tmp, " ");  //add space after  
+//         srcs = ft_strjoin(srcs, tmp);
+//         input = ft_strjoin(srcs, dest);
+//     } 
+//     return(input);
+// }
 
 char *type_check(char *input, char *meta)
 {
@@ -57,28 +57,23 @@ char *type_check(char *input, char *meta)
     char *dest; //  end part str
     char *rest;  //  sub str
     int p[4];   //ptr pos start/pos/end   
-    int padd;   // detected
 
     rest = "\0";
     srcs = ft_strdup(input);    
-    padd = 0;          
-    //p[1] >= 0)
-    while (padd == 0 && ft_strlen(srcs) > 1) 
+    while (ft_strlen(srcs) > 1) 
     {
         p[1] = ft_strchar_i(srcs, meta);
         if (p[1] == -1)
             break;//padd = 1;
-
         p[3] = ft_strlen(srcs);      
-        printf("DEBUG ::START_ srcs_len [%ld] ::%s:: i=%d \n",ft_strlen(srcs), srcs, p[1]);
         if ((p[1]) && (input[p[1] - 1] != 32) )
         {
             dest = ft_substr(srcs, 0, p[1]); //bfore endtype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest);
-            printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+            // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-            printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         }    
         else if ((input[p[1]+1] != 32) && (p[1]+1 != p[1]))
         {
@@ -88,42 +83,14 @@ char *type_check(char *input, char *meta)
             dest = ft_substr(srcs, 0, p[2]); //bfore endtype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest); 
-            printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+            // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
             // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        }
-        // printf("DEBUG ::while_ rest_check[%ld] ::%s: \n\n",ft_strlen(rest), rest);
-        
+        }        
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;
-    printf("DEBUG ::NEW_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-    printf("DEBUG ::NEW_ srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-    printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
-
-        // if ((p[1]-1 != 0) && (p[1]-1 != 32))
-                    //  add_spc_av 
-                        // substr [0] ->[1]-1 + strjoin(sub, " ");
-                    // if ((p[1] + 1) != 32) && (p[1] + 1 != p[1])
-                    //  add_spc_ap
-                        // substr [1]+1 + strjoin(sub, " ");
-
-                    // srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[0]))); //bfore endtype          
-                    //     // printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-                    // tmp = ft_substr((const char *)input, p[0] , p[2] - p[0]); //etype pad
-                    //     // printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-                    // dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); // left          
-                    //     // printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-                    // res =   ft_strjoin(res, srcs);
-                    // if (p[1] && (input[p[0]] != 32) || (input[p[2]] != 32))
-                    //     tmp = type_padd(tmp, meta);
-    
-            // input = ft_strjoin(dest, rest);         // input = dest;
-            // }
-            //     else 
-            //         padd = 1;
-            // }
-            // input = ft_strjoin(res,dest);    // printf("DEBUG oo output_check [%ld] ::%s: \n",ft_strlen(input), input);
+    // printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
     return(input);
 }
 
@@ -155,7 +122,7 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    return (i[1] + 2); // start[0] +1 && invisible endtype +1
+    return (i[1] + 1); // start[0] +1 && invisible endtype +1
 }
 
 static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
@@ -170,8 +137,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     len = ft_strlen(s);
     i[2] = -1;
     while (s[i[0]] && i[0] < len)
-    {
-        //sans espace ...
+    {                   //sans espace ...
         if(!ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  //  if not spc 
         {
             i[2] = i[0]; // node start = i[2]
@@ -180,10 +146,9 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore simpl_q
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
                 i[0]++; // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
-            }   // ... spaceless node ++
+            }           // ... spaceless node ++
             i[1] = i[0]; 
-        }
-        // str avec espace
+        }              // str avec espace
         if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  // ++ until spc found
         {
             i[1] = i[0]++; 
@@ -196,11 +161,11 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             tab->node = ft_mx_ext(tab->node, tab->node[n]);          
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
-            if(i[0] == len)
-            {
-                tab->node[n] = ft_strdup("@\0");
-                printf("node[%d] => ::%s::\n", n, tab->node[n]);
-            }
+            // if(i[0] == len)
+            // {
+            //     tab->node[n] = ft_strdup("@\0");
+            //     printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            // }
         }           
     }
     return (tab->node);
@@ -219,9 +184,9 @@ char **init_split(char *input, char *set, t_table *tab)
     count[1] = 0;
     if (!input)
         return (NULL);    
-    printf("DEBUG:pre pass_to_init :: %s \n", input);   
     input = type_check(input, "<|>");   // padding endtype count 
-    // printf("DEBUG: post pass_to_init :: %s \n", input);
+    printf("DEBUG: pass_to_init :: %s \n", input);   
+
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)
         return (NULL);
@@ -234,6 +199,7 @@ char **init_split(char *input, char *set, t_table *tab)
 
 /*
 from parse.c
+/// endtype-padding + node_split * 
     init_split => split *str by space only (quote rule (ok if both))
     word_count + ft_fill_node ... ... seems legit!
     *** init_split: trunk at space to make token part
