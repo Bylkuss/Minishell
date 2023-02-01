@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/01 03:52:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/01 04:07:15 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static t_table  *parse_args(t_table *tab)
     
     printf("\nDEBUG:  %d redir_ token... ...\n", tab->tk_num);             
 
-    // tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
     //
     ///
