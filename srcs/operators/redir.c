@@ -106,7 +106,7 @@ t_token	*get_infile1(t_token *t, t_table *tab)
 	id = 0;
 	flags[0] = 0;
 	flags[1] = 0;
-	nl = "minishell: syntax error near unexpected token `newline'";
+	nl = "minishell: syntax error -1- near unexpected token `newline'";
 	// (*i)++;
 	if (t->path)
 		t->infile = get_fd(t->infile, t->path, flags);
@@ -135,11 +135,11 @@ t_token	*get_infile2(t_token *t, t_table *tab)
 	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error near unexpected token `newline'";
+	nl = "minishell: syntax error -2- near unexpected token `newline'";
 	// (*i)++;
 	if (t->path)
 	{
-		aux[0] = t->cmd[t->id];
+		aux[0] = t->cmd[1];
 		t->infile = get_here_doc(str, aux);  /*later */
 	}
 	if (!t->path || t->infile == -1)
