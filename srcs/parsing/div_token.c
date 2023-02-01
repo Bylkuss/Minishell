@@ -195,6 +195,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	// int exts;
 	
 	// exts = 0;
+	endt = "\0";
 	tk_len = 0;
 	i = 0;
 	// id = tab->token->id;
@@ -203,23 +204,26 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	{
 		// tk_len = tab->refs[strt];
 		tab->token->cmd = ft_mx_dup(tkn);
-		printf("DEBUG: token_fill tk_id[%d]:: tk_len[%d] etype {%s} \n", id, tab->token->tk_len, tab->node[len ]);	
+		printf("DEBUG: START>> token_fill tk_id[%d]:: tk_len[%d] etype {%s} \n", id, tab->token->tk_len, tab->node[len ]);	
 		while (i <= (len))
 		{
 			tab->token->endtype = set_endtype(tab, tab->node[i]);
 			if (tab->token->endtype < 0)
-				tab->token->cmd[id] = ft_strjoin(tab->token->cmd[id], tab->node[i]);
+				endt = ft_strjoin(endt, tab->node[i]);
+				// tab->token->cmd[id] = ft_strjoin(endt, tab->node[i]);
+			printf("DEBUG: token_fill cmds[id:%d] len(%d) cmd:{%s} \n", id, i, endt);	
 			// tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
-			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
+		tab->token->cmd[id] = ft_strdup(endt); 
+		printf("DEBUG: token_fillAFTER  cmds[id:%d] len(%d) cmd:{%s} \n", id, i, tab->token->cmd[id]);	
 		// endt = tab->node[tab->refs[id-2]];
 		// printf("DEBUG: token_fill  cmd[%d] endtype[%d] {%s} \n", id, tab->token->endtype, tab->node[i]);	
 		// if (tab->token->endtype == 0)
 		// 	break;
 		
 		if (tab->token->endtype == 2 || tab->token->endtype == 3)
-			printf("DEBUG: token_fill outfile .... cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+			printf("DEBUG: token_fill outfile .... cmds[%d] node[%d] {%s} \n", id, len, tab->node[i]);	
 				// {
 
 				// 	tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
@@ -284,8 +288,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
-		printf("DEBUG: div_ tk_len (%d) \n", token->tk_len);		
-		printf("DEBUG: div_ tk_num (%d) \n", tab->tk_num);		
+		// printf("DEBUG: div_ tk_len (%d) \n", token->tk_len);		
+		// printf("DEBUG: div_ tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
