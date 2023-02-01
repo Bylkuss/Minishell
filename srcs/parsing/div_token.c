@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/24 21:25:17 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/01 03:55:32 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,8 +272,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			// needed to token command
 	
 
-	// printf("ok ici \n");
-	if ((tk_id < token->id))// start at zero < token->id start at 1
+		// printf("ok ici \n");
+	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
 		printf("DEBUG: tk_len (%d) \n", token->tk_len);		
