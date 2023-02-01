@@ -208,6 +208,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		while (i <= (len))
 		{
 			tab->token->endtype = set_endtype(tab, tab->node[i]);
+			printf("DEBUG: token_fill endtype:%d \n", tab->token->endtype);	
 			if (tab->token->endtype < 0)
 				endt = ft_strjoin(endt, tab->node[i]);
 				// tab->token->cmd[id] = ft_strjoin(endt, tab->node[i]);
