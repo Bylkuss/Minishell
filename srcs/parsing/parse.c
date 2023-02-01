@@ -77,6 +77,8 @@ static t_table *split_all(t_table *tab)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
 
+    // tab = div_token(tab, "<|>");
+
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
@@ -93,6 +95,7 @@ static t_table *split_all(t_table *tab)
 
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
+    
     tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
@@ -103,10 +106,12 @@ static t_table  *parse_args(t_table *tab)
     int is_exit;
     int tk_id;
     t_token *token;
+    // char *set;
+    // set = "<|>";
 
     token = tab->token;
     is_exit = 0;
-    tab->token->id = 0;
+    tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
     
@@ -114,12 +119,6 @@ static t_table  *parse_args(t_table *tab)
 
     tab = token_nodes(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
-    //
-    ///
-    //  OK NOW HERE : tab->cmds[id] shld have every node set... 
-    //  SO IF INFILE2 GET ENDTYPE at the begening ... 
-    ///
-    //
     tab = split_all(tab);         
         /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
@@ -133,11 +132,12 @@ static t_table  *parse_args(t_table *tab)
             // then do it
             // free content...
 
-        // set a token for each endtype
-        //
-        //  // fill is form ... t->cmd** t->path t->endtype
-        //  // 
-        g_status = is_builtin(token);       
+            // set a token for each endtype
+            //
+            //  // fill is form ... t->cmd** t->path t->endtype
+            //  // 
+        tab->token = get_token(tab, tab->token,  token->id);
+        g_status = is_builtin(tab->token);       
         if (g_status == 1)
             printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         builtins_handler(tab, tab->token, token->id);
@@ -157,7 +157,6 @@ static t_table  *parse_args(t_table *tab)
         tk_id--;
         // tab->token->id++;
         if (tk_id > 0 )//|| tab->tk_num == 0)
-            tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;
