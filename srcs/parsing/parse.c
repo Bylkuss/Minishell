@@ -38,19 +38,19 @@ static t_table	*redir_type(t_table *tab)
             if (*cmd[id] == '<' && *cmd[id + 1] == '<')
                 tab->tk_num++; 
             else if (*cmd[id] == '<')
-                 tab->tk_num++;  
+                 tab->tk_num + 0;//;  
             else if (*cmd[id] == '>' && *cmd[id + 1] == '>')
-                 tab->tk_num++;  
+                 tab->tk_num + 0;//+;  
             else if (*cmd[id] == '>')
-                  tab->tk_num++;  
+                  tab->tk_num + 0;//+;  
             else if (*cmd[id] == '|')
                 tab->tk_num++;  
             else if (tab->token->id != tab->tk_num)
             {
-                printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
-                ref[tab->token->id] = id; 
+                // printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+                ref[tab->token->id] = id + 1; 
             }
-            printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
+            // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
             //if (*cmd[id] == '\0')
                 //   tab->token->id = tab->tk_num++; 
         }
