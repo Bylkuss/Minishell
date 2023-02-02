@@ -84,7 +84,6 @@ static t_table *split_all(t_table *tab)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
     tab = token_alloc(tab); // malloc each token + each token[cmd]    
-    tab = div_token(tab, "<|>");
 
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
@@ -103,6 +102,7 @@ static t_table *split_all(t_table *tab)
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     
+    tab = div_token(tab, "<|>");
     tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
