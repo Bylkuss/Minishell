@@ -76,9 +76,9 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	nod = 0;
 	i = -1;
 	
-		// printf("ok ici id [%d]\n", id);
-		// printf("ok ici tk_num [%d]\n", tab->tk_num);
-		// printf("ok ici token->id [%d]\n", tab->token->id);
+		printf("ok ici id [%d]\n", id);
+		printf("ok ici tk_num [%d]\n", tab->tk_num);
+		printf("ok ici token->id [%s]\n", tab->token->cmd[id]);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 				// if (id > 1) : free_cont(token, 1);
@@ -120,7 +120,6 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//	pipex...
 			
 			id++;
-				// printf("ok ici ++\n");
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
@@ -133,6 +132,8 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 
 		// display_one_tkn(tab->token, tab->token->id);	
 	}
+	else
+		printf("ok ici ++\n");
 	// display_tkn(tab);
 		// tab->token->cmd[nod - 1] = NULL;	
 
@@ -186,7 +187,7 @@ static int	div_count(char **nodes, char *set, int strt)
 }
 
 // token_fill : use tab->cmds[] to stack token... former tab->node[]
-static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
+t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 {	
 	int i;	//node pos
 	int o;
@@ -200,14 +201,13 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	id = 1;
 	while (id <= tab->tk_num)
 	{
-		// tk_len = tab->refs[strt];
 		tab->token->cmd = ft_mx_dup(tkn);
 		tk_len = div_count(tab->node, "<|>", i) - i;// +( id  - tk_len));
 		printf("\nDEBUG: START>> token_fill [%d] tk_id[%d]:: tk_len[%d]\n", i, id, tk_len);	
-		// tk_len = tk_len -1;
-		// tab->token->tk_len = tk_len -1;
-		// printf("\nDEBUG: START>> token_fill tk_id[%d]:: tk_len[%d]\n", id, tab->token->tk_len);	
-		// o = i+o;
+			// tk_len = tk_len -1;
+			// tab->token->tk_len = tk_len -1;
+			// printf("\nDEBUG: START>> token_fill tk_id[%d]:: tk_len[%d]\n", id, tab->token->tk_len);	
+			// o = i+o;
 		o = 0;
 		while (o++ < (tk_len))
 		{
@@ -216,6 +216,8 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 				// printf("DEBUG: token_fill endtype:%d \n", tab->token->endtype);	
 			if (tab->token->endtype < 0)
 			{
+				if (full)
+					full = ft_strjoin(full, " ");
 				full = ft_strjoin(full, tab->node[i]);
 			}
 					// tab->token->cmd[id] = ft_strjoin(endt, tab->node[i]);
@@ -223,9 +225,12 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 				// tab->token->cmd[id] = ft_mx_ext(tab->token->cmd[id], tab->node[i]);
 			i++;
 		}
+		tab->token->cmd[id] = ft_strdup(full);
+		printf("DEBUG: token->cmd[%d] ==> {%s} \n", id, tab->token->cmd[id]);
+
 		tab->token->endtype = set_endtype(tab, tab->node[i]);
 		printf("DEBUG: token_fillAFTER  cmds[id:%d] etype(%d) cmd:{%s} etype{%s}\n", id, tab->token->endtype, full, tab->node[i]);	
-		// printf(":: endtyp{%s} \n",  tab->node[i]);	
+		 // printf(":: endtyp{%s} \n",  tab->node[i]);	
 
 			// printf("DEBUG: token_fill endtype:%d \n", tab->token->endtype);	
 			// tab->token->cmd[id] = ft_strdup(endt); 
@@ -324,6 +329,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tk_id++;
 	}	
 	printf("DEBUG: div_token:: end...\n ... go for get_token \n");
+		printf("DEBUG: token->cmd[%d] ==> {%s} \n", 1, token->cmd[1]);
+
 
 		// tab->token = get_token(tab, token, 1);
 		/*

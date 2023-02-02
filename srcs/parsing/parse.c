@@ -103,7 +103,7 @@ static t_table *split_all(t_table *tab)
     }
     
     tab = div_token(tab, "<|>");
-    tab->token = get_token(tab, tab->token, tkn_id);
+    // tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
 
@@ -129,7 +129,7 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
     // if (tab->token->endtype >= 0)
-    while (tab->token->endtype >= 0)
+    while (tab->tk_num > 0)
     {
         // first get token 
             // all of them 
