@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2023/01/10 10:00:29 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/02/02 13:33:36 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static char *cd_hyphen(char **env)
  * @param cmd full given cmd ex: cd "./" 
  * @returns the path as const char* that will be given as param to chdir()
  */
+/* "ls" "-l" */
 static const char *get_cd_path(char **cmd, char **env)
 {
 	char *path;

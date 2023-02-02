@@ -14,6 +14,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 /* fd Refs*/
 # define READ_END 0
@@ -65,11 +66,14 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 	char	**cmd;		//	... cmd[id][node]
 	char 	*full;		// multi **str into  *str
 	char 	*path;		// outfile???
+	char	*cmd_path;
 	char 	*ofile;		// open file char*
 	int		endtype;	// enum endtype : err, end, redir
 	int 	infile;		// staring [fd] : arg/file "<" cmd 
  	int		outfile;	// resultd [fd] : arg/file ">" endtype
-	int 	tk_len;	// how many node by token (min 2) ref by
+	int 	tk_len;		// how many node by token (min 2) ref by
+	int		pfd[2];
+	pid_t	child;
 	struct s_table	*table; 
 };						//t_token;
 
