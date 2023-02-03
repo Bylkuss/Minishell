@@ -77,10 +77,10 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	nod = 0;
 	i = -1;
 	
-	// printf("ok ici tk_num [%d]\n", tab->tk_num);
-	// printf("ok ici token->id [%d]\n", tab->token->id);
 	//
 	/// set token >> malloc each >> 
+		// printf("ok ici tk_num [%d]\n", tab->tk_num);
+		// printf("ok ici token->id [%d]\n", tab->token->id);
 
 	// need t->cmd[id][full]
 	// get infile /outfile 
@@ -99,11 +99,11 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			while(++i < (nod - 1))
 			{
 				tab->token->endtype = set_endtype(tab,tab->cmds[id][nod -1]);
-				// if (set_endtype(tab,tab->cmds[id][nod -1]) < 0)
-				// if(tab->token->endtype < 0)
-				// 	tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 2]);
-				// else
-					// nod--;
+					// if (set_endtype(tab,tab->cmds[id][nod -1]) < 0)
+					// if(tab->token->endtype < 0)
+					// 	tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 2]);
+					// else
+						// nod--;
 				
 				tab->token->cmd = ft_mx_ext(tab->token->cmd, tab->cmds[id][i]);
 				tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
@@ -221,7 +221,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		while (i <= (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-				printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+				// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
 		endt = tab->node[tab->refs[id-1]];
@@ -233,7 +233,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		{
 
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+			// printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 		}
 				// tab->node[i] = ft_strdup((const char *)tab->node[i-1]);
 		strt = id;
@@ -293,18 +293,18 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
-		printf("DEBUG: tk_len (%d) \n", token->tk_len);		
-		printf("DEBUG: tk_num (%d) \n", tab->tk_num);		
+			// printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
+			// printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
-			// pass_len = tab->refs[tab->token->id];	
-			// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
-			// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
-			// printf("DEBUG:  t->t->id:%d] => supp ==> t->refs[t->t->id:%d]\n", tab->token->id, tab->refs[tab->token->id]);
-			// printf("DEBUG:  refs[tk_num:%d] => supp ==> past_len[pos:%d]\n", tab->token->id, tab->refs[tab->token->id]);
-			// token->tk_len =	token->tk_len - pass_len;
-			// tab->token->cmd check!!
+				// pass_len = tab->refs[tab->token->id];	
+				// printf("DEBUG:  refs[tkn_id:%d] =>it is ==> past_len[pos:%d]\n", tkn_id, pass_len);
+				// printf("DEBUG:  token->id:%d => supp ==> t->refs[tkn_id:%d]\n", token->id, tab->refs[tkn_id]);
+				// printf("DEBUG:  t->t->id:%d] => supp ==> t->refs[t->t->id:%d]\n", tab->token->id, tab->refs[tab->token->id]);
+				// printf("DEBUG:  refs[tk_num:%d] => supp ==> past_len[pos:%d]\n", tab->token->id, tab->refs[tab->token->id]);
+				// token->tk_len =	token->tk_len - pass_len;
+				// tab->token->cmd check!!
 
 		
 

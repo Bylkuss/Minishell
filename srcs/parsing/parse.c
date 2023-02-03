@@ -26,7 +26,7 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);    
-    printf  ("DEBUG: node_num[%d]\n", n);
+    // printf  ("DEBUG: node_num[%d]\n", n);
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
     while (id++ <= n)
@@ -48,11 +48,11 @@ static t_table	*redir_type(t_table *tab)
             // else if (*cmd[id] == '@')
             //       tab->token->id = tab->tk_num++; 
             ref[tab->token->id] = id; 
-            if (tab->token->id < tab->tk_num)
-                printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+            // if (tab->token->id < tab->tk_num)
+            //     printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
         }
     }
-    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    // printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
     tab->refs = ref;
     return (tab);
 }
@@ -109,10 +109,10 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 0;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    printf("\nDEBUG:  %d redir_ token... ...\n", tab->tk_num);             
+    printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
     //
     ///
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = token_alloc(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
     //
     ///
@@ -126,9 +126,10 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
     // if (tab->token->endtype >= 0)
-    tab->token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->endtype >= 0)
     {
+        tab->token = get_token(tab, tab->token, tab->token->id);
+        printf("DEBUG: parse_ #token[%d] . . .\n", tab->tk_num);     
         // first get token 
             // all of them 
             // then do it
@@ -161,7 +162,6 @@ static t_table  *parse_args(t_table *tab)
         // if (tk_id > 0 )//|| tab->tk_num == 0)
             // tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
-        printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;
 
    }

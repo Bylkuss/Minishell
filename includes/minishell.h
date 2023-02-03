@@ -121,62 +121,62 @@ t_table					*div_token(t_table *tab, char *set);
 t_token					*get_token(t_table *tab, t_token *token, int id);
 
 //expand
-char		*expand_vars(char *str, int i, int quotes[2], t_table *tab);
-char		*expand_path(char *str, int i, int quotes[2], char *var);
+char			*expand_vars(char *str, int i, int quotes[2], t_table *tab);
+char			*expand_path(char *str, int i, int quotes[2], char *var);
 //nodes
-t_table					*token_nodes(t_table *tab);
+t_table			*token_alloc(t_table *tab);
 //redir
-int			get_fd(int oldfd, char *path, int flags[2]);
-t_token		*get_outfile1(t_token *t, t_table *tab);
-t_token		*get_outfile2(t_token *t, t_table *tab);
-t_token		*get_infile1(t_token *t, t_table *tab);
-t_token		*get_infile2(t_token *t, t_table *tab);
+int				get_fd(int oldfd, char *path, int flags[2]);
+t_token			*get_outfile1(t_token *t, t_table *tab);
+t_token			*get_outfile2(t_token *t, t_table *tab);
+t_token			*get_infile1(t_token *t, t_table *tab);
+t_token			*get_infile2(t_token *t, t_table *tab);
 // t_token		*get_outfile1(t_token *t, int i);
 // t_token		*get_outfile2(t_token *t, int i);
 // t_token		*get_infile1(t_token *t, int i);
 // t_token		*get_infile2(t_token *t, int i);
 //heredoc
-char		*get_here_str(char *str[2], size_t len, char *limit, char *warn);
-int			get_here_doc(char *str[2], char *aux[2]);
+char			*get_here_str(char *str[2], size_t len, char *limit, char *warn);
+int				get_here_doc(char *str[2], char *aux[2]);
 //utils
-void		display_tkn(t_table *tab);
-void		display_one_tkn(t_token *token, int id);
-void		mx_display_tab(char **tab);
-void		mx_display_str(char *str);
-void		display_tkn_id(t_token *t, int id);
+void			display_tkn(t_table *tab);
+void			display_one_tkn(t_token *token, int id);
+void			mx_display_tab(char **tab);
+void			mx_display_str(char *str);
+void			display_tkn_id(t_token *t, int id);
 
-// char		*node_check(char *input, char *meta);
-// char		*type_check(char *input, char *meta);
+// char			*node_check(char *input, char *meta);
+// char			*type_check(char *input, char *meta);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
-char		*getcmd(char **paths, char *cmd);
-void    	execustom(char **out, char *full, char *args, char **envp) ;
-// char    	node_trim_q(const char *s, int squote, int dquote);
+char			*getcmd(char **paths, char *cmd);
+void    		execustom(char **out, char *full, char *args, char **envp) ;
+// char    		node_trim_q(const char *s, int squote, int dquote);
 
 // xcve.c
-char		*path_join(char *path, char *bin);
-int			str_ncmp(char *str1, char *str2, int n);
-int			str_ichr(char *str, char c);
-char		*str_ndup(char *str, unsigned int n);
-char		**str_split(char *str, char sep);
-// char		*getpath(t_table *tab);
-// void		*getcmd(char **paths, char *cmd);
+char			*path_join(char *path, char *bin);
+int				str_ncmp(char *str1, char *str2, int n);
+int				str_ichr(char *str, char c);
+char			*str_ndup(char *str, unsigned int n);
+char			**str_split(char *str, char sep);
+// char			*getpath(t_table *tab);
+// void			*getcmd(char **paths, char *cmd);
 
 //execmd.c
-void		*execmd(t_table *tab, t_token *t, int id);
-void 		get_cmd(t_table *tab, t_token *t, int id);
-char		*getpath(char *cmd, char **env);
+void			*execmd(t_table *tab, t_token *t, int id);
+void 			get_cmd(t_table *tab, t_token *t, int id);
+char			*getpath(char *cmd, char **env);
 
 //error
-void	    error_msg(char *msg, int exiit);
-void		*chk_error(int err_type, char *param, int err);
-void		free_cont(void *content, int id);
+void	    	error_msg(char *msg, int exiit);
+void			*chk_error(int err_type, char *param, int err);
+void			free_cont(void *content, int id);
 
 //child
-void		child_builtin(t_table *tab, t_token *t, int id);
-void		*born_child(t_table *tab, t_token *token, int id, int fd[2]);
-void		*chk_fork(t_table *tab, t_token *t, int id, int fd[2]);
-void    	exc_fork(t_table *tab, t_token *t, int id, int fd[2]);
+void			child_builtin(t_table *tab, t_token *t, int id);
+void			*born_child(t_table *tab, t_token *token, int id, int fd[2]);
+void			*chk_fork(t_table *tab, t_token *t, int id, int fd[2]);
+void    		exc_fork(t_table *tab, t_token *t, int id, int fd[2]);
 
 
 #endif
