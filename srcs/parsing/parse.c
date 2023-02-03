@@ -26,11 +26,10 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);    
-    printf  ("DEBUG: REDIR_TYPE...node_num[%d]\n", n);
-    tab->token->id = 1;
-    tab->tk_num = 1;
-    ref[tab->token->id] = 0;    
-    while (id++ <= n - 1)
+    printf  ("DEBUG: node_num[%d]\n", n);
+    tab->token->id = 0;
+    ref[tab->token->id] = 0; 
+    while (id++ <= n)
     {
         tab->token->id = tab->tk_num;
         if (cmd[id] && (id < n))
@@ -45,14 +44,11 @@ static t_table	*redir_type(t_table *tab)
                   tab->tk_num + 0;//+;  
             else if (*cmd[id] == '|')
                 tab->tk_num++;  
-            else if (tab->token->id != tab->tk_num)
-            {
-                // printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
-                ref[tab->token->id] = id + 1; 
-            }
-            // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
-            //if (*cmd[id] == '\0')
-                //   tab->token->id = tab->tk_num++; 
+            // else if (*cmd[id] == '@')
+            //       tab->token->id = tab->tk_num++; 
+            ref[tab->token->id] = id; 
+            if (tab->token->id < tab->tk_num)
+                printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
         }
     
 
@@ -101,8 +97,6 @@ static t_table *split_all(t_table *tab)
 
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
-    
-    tab = div_token(tab, "<|>");
     // tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
@@ -119,7 +113,17 @@ static t_table  *parse_args(t_table *tab)
     // tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    printf("\nDEBUG:  _%d redir_ token... ...\n", tab->tk_num);             
+    printf("\nDEBUG:  %d redir_ token... ...\n", tab->tk_num);             
+    //
+    ///
+    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
+    //
+    ///
+    //  OK NOW HERE : tab->cmds[id] shld have every node set... 
+    //  SO IF INFILE2 GET ENDTYPE at the begening ... 
+    ///
+    //
     tab = split_all(tab);         
 
         // tab = token_nodes(tab); // malloc each token + each token[cmd]    
@@ -129,19 +133,20 @@ static t_table  *parse_args(t_table *tab)
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
     // if (tab->token->endtype >= 0)
-    while (tab->tk_num > 0)
+    tab->token = get_token(tab, tab->token, tab->token->id);
+    while (tab->token->endtype >= 0)
     {
         // first get token 
             // all of them 
             // then do it
             // free content...
 
-            // set a token for each endtype
-            //
-            //  // fill is form ... t->cmd** t->path t->endtype
-            //  // 
-        tab->token = get_token(tab, tab->token,  token->id);
-        g_status = is_builtin(tab->token);       
+        // set a token for each endtype
+        //
+        // tab->token->id++;
+        //  // fill is form ... t->cmd** t->path t->endtype
+        //  // 
+        g_status = is_builtin(token);       
         if (g_status == 1)
             printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         builtins_handler(tab, tab->token, token->id);
@@ -160,7 +165,8 @@ static t_table  *parse_args(t_table *tab)
         free_cont(tab->token, tk_id);
         tk_id--;
         // tab->token->id++;
-        if (tk_id > 0 )//|| tab->tk_num == 0)
+        // if (tk_id > 0 )//|| tab->tk_num == 0)
+            // tab->token = get_token(tab, tab->token, 1);
         // tab->tk_num--;
         printf("DEBUG: #token[%d] . . .\n", tab->tk_num);     
         //     break;
@@ -178,6 +184,7 @@ static t_table  *parse_args(t_table *tab)
         g_status = g_status / 255;
     if (tab->cmds && is_exit)
     {
+        // tab->tk_num = 0;
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->node);
         free_cont(tab->token,tk_id);
@@ -229,5 +236,8 @@ from check.c
                     expand_vars & expand_path                   ==> expand.c
     *** so in my mind a token is : CMD + ARG + END 
     *** in fact ARG is facultative
-*/
+
+    ls -lt -a| head -3|wc -w>>out.txt
+
+*/ 
 }
