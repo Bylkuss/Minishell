@@ -121,15 +121,15 @@ static t_token *set_token(t_table *tab)
 				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
 
     	// setting t->ofile value OUTFILE 1 & 2
-
-			// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
-			// 	tab->token = get_outfile1(token, tab);
-			// else if (tab->token->endtype == 3)
-			// 	tab->token = get_outfile2(token, tab);
-			// else if (tab->token->endtype == 4)
-			// 	tab->token = get_infile1(token, tab);
-			// else if (tab->token->endtype == 5)
-			// 	tab->token = get_infile2(token, tab);
+        // tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][nod -1]);
+        // if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
+        //     tab->token = get_outfile1(tab->token, tab);
+        // else if (tab->token->endtype == 3)
+        //     tab->token = get_outfile2(tab->token, tab);
+        // else if (tab->token->endtype == 4)
+        //     tab->token = get_infile1(tab->token, tab);
+        // else if (tab->token->endtype == 5)
+        //     tab->token = get_infile2(tab->token, tab);   
 			// else if (tab->token->endtype == 0)
     return(tab->token);
 }

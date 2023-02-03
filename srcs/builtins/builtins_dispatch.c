@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+extern int g_status;
 int is_builtin(t_token *t)
 {
     int l;
@@ -66,18 +67,18 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     char *input;
     char **envp;
 
-    int i = 0;
+    // int i = 0;
     // envp = tab->envp;
         // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", token->path); 	//len[%d]", l);
-    input = token->cmd[0];
+    input = token->lead;
     // input = tab->token->cmd[id][0];
     envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))
-        i = cd(ft_split(input, ' '), envp);
+        g_status = cd(ft_split(input, ' '), envp);
     else if (ft_strnstr(input, "pwd", 10))
-        i = pwd();
+        g_status = pwd();
     else if(ft_strnstr(input, "echo", 10))
-        i = echo(ft_split(input, ' '));
+        g_status = echo(ft_split(input, ' '));
     else if(ft_strnstr(input, "env", 5))
         env(envp);
     else if(ft_strnstr(input, "unset", 10))
@@ -86,17 +87,17 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
             printf("No such variable\n");
     } 
     else if(ft_strnstr(input, "export", 10))
-        i = ms_export(ft_split(input, ' ') , envp);
+        g_status = ms_export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
     else 
     {
-        // signal(SIGINT, SIG_IGN);
-        // signal(SIGQUIT, SIG_IGN);
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
         execmd(tab, token, id);
         
     }
-    return (i);
+    return (g_status);
 }
 
 
