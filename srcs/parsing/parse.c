@@ -83,7 +83,7 @@ static t_table *split_all(t_table *tab)
         // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
-    tab = token_alloc(tab); // malloc each token + each token[cmd]    
+    // tab = token_alloc(tab); // malloc each token + each token[cmd]    
 
     while (tab->node[++i] && tkn_id <= tab->tk_num)       
     {
