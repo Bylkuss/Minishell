@@ -13,6 +13,7 @@ t_table *init_token(t_table *tab)
     tab->token = token;
     token->id = 0;
     token->cmd = NULL;  
+    token->lead = NULL;
     token->path = NULL;
     token->full = NULL;
     token->ofile = NULL;

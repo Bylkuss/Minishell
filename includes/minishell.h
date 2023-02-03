@@ -63,6 +63,7 @@ struct s_token		/*	 THREE-PART NODE-FORM TOKEN	ex: token[0]= "ls", "-l", "eof",	
 {
 	int 	id;			//	# command id 
 	char	**cmd;		//	... cmd[id][node]
+	char	*lead;		// unique cmd to find path...
 	char 	*full;		// multi **str into  *str
 	char 	*path;		// outfile???
 	char 	*ofile;		// open file char*

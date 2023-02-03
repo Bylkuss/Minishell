@@ -100,13 +100,19 @@ static t_table *split_all(t_table *tab)
 
 static t_token *set_token(t_table *tab)
 {
+    char **lead;
 
        /// set token >> malloc each >> 
-		printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-        printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
-		printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
-        if (tab->token->id > 1)
+		// printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
+        // printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+		// printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
+        if (tab->token->id == 0)
             tab->token->id = 1;
+        else
+            tab->token->id++;
+        *tab->token->cmd = tab->token->cmd[tab->token->id];
+        lead = ft_split(*tab->token->cmd, ' ');
+        tab->token->lead = ft_strdup(lead[0]);
 
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
@@ -115,6 +121,7 @@ static t_token *set_token(t_table *tab)
 				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
 
     	// setting t->ofile value OUTFILE 1 & 2
+
 			// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 			// 	tab->token = get_outfile1(token, tab);
 			// else if (tab->token->endtype == 3)
@@ -124,9 +131,7 @@ static t_token *set_token(t_table *tab)
 			// else if (tab->token->endtype == 5)
 			// 	tab->token = get_infile2(token, tab);
 			// else if (tab->token->endtype == 0)
-			// 	return(tab->token);
-
-
+    return(tab->token);
 }
 
 static t_table  *parse_args(t_table *tab)
@@ -160,14 +165,14 @@ static t_table  *parse_args(t_table *tab)
             // if (tab->token->endtype >= 0)
     // tab->token = get_token(tab, tab->token, tab->token->id);
 
-    set_token(tab);
     
     // while (tab->token->endtype <= 0)
-
+    tab->token->id = 0;
     printf("DEBUG:: parse: t->id[%d] ::  tk_num[%d]\n", tab->token->id, tab->tk_num);
-    while (tab->token->id <= tab->tk_num)
+    while (tab->token->id < tab->tk_num)
     {
-        printf("\nDEBUG: parse_ #token[%d] . . .\n", tab->token->id);     
+        set_token(tab);
+        printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         // first get token 
             // all of them 
             // then do it
@@ -183,7 +188,8 @@ static t_table  *parse_args(t_table *tab)
             printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
         builtins_handler(tab, tab->token, token->id);
         
-        tab->token->id++;
+        // tab->token->id++;
+        token->path = NULL;
         // {
         
             // if (tab->token->endtype == 0)
