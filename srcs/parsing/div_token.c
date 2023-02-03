@@ -210,6 +210,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	int id;
 	int tk_len;
 	char *full;
+	char *endt;
 	
 	full = NULL;
 	tk_len = 0;

@@ -116,7 +116,7 @@ static t_table  *parse_args(t_table *tab)
     printf("\nDEBUG:  %d redir_ token... ...\n", tab->tk_num);             
     //
     ///
-    tab = token_nodes(tab); // malloc each token + each token[cmd]    
+    tab = token_alloc(tab); // malloc each token + each token[cmd]    
     tab = div_token(tab, "<|>"); // padd endtype + set token 
     //
     ///
