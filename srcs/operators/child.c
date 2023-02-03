@@ -27,8 +27,8 @@ void	child_builtin(t_table *tab, t_token *t, int id)
 		// cmd = ft_split(t->cmd[id], ' ');
 		// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
 		// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
-		printf("DEBUG:@@ chk_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
-		printf("DEBUG:@@ chk_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
+		printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
+		printf("DEBUG:@@ chld_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
 		// mx_display_tab(t->cmd);
 		execve(t->path, t->cmd, tab->envp);
 	}
@@ -77,7 +77,7 @@ void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 	// l = 0;
 	// if (t->cmd)
 		// l = ft_strlen(t->cmd[0]);
-	printf("DEBUG: chk_fork :: t->cmd[%d]{%s} \n", id, t->cmd[id]);
+	printf("DEBUG: chld_fork :: t->cmd[%d]{%s} \n", id, t->cmd[id]);
 	child_redir(t, id, fd);
 
 	close(fd[READ_END]);
@@ -109,7 +109,7 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
 {
     // t_token *t;
     DIR     *dir;
-	printf("DEBUG: TEST chk_fork \n");
+	// printf("DEBUG: TEST chk_fork \n");
     // t = token;
     dir = NULL;
     if (t->cmd)
@@ -128,6 +128,6 @@ void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-	// printf("DEBUG: wanna_exit_ _ _ exc_frk\n");
+	printf("DEBUG: wanna_exit_ _ _ exc_frk\n\n");
     return ("");
 }

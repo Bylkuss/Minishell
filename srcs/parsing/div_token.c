@@ -80,7 +80,6 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	//
 	/// set token >> malloc each >> 
 		// printf("ok ici tk_num [%d]\n", tab->tk_num);
-		// printf("ok ici token->id [%d]\n", tab->token->id);
 
 	// need t->cmd[id][full]
 	// get infile /outfile 
@@ -95,7 +94,9 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				// tab->token->cmd = ft_mx_dup(tab->cmds[id]);
 				//
 				// if (tab->token->full)
-			printf("DEBUG:: Get_Token ->cmd[%d] ", id);
+			tab->token->lead = ft_strdup(*tab->cmds[id]);
+			// printf("DEBUG:: Get_Token ->lead{%s}\n ", tab->token->lead);
+			// printf("ok ici tab->token->cmd[%d]{%s}\n", tab->token->id, *tab->cmds[id]);
 			while(++i < (nod - 1))
 			{
 				tab->token->endtype = set_endtype(tab,tab->cmds[id][nod -1]);
@@ -116,8 +117,8 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				tab->token->ofile = ft_strdup(*tab->cmds[id + 1]);
 			tab->token->cmd[id] = ft_strdup(tab->token->full);
 				
-			printf("{%s}\n",  tab->token->cmd[id]);
-			printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+			// printf("{%s}\n",  tab->token->cmd[id]);
+			// printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
 			// ended token
 			// // setting t->ofile value OUTFILE 1 & 2
 			// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
@@ -338,7 +339,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   
   //   ls  -lta | wc -l >> out.txt   
-  //   ls -lt|head -2| wc -l >> out.txt   
+  //   ls -lt|head -2| wc -l >> out.txt  
+//    printf("DEBUG: TEST find_command >> path{%s}  \n", path);
  
 /*
 from parse.c /split_all ->
