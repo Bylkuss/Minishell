@@ -119,17 +119,17 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			printf("{%s}\n",  tab->token->cmd[id]);
 			printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
 			// ended token
-			// setting t->ofile value OUTFILE 1 & 2
-			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
-				tab->token = get_outfile1(token, tab);
-			else if (tab->token->endtype == 3)
-				tab->token = get_outfile2(token, tab);
-			else if (tab->token->endtype == 4)
-				tab->token = get_infile1(token, tab);
-			else if (tab->token->endtype == 5)
-				tab->token = get_infile2(token, tab);
-			else if (tab->token->endtype == 0)
-				return(tab->token);
+			// // setting t->ofile value OUTFILE 1 & 2
+			// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
+			// 	tab->token = get_outfile1(token, tab);
+			// else if (tab->token->endtype == 3)
+			// 	tab->token = get_outfile2(token, tab);
+			// else if (tab->token->endtype == 4)
+			// 	tab->token = get_infile1(token, tab);
+			// else if (tab->token->endtype == 5)
+			// 	tab->token = get_infile2(token, tab);
+			// else if (tab->token->endtype == 0)
+			// 	return(tab->token);
 			//else 
 			//	pipex...
 			
@@ -159,7 +159,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		redir set by endtype
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
-	tab->tk_num = 0;
+	// tab->tk_num = 0;
 	return (tab->token);
 }
 

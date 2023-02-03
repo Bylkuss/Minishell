@@ -109,10 +109,11 @@ void 	get_cmd(t_table *tab, t_token *t, int id)
 	// printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
 	if (!t->path)
 	{
-		t->path = getpath(*t->cmd, tab->envp);
-		// t->path = ft_strdup((const char*)full_path);
-		printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
-		printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
+		t->path = getpath(t->cmd[id], tab->envp);
+		// printf("DEBUG::: get_cmd t->path {%s} \n", t->path);
+			// t->path = ft_strdup((const char*)full_path);
+			// printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
+			// printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
 
 	}
 	dir = cmd_checks(tab, t, tab->envp, t->path);
@@ -132,12 +133,12 @@ void *execmd(t_table *tab, t_token *t, int id)
     int fd[2];
 	char *path;
 
-	// printf("DEBUG: TEST execmd  ");
+	printf("DEBUG: TEST execmd [id:%d] \n", id);
 	// display_one_tkn(t, t->id);
     get_cmd(tab, t, id);
 	if (t->path)
-		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->full);
-	printf("DEBUG: TEST execmd 2 >> t-cmd{%s}\n", *tab->cmds[id + 1]);
+		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[id]);
+	// printf("DEBUG: TEST execmd FULL >> t->cmd{%s}\n", t->cmd[id]);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, id, fd))

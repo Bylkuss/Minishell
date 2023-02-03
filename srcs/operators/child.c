@@ -17,14 +17,18 @@ extern int g_status;
 void	child_builtin(t_table *tab, t_token *t, int id)
 {
     int l;  //cmd len
+	char **cmd;
 
-    l = ft_strlen(t->cmd[0]);	
+    l = ft_strlen(t->cmd[id]);	
     // signal(SIGINT, SIG_DFL);
 	// signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(t) && t->cmd)
 	{
+		// cmd = ft_split(t->cmd[id], ' ');
+		// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
+		// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
 		printf("DEBUG:@@ chk_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
-		printf("DEBUG:@@ chk_bltn :: t->cmd len (%d) \n", ft_mx_len(t->cmd)); 
+		printf("DEBUG:@@ chk_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
 		// mx_display_tab(t->cmd);
 		execve(t->path, t->cmd, tab->envp);
 	}
@@ -34,7 +38,7 @@ void	child_builtin(t_table *tab, t_token *t, int id)
 		g_status = echo(t->cmd);
 	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
 	{
-		// ft_putmatrix_fd(tab->envp, 1, 1);
+		// ft_mx_fd(tab->envp, 1);
 		env(tab->envp);
 		g_status = 0;
 	}
@@ -67,18 +71,19 @@ static void	*child_redir(t_token *t, int id, int fd[2])
 void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 {
     // t_token*t;
-	int		l;
+	// int		l;
 
 	// t = token;
-	l = 0;
-	if (t->cmd)
-		l = ft_strlen(t->cmd[0]);
-	printf("DEBUG: chk_fork :: t->cmd \n");//len[%d]", l);
+	// l = 0;
+	// if (t->cmd)
+		// l = ft_strlen(t->cmd[0]);
+	printf("DEBUG: chk_fork :: t->cmd[%d]{%s} \n", id, t->cmd[id]);
 	child_redir(t, id, fd);
 
 	close(fd[READ_END]);
 
 	child_builtin(tab, t, id);
+	printf("end_born_child\n");
     // remove token
     // free_cont
 	// ft_lstclear(&prompt->cmds, free_content);
