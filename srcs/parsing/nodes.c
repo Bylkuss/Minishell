@@ -81,7 +81,7 @@ static t_table	*node_mx(t_table *tab)
 	return (tab);
 }
 //
-
+//fill 	layer-Z with  row-X _and_  colmn-Y  
 t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 {
 	int i;
@@ -92,8 +92,8 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	i = -1;
 	tk_len = tab->refs[id];
 	
-	printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
-	printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
+	// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+	// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
 	// tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
  	while( ++i < tab->tk_num)
@@ -105,7 +105,7 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 			id++;
 		}
 	}			
-	// printf("ok ici token_alloc \n");
+	// printf("ok ici \n");
 	return (tab);
 }
 //   ls -lta| head -2 |wc -c>> out.txt  
