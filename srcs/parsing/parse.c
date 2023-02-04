@@ -94,7 +94,7 @@ static t_table *split_all(t_table *tab)
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     tab = div_token(tab, "<|>"); // padd endtype + set token 
-    tab->token = get_token(tab, tab->token, tkn_id);
+    // tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
 
@@ -104,7 +104,6 @@ static t_token *set_token(t_table *tab)
 
        /// set token >> malloc each >> 
 		// printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-        // printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
 		// printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
         if (tab->token->id == 0)
             tab->token->id = 1;
@@ -122,14 +121,15 @@ static t_token *set_token(t_table *tab)
 
     	// setting t->ofile value OUTFILE 1 & 2
         // tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][nod -1]);
-        // if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
-        //     tab->token = get_outfile1(tab->token, tab);
-        // else if (tab->token->endtype == 3)
-        //     tab->token = get_outfile2(tab->token, tab);
-        // else if (tab->token->endtype == 4)
-        //     tab->token = get_infile1(tab->token, tab);
-        // else if (tab->token->endtype == 5)
-        //     tab->token = get_infile2(tab->token, tab);   
+        printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+        if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
+            tab->token = get_outfile1(tab->token, tab);
+        else if (tab->token->endtype == 3)
+            tab->token = get_outfile2(tab->token, tab);
+        else if (tab->token->endtype == 4)
+            tab->token = get_infile1(tab->token, tab);
+        else if (tab->token->endtype == 5)
+            tab->token = get_infile2(tab->token, tab);   
 			// else if (tab->token->endtype == 0)
     return(tab->token);
 }
@@ -143,7 +143,7 @@ static t_table  *parse_args(t_table *tab)
 
     token = tab->token;
     is_exit = 0;
-    tab->token->id = 0;
+    tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
     printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
@@ -154,7 +154,7 @@ static t_table  *parse_args(t_table *tab)
         //
         ///
         //  OK NOW HERE : tab->cmds[id] shld have every node set... 
-        //  SO IF INFILE2 GET ENDTYPE at the begening ... 
+        //  SO IF INFILE2 GET ENDTYPE at the begening ... // tab->token = get_token(tab, tab->token, tkn_id);
         ///
     //
     tab = split_all(tab);         
@@ -165,10 +165,11 @@ static t_table  *parse_args(t_table *tab)
             // if (tab->token->endtype >= 0)
         // tab->token = get_token(tab, tab->token, tab->token->id);
        // while (tab->token->endtype <= 0)
-    tab->token->id = 0;
+    tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] ::  tk_num[%d]\n", tab->token->id, tab->tk_num);
     while (tab->token->id <= tab->tk_num)
     {
+        tab->token = get_token(tab, tab->token, tab->token->id);
         set_token(tab);
         printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         // first get token 
@@ -199,15 +200,15 @@ static t_table  *parse_args(t_table *tab)
             // else
             // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
-        // free_cont(tab->token, tk_id);
-        // tk_id--;
-        // tab->token->id++;
-        // if (tk_id > 0 )//|| tab->tk_num == 0)
-            // tab->token = get_token(tab, tab->token, 1);
-        // tab->tk_num--;
-        //     break;
+            // free_cont(tab->token, tk_id);
+            // tk_id--;
+            // tab->token->id++;
+            // if (tk_id > 0 )//|| tab->tk_num == 0)
+                // tab->token = get_token(tab, tab->token, 1);
+            // tab->tk_num--;
+            //     break;
 
-   }
+    }
    
     while (tab->token->id <= tab->tk_num)
         waitpid(-1, &g_status, 0);
@@ -275,6 +276,7 @@ from check.c
     *** in fact ARG is facultative
 
     ls -lt -a| head -3|wc -w>>out.txt
+    ls -lt>>popox.txt
 
 */ 
 }

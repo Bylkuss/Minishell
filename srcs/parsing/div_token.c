@@ -79,51 +79,40 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	
 	//
 	/// set token >> malloc each >> 
-		// printf("ok ici tk_num [%d]\n", tab->tk_num);
-
-	// need t->cmd[id][full]
-	// get infile /outfile 
+		// printf("ok ici_get_token tk_num [%d]\n", tab->tk_num);
+		// printf("ok ici_get_token t->t->id [%d]\n", tab->token->id);
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
-				// if (id > 1) : free_cont(token, 1);
 		while(id <= tab->tk_num) //if
 		{
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
-				//
-				// tab->token->cmd = ft_mx_dup(tab->cmds[id]);
-				//
-				// if (tab->token->full)
 			tab->token->lead = ft_strdup(*tab->cmds[id]);
-			// printf("DEBUG:: Get_Token ->lead{%s}\n ", tab->token->lead);
-			// printf("ok ici tab->token->cmd[%d]{%s}\n", tab->token->id, *tab->cmds[id]);
+			tab->token->cmd = ft_mx_ext(tab->token->cmd, tab->cmds[id][0]);
+			if (set_endtype(tab,tab->cmds[id][nod - 1]) != 1)
+				nod = nod - 1;
 			while(++i < (nod - 1))
 			{
-				tab->token->endtype = set_endtype(tab,tab->cmds[id][nod -1]);
-					// if (set_endtype(tab,tab->cmds[id][nod -1]) < 0)
-					// if(tab->token->endtype < 0)
-					// 	tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 2]);
-					// else
-						// nod--;
-				
-				tab->token->cmd = ft_mx_ext(tab->token->cmd, tab->cmds[id][i]);
+				tab->token->endtype = set_endtype(tab,tab->cmds[id][nod - 1]);	
 				tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
 				if ((i + 1) < (nod - 1))
 					tab->token->full = ft_strjoin(tab->token->full, " ");
 			}
-			i = -1;
 			//set token final form of [id][full]
+			printf("\nDEBUG:: Get_Token ->lead{%s}\n", tab->token->lead);
+			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
+			printf("DEBUG: token->full __%s__\n\n", tab->token->full);
+			// // setting t->ofile value OUTFILE 1 & 2
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 			{
-				tab->token->ofile = ft_strdup(*tab->cmds[id + 1]);
-
-			}
-			tab->token->cmd[id] = ft_strdup(tab->token->full);
-				
+				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->cmds[id][i + 1]);
+				printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);}
+			tab->token->cmd[id] = ft_strdup(tab->token->full);				
 			// printf("{%s}\n",  tab->token->cmd[id]);
-			// printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+
 			// ended token
-			// // setting t->ofile value OUTFILE 1 & 2
+			i = -1;
+			// printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 				tab->token = get_outfile1(token, tab);
 			else if (tab->token->endtype == 3)
@@ -132,17 +121,15 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				tab->token = get_infile1(token, tab);
 			else if (tab->token->endtype == 5)
 				tab->token = get_infile2(token, tab);
-			// else if (tab->token->endtype == 0)
-			// 	return(tab->token);
-			//else 
-			//	pipex...
+					// else if (tab->token->endtype == 0)
+			// if no redirs, end token OR redir pipex ...
+			// either way , get fd[infile] exec cmd set fd[outfile]
+			// and that's it!!
+
 			
 				// printf("ok ici ++\n");
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-				// printf("DEBUG: token->full __%s__\n", tab->token->full);
-				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
 			id++;
 			tab->token->full = NULL;
 			tab->token->endtype = -1;
@@ -163,7 +150,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		redir set by endtype
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
-	// tab->tk_num = 0;
+	tab->token->id = 0;
 	return (tab->token);
 }
 
@@ -325,6 +312,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	return (tab);    
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   
+  //    ls -lta >> popov.txt    
   //   ls  -lta | wc -l >> out.txt   
   //   ls -lt|head -2| wc -l >> out.txt  
 //    printf("DEBUG: TEST find_command >> path{%s}  \n", path);
