@@ -95,42 +95,46 @@ static t_table *split_all(t_table *tab)
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     tab = div_token(tab, "<|>"); // padd endtype + set token 
-    tab->token = get_token(tab, tab->token, tkn_id);
+    // tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
 
 static t_token *set_token(t_table *tab)
 {
-    char **lead;
+    
+    int id;
+    int len;
 
+    id = tab->token->id;
        /// set token >> malloc each >> 
 		// printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-        // printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
 		// printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
         if (tab->token->id == 0)
             tab->token->id = 1;
-        else
-            tab->token->id++;
-        *tab->token->cmd = tab->token->cmd[tab->token->id];
-        lead = ft_split(*tab->token->cmd, ' ');
-        tab->token->lead = ft_strdup(lead[0]);
+        // else
+            // tab->token->id++;
+        tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
+        // ft_split(*tab->token->cmd, ' ');
+        // tab->token->lead = ft_strdup(lead[0]);
 
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
+				printf("DEBUG:  SET_T:: token->cmd[%d] {%s} \n", id, tab->token->cmd[id-1]);
 
     	// setting t->ofile value OUTFILE 1 & 2
-
-			// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
-			// 	tab->token = get_outfile1(token, tab);
-			// else if (tab->token->endtype == 3)
-			// 	tab->token = get_outfile2(token, tab);
-			// else if (tab->token->endtype == 4)
-			// 	tab->token = get_infile1(token, tab);
-			// else if (tab->token->endtype == 5)
-			// 	tab->token = get_infile2(token, tab);
+        len = ft_mx_len(tab->token->cmd);
+        tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][len]);
+        printf("DEBUG: SET_T:token->endtype [%d]\n", tab->token->endtype);
+        if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
+            tab->token = get_outfile1(tab->token, tab);
+        else if (tab->token->endtype == 3)
+            tab->token = get_outfile2(tab->token, tab);
+        else if (tab->token->endtype == 4)
+            tab->token = get_infile1(tab->token, tab);
+        else if (tab->token->endtype == 5)
+            tab->token = get_infile2(tab->token, tab);   
 			// else if (tab->token->endtype == 0)
     return(tab->token);
 }
@@ -139,15 +143,15 @@ static t_table  *parse_args(t_table *tab)
 {
 
     int is_exit;
-    int tk_id;
+    // int tk_id;
     t_token *token;
 
     token = tab->token;
     is_exit = 0;
-    // tab->token->id = 1;
+    tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
+    // printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
     //
         ///
         // tab = token_alloc(tab); // malloc each token + each token[cmd]    
@@ -155,28 +159,24 @@ static t_table  *parse_args(t_table *tab)
         //
         ///
         //  OK NOW HERE : tab->cmds[id] shld have every node set... 
-        //  SO IF INFILE2 GET ENDTYPE at the begening ... 
+        //  SO IF INFILE2 GET ENDTYPE at the begening ... // tab->token = get_token(tab, tab->token, tkn_id);
         ///
     //
     tab = split_all(tab);         
-
-        // tab = token_nodes(tab); // malloc each token + each token[cmd]    
-        // tab = div_token(tab, "<|>"); // padd endtype + set token 
-        /*  tab->node [*str]  sep.space. node -ID.less
+       /*  tab->node [*str]  sep.space. node -ID.less
             tab >> tab->token-> ... arg-set value ...TBD            
             i = ft_lstsize(tab->cmds);     */
            // g_status = builtin(p, p->cmds, &is_exit, 0);       
             // if (tab->token->endtype >= 0)
-    // tab->token = get_token(tab, tab->token, tab->token->id);
-
-    
-    // while (tab->token->endtype <= 0)
-    tab->token->id = 0;
+        // tab->token = get_token(tab, tab->token, tab->token->id);
+       // while (tab->token->endtype <= 0)
+    tab->token->id = 1;
+    tab->token = get_token(tab, tab->token, tab->token->id);
     printf("DEBUG:: parse: t->id[%d] ::  tk_num[%d]\n", tab->token->id, tab->tk_num);
-    while (tab->token->id < tab->tk_num)
+    while (tab->token->id <= tab->tk_num)
     {
+        // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         set_token(tab);
-        printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         // first get token 
             // all of them 
             // then do it
@@ -190,10 +190,11 @@ static t_table  *parse_args(t_table *tab)
         g_status = is_builtin(token);       
         if (g_status == 1)
             printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
-        builtins_handler(tab, tab->token, token->id);
+        g_status = builtins_handler(tab, tab->token, token->id);
         
         // tab->token->id++;
         token->path = NULL;
+        tab->token->id++;
         // {
         
             // if (tab->token->endtype == 0)
@@ -205,18 +206,17 @@ static t_table  *parse_args(t_table *tab)
             // else
             // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
 
-        // free_cont(tab->token, tk_id);
-        tk_id--;
-        // tab->token->id++;
-        // if (tk_id > 0 )//|| tab->tk_num == 0)
-            // tab->token = get_token(tab, tab->token, 1);
-        // tab->tk_num--;
-        //     break;
+            // free_cont(tab->token, tk_id);
+            // tk_id--;
+            // tab->token->id++;
+            // if (tk_id > 0 )//|| tab->tk_num == 0)
+                // tab->token = get_token(tab, tab->token, 1);
+            // tab->tk_num--;
+            //     break;
 
-   }
+    }
    
-    tk_id = tab->tk_num;
-    while (tk_id-- > 0)
+    while (tab->token->id <= tab->tk_num)
         waitpid(-1, &g_status, 0);
         //
     if (!is_exit && g_status == 13)
@@ -229,7 +229,7 @@ static t_table  *parse_args(t_table *tab)
         // tab->tk_num = 0;
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->node);
-        free_cont(tab->token,tk_id);
+        free_cont(tab->token,tab->token->id);
         ft_mx_free(&tab->token->cmd);
         return (NULL);
     }
@@ -248,9 +248,12 @@ void  *check_args(char *input, t_table *tab)    // main deply >parse
         add_history(input);
     // tab->node        
     tab->node = init_split(input, " ", tab);    // space split  checked!!!
+    if (!tab)
+        return ("");
     // parse
     tab = parse_args(tab);
 
+    free(input);
     //token should be execute here...
     ///
         // builtins_handler(tab->node[0], tab->envp);
@@ -265,7 +268,6 @@ void  *check_args(char *input, t_table *tab)    // main deply >parse
                 //     ft_lstclear(&p->cmds, free_content);
         // exit(0);
         // }
-    free(input);
     return (tab); 
 
 /*
@@ -280,6 +282,7 @@ from check.c
     *** in fact ARG is facultative
 
     ls -lt -a| head -3|wc -w>>out.txt
+    ls -lt>>popox.txt
 
 */ 
 }
