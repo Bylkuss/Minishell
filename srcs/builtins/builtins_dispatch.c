@@ -70,7 +70,7 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
     // int i = 0;
     // envp = tab->envp;
         // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", token->path); 	//len[%d]", l);
-    input = token->lead;
+    input = *token->cmd;
     // input = tab->token->cmd[id][0];
     envp = save_old_pwd(envp);    
     if(ft_strnstr(input, "cd", 10))

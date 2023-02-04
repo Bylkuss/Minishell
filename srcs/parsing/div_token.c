@@ -114,7 +114,10 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			i = -1;
 			//set token final form of [id][full]
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
+			{
 				tab->token->ofile = ft_strdup(*tab->cmds[id + 1]);
+
+			}
 			tab->token->cmd[id] = ft_strdup(tab->token->full);
 				
 			// printf("{%s}\n",  tab->token->cmd[id]);
