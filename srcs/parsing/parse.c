@@ -100,28 +100,32 @@ static t_table *split_all(t_table *tab)
 
 static t_token *set_token(t_table *tab)
 {
-    char **lead;
+    
+    int id;
+    int len;
 
+    id = tab->token->id;
        /// set token >> malloc each >> 
 		// printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
 		// printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
         if (tab->token->id == 0)
             tab->token->id = 1;
-        else
-            tab->token->id++;
-        *tab->token->cmd = tab->token->cmd[tab->token->id];
-        lead = ft_split(*tab->token->cmd, ' ');
-        tab->token->lead = ft_strdup(lead[0]);
+        // else
+            // tab->token->id++;
+        tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
+        // ft_split(*tab->token->cmd, ' ');
+        // tab->token->lead = ft_strdup(lead[0]);
 
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-				// printf("DEBUG: token->ofile {%s} \n", tab->cmds[id+1][i + 1]);
+				printf("DEBUG:  SET_T:: token->cmd[%d] {%s} \n", id, tab->token->cmd[id-1]);
 
     	// setting t->ofile value OUTFILE 1 & 2
-        // tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][nod -1]);
-        printf("DEBUG: token->endtype [%d]\n", tab->token->endtype);
+        len = ft_mx_len(tab->token->cmd);
+        tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][len]);
+        printf("DEBUG: SET_T:token->endtype [%d]\n", tab->token->endtype);
         if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
             tab->token = get_outfile1(tab->token, tab);
         else if (tab->token->endtype == 3)
@@ -146,7 +150,7 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
+    // printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
     //
         ///
         // tab = token_alloc(tab); // malloc each token + each token[cmd]    
@@ -166,12 +170,12 @@ static t_table  *parse_args(t_table *tab)
         // tab->token = get_token(tab, tab->token, tab->token->id);
        // while (tab->token->endtype <= 0)
     tab->token->id = 1;
+    tab->token = get_token(tab, tab->token, tab->token->id);
     printf("DEBUG:: parse: t->id[%d] ::  tk_num[%d]\n", tab->token->id, tab->tk_num);
     while (tab->token->id <= tab->tk_num)
     {
-        tab->token = get_token(tab, tab->token, tab->token->id);
+        // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         set_token(tab);
-        printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         // first get token 
             // all of them 
             // then do it
@@ -189,6 +193,7 @@ static t_table  *parse_args(t_table *tab)
         
         // tab->token->id++;
         token->path = NULL;
+        tab->token->id++;
         // {
         
             // if (tab->token->endtype == 0)

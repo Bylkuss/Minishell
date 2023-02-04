@@ -109,7 +109,7 @@ t_token	*get_infile1(t_token *t, t_table *tab)
 	nl = "minishell: syntax error -1- near unexpected token `newline'";
 	// (*i)++;
 	if (t->path)
-		t->infile = get_fd(t->infile, t->path, flags);
+		t->infile = get_fd(t->infile, t->ofile, flags);
 	if (!t->path || t->infile == -1)
 	{
 		// *i = -1;

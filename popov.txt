@@ -1,4 +1,18 @@
 DEBUG:@@ chld_bltn :: t->path { /usr/bin/ls }
 DEBUG:@@ chld_bltn :: t->cmd len (3) 
-DEBUG:@@ chld_bltn :: t->path { /usr/bin/ls }
-DEBUG:@@ chld_bltn :: t->cmd len (3) 
+total 124
+-rw-rw-r--  1 ghebert ghebert    84 Feb  4 18:45 popov.txt
+drwxrwxr-x 10 ghebert ghebert 12288 Feb  4 18:45 .
+-rwxrwxr-x  1 ghebert ghebert 60632 Feb  4 18:41 minishell
+drwxrwxr-x  5 ghebert ghebert  4096 Feb  4 14:58 libft
+drwxrwxr-x  7 ghebert ghebert  4096 Feb  4 14:57 objs
+drwxrwxr-x  8 ghebert ghebert  4096 Feb  4 14:57 .git
+drwxrwxr-x  2 ghebert ghebert  4096 Feb  4 10:32 includes
+-rw-rw-r--  1 ghebert ghebert  1225 Feb  3 15:31 Makefile
+drwxrwxr-x  5 ghebert ghebert  4096 Jan 27 09:56 ..
+drwxrwxr-x  3 ghebert ghebert  4096 Jan 24 08:00 test
+drwxrwxr-x  2 ghebert ghebert  4096 Jan  5 13:04 Random
+drwxrwxr-x  2 ghebert ghebert  4096 Dec 20 14:33 readline
+-rw-rw-r--  1 ghebert ghebert   728 Dec 20 14:33 README.md
+drwxrwxr-x  7 ghebert ghebert  4096 Dec 14 12:07 srcs
+-rw-rw-r--  1 ghebert ghebert    47 Dec 14 12:07 .gitignore

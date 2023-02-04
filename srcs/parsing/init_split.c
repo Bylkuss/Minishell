@@ -123,7 +123,7 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    printf("DEBUG: node_count: (n = %d)\n", i[1]);
+    // printf("DEBUG: node_count: (n = %d)\n", i[1]);
     return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
 }
 
