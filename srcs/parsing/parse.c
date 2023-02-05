@@ -26,38 +26,37 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);    
-    // printf  ("DEBUG: node_num[%d]\n", n);
+    printf  ("DEBUG: node_num[%d]\n", n);
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
-    while (id++ <= n - 1)
+    while (id++ <= n )
     {
-        tab->token->id = tab->tk_num;
-        if (cmd[id] && (id < n))
+        tab->token->id = tab->tk_num;        // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
+        if (cmd[id] && (id < n -1))
         {
-            if (*cmd[id] == '<' && *cmd[id + 1] == '<')
-                tab->tk_num++; 
+            if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
+                tab->token->endtype = 5;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++; 
             else if (*cmd[id] == '<')
-                 tab->tk_num + 0;//;  
-            else if (*cmd[id] == '>' && *cmd[id + 1] == '>')
-                 tab->tk_num + 0;//+;  
+                tab->token->endtype = 4;//printf  ("DEBUG: id[%d]::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
+            else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
+                tab->token->endtype = 3;//printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '>')
-                  tab->tk_num + 0;//+;  
+                tab->token->endtype = 2;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '|')
+            {
+                tab->token->endtype = 1;
                 tab->tk_num++;  
-            // else if (*cmd[id] == '@')
-            //       tab->token->id = tab->tk_num++; 
-            ref[tab->token->id] = id; 
-            // if (tab->token->id < tab->tk_num)
-                // printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+            }
+            ref[tab->token->id] = id;                // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: tk_num[%d]\n", id, tab->token->endtype, tab->tk_num);
+            if (tab->token->endtype != -1)
+                printf  ("DEBUG: REDIR_ NEW_REF::TK_ID[%d]== ETYPE(pos)REF[%d]\n", tab->token->id, ref[tab->token->id]);
         }
-    
-
+        tab->token->endtype = -1;
     }
     if (tab->token->endtype == -1)
         tab->token->endtype = 0;
 
-    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
-    printf  ("DEBUG: ->endtype [%d]\n", tab->token->endtype);
+    // printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
     tab->refs = ref;
     return (tab);
 }
@@ -110,14 +109,14 @@ static t_token *set_token(t_table *tab)
     int len;
 
     id = tab->token->id;
-       /// set token >> malloc each >> 
-		// printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-		// printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
+            /// set token >> malloc each >> 
+                // printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
+                // printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
         if (tab->token->id == 0)
             tab->token->id = 1;
         // else
             // tab->token->id++;
-        tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
+        // tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
         // ft_split(*tab->token->cmd, ' ');
         // tab->token->lead = ft_strdup(lead[0]);
 
@@ -125,12 +124,13 @@ static t_token *set_token(t_table *tab)
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-				printf("DEBUG:  SET_T:: token->cmd[%d] {%s} \n", id, tab->token->cmd[id-1]);
 
     	// setting t->ofile value OUTFILE 1 & 2
-        len = ft_mx_len(tab->token->cmd);
-        tab->token->endtype = set_endtype(tab,tab->cmds[tab->token->id][len]);
-        printf("DEBUG: SET_T:token->endtype [%d]\n", tab->token->endtype);
+        // len = ft_mx_len(tab->token->cmd[]);
+        tab->token->endtype = set_endtype(tab,tab->node[tab->refs[id]]);
+		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, tab->token->cmd[id]);
+        printf("DEBUG:  SET_T:: t->etype [%d]  \n", tab->token->endtype);
+        
         if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
             tab->token = get_outfile1(tab->token, tab);
         else if (tab->token->endtype == 3)
@@ -140,6 +140,7 @@ static t_token *set_token(t_table *tab)
         else if (tab->token->endtype == 5)
             tab->token = get_infile2(tab->token, tab);   
 			// else if (tab->token->endtype == 0)
+        
     return(tab->token);
 }
 
@@ -155,7 +156,7 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    printf("DEBUG:  tk_num __%d__ ...\n", tab->tk_num);             
+    // printf("DEBUG:  tk_num __%d__ ...\n", tab->tk_num);             
     //
         ///
         // tab = token_alloc(tab); // malloc each token + each token[cmd]    
@@ -176,12 +177,12 @@ static t_table  *parse_args(t_table *tab)
        // while (tab->token->endtype <= 0)
     tab->token->id = 1;
     tab->token = get_token(tab, tab->token, tab->token->id);
-    printf("DEBUG:: parse: t->id[%d] ::  tk_num[%d]\n", tab->token->id, tab->tk_num);
+    printf("DEBUG:: parse: t->id[%d] OF [%d]token...\n", tab->token->id, tab->tk_num);
     while (tab->token->id <= tab->tk_num)
     {
         // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
-        if(tab->token->id < tab->tk_num)
-            set_token(tab);
+        // if(tab->token->id < tab->tk_num)
+            tab->token = set_token(tab);
         // first get token 
             // all of them 
             // then do it
@@ -192,7 +193,7 @@ static t_table  *parse_args(t_table *tab)
             // tab->token->id++;
             //  // fill is form ... t->cmd** t->path t->endtype
             //  // 
-        g_status = is_builtin(token);       
+        g_status = is_builtin(tab->token);       
         // if (g_status == 1)
             printf("\nDEBUG : is_builtin (%d)::{%s}\n", g_status, *tab->token->cmd);     
         g_status = builtins_handler(tab, tab->token, token->id);
