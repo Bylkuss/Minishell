@@ -54,7 +54,7 @@ static t_table	*redir_type(t_table *tab)
                 printf  ("DEBUG: REDIR_ NEW_REF::TK_ID[%d]== ETYPE(pos)REF[%d]\n", tab->token->id, ref[tab->token->id]);
             
         }
-        tab->token->endtype = -1;
+        // tab->token->endtype = -1;
     }
     if (tab->token->endtype == -1)
     {
@@ -165,7 +165,10 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    // printf("DEBUG:  tk_num __%d__ ...\n", tab->tk_num);             
+    // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
+    // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
+    // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
+
       //
         ///
         // tab = token_alloc(tab); // malloc each token + each token[cmd]    

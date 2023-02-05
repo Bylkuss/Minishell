@@ -87,7 +87,9 @@ char *type_check(char *input, char *meta)
             // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
             // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
-        }        
+        }   
+        else
+            break;     
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;

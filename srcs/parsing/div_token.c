@@ -188,7 +188,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	id = 1;
 	while (id <= tab->tk_num)
 	{
-		tk_len = tab->refs[id];
+		tk_len = tab->refs[tab->token->id];
 		printf("token_fill => tk_len(%d)\n", tk_len);
 		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i < (tk_len))
