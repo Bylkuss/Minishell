@@ -19,7 +19,7 @@ int is_builtin(t_token *t)
     int id;
     
     id = 0; 
-    if (!t->cmd[0])
+    if (!(t->cmd[0]))
 		return (0);
 	if (t->cmd && ft_strchr(*t->cmd, '/') || (t->path && ft_strchr(t->path, '/')))
 		return (0);

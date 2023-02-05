@@ -23,8 +23,8 @@ void	child_builtin(t_table *tab, t_token *t)
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
-		printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
-		printf("DEBUG:@@ chld_bltn :: t->cmd { %s }\n", *t->cmd);
+		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
+		printf("DEBUG:@@ chld_bltn :: t->cmd {:%s:}\n", *t->cmd);
 		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
 	if (!is_builtin(t) && t->cmd)
 		execve(t->path, t->cmd, tab->envp);
@@ -52,6 +52,7 @@ static void	*child_redir(t_token *t, int fd[2])
     // t_token	*t;
 
 	// t = token;
+	printf("DEBUG: TEST child_redir ::welcome!\n");
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)

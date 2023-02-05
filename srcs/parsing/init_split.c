@@ -89,10 +89,9 @@ char *type_check(char *input, char *meta)
             // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
             // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
-        }        
-        else 
-            break;
-        //     srcs = ft_substr(srcs, 0, p[3]); // untouched
+        }   
+        else
+            break;     
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;
@@ -165,15 +164,15 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         if (i[0] <= len && i[2] > -1) // still left && pass thru "nospaceland"
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
-            // tab->node = ft_mx_ext(tab->node, tab->node[n]);          
-            // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            tab->node = ft_mx_ext(tab->node, tab->node[n]);          
+            printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
             // if(i[0] == len)
             // {
             //     tab->node[n] = ft_strdup("@\0");
-                // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             // }
         }           
+                // printf("DEBUG:: node_num[%d] \n", n);
     }
     return (tab->node);
 }
@@ -192,7 +191,7 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
-    // printf("DEBUG: pass_to_init :: %s \n", input);   
+    printf("DEBUG: pass_to_init :: %s \n", input);   
 
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)

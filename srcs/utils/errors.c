@@ -46,11 +46,11 @@ void *chk_error(int err_type, char *param, int err)
 //     free(token);
 // }
 
-void free_cont(void *content, int id)
+void free_cont(void *content)
 {
     t_token *token;
 
-    token->cmd = content;
+    token = content;
     ft_mx_free(&token->cmd);
 	free(token->ofile);
     free(token->path);

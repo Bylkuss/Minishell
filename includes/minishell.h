@@ -173,7 +173,7 @@ char			*getpath(char *cmd, char **env);
 //error
 void	    	error_msg(char *msg, int exiit);
 void			*chk_error(int err_type, char *param, int err);
-void			free_cont(void *content, int id);
+void			free_cont(void *content);
 
 //child
 void			child_builtin(t_table *tab, t_token *t);
