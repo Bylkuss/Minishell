@@ -31,7 +31,7 @@ static t_table	*redir_type(t_table *tab)
     // if(n > 1) 
     tab->token->id = 1;
     ref[tab->token->id] = 0; 
-    while (id++ < (n -1))
+    while (id++ < (n - 1))
     {
         tab->token->id = tab->tk_num;        // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
         if (cmd[id] && (id + 1) < (n - 1))
@@ -52,12 +52,15 @@ static t_table	*redir_type(t_table *tab)
             ref[tab->token->id] = id;                // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: tk_num[%d]\n", id, tab->token->endtype, tab->tk_num);
             if (tab->token->endtype != -1)
                 printf  ("DEBUG: REDIR_ NEW_REF::TK_ID[%d]== ETYPE(pos)REF[%d]\n", tab->token->id, ref[tab->token->id]);
+            
         }
         tab->token->endtype = -1;
     }
     if (tab->token->endtype == -1)
+    {
+        ref[tab->token->id] = id-1;
         tab->token->endtype = 0;
-    ref[tab->token->id] = id;
+    }
     printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
     tab->refs = ref;
     return (tab);
@@ -183,6 +186,7 @@ static t_table  *parse_args(t_table *tab)
        // while (tab->token->endtype <= 0)
     tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d]token...\n", tab->token->id, tab->tk_num);
+    
     tab->token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->id <= tab->tk_num)
     {
