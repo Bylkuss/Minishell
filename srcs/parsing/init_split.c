@@ -161,14 +161,14 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
             // tab->node = ft_mx_ext(tab->node, tab->node[n]);          
-            // printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
             // if(i[0] == len)
             // {
             //     tab->node[n] = ft_strdup("@\0");
-                // printf("node[%d] => ::%s::\n", n, tab->node[n]);
             // }
         }           
+                // printf("DEBUG:: node_num[%d] \n", n);
     }
     return (tab->node);
 }
@@ -187,7 +187,7 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
-    // printf("DEBUG: pass_to_init :: %s \n", input);   
+    printf("DEBUG: pass_to_init :: %s \n", input);   
 
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)

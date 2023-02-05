@@ -52,6 +52,7 @@ static void	*child_redir(t_token *t, int fd[2])
     // t_token	*t;
 
 	// t = token;
+	printf("DEBUG: TEST child_redir ::welcome!\n");
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
