@@ -33,30 +33,31 @@ static t_table	*redir_type(t_table *tab)
     {
         tab->token->id = tab->tk_num;
         // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
-        if (cmd[id] && (id < n))
+        if (cmd[id] && (id < n -1))
         {
             if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
-                tab->tk_num++; 
+                tab->token->endtype = 5;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++; 
             else if (*cmd[id] == '<')
-                 tab->tk_num++;  
+                tab->token->endtype = 4;//printf  ("DEBUG: id[%d]::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
-                 tab->tk_num++;  
+                tab->token->endtype = 3;//printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '>')
-                  tab->tk_num++;  
+                tab->token->endtype = 2;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '|')
                 tab->tk_num++;  
             // else if (*cmd[id] == '@')
             //       tab->token->id = tab->tk_num++; 
-            ref[tab->token->id] = id; 
+            // ref[tab->token->id] = id; 
             // if (tab->token->id < tab->tk_num)
-                // printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+                printf  ("DEBUG: id[%d] ::REDIR::{%d}:: tk_num[%d]\n", id, tab->token->endtype, tab->tk_num);
+                
         }
     }
     if (tab->token->endtype == -1)
         tab->token->endtype = 0;
 
-    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
-    printf  ("DEBUG: ->endtype [%d]\n", tab->token->endtype);
+    printf  ("DEBUG: REDIR_ tk_num[%d]\n", tab->tk_num);
+    printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
     tab->refs = ref;
     return (tab);
 }

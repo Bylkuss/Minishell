@@ -31,11 +31,11 @@ int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtyp
 		tab->token->endtype = PIPE_END;		// exec_custom???
 	else //if (ft_strcmp(etype ,"@") == 0)
 		tab->token->endtype = DEAD_END;     
-	// else 
-	// 	tab->token->endtype = -1;	//not found     
-	// printf("etype = { %s }", etype);
-	// printf("DEBUG: set_ endtype = [%d]\n", tab->token->endtype);
-	// printf("\netype = [%d]\n", tab->token->endtype);
+			// else 
+			// 	tab->token->endtype = -1;	//not found     
+			// printf("etype = { %s }", etype);
+			// printf("DEBUG: set_ endtype = [%d]\n", tab->token->endtype);
+			// printf("\netype = [%d]\n", tab->token->endtype);
 			// }
 			//  && id < tab->tk_num && tab->cmds[id])
 
@@ -71,22 +71,19 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 	int typ;	
 	int nod;	
 	int i;
-	// int *i;
 		
 	typ = 0;
 	nod = 0;
 	i = -1;
-	
-	//
-	/// set token >> malloc each >> 
+
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
 		while(id <= tab->tk_num) //if
 		{
 			tab->token->id = id;
 			nod = ft_mx_len(tab->cmds[id]);
-			printf("DEBUG:: Get_token t->t->id [%d] (len:%d)\n", tab->token->id, nod);
-			// tab->token->lead = ft_strdup(*tab->cmds[id]);
+				printf("DEBUG:: Get_token t->t->id [%d] (len:%d)\n", tab->token->id, nod);
+				// tab->token->lead = ft_strdup(*tab->cmds[id]);
 			tab->token->cmd = ft_mx_ext(tab->token->cmd, tab->cmds[id][0]);
 			if (set_endtype(tab,tab->cmds[id][nod - 1]) > 1)
 				nod = nod - 1;
@@ -97,20 +94,21 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				if ((i + 1) < (nod - 1))
 					tab->token->full = ft_strjoin(tab->token->full, " ");
 			}
-			//set token final form of [id][full]
-			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
+				//set token final form of [id][full]
+				printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 			if (nod != 1)
 				tab->token->cmd[id] = ft_strdup(tab->token->full);				
-			// // setting t->ofile value OUTFILE 1 & 2
+					// // setting t->ofile value OUTFILE 1 & 2
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
-			{
 				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->cmds[id][i + 1]);
-				printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
-			}
-			// printf("DEBUG: token->full __%s__\n\n", tab->token->full);
-			// ended token
+			
+					// {
+					// printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
+					// }
+					// printf("DEBUG: token->full __%s__\n\n", tab->token->full);
+					// ended token
 			i = -1;
-			// printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
+				// printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 
 				// if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 				// 	tab->token = get_outfile1(token, tab);
@@ -136,11 +134,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->endtype = -1;
 			// free_cont(token);
 		}
-
-
-		// display_one_tkn(tab->token, tab->token->id);	
 	}
-	// display_tkn(tab);
 		// tab->token->cmd[nod - 1] = NULL;	
 
 			// got to do token with tab data
