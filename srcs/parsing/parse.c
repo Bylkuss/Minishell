@@ -26,20 +26,21 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);   
-    printf  ("DEBUG: node_num[%d]\n", n);
+    // printf  ("DEBUG: node_num[%d]\n", n);
+    // printf  ("DEBUG: node_num[%d]::value{%s}\n", n,cmd[n-1]);
     // if(n > 1) 
     tab->token->id = 1;
     ref[tab->token->id] = 0; 
-    while (id++ <= n )
+    while (id++ < (n -1))
     {
         tab->token->id = tab->tk_num;        // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
-        if (cmd[id] && (id < n - 1))
+        if (cmd[id] && (id + 1) < (n - 1))
         {
-            if (*cmd[id] == '<' && cmd  && *cmd[id + 1] == '<')
+            if (*cmd[id] == '<' && (cmd + 1)  && *cmd[id + 1] == '<')
                 tab->token->endtype = 5;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++; 
             else if (*cmd[id] == '<')
                 tab->token->endtype = 4;//printf  ("DEBUG: id[%d]::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
-            else if (*cmd[id] == '>' && cmd  && *cmd[id + 1] == '>')
+            else if (*cmd[id] == '>' && (cmd + 1)  && *cmd[id + 1] == '>')
                 tab->token->endtype = 3;//printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
             else if (*cmd[id] == '>')
                 tab->token->endtype = 2;// printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);//tab->tk_num++;  
@@ -55,12 +56,9 @@ static t_table	*redir_type(t_table *tab)
         tab->token->endtype = -1;
     }
     if (tab->token->endtype == -1)
-    {
         tab->token->endtype = 0;
-        ref[tab->token->id] = id;
-    }
-
-    // printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
+    ref[tab->token->id] = id;
+    printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
     tab->refs = ref;
     return (tab);
 }

@@ -51,7 +51,7 @@ void free_cont(void *content)
     t_token *token;
 
     token = content;
-    ft_mx_free(token->cmd);
+    ft_mx_free(&token->cmd);
 	free(token->ofile);
     free(token->path);
 	free(token->full);
