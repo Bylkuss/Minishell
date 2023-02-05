@@ -29,7 +29,7 @@ t_table *init_tab(t_table *tab)
     tab->envp = NULL;
     tab->node = NULL;
     tab->cmds = NULL ;   
-    tab->tk_num = 0;
+    tab->tk_num = 1;
     tab->refs  = NULL;
     (void) tab->pid;
     tab->token = NULL;

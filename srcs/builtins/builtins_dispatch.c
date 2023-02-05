@@ -90,11 +90,15 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
         g_status = ms_export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
+
     else 
     {
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);
-        execmd(tab, token, id);
+        // if (tab->tk_num == 1)
+        //     execustom(token->cmd, token->path, *token->cmd, tab->envp);
+        // else
+            execmd(tab, token, id);
         
     }
     return (g_status);
