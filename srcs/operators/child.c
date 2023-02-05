@@ -49,7 +49,6 @@ static void	*child_redir(t_token *t, int id, int fd[2])
     // t_token	*t;
 
 	// t = token;
-		// printf("DEBUG: TEST child_redir \n");
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -64,6 +63,7 @@ static void	*child_redir(t_token *t, int id, int fd[2])
 	}
 	else if (t->endtype && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
+	printf("DEBUG: TEST child_redir ::byebye!\n");
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -77,7 +77,7 @@ void	*born_child(t_table *tab, t_token *t, int id, int fd[2])
 	// l = 0;
 	// if (t->cmd)
 		// l = ft_strlen(t->cmd[0]);
-	printf("DEBUG: chld_fork :: t->cmd[%d]{%s} \n", id, t->cmd[id]);
+	printf("DEBUG: born_chld_fork :: t->cmd[%d]{%s} \n", id, *t->cmd);
 	child_redir(t, id, fd);
 
 	close(fd[READ_END]);

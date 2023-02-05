@@ -29,7 +29,7 @@ static t_table	*redir_type(t_table *tab)
     // printf  ("DEBUG: node_num[%d]\n", n);
     tab->token->id = 0;
     ref[tab->token->id] = 0; 
-    while (id++ <= n)
+    while (id++ <= n - 1)
     {
         tab->token->id = tab->tk_num;
         if (cmd[id] && (id < n))
@@ -48,12 +48,16 @@ static t_table	*redir_type(t_table *tab)
             //       tab->token->id = tab->tk_num++; 
             ref[tab->token->id] = id; 
             // if (tab->token->id < tab->tk_num)
-            //     printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+                // printf  ("DEBUG: id[%d] ::REDIR::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
         }
     
 
     }
-    // printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    if (tab->token->endtype == -1)
+        tab->token->endtype = 0;
+
+    printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
+    printf  ("DEBUG: ->endtype [%d]\n", tab->token->endtype);
     tab->refs = ref;
     return (tab);
 }
@@ -151,7 +155,7 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    // printf("DEBUG:  REDIR __%d__ ...\n", tab->tk_num);             
+    printf("DEBUG:  tk_num __%d__ ...\n", tab->tk_num);             
     //
         ///
         // tab = token_alloc(tab); // malloc each token + each token[cmd]    
@@ -176,7 +180,8 @@ static t_table  *parse_args(t_table *tab)
     while (tab->token->id <= tab->tk_num)
     {
         // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
-        set_token(tab);
+        if(tab->token->id < tab->tk_num)
+            set_token(tab);
         // first get token 
             // all of them 
             // then do it
@@ -188,8 +193,8 @@ static t_table  *parse_args(t_table *tab)
             //  // fill is form ... t->cmd** t->path t->endtype
             //  // 
         g_status = is_builtin(token);       
-        if (g_status == 1)
-            printf("\nDEBUG : is_builtin {%d}::\n", g_status);     
+        // if (g_status == 1)
+            printf("\nDEBUG : is_builtin (%d)::{%s}\n", g_status, *tab->token->cmd);     
         g_status = builtins_handler(tab, tab->token, token->id);
         
         // tab->token->id++;

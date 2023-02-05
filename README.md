@@ -28,3 +28,4 @@ Mimic of Shell command
    * Builtins
     * parent, child
    * pid, path 
+/*what to do with token if there is only one cmd*/
