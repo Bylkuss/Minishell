@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/22 21:35:36 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:23:51 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,8 @@ void    exit_builtin(char **cmd)
     {
         while(cmd[1][i])
         {
-            if(!ft_isdigit(cmd[1][i]))
-                error_msg("Bads args\n", 255);
-                // printf("Bad args\n");env
+            if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+                error_msg("exit: numeric argument required\n", 255);
             i++;                
         }
         exiit = ft_atoi(cmd[1]);
