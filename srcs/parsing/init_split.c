@@ -151,7 +151,8 @@ char **init_split(char *input, char *set, t_table *tab)
 
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)
-        return (NULL);    // printf("node = %d::\n", n);
+        return (NULL);   
+    printf("node = %d::\n", n);
     tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->node)
         return (NULL);
