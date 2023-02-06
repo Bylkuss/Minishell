@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 11:37:35 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 13:19:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static t_table	*redir_type(t_table *tab)
     while (id++ < (n - 1))
     {
         tab->token->id = tab->tk_num;      
-        if (cmd[id] && (id + 1) < (n - 1))
+        if (*cmd[id] && (id + 1) < (n - 1))
         {
-            if (*cmd[id] == '<' && (*cmd[id + 1])  && *cmd[id + 1] == '<')
+            if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
                 tab->token->endtype = 5;
             else if (*cmd[id] == '<')
                 tab->token->endtype = 4;
-            else if (*cmd[id] == '>' && (cmd + 1)  && *cmd[id + 1] == '>')
+            else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
                 tab->token->endtype = 3;
             else if (*cmd[id] == '>')
                 tab->token->endtype = 2;
@@ -160,9 +160,9 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
         // `printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-        // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
-        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
-        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
+        printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
+        printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
+        printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
     tab = split_all(tab);         
         tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);

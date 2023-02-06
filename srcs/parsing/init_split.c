@@ -128,12 +128,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             tab->node = ft_mx_ext(tab->node, tab->node[n]);          
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
-            // if(i[0] == len)
-            // {
-            //     tab->node[n] = ft_strdup("@\0");
-            // }
         }           
-                // printf("DEBUG:: node_num[%d] \n", n);
     }
     return (tab->node);
 }
