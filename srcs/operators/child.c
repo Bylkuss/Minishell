@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/22 21:43:04 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:52:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,14 @@ void	child_builtin(t_table *tab, t_token *t)
 
     l = ft_strlen(*t->cmd);	
 
-	cmd = ft_split(t->full, ' ');
-		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(cmd));
+	if (t->full)
+		t->cmd = ft_split(t->full, ' ');
+	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
-		execve(t->path, cmd, tab->envp);
+		execve(t->path, t->cmd, tab->envp);
 		  //
 			//
 			// {
@@ -84,6 +85,7 @@ void	*born_child(t_table *tab, t_token *t, int fd[2])
 		l = ft_strlen(t->cmd[0]);
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
 	printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
+	printf("DEBUG: born_chld_fork :: t->endtype [%d] \n", t->endtype);
 	child_redir(t, fd);
 
 	close(fd[READ_END]);

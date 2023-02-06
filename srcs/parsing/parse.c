@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 07:22:14 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 11:37:35 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_table	*redir_type(t_table *tab)
         tab->token->id = tab->tk_num;      
         if (cmd[id] && (id + 1) < (n - 1))
         {
-            if (*cmd[id] == '<' && (cmd + 1)  && *cmd[id + 1] == '<')
+            if (*cmd[id] == '<' && (*cmd[id + 1])  && *cmd[id + 1] == '<')
                 tab->token->endtype = 5;
             else if (*cmd[id] == '<')
                 tab->token->endtype = 4;
@@ -173,13 +173,12 @@ static t_table  *parse_args(t_table *tab)
         tab->token = token;
         g_status = builtins_handler(tab, tab->token);
         waitpid(-1, &g_status, 0);
-        // free_cont(token);
-        tab->token->id++;     
-
+        
         if (!is_exit && g_status == 13)
             g_status = 0;
         if (g_status > 255)
             g_status = g_status / 255;
+        tab->token->id++;     
     }
           
     if (tab->cmds && is_exit)
