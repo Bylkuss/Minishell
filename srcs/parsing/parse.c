@@ -50,8 +50,8 @@ static t_table	*redir_type(t_table *tab)
                 tab->token->endtype = 1;
             }
             ref[tab->token->id] = id;                // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: tk_num[%d]\n", id, tab->token->endtype, tab->tk_num);
-            if (tab->token->endtype != -1)
-                printf  ("DEBUG: REDIR_ NEW_REF::TK_ID[%d]== ETYPE(pos)REF[%d]\n", tab->token->id, ref[tab->token->id]);
+            // if (tab->token->endtype != -1)
+            //     printf  ("DEBUG: REDIR_ NEW_REF::TK_ID[%d]== ETYPE(pos)REF[%d]\n", tab->token->id, ref[tab->token->id]);
             
         }
         // tab->token->endtype = -1;
@@ -188,7 +188,7 @@ static t_table  *parse_args(t_table *tab)
         // tab->token = get_token(tab, tab->token, tab->token->id);
        // while (tab->token->endtype <= 0)
     tab->token->id = 1;
-    printf("DEBUG:: parse: t->id[%d] OF [%d]token...\n", tab->token->id, tab->tk_num);
+    printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
     tab->token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->id <= tab->tk_num)
@@ -305,7 +305,7 @@ from check.c
     *** in fact ARG is facultative
 
     ls -lt -a| head -3|wc -w>>out.txt
-    ls -lt>>popox.txt
+    ls -lt>>popox.txt  
 
 */ 
 }

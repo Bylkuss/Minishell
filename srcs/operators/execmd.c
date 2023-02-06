@@ -124,17 +124,16 @@ void 	get_cmd(t_table *tab, t_token *t, int id)
 	if (dir)
 		closedir(dir); 
 	// return (t->path);
-}
-
 			// t->path = ft_strdup((const char*)full_path);
 			// printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
 			// printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
+}
 
 void *execmd(t_table *tab, t_token *t, int id)
 {
     int fd[2];
 	char *path;
-
+	
 	if (t->path)
 		t->path = NULL;
 	// 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[id]);
@@ -143,12 +142,8 @@ void *execmd(t_table *tab, t_token *t, int id)
 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
-    if (!chk_fork(tab, t, id, fd))
+    if (!chk_fork(tab, t, fd))
         return (NULL);
-	/*	
-		write (1, fd[WRITE_END], ft_strlen(fd[WRITE_END]))
-		printf("DEBUG::: EXVE:fd[inf]_ {%s} \n", fd[WRITE_END]);
-		printf("DEBUG::: EXVE:fd[ouf]_ {%s} \n", fd[READ_END]); */
     close(fd[WRITE_END]);
 	if (t->endtype < 4 && !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
