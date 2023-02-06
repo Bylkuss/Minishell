@@ -195,7 +195,7 @@ static t_table  *parse_args(t_table *tab)
     {
         token = tab->token;
         // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
-        if(tab->token->id < tab->tk_num)
+        if(tab->token->id <= tab->tk_num)
             tab->token = set_token(tab);
 
         // first get token 

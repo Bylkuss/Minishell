@@ -56,8 +56,8 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->cmd = ft_mx_ext(tab->token->cmd, *tab->cmds[id]);
 
 			printf("DEBUG:: Get_token t->t->id [%d] [refs:%d]\n", tab->token->id, nod);
-			// printf("DEBUG:: Get_token:: init_value {%s}\n", *tab->cmds[id]);
-			// printf("DEBUG:: Get_token:: endtype {%s} \n", tab->node[nod]);
+				// printf("DEBUG:: Get_token:: init_value {%s}\n", *tab->cmds[id]);
+				// printf("DEBUG:: Get_token:: endtype {%s} \n", tab->node[nod]);
 			while(++i < nod)
 			{
 				tab->token->endtype = set_endtype(tab, tab->node[nod]);	
@@ -92,7 +92,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 			id++;
-			tab->token->full = NULL;
+			// tab->token->full = NULL;
 			tab->token->endtype = -1;
 			// free_cont(token);
 		}
