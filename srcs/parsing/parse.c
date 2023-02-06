@@ -123,7 +123,7 @@ static t_token *set_token(t_table *tab)
         //     tab->token->id = 1;
         if (t->id == 0)
             t->id = 1;
-             // else
+           // else
             // tab->token->id++;
             // tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
             // ft_split(*tab->token->cmd, ' ');
@@ -137,7 +137,7 @@ static t_token *set_token(t_table *tab)
     	    // setting t->ofile value OUTFILE 1 & 2
             // len = ft_mx_len(tab->token->cmd[]);
         t->endtype = set_endtype(tab,tab->node[tab->refs[id]]);
-		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, t->cmd[id]);
+		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, *t->cmd);
         printf("DEBUG:  SET_T:: t->etype [%d]  \n", t->endtype);
         
         if (t->endtype == 2 )// || tab->token->endtype == 3)
@@ -195,7 +195,7 @@ static t_table  *parse_args(t_table *tab)
     {
         token = tab->token;
         // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
-        if(tab->token->id < tab->tk_num)
+        if(tab->token->id <= tab->tk_num)
             tab->token = set_token(tab);
 
         // first get token 
@@ -209,8 +209,8 @@ static t_table  *parse_args(t_table *tab)
             //  // fill is form ... t->cmd** t->path t->endtype
             //  // 
         g_status = is_builtin(tab->token);       
-        if (g_status == 1)
-            printf("\nDEBUG : is_builtin (%d)::{%s}\n", is_builtin(token), *token->cmd);     
+        // if (g_status == 1)
+            // printf("\nDEBUG : is_builtin (%d)::{%s}\n", is_builtin(token), *token->cmd);     
         g_status = builtins_handler(tab, tab->token, token->id);
         
         tab->token->id++;

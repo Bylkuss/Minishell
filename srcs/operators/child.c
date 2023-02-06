@@ -19,20 +19,22 @@ void	child_builtin(t_table *tab, t_token *t)
     int l;  //cmd len
 	char **cmd;
 
-	cmd = ft_split(t->full, ' ');
-
     l = ft_strlen(*t->cmd);	
 
+
+		printf("DEBUG:@@ chld_bltn :: t->full {:%s:}\n", t->full); 	//len[%d]", l);
+		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
+		cmd = ft_split(t->full, ' ');
+		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(cmd));
+		// printf("DEBUG:@@ chld_bltn :: t->cmd[0]= {:%s:}\n", t->cmd[0]);
 	//
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
-		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
-		printf("DEBUG:@@ chld_bltn :: t->cmd {:%s:}\n", *t->cmd);
-		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
-	//
 	if (!is_builtin(t) && t->cmd)
 		execve(t->path, t->cmd, tab->envp);
+	//
+	//
 			// {
 			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
 			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
@@ -56,7 +58,7 @@ static void	*child_redir(t_token *t, int fd[2])
     // t_token	*t;
 
 	// t = token;
-	printf("DEBUG: TEST child_redir ::welcome!\n");
+	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->endtype, t->infile, t->outfile);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -71,7 +73,7 @@ static void	*child_redir(t_token *t, int fd[2])
 	}
 	else if (t->endtype && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: TEST child_redir ::byebye!\n");
+	// printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->endtype);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -86,6 +88,7 @@ void	*born_child(t_table *tab, t_token *t, int fd[2])
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
+	printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
 	child_redir(t, fd);
 
 	close(fd[READ_END]);
