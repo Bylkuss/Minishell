@@ -52,7 +52,7 @@ void free_cont(void *content)
 
     token = content;
     ft_mx_free(&token->cmd);
-	free(token->ofile);
+	// free(token->ofile);
     free(token->path);
 	free(token->full);
     if (token->infile != STDIN_FILENO)
