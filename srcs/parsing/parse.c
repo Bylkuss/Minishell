@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 11:37:35 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:11:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static t_table	*redir_type(t_table *tab)
     while (id++ < (n - 1))
     {
         tab->token->id = tab->tk_num;      
-        if (cmd[id] && (id + 1) < (n - 1))
+        if (*cmd[id] && (id + 1) < (n - 1))
         {
-            if (*cmd[id] == '<' && (*cmd[id + 1])  && *cmd[id + 1] == '<')
+            if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
                 tab->token->endtype = 5;
             else if (*cmd[id] == '<')
                 tab->token->endtype = 4;
-            else if (*cmd[id] == '>' && (cmd + 1)  && *cmd[id + 1] == '>')
+            else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
                 tab->token->endtype = 3;
             else if (*cmd[id] == '>')
                 tab->token->endtype = 2;
@@ -103,52 +103,6 @@ static t_table *split_all(t_table *tab)
     return (tab); 
 }
 
-// static t_token *set_token(t_table *tab)
-    // {
-        
-    //     int id;
-    //     int len;
-    //     t_token *t;
-
-    //     t = tab->token;
-    //     id = tab->token->id;
-    //             /// set token >> malloc each >> 
-    //                 // printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-    //                 // printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
-    //         // if (tab->token->id == 0)
-    //         //     tab->token->id = 1;
-    //         if (t->id == 0)
-    //             t->id = 1;
-    //            // else
-    //             // tab->token->id++;
-    //             // tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
-    //             // ft_split(*tab->token->cmd, ' ');
-    //             // tab->token->lead = ft_strdup(lead[0]);
-
-    // 				// mx_display_tab(tab->token->cmd);
-    // 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-    // 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
-    // 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-
-    //     	    // setting t->ofile value OUTFILE 1 & 2
-    //             // len = ft_mx_len(tab->token->cmd[]);
-    //         t->endtype = set_endtype(tab,tab->node[tab->refs[id]]);
-    // 		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, *t->cmd);
-    //         printf("DEBUG:  SET_T:: t->etype [%d]  \n", t->endtype);
-            
-    //         if (t->endtype == 2 )// || tab->token->endtype == 3)
-    //             t = get_outfile1(t, tab);
-    //         else if (t->endtype == 3)
-    //             t = get_outfile2(t, tab);
-    //         else if (t->endtype == 4)
-    //             t = get_infile1(t, tab);
-    //         else if (t->endtype == 5)
-    //             t = get_infile2(t, tab);   
-    // 			// else if (tab->token->endtype == 0)        
-    //         tab->token = t;    
-    //     return(tab->token);
-// }
-
 static t_table  *parse_args(t_table *tab)
 {
 
@@ -160,9 +114,9 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
         // `printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-        // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
-        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
-        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
+        printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
+        printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
+        printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
     tab = split_all(tab);         
         tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);

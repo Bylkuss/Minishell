@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 12:00:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:10:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			}
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-			// if (tab->token->endtype == 4)
-			// 	tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
+			if (tab->token->endtype == 4)
+				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
 			
 			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 			printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
@@ -159,7 +159,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	{
 		tk_len = tab->refs[id];
 		printf("token_fill => tk_len(%d)\n", tk_len);
-		// tab->cmds[id] = ft_mx_dup(tkn);
+		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i < (tk_len))
 		{
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
@@ -192,8 +192,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
-			// printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
-			// printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
+			printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
+			printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 09:39:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:13:46 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	{
 		while( id <= tk_len)
 		{
-			tk_len = tab->refs[id];
+			tk_len = (tab->refs[id] - tk_len);
 			tab->cmds[id] = (char **)malloc(sizeof(char *) * tk_len);
 			// tab->token->cmd[id] = (char **)malloc(sizeof(char *) * tk_len);
 			id++;
