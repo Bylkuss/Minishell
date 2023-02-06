@@ -24,14 +24,14 @@ static t_table	*redir_type(t_table *tab)
     int     *ref;
 
     id = -1;
-    cmd = ft_mx_dup(tab->node); 
+    //cmd = ft_mx_dup(tab->node); 
+    cmd = tab->node; 
     n = ft_mx_len(cmd);   
-    
     tab->token->id = 1;
     ref[tab->token->id] = 0; 
-    while (id++ < (n - 1))
+    while (id++ < (n -1))
     {
-        tab->token->id = tab->tk_num;      
+        tab->token->id = tab->tk_num;   
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' && (cmd + 1)  && *cmd[id + 1] == '<')
@@ -47,17 +47,17 @@ static t_table	*redir_type(t_table *tab)
                 tab->tk_num++;  
                 tab->token->endtype = 1;
             }
-            ref[tab->token->id] = id;                 
+            ref[tab->token->id] = id;                
+            // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: tk_num[%d]\n", id, tab->token->endtype, tab->tk_num);
+            if (tab->token->endtype != -1)
+                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->token->id, ref[tab->token->id]);
         }
-
+        else
+            tab->token->endtype = -1;
     }
+    ref[tab->token->id] = id;
     if (tab->token->endtype == -1)
-    {
-        ref[tab->token->id] = id-1;
         tab->token->endtype = 0;
-    }
-    printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
-    printf  ("DEBUG: REDIR_ ->tk_num [%d]\n", tab->tk_num);
     tab->refs = ref;
     return (tab);
 }
@@ -86,7 +86,7 @@ static t_table *split_all(t_table *tab)
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
-        	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
+        	printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
             
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
@@ -103,51 +103,6 @@ static t_table *split_all(t_table *tab)
     return (tab); 
 }
 
-// static t_token *set_token(t_table *tab)
-    // {
-        
-    //     int id;
-    //     int len;
-    //     t_token *t;
-
-    //     t = tab->token;
-    //     id = tab->token->id;
-    //             /// set token >> malloc each >> 
-    //                 // printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-    //                 // printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
-    //         // if (tab->token->id == 0)
-    //         //     tab->token->id = 1;
-    //         if (t->id == 0)
-    //             t->id = 1;
-    //            // else
-    //             // tab->token->id++;
-    //             // tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
-    //             // ft_split(*tab->token->cmd, ' ');
-    //             // tab->token->lead = ft_strdup(lead[0]);
-
-    // 				// mx_display_tab(tab->token->cmd);
-    // 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-    // 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
-    // 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-
-    //     	    // setting t->ofile value OUTFILE 1 & 2
-    //             // len = ft_mx_len(tab->token->cmd[]);
-    //         t->endtype = set_endtype(tab,tab->node[tab->refs[id]]);
-    // 		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, *t->cmd);
-    //         printf("DEBUG:  SET_T:: t->etype [%d]  \n", t->endtype);
-            
-    //         if (t->endtype == 2 )// || tab->token->endtype == 3)
-    //             t = get_outfile1(t, tab);
-    //         else if (t->endtype == 3)
-    //             t = get_outfile2(t, tab);
-    //         else if (t->endtype == 4)
-    //             t = get_infile1(t, tab);
-    //         else if (t->endtype == 5)
-    //             t = get_infile2(t, tab);   
-    // 			// else if (tab->token->endtype == 0)        
-    //         tab->token = t;    
-    //     return(tab->token);
-// }
 
 static t_table  *parse_args(t_table *tab)
 {
@@ -164,7 +119,7 @@ static t_table  *parse_args(t_table *tab)
         // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
         // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
     tab = split_all(tab);         
-        tab->token->id = 1;
+    // tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
     while (tab->token->id <= tab->tk_num)
