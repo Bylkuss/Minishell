@@ -19,7 +19,7 @@ t_table *init_token(t_table *tab)
     token->ofile = NULL;
     token->endtype = -1;
     token->infile = 0;
-    token->outfile = 0;
+    token->outfile = 1;
     token->tk_len = 0;
     return (tab);   
 }

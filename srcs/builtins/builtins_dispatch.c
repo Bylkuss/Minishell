@@ -89,7 +89,6 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
         g_status = ms_export(ft_split(input, ' ') , envp);
     else if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
-
     else 
     {
         signal(SIGINT, SIG_IGN);

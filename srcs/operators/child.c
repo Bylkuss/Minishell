@@ -22,7 +22,7 @@ void	child_builtin(t_table *tab, t_token *t)
     l = ft_strlen(*t->cmd);	
 
 
-		printf("DEBUG:@@ chld_bltn :: t->full {:%s:}\n", *t->cmd); 	//len[%d]", l);
+		printf("DEBUG:@@ chld_bltn :: t->full {:%s:}\n", t->full); 	//len[%d]", l);
 		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
 		cmd = ft_split(t->full, ' ');
 		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(cmd));
@@ -58,7 +58,7 @@ static void	*child_redir(t_token *t, int fd[2])
     // t_token	*t;
 
 	// t = token;
-	printf("DEBUG: TEST child_redir ::welcome!\n");
+	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->endtype, t->infile, t->outfile);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -73,7 +73,7 @@ static void	*child_redir(t_token *t, int fd[2])
 	}
 	else if (t->endtype && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: TEST child_redir ::byebye!\n");
+	// printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->endtype);
 	close(fd[WRITE_END]);
 	return ("");
 }

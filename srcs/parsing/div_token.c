@@ -66,25 +66,26 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 					tab->token->full = ft_strjoin(tab->token->full, " ");
 			}
 			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
-			//set token final form of [id][full]
-				// if (nod != 1)
-					// tab->token->cmd[id] = ft_strdup(tab->token->full);				
-		  	// setting t->ofile value OUTFILE 1 & 2
+				//set token final form of [id][full]
+					// if (nod != 1)
+						// tab->token->cmd[id] = ft_strdup(tab->token->full);				
+				// setting t->ofile value OUTFILE 1 & 2
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
-			{
 				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-				// printf("DEBUG: Get_token->ofile {%s} \n", tab->cmds[id][nod + 1]);
-				printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
-			}
 			if (tab->token->endtype == 4)
-			{
-				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->cmds[id][i + 1]);
-				printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
-			}
+				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
+					// {
+					// 	// tab->token->full = ft_strjoin(tab->token->full, tab->token->ofile);
+					// 	// tab->token->full = ft_strjoin(tab->token->full, " ");
+					// }
+			printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
 			printf("DEBUG: token->full __%s__\n\n", tab->token->full);
-					// ended token
 			i = -1;
 				
+			// ended token
+					// {
+					// 	// printf("DEBUG: Get_token->ofile {%s} \n", tab->cmds[id][nod + 1]);
+					// }
 			  // if no redirs, end token OR redir pipex ...
 				// either way , get fd[infile] exec cmd set fd[outfile]
 				// and that's it!!
@@ -92,12 +93,11 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 				// mx_display_tab(tab->token->cmd);
 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
 			id++;
-			// tab->token->full = NULL;
 			tab->token->endtype = -1;
-			// free_cont(token);
 		}
 	}
 	// ls > popov.txt
+	// wc < toto.txt 
 			// tab->token->cmd[nod - 1] = NULL;	
 			// got to do token with tab data
 			// 		- token->id = 1; parce que! tab->cmds[id]...

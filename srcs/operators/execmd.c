@@ -145,7 +145,7 @@ void *execmd(t_table *tab, t_token *t, int id)
     if (!chk_fork(tab, t, fd))
         return (NULL);
     close(fd[WRITE_END]);
-	if (t->endtype < 4 && !(t->infile))// ouf?  next t->infile
+	if (t->endtype < 4 )//&& !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
 	else
 		close(fd[READ_END]);
