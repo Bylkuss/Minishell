@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 09:55:38 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:00:21 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,27 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			tab->token->id = id;
 			nod = tab->refs[tab->token->id];
 			tab->token->cmd = ft_mx_ext(tab->token->cmd, *tab->cmds[id]);
-
+			tab->token->endtype = set_endtype(tab, tab->node[nod]);	
 			printf("DEBUG:: Get_token t->t->id [%d] [refs:%d]\n", tab->token->id, nod);
-				// printf("DEBUG:: Get_token:: init_value {%s}\n", *tab->cmds[id]);
-				// printf("DEBUG:: Get_token:: endtype {%s} \n", tab->node[nod]);
+			printf("DEBUG:: Get_token:: endtype [%d] \n", tab->token->endtype);
+		
 			while(++i < nod)
 			{
-				tab->token->endtype = set_endtype(tab, tab->node[nod]);	
+				if (set_endtype(tab, tab->node[i]) > 1)	
+				{
+					tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[i + 1]);	
+					i++;
+					break;
+				}			
 				tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
 				if ((i + 1) < (nod))
 					tab->token->full = ft_strjoin(tab->token->full, " ");
-			}
 
+			}
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-			if (tab->token->endtype == 4)
-				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
+			// if (tab->token->endtype == 4)
+			// 	tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
 			
 			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 			printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
@@ -99,7 +104,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			//		redir set by endtype
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
-	tab->token->id = 1;
+	// tab->token->id = 1;
 	return (tab->token);
 }
 
@@ -192,7 +197,6 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
-				// pass_len = tab->refs[tab->token->id];	
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		// printf("DEBUG: token->cmd[%d] ==> {%s} \n", tk_id + 1, token->cmd[tk_id + 1]);
 		// tk_id++;
@@ -208,6 +212,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   
   //    ls -lta >> popov.txt    
+  // cat < popov.txt
   //   < popov.txt | wc -l 
   //  < popov.txt wc -l | cat > titi2.txt
   //   ls  -lta | wc -l >> out.txt   
