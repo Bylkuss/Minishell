@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 13:25:23 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:10:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			}
 			if (tab->token->endtype == 2 || tab->token->endtype == 3)
 				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-			// if (tab->token->endtype == 4)
-			// 	tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
+			if (tab->token->endtype == 4)
+				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
 			
 			printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
 			printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);

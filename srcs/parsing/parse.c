@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 13:19:50 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 18:11:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,52 +102,6 @@ static t_table *split_all(t_table *tab)
     // tab->token = get_token(tab, tab->token, tkn_id);
     return (tab); 
 }
-
-// static t_token *set_token(t_table *tab)
-    // {
-        
-    //     int id;
-    //     int len;
-    //     t_token *t;
-
-    //     t = tab->token;
-    //     id = tab->token->id;
-    //             /// set token >> malloc each >> 
-    //                 // printf("ok ici SET_T:: tk_num [%d]\n", tab->tk_num);
-    //                 // printf("ok ici SET_T:: token->id [%d]\n", tab->token->id);
-    //         // if (tab->token->id == 0)
-    //         //     tab->token->id = 1;
-    //         if (t->id == 0)
-    //             t->id = 1;
-    //            // else
-    //             // tab->token->id++;
-    //             // tab->token->cmd = ft_split(tab->token->cmd[tab->token->id], ' ');
-    //             // ft_split(*tab->token->cmd, ' ');
-    //             // tab->token->lead = ft_strdup(lead[0]);
-
-    // 				// mx_display_tab(tab->token->cmd);
-    // 				// printf("DEBUG: token_fill path {%s} \n", tab->node[i + 1]);	
-    // 				// printf("DEBUG: token->full __%s__\n", tab->token->full);
-    // 				// printf("DEBUG: token->ofile {%s} \n\n", tab->token->ofile);
-
-    //     	    // setting t->ofile value OUTFILE 1 & 2
-    //             // len = ft_mx_len(tab->token->cmd[]);
-    //         t->endtype = set_endtype(tab,tab->node[tab->refs[id]]);
-    // 		printf("DEBUG:  SET_T:: token->id[%d] cmd{%s} \n", id, *t->cmd);
-    //         printf("DEBUG:  SET_T:: t->etype [%d]  \n", t->endtype);
-            
-    //         if (t->endtype == 2 )// || tab->token->endtype == 3)
-    //             t = get_outfile1(t, tab);
-    //         else if (t->endtype == 3)
-    //             t = get_outfile2(t, tab);
-    //         else if (t->endtype == 4)
-    //             t = get_infile1(t, tab);
-    //         else if (t->endtype == 5)
-    //             t = get_infile2(t, tab);   
-    // 			// else if (tab->token->endtype == 0)        
-    //         tab->token = t;    
-    //     return(tab->token);
-// }
 
 static t_table  *parse_args(t_table *tab)
 {
