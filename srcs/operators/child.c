@@ -17,24 +17,28 @@ extern int g_status;
 void	child_builtin(t_table *tab, t_token *t)
 {
     int l;  //cmd len
-	// char **cmd;
+	char **cmd;
+
+	cmd = ft_split(t->full, ' ');
 
     l = ft_strlen(*t->cmd);	
+
+	//
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
 		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
 		printf("DEBUG:@@ chld_bltn :: t->cmd {:%s:}\n", *t->cmd);
 		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
+	//
 	if (!is_builtin(t) && t->cmd)
 		execve(t->path, t->cmd, tab->envp);
-	// {
-	// 	// cmd = ft_split(t->cmd[id], ' ');
-	// 	// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
-	// 	// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
-	// 	printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
-	// 	printf("DEBUG:@@ chld_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
-	// }
+			// {
+			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
+			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
+			// 	printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
+			// 	printf("DEBUG:@@ chld_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
+			// }
 	else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
 		g_status = pwd();
 	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
@@ -109,7 +113,7 @@ void    exc_fork(t_table *tab, t_token *t, int fd[2])
 		born_child(tab, t, fd);
 }
 
-void *chk_fork(t_table *tab, t_token *t, int id, int fd[2])
+void *chk_fork(t_table *tab, t_token *t, int fd[2])
 {
     // t_token *t;
     DIR     *dir;
