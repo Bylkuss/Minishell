@@ -58,9 +58,10 @@ char *type_check(char *input, char *meta)
     char *rest;  //  sub str
     int p[4];   //ptr pos start/pos/end   
 
+    p[1] = 0;
     rest = "\0";
     srcs = ft_strdup(input);    
-    while (ft_strlen(srcs) > 1) 
+    while (ft_strlen(srcs) > 1 && p[1] != -1) 
     {
         p[1] = ft_strchar_i(srcs, meta);
         if (p[1] == -1)
@@ -87,15 +88,14 @@ char *type_check(char *input, char *meta)
             rest = ft_strjoin(rest, dest); 
             // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-            // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-        }        
-        else 
-            break;
-        //     srcs = ft_substr(srcs, 0, p[3]); // untouched
+            // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
+        }   
+        else
+            break;     
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;
-    // printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
+    printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
     return(input);
 }
 
@@ -127,7 +127,8 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    return (i[1] + 1); // start[0] +1 && invisible endtype +1
+    // printf("DEBUG: node_count: (n = %d)\n", i[1]);
+    return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
 }
 
 static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
@@ -169,9 +170,9 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             // if(i[0] == len)
             // {
             //     tab->node[n] = ft_strdup("@\0");
-            //     printf("node[%d] => ::%s::\n", n, tab->node[n]);
             // }
         }           
+                // printf("DEBUG:: node_num[%d] \n", n);
     }
     return (tab->node);
 }

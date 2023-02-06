@@ -41,6 +41,7 @@ void    execustom(char **out, char *full, char *args, char **envp)
     int     fd[2];
     char    **mx; //token->cmd 
 
+    // printf("welcome to execustom!\n");
     pipe(fd);                                             
     pid = fork();                                          
     if(!pid)

@@ -21,7 +21,8 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	int		i;
 
 	i = -1;
-	printf("DEBUG: TEST find_command >> path{%s}  \n", path);
+	// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
+	// printf("DEBUG: TEST find_command >> cmd{%s}  \n", cmd);
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
@@ -48,9 +49,11 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 {
 	DIR		*dir;
 
-	dir = NULL;
-	// printf("DEBUG: START cmd_chk ... \n");
+		//	dir = NULL;
+		// printf("DEBUG: START cmd_chk ... \n");
 	dir = opendir(path);
+	// printf("DEBUG: TEST cmd_chk >> path{%s}  \n", path);
+	// printf("DEBUG: TEST cmd_chk >> cmd{%s}  \n", *t->cmd);
 	if (t && path && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 	{
 		printf("DEBUG: FIRST_IF cmd_chk ... \n");
@@ -65,10 +68,10 @@ static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
 		path = ms_getenv("PATH", tab->envp, 4);
 		s = ft_split(path, ':');
 		free(t->path);
-		t->path = find_command(s, t->cmd[0], path);
+		t->path = find_command(s, *t->cmd, path);
 
-		if (!t->path || !t->cmd[0])// || !t->cmd[0][0])
-			chk_error(NCMD, t->cmd[0], 127);
+		if (!t->path || !(*t->cmd))// || !t->cmd[0][0])
+			chk_error(NCMD, *t->cmd, 127);
 	}		
 	return (dir);
 }
@@ -78,10 +81,9 @@ char	*getpath(char *cmd, char **env)
 	char	*dir;
 	char	*bin;
 	int		i;
-	char *path;
+	char 	*path;
 
 	i = 0;
-	// printf("DEBUG: TEST getpath ");
 	while (env[i] && str_ncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
@@ -97,6 +99,7 @@ char	*getpath(char *cmd, char **env)
 		free(bin);
 		path += str_ichr(path, ':') + 1;
 	}
+		printf("DEBUG: INTO__getpath bin{%s}\n\n", bin);//cmd);
 	return (cmd);
 }
 
@@ -106,17 +109,13 @@ void 	get_cmd(t_table *tab, t_token *t, int id)
 	DIR		*dir;
 
 	// t = token;
-	// printf("DEBUG::: get_cmd ==> {%s}\n", t->cmd[0]);
+	printf("DEBUG::: get_cmd ==> {%s}\n", *t->cmd);
 	if (!t->path)
-	{
 		t->path = getpath(*t->cmd, tab->envp);
-		// t->path = ft_strdup((const char*)full_path);
-		printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
-		printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
-
-	}
+	// printf("\nDEBUG::: CHKCHK get_cmd t->lead {%s} \n", t->lead);
+	// printf("\nDEBUG::: CHKCHK get_cmd t->path{%s} \n", t->path);
 	dir = cmd_checks(tab, t, tab->envp, t->path);
-	if (!is_builtin(t) && t && t->cmd && dir)
+	if (!is_builtin(t) && t && *t->cmd && dir)
 		chk_error(IS_DIR, t->path, 126);
 	else if (!is_builtin(t) && t && t->path && access(t->path, F_OK) == -1)
 		chk_error(NDIR, t->path, 127);
@@ -125,25 +124,28 @@ void 	get_cmd(t_table *tab, t_token *t, int id)
 	if (dir)
 		closedir(dir); 
 	// return (t->path);
+			// t->path = ft_strdup((const char*)full_path);
+			// printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
+			// printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
 }
 
 void *execmd(t_table *tab, t_token *t, int id)
 {
     int fd[2];
 	char *path;
-
-	// printf("DEBUG: TEST execmd  ");
-	// display_one_tkn(t, t->id);
-    get_cmd(tab, t, id);
+	
 	if (t->path)
-		printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->full);
-	printf("DEBUG: TEST execmd 2 >> t-cmd{%s}\n", *tab->cmds[id + 1]);
+		t->path = NULL;
+	// 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[id]);
+    get_cmd(tab, t, id);
+	printf("DEBUG: TEST execmd [id:%d] ::t->cmd{%s}\n", id, *t->cmd);
+	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
-    if (!chk_fork(tab, t, id, fd))
+    if (!chk_fork(tab, t, fd))
         return (NULL);
     close(fd[WRITE_END]);
-	if (t->endtype > 3 && !(t->infile))// ouf?  next t->infile
+	if (t->endtype < 4 )//&& !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
 	else
 		close(fd[READ_END]);

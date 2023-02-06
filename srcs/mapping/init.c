@@ -13,12 +13,13 @@ t_table *init_token(t_table *tab)
     tab->token = token;
     token->id = 0;
     token->cmd = NULL;  
+    token->lead = NULL;
     token->path = NULL;
     token->full = NULL;
     token->ofile = NULL;
     token->endtype = -1;
     token->infile = 0;
-    token->outfile = 0;
+    token->outfile = 1;
     token->tk_len = 0;
     return (tab);   
 }
@@ -28,7 +29,7 @@ t_table *init_tab(t_table *tab)
     tab->envp = NULL;
     tab->node = NULL;
     tab->cmds = NULL ;   
-    tab->tk_num = 0;
+    tab->tk_num = 1;
     tab->refs  = NULL;
     (void) tab->pid;
     tab->token = NULL;
