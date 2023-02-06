@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/01 04:07:15 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/02 14:15:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_table	*redir_type(t_table *tab)
     cmd = ft_mx_dup(tab->node); 
     n = ft_mx_len(cmd);    
     printf  ("DEBUG: REDIR_TYPE...node_num[%d]\n", n);
+    printf  ("DEBUG: REDIR_TYPE...tk_num[%d]\n", tab->tk_num);
     tab->token->id = 1;
     tab->tk_num = 1;
     ref[tab->token->id] = 0;    
@@ -35,21 +36,22 @@ static t_table	*redir_type(t_table *tab)
         tab->token->id = tab->tk_num;
         if (cmd[id] && (id < n))
         {
-            if (*cmd[id] == '<' && *cmd[id + 1] == '<')
-                tab->tk_num++; 
-            else if (*cmd[id] == '<')
-                 tab->tk_num + 0;//;  
-            else if (*cmd[id] == '>' && *cmd[id + 1] == '>')
-                 tab->tk_num + 0;//+;  
-            else if (*cmd[id] == '>')
-                  tab->tk_num + 0;//+;  
-            else if (*cmd[id] == '|')
+            // if (*cmd[id] == '<' && *cmd[id + 1] == '<')
+            //     tab->tk_num++; 
+            // else if (*cmd[id] == '<')
+            //      tab->tk_num + 0;//;  
+            // else if (*cmd[id] == '>' && *cmd[id + 1] == '>')
+            //      tab->tk_num + 0;//+;  
+            // else if (*cmd[id] == '>')
+            //       tab->tk_num + 0;//+;  
+            // else 
+            if (*cmd[id] == '|')
                 tab->tk_num++;  
-            else if (tab->token->id != tab->tk_num)
-            {
-                // printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
-                ref[tab->token->id] = id + 1; 
-            }
+            // else if (tab->token->id != tab->tk_num)
+            // {
+            //     // printf  ("DEBUG: id[%d] ::{%s}:: tk_num[%d]\n", id, cmd[id], tab->tk_num);
+            //     ref[tab->token->id] = id + 1; 
+            // }
             // printf  ("DEBUG: id[%d] :: tk_num[%d]\n", id, tab->tk_num);
             //if (*cmd[id] == '\0')
                 //   tab->token->id = tab->tk_num++; 
@@ -60,7 +62,7 @@ static t_table	*redir_type(t_table *tab)
     // if (tab->tk_num == 0)
     //     tab->tk_num == 1;
     printf  ("DEBUG: tk_num[%d]\n", tab->tk_num);
-    tab->refs = ref;
+    // tab->refs = ref;
     return (tab);
 }
 
