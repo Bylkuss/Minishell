@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/31 13:19:19 by gehebert          #+#    #+#             */
-/*   Updated: 2022/09/16 11:21:53 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/02 11:07:08 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,7 @@ void    first_child(t_pipex pipex, char **av, char **envp);
 void    second_child(t_pipex pipex, char **av, char **envp);
 void    close_pipe(t_pipex *pipex);
 char    *getcmd(char **paths, char *cmd);
+/************************************************/
+// int     execute_cmd(t_table *tab, t_token *tok);
     
 #endif
