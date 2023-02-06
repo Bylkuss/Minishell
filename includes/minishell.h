@@ -86,7 +86,7 @@ struct					s_table
 };                         //t_table;
 
 //builtins
-int    			builtins_handler(t_table *tab, t_token *token, int id);
+int    			builtins_handler(t_table *tab, t_token *token);
 // void    			builtins_handler(char *input, char **envp);
 int					is_builtin(t_token *t);
 // void	    		exit_builtin(char **cmd);
@@ -166,8 +166,8 @@ char			**str_split(char *str, char sep);
 // void			*getcmd(char **paths, char *cmd);
 
 //execmd.c
-void			*execmd(t_table *tab, t_token *t, int id);
-void 			get_cmd(t_table *tab, t_token *t, int id);
+void			*execmd(t_table *tab, t_token *t);
+void 			get_cmd(t_table *tab, t_token *t);
 char			*getpath(char *cmd, char **env);
 
 //error

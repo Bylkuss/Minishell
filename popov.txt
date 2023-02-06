@@ -1,0 +1,15 @@
+DEBUG:@@ chld_bltn :: t->full {:ls:}
+DEBUG:@@ chld_bltn :: t->path {:/usr/bin/ls:}
+DEBUG:@@ chld_bltn :: cmd_len[1]
+includes
+libft
+Makefile
+minishell
+objs
+popov.txt
+Random
+readline
+README.md
+srcs
+test
+toto.txt

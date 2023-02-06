@@ -62,7 +62,7 @@ void    exit_builtin(char **cmd)
 
 
 // void    builtins_handler(char *input, char **envp)
-int    builtins_handler(t_table *tab, t_token *token, int id)
+int    builtins_handler(t_table *tab, t_token *token)
 {
     char *input;
     char **envp;
@@ -72,31 +72,31 @@ int    builtins_handler(t_table *tab, t_token *token, int id)
      // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", token->path); 	//len[%d]", l);
     input = *token->cmd;
     envp = save_old_pwd(envp);    
-    if(ft_strnstr(input, "cd", 10))
+    if (ft_strnstr(input, "exit", 5))
+        exit_builtin(ft_split(input, ' '));
+    else if(ft_strnstr(input, "cd", 10))
         g_status = cd(ft_split(input, ' '), envp);
-    else if (ft_strnstr(input, "pwd", 10))
-        g_status = pwd();
-    else if(ft_strnstr(input, "echo", 10))
-        g_status = echo(ft_split(input, ' '));
-    else if(ft_strnstr(input, "env", 5))
-        env(envp);
+    else if(ft_strnstr(input, "export", 10))
+        g_status = ms_export(ft_split(input, ' ') , envp);
     else if(ft_strnstr(input, "unset", 10))
     {
         if(unset(ft_split(input, ' '), envp) == 0)
             printf("No such variable\n");
     } 
-    else if(ft_strnstr(input, "export", 10))
-        g_status = ms_export(ft_split(input, ' ') , envp);
-    else if (ft_strnstr(input, "exit", 5))
-        exit_builtin(ft_split(input, ' '));
+    else if(ft_strnstr(input, "env", 5))
+        env(envp);
     else 
     {
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);
-        execmd(tab, token, id);
+        execmd(tab, token);
         
     }
     return (g_status);
+    // else if(ft_strnstr(input, "echo", 10))
+    //     g_status = echo(ft_split(input, ' '));
+    // else if (ft_strnstr(input, "pwd", 10))
+    //     g_status = pwd();
 }
 
 
