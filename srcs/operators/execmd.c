@@ -103,7 +103,7 @@ char	*getpath(char *cmd, char **env)
 	return (cmd);
 }
 
-void 	get_cmd(t_table *tab, t_token *t, int id)
+void 	get_cmd(t_table *tab, t_token *t)
 {
 	char	*full_path;
 	DIR		*dir;
@@ -129,7 +129,7 @@ void 	get_cmd(t_table *tab, t_token *t, int id)
 			// printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
 }
 
-void *execmd(t_table *tab, t_token *t, int id)
+void *execmd(t_table *tab, t_token *t)
 {
     int fd[2];
 	char *path;
@@ -137,8 +137,8 @@ void *execmd(t_table *tab, t_token *t, int id)
 	if (t->path)
 		t->path = NULL;
 	// 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[id]);
-    get_cmd(tab, t, id);
-	printf("DEBUG: TEST execmd [id:%d] ::t->cmd{%s}\n", id, *t->cmd);
+    get_cmd(tab, t);
+	printf("DEBUG: TEST execmd ::t->cmd{%s}\n", *t->cmd);
 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));

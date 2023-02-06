@@ -22,8 +22,8 @@ void	child_builtin(t_table *tab, t_token *t)
     l = ft_strlen(*t->cmd);	
 
 
-		printf("DEBUG:@@ chld_bltn :: t->full {:%s:}\n", t->full); 	//len[%d]", l);
-		printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
+		// printf("DEBUG:@@ chld_bltn :: t->full {:%s:}\n", t->full); 	//len[%d]", l);
+		// printf("DEBUG:@@ chld_bltn :: t->path {:%s:}\n", t->path); 	//len[%d]", l);
 		cmd = ft_split(t->full, ' ');
 		printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(cmd));
 		// printf("DEBUG:@@ chld_bltn :: t->cmd[0]= {:%s:}\n", t->cmd[0]);
@@ -32,7 +32,7 @@ void	child_builtin(t_table *tab, t_token *t)
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
-		execve(t->path, t->cmd, tab->envp);
+		execve(t->path, cmd, tab->envp);
 	//
 	//
 			// {
@@ -41,11 +41,11 @@ void	child_builtin(t_table *tab, t_token *t)
 			// 	printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
 			// 	printf("DEBUG:@@ chld_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
 			// }
-	else if (t->cmd && !ft_strncmp(*t->cmd, "pwd", l) && l == 3)
+	else if (t->cmd && !ft_strncmp(*cmd, "pwd", l) && l == 3)
 		g_status = pwd();
-	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "echo", l) && l == 4)
-		g_status = echo(t->cmd);
-	else if (is_builtin(t) && t->cmd && !ft_strncmp(*t->cmd, "env", l) && l == 3)
+	else if (is_builtin(t) && cmd && !ft_strncmp(*cmd, "echo", l) && l == 4)
+		g_status = echo(cmd);
+	else if (is_builtin(t) && cmd && !ft_strncmp(*cmd, "env", l) && l == 3)
 	{
 		// ft_mx_fd(tab->envp, 1);
 		env(tab->envp);

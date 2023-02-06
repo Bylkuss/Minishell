@@ -157,17 +157,16 @@ static t_table  *parse_args(t_table *tab)
 {
 
     int is_exit;
-    // int tk_id;
     t_token *token;
 
-    token = tab->token;
     is_exit = 0;
+    token = tab->token;
     tab->token->id = 1;
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
-    // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
-    // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
-    // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
+        // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
+        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
+        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
 
       //
         ///
@@ -188,75 +187,77 @@ static t_table  *parse_args(t_table *tab)
         // tab->token = get_token(tab, tab->token, tab->token->id);
        // while (tab->token->endtype <= 0)
     tab->token->id = 1;
-    printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
+        //  printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
     tab->token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->id <= tab->tk_num)
     {
         token = tab->token;
-        // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
+           // printf("\nDEBUG: parse_ #token[%d] . . .\n\n", tab->token->id);     
         if(tab->token->id <= tab->tk_num)
             tab->token = set_token(tab);
 
-        // first get token 
-            // all of them 
-            // then do it
-            // free conte   nt...
-
-            // set a token for each endtype
-            //
-            // tab->token->id++;
-            //  // fill is form ... t->cmd** t->path t->endtype
-            //  // 
-        g_status = is_builtin(tab->token);       
-        // if (g_status == 1)
-            // printf("\nDEBUG : is_builtin (%d)::{%s}\n", is_builtin(token), *token->cmd);     
+              // g_status = is_builtin(tab->token);       
         g_status = builtins_handler(tab, tab->token, token->id);
-        
+
         tab->token->id++;
         token->path = NULL;
         free_cont(token);
-        // token->id++;
-
-        // {
-        
-            // if (tab->token->endtype == 0)
-            // {
-            //     execmd(tab, tab->token, tk_id);
-
-            // }
-            //     tab->token->tk_len--;
-            // else
-            // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
-
-            // free_cont(tab->token, tk_id);
-            // tk_id--;
-            // tab->token->id++;
-            // if (tk_id > 0 )//|| tab->tk_num == 0)
-                // tab->token = get_token(tab, tab->token, 1);
-            // tab->tk_num--;
-            //     break;
-
     }
-   
     while (tab->token->id <= tab->tk_num)
         waitpid(-1, &g_status, 0);
-        //
     if (!is_exit && g_status == 13)
         g_status = 0;
-
     if (g_status > 255)
         g_status = g_status / 255;
+        
+          // token->id++;
+            // first get token 
+                // all of them 
+                // then do it
+                // free conte   nt...
+
+                // set a token for each endtype
+                //
+                // tab->token->id++;
+                //  // fill is form ... t->cmd** t->path t->endtype
+                //  // 
+            // if (g_status =   = 1)
+            // printf("\nDEBUG : is_builtin (%d)::{%s}\n", is_builtin(token), *token->cmd);     
+        
+     
+
+            // {
+            
+                // if (tab->token->endtype == 0)
+                // {
+                //     execmd(tab, tab->token, tk_id);
+
+                // }
+                //     tab->token->tk_len--;
+                // else
+                // printf("DEBUG : g_status << {%d} >>::\n", g_status);     
+
+                // free_cont(tab->token, tk_id);
+                // tk_id--;
+                // tab->token->id++;
+                // if (tk_id > 0 )//|| tab->tk_num == 0)
+                    // tab->token = get_token(tab, tab->token, 1);
+                // tab->tk_num--;
+                //     break;
+
+    
+            //
+    
     if (tab->cmds && is_exit)
     {
-        // tab->tk_num = 0;
+        tab->tk_num = 0;
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->node);
         free_cont(tab->token);
         ft_mx_free(&tab->token->cmd);
         return (NULL);
     }
-    
     return (tab);
 }
 
