@@ -192,8 +192,8 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
-			printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
-			printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
+			// printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
+			// printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
 			return (NULL);
