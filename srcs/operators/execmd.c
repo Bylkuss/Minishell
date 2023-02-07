@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/22 22:05:30 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/06 12:02:18 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*getpath(char *cmd, char **env)
 		free(bin);
 		path += str_ichr(path, ':') + 1;
 	}
-		printf("DEBUG: INTO__getpath bin{%s}\n\n", bin);//cmd);
+		// printf("DEBUG: INTO__getpath bin{%s}\n\n", bin);//cmd);
 	return (cmd);
 }
 

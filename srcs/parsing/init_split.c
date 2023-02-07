@@ -12,45 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-// static char *type_padd(char *input, char *meta)
-    // {
-    //     char *srcs; //  start part str
-    //     char *tmp;  //  sub str
-    //     char *dest; //  end part str
-    //     int p[4];   //ptr pos start/pos/end
-
-    //     p[2] = 0;
-    //     p[3] = 0;
-    //     p[1] = ft_strchar_i(input, meta); // ret (index found charset into str
-    //     if (p[1] == -1)
-    //         return (input);
-    //     else
-    //     {
-    //         p[0] = p[1] - 1;
-    //         // if (p[0] < 0)
-    //         //     p[0] = 0;
-    //         p[2] = p[1] + 1;
-    //         p[3] = ft_strlen(input);
-    //         printf("the padd p[3] len [%d] \n", p[3]);
-    //         if ((input[p[1] + 1]) == (input[p[1]]))   // twin chk ! 
-    //             p[2] = p[1] + 2;
-    //         printf("DEBUG : type_check :[%d]: %s \n\n", p[3], input);
-    //         srcs = ft_substr((const char *)input, 0, (p[3] - (p[3] - p[1]))); 
-    //         printf("DEBUG :: srcs_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-    //         tmp  = ft_substr((const char *)input, p[1] , p[2] - p[1]); 
-    //         printf("DEBUG :: tmp_check [%ld] ::%s: \n",ft_strlen(tmp), tmp);
-    //         dest = ft_substr((const char *)input, p[2] , p[3] - p[2]); 
-    //         printf("DEBUG :: dest_check [%ld] ::%s: \n",ft_strlen(dest), dest);
-    //         if (input[p[0]] != 32)// tmp -1
-    //             tmp = ft_strjoin(" ", tmp); //add spece before
-    //         if (input[p[2]] != 32) //tmp + 1
-    //             tmp = ft_strjoin(tmp, " ");  //add space after  
-    //         srcs = ft_strjoin(srcs, tmp);
-    //         input = ft_strjoin(srcs, dest);
-    //     } 
-    //     return(input);
-// }
-
 char *type_check(char *input, char *meta)
 {
     char *srcs; //  start part str
@@ -167,12 +128,7 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
             tab->node = ft_mx_ext(tab->node, tab->node[n]);          
             printf("node[%d] => ::%s::\n", n, tab->node[n]);
             n++;
-            // if(i[0] == len)
-            // {
-            //     tab->node[n] = ft_strdup("@\0");
-            // }
         }           
-                // printf("DEBUG:: node_num[%d] \n", n);
     }
     return (tab->node);
 }
