@@ -21,8 +21,8 @@ void	child_builtin(t_table *tab, t_token *t)
 
     l = ft_strlen(*t->cmd);	
 
-	if (t->full)
-		t->cmd = ft_split(t->full, ' ');
+	// if (t->full)
+	// 	t->cmd = ft_split(t->full, ' ');
 	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -69,7 +69,7 @@ static void	*child_redir(t_token *t, int fd[2])
 	}
 	else if (t->endtype > 0 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
-	// printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->endtype);
+	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->endtype);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -84,7 +84,7 @@ void	*born_child(t_table *tab, t_token *t, int fd[2])
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
-	printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
+	// printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
 	printf("DEBUG: born_chld_fork :: t->endtype [%d] \n", t->endtype);
 	child_redir(t, fd);
 

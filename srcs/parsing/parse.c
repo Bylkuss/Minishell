@@ -84,16 +84,16 @@ static t_table *split_all(t_table *tab)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
     tab = token_alloc(tab); // malloc each token + each token[cmd]    
-    while (tab->node[++i] && tkn_id <= tab->tk_num)       
+    while (tab->node[++i] && tkn_id < tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
-        printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	    
+        // printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	    
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-            // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
+        // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
-    // tab = div_token(tab, "<|>"); // padd endtype + set token 
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
     return (tab); 
 }
 
@@ -106,6 +106,7 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     token = tab->token;
     tab->token->id = 1;
+    // tab = token_alloc(tab); // malloc each token + each token[cmd]    
     printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
         // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
@@ -115,9 +116,9 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
+    token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->id <= tab->tk_num)
     {
-        token = get_token(tab, tab->token, tab->token->id);
         tab->token = token;
         g_status = builtins_handler(tab, tab->token);
         waitpid(-1, &g_status, 0);
