@@ -133,10 +133,11 @@ static t_table  *parse_args(t_table *tab)
     if (tab->cmds && is_exit)
     {
         tab->tk_num = 0;
+        tab->refs = NULL;
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->node);
         free_cont(tab->token);
-        ft_mx_free(&tab->token->cmd);
+        // ft_mx_free(&tab->token->cmd);
         return (NULL);
     }
     return (tab);

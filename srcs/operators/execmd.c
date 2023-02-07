@@ -109,7 +109,8 @@ void 	get_cmd(t_table *tab, t_token *t)
 	DIR		*dir;
 
 	// t = token;
-	printf("DEBUG::: get_cmd ==> {%s}\n", *t->cmd);
+	printf("DEBUG::: tab->cmd_len ==> (%d)\n", ft_mx_len(tab->cmds[1]));
+	printf("DEBUG::: get_cmd ==> {%s}\n\n", *tab->cmds[1]);
 	if (!t->path)
 		t->path = getpath(*t->cmd, tab->envp);
 	dir = cmd_checks(tab, t, tab->envp, t->path);

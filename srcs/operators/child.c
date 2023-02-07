@@ -28,7 +28,7 @@ void	child_builtin(t_table *tab, t_token *t)
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
-		execve(t->path, t->cmd, tab->envp);
+		execve(t->path, *tab->cmds, tab->envp);
 		  //
 			//
 			// {
@@ -121,7 +121,7 @@ void *chk_fork(t_table *tab, t_token *t, int fd[2])
     // t = token;
     dir = NULL;
     if (t->cmd)
-        dir = opendir(*t->cmd);
+        dir = opendir(*tab->cmds[1]);
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))

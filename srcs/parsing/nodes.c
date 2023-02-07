@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:29:37 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 19:42:43 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/01 04:05:47 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,27 +90,52 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 
 	id = 1; 
 	i = -1;
-	tk_len = 0;
+	
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
 	// tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
  	while( ++i < tab->tk_num)
 	{
 		tk_len = tab->refs[id];
-		// tk_len = (tab->refs[id] - tk_len);
 		while( id < tk_len)
 		{
 			tab->cmds[id] = (char **)malloc(sizeof(char *) * tk_len);
 			// tab->token->cmd[id] = (char *)malloc(sizeof(char *) * tk_len);
 			id++;
 		}
-		printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+		// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
 		// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	}			
 	printf("DEBUG:: NODE_end \n");
 	return (tab);
 }
 //   ls -lta| head -2 |wc -c>> out.txt  
+	
+// t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
+// {
+// 	int i;
+// 	int id;			// node_id
+// 	int tk_len;		// array width
 
+// 	id = 0; 
+// 	i = -1;
+// 	tk_len = tab->refs[id];
+	
+// 	// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+// 	// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
+// 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
+// 	// tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
+//  	while( ++i < tab->tk_num)
+// 	{
+// 		while( id <= tk_len)
+// 		{
+// 			tab->cmds[id] = (char **)malloc(sizeof(char *) * tk_len);
+// 			// tab->token->cmd[id] = (char **)malloc(sizeof(char *) * tk_len);
+// 			id++;
+// 		}
+// 	}			
+// 	printf("ok ici \n");
+// 	return (tab);
+// }	
 
 /*
 from parse.c

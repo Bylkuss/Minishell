@@ -81,16 +81,16 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 			// printf("DEBUG: token->full __%s__\n\n", tab->token->full);
 			// tab->token->full = NULL;
 			i = -1;		
-			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
+			/*if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
 				token = get_outfile1(token, tab);
 			else if (tab->token->endtype == 3)
 				token = get_outfile2(token, tab);
 			else if (tab->token->endtype == 4)
 				token = get_infile1(token, tab);
 			else if (tab->token->endtype == 5)
-				token = get_infile2(token, tab);   
+				token = get_infile2(token, tab);   */
 			id++;
-			tab->token->endtype = -1;
+			// tab->token->endtype = -1;
 		}
 	}
 	// ls > popov.txt
@@ -162,21 +162,22 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	while (id <= tab->tk_num)
 	{
 		// tk_len = tab->refs[strt];
-		tab->cmds[id] = ft_mx_dup(tkn);
 		tk_len = tab->refs[id];
 		// tab->cmds[id] = ft_mx_dup(tkn);
-		printf("token_fill => tk_len[pos:%d]\n", tk_len);
-		while (i < (tk_len ))
+		tab->cmds[id] = ft_mx_dup(tkn);
+		// printf("token_fill => tk_len[pos:%d]\n", tk_len);
+		while (i < tk_len)
 		{
-			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
 			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
 			i++;
 		}
-		tab->token->endtype = set_endtype(tab, tab->node[tk_len]);
+		// tab->token->endtype = set_endtype(tab, tab->node[tk_len]);
 		if (tab->token->endtype == 0)
 			break;		
-		else if (tab->token->endtype == 1)
-			i++;
+		// else if (tab->token->endtype == 1)
+		printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+		i++;
 		id++;
 	}
 	return (tab);
@@ -197,14 +198,14 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
-			printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
-			printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
+			// printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
+			// printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
 		if (!(tkn))
 			return (NULL);	
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		// printf("DEBUG: token->cmd[%d] ==> {%s} \n", tk_id + 1, token->cmd[tk_id + 1]);
-		// tk_id++;
+		tk_id++;
 	}	
 	printf("DEBUG: div_token:: end... \t... go for get_token \n\n");
 	// tab->token = get_token(tab, token, 1);
