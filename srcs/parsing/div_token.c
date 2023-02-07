@@ -48,7 +48,7 @@ t_token	*get_token(t_table *tab, t_token *token, int id)
 
 	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
 	{
-		while(id <= tab->tk_num) //if
+		if(id <= tab->tk_num) //if
 		{
 			tab->token->id = id;
 			nod = tab->refs[tab->token->id];

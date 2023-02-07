@@ -116,7 +116,7 @@ static t_table  *parse_args(t_table *tab)
     tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
-    token = get_token(tab, tab->token, tab->token->id);
+    // token = get_token(tab, tab->token, tab->token->id);
     while (tab->token->id <= tab->tk_num)
     {
         tab->token = token;

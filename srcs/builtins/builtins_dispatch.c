@@ -68,6 +68,7 @@ int    builtins_handler(t_table *tab, t_token *token)
 
     // int i = 0;
     // envp = tab->envp;
+    token = get_token(tab, tab->token, tab->token->id);
      printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", tab->token->id);//t->path { %s }\n", token->path); 	//len[%d]", l);
     input = *tab->cmds[tab->token->id];//token->cmd;
     envp = save_old_pwd(envp);    
