@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 19:39:39 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/07 00:58:29 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static t_table	*redir_type(t_table *tab)
         }
         // tab->token->endtype = -1;
     }
-    printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
-    printf  ("DEBUG: REDIR_ ->tk_num [%d]\n", tab->tk_num);
+    // printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
+    // printf  ("DEBUG: REDIR_ ->tk_num [%d]\n", tab->tk_num);
     if (tab->token->endtype == -1)
     {
         ref[tab->token->id] = id - 1;
@@ -88,14 +88,12 @@ static t_table *split_all(t_table *tab)
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->node[i] = expand_vars(tab->node[i], -1, quotes, tab);  
-        	// printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	
-            
+        printf("DEBUG/: split_all tab->node[id:%d] node{%s} \n", i, tab->node[i]);	    
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
-    tab = div_token(tab, "<|>"); // padd endtype + set token 
-    // tab->token = get_token(tab, tab->token, tkn_id);
+    // tab = div_token(tab, "<|>"); // padd endtype + set token 
     return (tab); 
 }
 
