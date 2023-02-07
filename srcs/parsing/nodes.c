@@ -92,20 +92,20 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	i = -1;
 	
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
-	// tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
+	tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
  	while( ++i < tab->tk_num)
 	{
 		tk_len = tab->refs[id];
-		while( id <= tk_len)
+		while( id < tk_len)
 		{
 			tab->cmds[id] = (char **)malloc(sizeof(char *) * tk_len);
-				// tab->token->cmd[id] = (char **)malloc(sizeof(char *) * tk_len);
+			tab->token->cmd[id] = (char *)malloc(sizeof(char *) * tk_len);
 			id++;
 		}
-	printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
-	printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
+		printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+		printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	}			
-	// printf("ok ici \n");
+	printf("DEBUG:: NODE_end \n");
 	return (tab);
 }
 //   ls -lta| head -2 |wc -c>> out.txt  

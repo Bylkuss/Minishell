@@ -125,7 +125,7 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    // printf("DEBUG: node_count: (n = %d)\n", i[1]);
+    printf("DEBUG: node_count: (n = %d)\n", i[1]);
     return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
 }
 
@@ -184,7 +184,7 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
-    printf("DEBUG: pass_to_init :: %s \n", input);   
+    printf("DEBUG: init_split :: %s \n", input);   
 
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)

@@ -90,12 +90,6 @@ static t_table *split_all(t_table *tab)
             
         //expand_path ...         t->cmd[0] = "cmd" : t->cmd[1] = "cmd args etype" 
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-
-        //must be token->path here
-            // could add token->full here-now ... 
-            //  token->cmd[0] ==> char *:"cmd"
-            //  token->cmd[1] ==> char *:"full cmd arg etype" ...etype will fall later
-
             // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
     tab = div_token(tab, "<|>"); // padd endtype + set token 
@@ -158,7 +152,7 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     token = tab->token;
     tab->token->id = 1;
-        // `printf("DEBUG: into... parse\n");
+    printf("DEBUG: into... parse\n");
     tab = redir_type(tab); // *refs[id] tk_num [end_pos] == tk_len
         // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
         // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
