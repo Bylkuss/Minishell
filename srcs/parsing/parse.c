@@ -49,15 +49,15 @@ static t_table	*redir_type(t_table *tab)
             }
             ref[tab->token->id] = id;                 
         }
-
-    }
-    if (tab->token->endtype == -1)
-    {
-        ref[tab->token->id] = id-1;
-        tab->token->endtype = 0;
+        // tab->token->endtype = -1;
     }
     printf  ("DEBUG: REDIR_ ->endtype [%d]\n", tab->token->endtype);
     printf  ("DEBUG: REDIR_ ->tk_num [%d]\n", tab->tk_num);
+    if (tab->token->endtype == -1)
+    {
+        ref[tab->token->id] = id - 1;
+        tab->token->endtype = 0;
+    }
     tab->refs = ref;
     return (tab);
 }

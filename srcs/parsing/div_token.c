@@ -146,13 +146,11 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	int i;	//node pos
 	int id;
 	int tk_len;
-	char *endt;
-	// int exts;
-	
-	// exts = 0;
+
+
 	tk_len = 0;
 	i = 0;
-	// id = tab->token->id;
+	id = tab->token->id;
 	id = 1;
 	while (id <= tab->tk_num)
 	{
@@ -165,7 +163,6 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 			i++;
 		}
-				// endt = tab->node[tab->refs[id-1]];
 		tab->token->endtype = set_endtype(tab, tab->node[tab->refs[tab->token->id]]);
 		if (tab->token->endtype == 0)
 			break;
@@ -175,7 +172,6 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 			i++;
 		id++;
 	}
-	
 	return (tab);
 }
 
@@ -191,10 +187,6 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	token = tab->token;
 	pass_len = 0;
 	tk_id = 0;
-	
-	
-
-		// printf("ok ici \n");
 	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
 	{
 		token->tk_len = token_count(tab->node, set, pass_len);	// how many node into this token
@@ -202,21 +194,11 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			// printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
 		tkn = (char **)malloc(sizeof(char *) * (token->tk_len )); 
 		if (!(tkn))
-			return (NULL);
-				// pass_len = tab->refs[tab->token->id];	
-				
-		
-
+			return (NULL);	
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		tk_id++;
 	}	
 	printf("DEBUG: div_token:: end... \t... go for get_token \n\n");
-	// tab->token = get_token(tab, token, 1);
-		/*
-		now tab->cmds[id][cmd[0]] 				char *
-		and then so ... tab->cmds[id][cmd[i++]] char *
-		*/
-
 	return (tab);    
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   

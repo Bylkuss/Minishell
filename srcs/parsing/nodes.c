@@ -88,22 +88,22 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	int id;			// node_id
 	int tk_len;		// array width
 
-	id = 0; 
+	id = 1; 
 	i = -1;
-	tk_len = tab->refs[id];
 	
-	// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
-	// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->tk_num);
 	// tab->token->cmd = (char **)malloc(sizeof(char **) * tab->tk_num);
  	while( ++i < tab->tk_num)
 	{
+		tk_len = tab->refs[id];
 		while( id <= tk_len)
 		{
 			tab->cmds[id] = (char **)malloc(sizeof(char *) * tk_len);
-			// tab->token->cmd[id] = (char **)malloc(sizeof(char *) * tk_len);
+				// tab->token->cmd[id] = (char **)malloc(sizeof(char *) * tk_len);
 			id++;
 		}
+	printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
+	printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
 	}			
 	// printf("ok ici \n");
 	return (tab);
