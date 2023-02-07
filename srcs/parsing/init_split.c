@@ -34,9 +34,9 @@ char *type_check(char *input, char *meta)
             dest = ft_substr(srcs, 0, p[1]); //bfore endtype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest);
-            // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+            printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-            // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+            printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         }    
         else if ((input[p[1] + 1] != 32) && (p[1] + 1 != p[1]))
         {
@@ -47,9 +47,9 @@ char *type_check(char *input, char *meta)
             dest = ft_substr(srcs, 0, p[2]); //bfore endtype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest); 
-            // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+            printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-            // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
+            printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
         }   
         else
             break;     
@@ -88,7 +88,7 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    // printf("DEBUG: node_count: (n = %d)\n", i[1]);
+    printf("DEBUG: node_count: (n = %d)\n", i[1]);
     return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
 }
 
@@ -147,7 +147,7 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
-    printf("DEBUG: pass_to_init :: %s \n", input);   
+    printf("DEBUG: init_split :: %s \n", input);   
 
     n = node_count(input, set, count);  // word_count >.<
     if (n == -1)
