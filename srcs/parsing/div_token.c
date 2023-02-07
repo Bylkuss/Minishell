@@ -211,7 +211,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 	return (tab);    
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   
-  //    ls -lta >> popov.txt    
+  //   ex   
   // cat < popov.txt
   //   < popov.txt | wc -l 
   //  < popov.txt wc -l | cat > titi2.txt
