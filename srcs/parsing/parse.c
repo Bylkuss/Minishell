@@ -83,7 +83,7 @@ static t_table *split_all(t_table *tab)
         // (if) set token->full*  ===>> {"cmd"+" "+"arg"...} (in case)
         // set endtype  ==>  token->endtype  ==> behavior related!
         // infile=0; outfile=1; 
-    tab = token_alloc(tab); // malloc each token + each token[cmd]    
+    // tab = token_alloc(tab); // malloc each token + each token[cmd]    
     while (tab->node[++i] && tkn_id < tab->tk_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
@@ -93,7 +93,7 @@ static t_table *split_all(t_table *tab)
         tab->node[i] = expand_path(tab->node[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
         // printf("DEBUG: split_all tab->token->path == {%s} \n", tab->token->path);
     }
-    tab = div_token(tab, "<|>"); // padd endtype + set token 
+    // tab = div_token(tab, "<|>"); // padd endtype + set token 
     return (tab); 
 }
 
@@ -112,7 +112,10 @@ static t_table  *parse_args(t_table *tab)
         // printf("DEBUG:  tk_num    __%d__ ...\n", tab->tk_num);        
         // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->token->id); 
         // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->token->id]); 
+    tab = token_alloc(tab); // malloc each token + each token[cmd]    
     tab = split_all(tab);         
+    tab = div_token(tab, "<|>"); // padd endtype + set token 
+
     tab->token->id = 1;
     printf("DEBUG:: parse: t->id[%d] OF [%d] << token...\n", tab->token->id, tab->tk_num);
     
