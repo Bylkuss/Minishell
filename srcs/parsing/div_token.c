@@ -157,7 +157,7 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 	while (id <= tab->tk_num)
 	{
 		tk_len = tab->refs[id];
-		printf("token_fill => tk_len(%d)\n", tk_len);
+		// printf("token_fill => tk_len(%d)\n", tk_len);
 		tab->cmds[id] = ft_mx_dup(tkn);
 		while (i < (tk_len))
 		{
@@ -166,7 +166,8 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 			i++;
 		}
 				// endt = tab->node[tab->refs[id-1]];
-		tab->token->endtype = set_endtype(tab, tab->node[tab->refs[tab->token->id]]);
+		// tab->token->endtype = set_endtype(tab, tab->node[tab->refs[tab->token->id]]);
+		tab->token->endtype = set_endtype(tab, tab->node[tk_len]);
 		if (tab->token->endtype == 0)
 			break;
 		// else if (tab->token->endtype == 2 || tab->token->endtype == 3)

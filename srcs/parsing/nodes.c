@@ -88,9 +88,9 @@ t_table 	*token_alloc(t_table *tab)	/* call by parse_  <<(token_ized)	*/
 	int id;			// node_id
 	int tk_len;		// array width
 
-	id = 0; 
+	id = 1; 
 	i = -1;
-	tk_len = tab->refs[id];
+	tk_len = tab->refs[tab->token->id];
 	
 	// printf("DEBUG : start_dup:tk_len(%d)::\n", tk_len);	
 	// printf("DEBUG : start_dup:tk_num(%d)::\n", tab->tk_num);
