@@ -155,14 +155,14 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 
 	tk_len = 0;
 	i = 0;
-	id = tab->token->id;
 	id = 1;
+	id = tab->token->id;
 	tk_len = tab->refs[id];
 	printf("\nDEBUG: START>> token_fill [%d] tk_id[%d]:: tk_len[%d]\n", i, id, tk_len);	
 	while (id <= tab->tk_num)
 	{
 		// tk_len = tab->refs[strt];
-		tk_len = tab->refs[id];
+		tk_len = tab->refs[tab->token->id];
 		// tab->cmds[id] = ft_mx_dup(tkn);
 		tab->cmds[id] = ft_mx_dup(tkn);
 		// printf("token_fill => tk_len[pos:%d]\n", tk_len);
@@ -175,10 +175,10 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 		// tab->token->endtype = set_endtype(tab, tab->node[tk_len]);
 		if (tab->token->endtype == 0)
 			break;		
-		// else if (tab->token->endtype == 1)
-		printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
-		i++;
+		else if (tab->token->endtype == 1)
+			i++;
 		id++;
+		// printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 	}
 	return (tab);
 }
@@ -205,7 +205,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
 			return (NULL);	
 		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
 		// printf("DEBUG: token->cmd[%d] ==> {%s} \n", tk_id + 1, token->cmd[tk_id + 1]);
-		tk_id++;
+		// tk_id++;
 	}	
 	printf("DEBUG: div_token:: end... \t... go for get_token \n\n");
 	// tab->token = get_token(tab, token, 1);
