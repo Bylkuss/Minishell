@@ -27,32 +27,28 @@ t_table *init_tab(t_table *tab)
     tab->cmds = NULL ;   
     tab->token = NULL;
     tab->refs  = NULL;
-    tab->nod_num = 1;
+    tab->node = NULL;
+    tab->nods = 1;
     (void) tab->pid;
     return (tab);
-    // tab->node = NULL;
 }
 
 t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 {
-	int i;
-	int id;			// token_id
-	int node_len;		// array width
+	// int i;	    // i = 0;
+	int id;			// node id
+	int nod_len;		// array width
 
 	id = 1; 
-	i = 0;
-	node_len = tab->refs[tab->num];	
+	nod_len = 0;//= tab->refs[id];	
         // printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
         // printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nod_num);
-	tab->cmds = (char ***)malloc(sizeof(char **) * node_len);
- 	while( ++i <= tab->num)
-	{
-		nod_len = (tab->refs[id] - nod_len);
-		while( id <= nod_len)
-		{
-			tab->cmds[id] = (char **)malloc(sizeof(char *) * nod_len);
-			id++;
-		}
+	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
+ 	while(id <= tab->nods) //id tab->nods  
+	{		
+		nod_len = (tab->refs[id] - nod_len);  // actual_len == (etype[pos] - old_len)
+        tab->cmds[id] = (char **)malloc(sizeof(char *) * nod_len);
+        id++;
 	}			
 	return (tab);
 }

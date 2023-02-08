@@ -21,8 +21,8 @@ void	child_builtin(t_table *tab, t_node *t)
 
     l = ft_strlen(*t->cmd);	
 
-	if (t->full)
-		t->cmd = ft_split(t->full, ' ');
+	// if (t->full)
+	// 	t->cmd = ft_split(t->full, ' ');
 	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
@@ -83,8 +83,8 @@ void	*born_child(t_table *tab, t_node *t, int fd[2])
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
+	// printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
-	printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
 	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
 	child_redir(t, fd);
 

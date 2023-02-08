@@ -54,7 +54,7 @@ void free_cont(void *content)
     ft_mx_free(&node->cmd);
 	// free(node->xfile);
     free(node->path);
-	free(node->full);
+	// free(node->full);
     if (node->infile != STDIN_FILENO)
         close(node->infile);
     if (node->outfile != STDOUT_FILENO)

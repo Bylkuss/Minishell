@@ -39,48 +39,50 @@ int	set_etype(t_table *tab, char *etype) //, char **a[2])//, int *i) // etype (i
 t_node	*get_node(t_table *tab, t_node *node, int id)  
 {
 	int typ;	
-	int nod;	
+	int nod_len;	
 	int i;
 		
 	typ = 0;
-	nod = 0;
-	i = -1;
+	nod_len = 0;
+	i = 0;
 
-	if ((tab->nums) && id <= tab->nod_num && tab->cmds[id])
+	// pre-requis builder_node
+	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
 	{
-		while(id <= tab->nod_num) //if
+		while(id <= tab->nods) //if
 		{
-			tab->nums = id;
-			nod = tab->refs[tab->nums];
+			// tab->nums = id;
+			nod_len = tab->refs[id];
 			tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
-			tab->node->etype = set_etype(tab, tab->token[nod]);	
-			printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", tab->nums, nod);
+			// tab->node->cmd = ft_mx_dup(tab->cmds[id]);
+			tab->node->etype = set_etype(tab, tab->token[nod_len]);	
+			printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", id, nod_len);
 			printf("DEBUG:: Get_node:: etype [%d] \n", tab->node->etype);
 		
-			while(++i < nod)
+			while(++i < nod_len)
 			{
 				if (set_etype(tab, tab->token[i]) > 1)	
 				{
-					tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[i + 1]);	
+					tab->node->xfile = ft_strdup(tab->token[i + 1]);	
 					i++;
 					break;
 				}			
-				tab->node->full = ft_strjoin(tab->node->full, tab->cmds[id][i]);
-				if ((i + 1) < (nod))
-					tab->node->full = ft_strjoin(tab->node->full, " ");
+				// tab->node->full = ft_strjoin(tab->node->full, tab->cmds[id][i]);
+				// if ((i + 1) < (nod))
+					// tab->node->full = ft_strjoin(tab->node->full, " ");
 
 			}
 			if (tab->node->etype == 2 || tab->node->etype == 3)
-				tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[nod + 1]);
+				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
 			if (tab->node->etype == 4)
-				tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[nod + 1]);
+				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
 			
 			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
 			printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
-			printf("DEBUG: node->full __%s__\n\n", tab->node->full);
+			// printf("DEBUG: node->full __%s__\n\n", tab->node->full);
 
 			
-			i = -1;		
+			i = 0;		
 			if (tab->node->etype == 2 )// || tab->node->etype == 3)
 				node = get_outfile1(node, tab);
 			else if (tab->node->etype == 3)
@@ -108,7 +110,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	return (tab->node);
 }
 
-static int	div_count(char **tokens, char *set, int strt)
+static int	node_count(char **tokens, char *set, int strt)
 {
 	int		q[2];
 	int		i;
@@ -155,7 +157,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 	nod_len = 0;
 	i = 0;
 	id = 1;
-	while (id <= tab->nod_num)
+	while (id <= tab->nods)
 	{
 		nod_len = tab->refs[id];
 		// printf("node_fill => nod_len(%d)\n", nod_len);
@@ -191,11 +193,11 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	pass_len = 0;
 	tk_id = 0;
 	
-	if ((tk_id < tab->nod_num))// start at zero < node->id start at 1
+	if ((tk_id < tab->nods))// start at zero < node->id start at 1
 	{
-		node->nod_len = div_count(tab->token, set, pass_len);	// how many token into this node
+		node->nod_len = node_count(tab->token, set, pass_len);	// how many token into this node
 			printf("DEBUG: div_t nod_len (%d) \n", node->nod_len);		
-			printf("DEBUG: div_t nod_num (%d) \n", tab->nod_num);		
+			printf("DEBUG: div_t nod_num (%d) \n", tab->nods);		
 		tkn = (char **)malloc(sizeof(char *) * (node->nod_len )); 
 		if (!(tkn))
 			return (NULL);

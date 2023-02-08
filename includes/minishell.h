@@ -66,7 +66,7 @@ struct 		s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "eof",	
 	char	**cmd;		//	token_array
 	char 	*path;		// 	path to find exec
 	char 	*xfile;		// 	to store redir_arg. ext.
-	// int		etype;	// 	etype:: pipe, redir, end
+	int		etype;	// 	etype:: pipe, redir, end
 	int 	infile;		// 	fd[0] == STDIN_FILNO  <|also|>  [READ_END] 
  	int		outfile;	// 	fd[1] == STDOUT_FILNO <|also|>  [WRITE_END]
 	int 	nod_len;	// 	how many token by node (min 2) ref by

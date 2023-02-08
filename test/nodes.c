@@ -90,12 +90,12 @@ t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 
 	id = 1; 
 	i = -1;
-	nod_len = tab->refs[tab->nums];
+	nod_len = tab->refs[tab->nods];
 	
-	// printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
+	printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
 	// printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nod_num);
-	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nod_num);
- 	while( ++i < tab->nod_num)
+	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
+ 	while( ++i < tab->nods)
 	{
 		while( id <= nod_len)
 		{
