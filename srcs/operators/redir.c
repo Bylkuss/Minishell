@@ -64,7 +64,7 @@ t_node	*get_outfile1(t_node *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// node->endtype = 1;
+	// node->etype = 1;
 	return (t);
 }
 // t_node	*get_outfile2(t_node *t, int i)
@@ -92,7 +92,7 @@ t_node	*get_outfile2(t_node *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// node->endtype = 2;
+	// node->etype = 2;
 	return (t);
 }
 
@@ -122,7 +122,7 @@ t_node	*get_infile1(t_node *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// node->endtype = 3;
+	// node->etype = 3;
 	return (t);
 }
 

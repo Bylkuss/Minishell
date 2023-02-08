@@ -90,7 +90,7 @@ t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 
 	id = 1; 
 	i = -1;
-	nod_len = tab->refs[tab->node->id];
+	nod_len = tab->refs[tab->nums];
 	
 	// printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
 	// printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nod_num);

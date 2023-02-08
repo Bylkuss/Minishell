@@ -12,9 +12,28 @@
 
 #include "../../includes/minishell.h"
 
+
+
+/*
+    space between ... pos[flag]  [0/4]
+    flag = {none, all_b4, one_b4, one_a4,all_a4}
+
+*/
+static char *ft_spacer(char* srcs, int pos[4], int fl)
+{
+    int i;
+    int f;
+     
+    i = 0;
+    f = pos[fl]
+
+    while (srcs && (i < pos)
+
+}
+
 char *type_check(char *input, char *meta)
 {
-    char *srcs; //  start part str
+    // char *srcs; //  start part str
     char *dest; //  end part str
     char *rest;  //  sub str
     int p[4];   //ptr pos start/pos/end   
@@ -30,8 +49,11 @@ char *type_check(char *input, char *meta)
         p[3] = ft_strlen(srcs);      
         if ((p[1]) && (input[p[1] - 1] != 32) )
         {
+
+            /// ft_spacer(char *srcs, pos = p[1]* int(status))
+
             // printf("DEBUG ::AV_\n");
-            dest = ft_substr(srcs, 0, p[1]); //bfore endtype        
+            dest = ft_substr(srcs, 0, p[1]); //bfore etype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest);
             // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
@@ -44,7 +66,7 @@ char *type_check(char *input, char *meta)
             p[2] = p[1] + 1;
             if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
                 p[2] = p[1] + 2;
-            dest = ft_substr(srcs, 0, p[2]); //bfore endtype        
+            dest = ft_substr(srcs, 0, p[2]); //bfore etype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest); 
             // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
@@ -89,7 +111,7 @@ static int token_count(const char *s, char *c, int i[2]) //
         }
     }
     // printf("DEBUG: token_count: (n = %d)\n", i[1]);
-    return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
+    return (i[1] );//+ 1); // start[0] +1 && invisible etype +1
 }
 
 static char **token_fill(t_table *tab, const char *s, char *set, int i[3]) 
@@ -146,8 +168,8 @@ char **init_split(char *input, char *set, t_table *tab)
     count[1] = 0;
     if (!input)
         return (NULL);    
-    input = type_check(input, "<|>");   // padding endtype count 
-    
+    input = type_check(input, "<|>");   // padding etype count 
+
     printf("DEBUG: pass_to_init :: %s \n", input);   
 
     n = token_count(input, set, count);  // word_count >.<
@@ -162,7 +184,7 @@ char **init_split(char *input, char *set, t_table *tab)
 
 /*
 from parse.c
-/// endtype-padding + token_split * 
+/// etype-padding + token_split * 
     init_split => split *str by space only (quote rule (ok if both))
     word_count + ft_fill_token ... ... seems legit!
     *** init_split: trunk at space to make node part

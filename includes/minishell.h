@@ -59,14 +59,14 @@ enum	chk_error
 typedef struct s_node t_node;
 typedef struct s_table t_table;
 
-
+// struct duty change : more like a chariot, node to be fill for exec...
 struct 		s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "eof",	*/
 {
 	int 	id;			//	node_ID 
 	char	**cmd;		//	token_array
 	char 	*path;		// 	path to find exec
 	char 	*xfile;		// 	to store redir_arg. ext.
-	int		endtype;	// 	endtype:: pipe, redir, end
+	// int		etype;	// 	etype:: pipe, redir, end
 	int 	infile;		// 	fd[0] == STDIN_FILNO  <|also|>  [READ_END] 
  	int		outfile;	// 	fd[1] == STDOUT_FILNO <|also|>  [WRITE_END]
 	int 	nod_len;	// 	how many token by node (min 2) ref by
@@ -78,8 +78,8 @@ struct		s_table 	/*	Main Struct  tab->*/
 	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char	***cmds;    //	[ID][token_array]
 	char	**token;    //	token_array == input* spc_split
-	int 	*refs;      // 	tab->refs[id] = value  {id = node->id && value = [token:pos] }
-	int 	nod_num;    // 	how many nodes {div_node}
+	int 	*refs;      // 	tab->refs[id] =  token[pos]; etype_flag
+	int 	nods;    	// 	num. cmd.
 	pid_t 	pid;        //	fork dup wait
 	struct 	s_node *node; 
 };  //t_table;
@@ -107,6 +107,7 @@ char					*getprompt(t_table *tab);
 //mapping
 t_table					*init_node(t_table *tab);
 t_table					*init_tab(t_table *tab);
+t_table					*node_alloc(t_table *tab);
 //signal.c
 void					handle_sigint(int sig);
 char					*ms_getenv(char *var, char **envp, int n);
@@ -116,17 +117,13 @@ void 					*check_args(char *out, t_table *tab);
 // init_split
 char					**init_split(char *input, char *set, t_table *tab);
 // div_node
-int						set_endtype(t_table *tab, char *etype);
+int						set_etype(t_table *tab, char *etype);
 t_table					*div_node(t_table *tab, char *set);
 t_node					*get_node(t_table *tab, t_node *node, int id);
-//tokens
-t_table					*node_alloc(t_table *tab);
 
 //expand
 char			*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char			*expand_path(char *str, int i, int quotes[2], char *var);
-//tokens
-t_table			*node_alloc(t_table *tab);
 //redir
 int				get_fd(int oldfd, char *path, int flags[2]);
 t_node			*get_outfile1(t_node *t, t_table *tab);

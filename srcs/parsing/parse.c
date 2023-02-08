@@ -14,7 +14,7 @@
 
 extern int g_status;
 /*
-* etype spot endtype index (nod_len, nod_num)
+* etype spot etype index (nod_len, nod_num)
 */
 static t_table	*redir_type(t_table *tab) 
 {
@@ -26,38 +26,38 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     //cmd = ft_mx_dup(tab->token); 
     cmd = tab->token; 
-    n = ft_mx_len(cmd);   
-    tab->node->id = 1;
-    ref[tab->node->id] = 0; 
+    tab->nod_len = ft_mx_len(cmd);   
+    tab->num = 1;
+    ref[tab->num] = 0; 
     while (id++ < (n -1))
     {
-        tab->node->id = tab->nod_num;   
+        tab->nums = tab->nod_num;   
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
-                tab->node->endtype = 5;
+                tab->node->etype = 5;
             else if (*cmd[id] == '<')
-                tab->node->endtype = 4;
+                tab->node->etype = 4;
             else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
-                tab->node->endtype = 3;
+                tab->node->etype = 3;
             else if (*cmd[id] == '>')
-                tab->node->endtype = 2;
+                tab->node->etype = 2;
             else if (*cmd[id] == '|')
             {
                 tab->nod_num++;  
-                tab->node->endtype = 1;
+                tab->node->etype = 1;
             }
-            ref[tab->node->id] = id;                
-            // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->endtype, tab->nod_num);
-            if (tab->node->endtype != -1)
-                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->node->id, ref[tab->node->id]);
+            ref[tab->nums] = id;                
+            // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->etype, tab->nod_num);
+            if (tab->node->etype != -1)
+                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nums, ref[tab->nums]);
         }
         // else
-            tab->node->endtype = -1;
+            tab->node->etype = -1;
     }
-    ref[tab->node->id] = id;
-    if (tab->node->endtype == -1)
-        tab->node->endtype = 0;
+    ref[tab->num] = id;
+    if (tab->node->etype == -1)
+        tab->node->etype = 0;
     tab->refs = ref;
     return (tab);
 }
@@ -65,34 +65,32 @@ static t_table	*redir_type(t_table *tab)
 static t_table *split_all(t_table *tab)  
 {
     int     i;
-    int     tkn_id;     
-    int quotes[2];
+    int     quotes[2];
 
     i = -1;
-    tab->node->id = 1;
-    tkn_id = 1;
     quotes[0] = 0;
     quotes[1] = 0;
-
-    // need to build get_node HERE...
-        // set node->cmd** ==> token[cmd] + token[arg]
-        // set node->path* =>> (!is_buitins) 
-        // (if) set node->full*  ===>> {"cmd"+" "+"arg"...} (in case)
-        // set endtype  ==>  node->endtype  ==> behavior related!
-        // infile=0; outfile=1; 
-    // tab = node_alloc(tab); // malloc each node + each node[cmd]    
+    tab->nums = 1;
+    
+    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+    //
+        // printf("DEBUG:  nod_num    __%d__ ...\n", tab->nod_num);        
+        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->nums); 
+        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nums]); 
+    //
     while (tab->token[++i] && tkn_id <= tab->nod_num)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->token[i] = expand_vars(tab->token[i], -1, quotes, tab);  
-        //expand_path ...        
+        //expand_path ...  cmd_chks legit!      
         tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
        
         	// printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", i, tab->token[i]);	
             // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
     // tab->node = get_node(tab, tab->node, tkn_id);
-    // tab = div_node(tab, "<|>"); // padd endtype + set node 
+    
     return (tab); 
 }
 
@@ -105,26 +103,20 @@ static t_table  *parse_args(t_table *tab)
 
     is_exit = 0;
     node = tab->node;
-    tab->node->id = 1;
+    tab->nums = 1;
+
     printf("DEBUG: into... parse\n");
-    tab = redir_type(tab); // *refs[id] nod_num [end_pos] == nod_len
-
-        // printf("DEBUG:  nod_num    __%d__ ...\n", tab->nod_num);        
-        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->node->id); 
-        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->node->id]); 
-
-    tab = node_alloc(tab); // malloc each node + each node[array]    
-
     tab = split_all(tab);      
 
-    tab = div_node(tab, "<|>"); // padding  etype + set node
 
-    tab->node->id = 1;
-    // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", tab->node->id, tab->nod_num);
+    tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
+
+    tab->nums = 1;
+    // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", tab->nums, tab->nod_num);
     
-    while (tab->node->id <= tab->nod_num)
+    while (tab->nums <= tab->nod_num)
     {
-        node = get_node(tab, tab->node, tab->node->id);
+        node = get_node(tab, tab->node, tab->nums);
         tab->node = node;
         g_status = builtins_handler(tab, tab->node);
         waitpid(-1, &g_status, 0);
@@ -133,7 +125,7 @@ static t_table  *parse_args(t_table *tab)
             g_status = 0;
         if (g_status > 255)
             g_status = g_status / 255;
-        tab->node->id++;     
+        tab->nums++;     
     }
           
     if (tab->cmds && is_exit)
@@ -163,20 +155,14 @@ void  *check_args(char *input, t_table *tab)    // main deploy >parse
     tab = parse_args(tab);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
     free(input);
 
-    //node should be execute here...
+    // update-- envp -- should be execute here...
     ///
-        // builtins_handler(tab->token[0], tab->envp);
-        // builtins_handler(input, tab->envp);
+        //if nod_num == 0 
+    /// update env 
+        // free -> tab (content)
+        // empty-> arrays
+        // close -- next
     
-        // if (tab->cmds[0])
-        // if (tab->cmds && tab->nod_num > 0)
-        //    if (tab && tab->cmds && tab->node && tab->nod_num > 0)
-        //  {
-                // p->envp = ms_setenv("_", m->full_cmd[ft_mx_len(m->full_cmd)
-                //  - 1], p->envp, 1);                                    
-                //     ft_lstclear(&p->cmds, free_content);
-        // exit(0);
-        // }
     return (tab); 
 
 /*

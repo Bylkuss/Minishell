@@ -14,28 +14,28 @@
 #include "../../includes/minishell.h"
 
 // /*	node get-set */
-int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtype (int)
+int	set_etype(t_table *tab, char *etype) //, char **a[2])//, int *i) // etype (int)
 {
 	int type;	// int cmd;	
 	
 	type = 0;	// cmd = 0;
 	if (ft_strcmp(etype, "<<") == 0)
-		tab->node->endtype = INF2_END; // # 5 	//  node = get_infile2(node, node->cmd[id], i);
+		tab->node->etype = INF2_END; // # 5 	//  node = get_infile2(node, node->cmd[id], i);
 	else if (ft_strcmp(etype, "<") == 0)
-		tab->node->endtype = INF1_END;		// node = get_infile1(node, node->cmd[id]);
+		tab->node->etype = INF1_END;		// node = get_infile1(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,">>") == 0)
-		tab->node->endtype = OUTF2_END;	// node = get_outfile2(node, node->cmd[id]);
+		tab->node->etype = OUTF2_END;	// node = get_outfile2(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,">") == 0)
-		tab->node->endtype = OUTF1_END;  	// node = get_outfile1(node, node->cmd[id]);
+		tab->node->etype = OUTF1_END;  	// node = get_outfile1(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,"|") == 0)
-		tab->node->endtype = PIPE_END;		// exec_custom???
+		tab->node->etype = PIPE_END;		// exec_custom???
 	else //if (ft_strcmp(etype ,"@") == 0)
-		tab->node->endtype = DEAD_END;     
+		tab->node->etype = DEAD_END;     
 	
-	return (tab->node->endtype);
+	return (tab->node->etype);
 }
 
-//char ** tab->token, node->id, endtype (int)
+//char ** tab->token, node->id, etype (int)
 t_node	*get_node(t_table *tab, t_node *node, int id)  
 {
 	int typ;	
@@ -46,20 +46,20 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	nod = 0;
 	i = -1;
 
-	if ((tab->node->id) && id <= tab->nod_num && tab->cmds[id])
+	if ((tab->nums) && id <= tab->nod_num && tab->cmds[id])
 	{
 		while(id <= tab->nod_num) //if
 		{
-			tab->node->id = id;
-			nod = tab->refs[tab->node->id];
+			tab->nums = id;
+			nod = tab->refs[tab->nums];
 			tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
-			tab->node->endtype = set_endtype(tab, tab->token[nod]);	
-			printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", tab->node->id, nod);
-			printf("DEBUG:: Get_node:: endtype [%d] \n", tab->node->endtype);
+			tab->node->etype = set_etype(tab, tab->token[nod]);	
+			printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", tab->nums, nod);
+			printf("DEBUG:: Get_node:: etype [%d] \n", tab->node->etype);
 		
 			while(++i < nod)
 			{
-				if (set_endtype(tab, tab->token[i]) > 1)	
+				if (set_etype(tab, tab->token[i]) > 1)	
 				{
 					tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[i + 1]);	
 					i++;
@@ -70,27 +70,27 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 					tab->node->full = ft_strjoin(tab->node->full, " ");
 
 			}
-			if (tab->node->endtype == 2 || tab->node->endtype == 3)
+			if (tab->node->etype == 2 || tab->node->etype == 3)
 				tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[nod + 1]);
-			if (tab->node->endtype == 4)
+			if (tab->node->etype == 4)
 				tab->node->xfile = ft_strjoin(tab->node->xfile, tab->token[nod + 1]);
 			
-			printf("DEBUG: Get_node->endtype [%d]\n", tab->node->endtype);
+			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
 			printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
 			printf("DEBUG: node->full __%s__\n\n", tab->node->full);
 
 			
 			i = -1;		
-			if (tab->node->endtype == 2 )// || tab->node->endtype == 3)
+			if (tab->node->etype == 2 )// || tab->node->etype == 3)
 				node = get_outfile1(node, tab);
-			else if (tab->node->endtype == 3)
+			else if (tab->node->etype == 3)
 				node = get_outfile2(node, tab);
-			else if (tab->node->endtype == 4)
+			else if (tab->node->etype == 4)
 				node = get_infile1(node, tab);
-			else if (tab->node->endtype == 5)
+			else if (tab->node->etype == 5)
 				node = get_infile2(node, tab);   
 			id++;
-			tab->node->endtype = -1;
+			tab->node->etype = -1;
 		}
 	}
 	// ls > popov.txt
@@ -100,11 +100,11 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			// 		- node->id = 1; parce que! tab->cmds[id]...
 			//		- node->cmd** = {"","",""} start with cmd[0] to exec
 			//		-				=  follow by args (if so) cmd[1]
-			//		-				= cmd[eot] : eot= endofnode - aka endtype
-			//		redir set by endtype
+			//		-				= cmd[eot] : eot= endofnode - aka etype
+			//		redir set by etype
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 		// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
-	// tab->node->id = 1;
+	// tab->nums = 1;
 	return (tab->node);
 }
 
@@ -167,11 +167,11 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 			i++;
 		}
 				// endt = tab->token[tab->refs[id-1]];
-		// tab->node->endtype = set_endtype(tab, tab->token[tab->refs[tab->node->id]]);
-		tab->node->endtype = set_endtype(tab, tab->token[nod_len]);
-		if (tab->node->endtype == 0)
+		// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
+		tab->node->etype = set_etype(tab, tab->token[nod_len]);
+		if (tab->node->etype == 0)
 			break;		
-		else if (tab->node->endtype == 1)
+		else if (tab->node->etype == 1)
 			i++;
 		id++;
 	}
@@ -182,7 +182,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
    
 t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 {
-	t_node	*node;			// node sub_split by endtype
+	t_node	*node;			// node sub_split by etype
 	char **tkn;
 	int 	pass_len;		// pos to start
 	int 	tk_id;

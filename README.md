@@ -18,11 +18,11 @@ Mimic of Shell command
       * Meta_char  “|” , “<” , “>” ...
    * Token_izer      		__(command line)
       * “JOB”:”ARGS”:”REDIR”...
-   * Endtype redirs     __(behavior_ctrl)
+   * etype redirs     __(behavior_ctrl)
      * redirs <,<<,>>,>,| 
 ## Execute
    * Token Event
-    * ...cmds :: args :: endtype...
+    * ...cmds :: args :: etype...
    * Signal Event
     * Error 
    * Builtins

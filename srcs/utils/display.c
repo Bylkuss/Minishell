@@ -34,7 +34,7 @@ void mx_display_str(char *str)
     //     if (!node)
     //         exit(0);
         
-    //     // node->endtype = 0;
+    //     // node->etype = 0;
     //     while (id <= tab->tk_num)
     //     {
     //         tk_len = ft_mx_len(tab->cmds[id]);
@@ -45,8 +45,8 @@ void mx_display_str(char *str)
     //         {
     //             mx_display_str(tab->cmds[id][i]);
     //         }
-    //         // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
-    //         etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
+    //         // printf(":: etype:[%s]", tab->cmds[id][tk_len - 1]);
+    //         etype = set_etype(tab, tab->cmds[id][tk_len - 1]);
     //         printf("} :: etype:[%d]\n", etype);
     //         id++;
     //     }
@@ -66,7 +66,7 @@ void display_one_tkn(t_node *node, int id)
     if (!node)
         exit(0);
     
-    // node->endtype = 0;
+    // node->etype = 0;
     if (node->id)
     {
         tk_len = ft_mx_len(node->cmd);
@@ -77,8 +77,8 @@ void display_one_tkn(t_node *node, int id)
         {
             mx_display_str(node->cmd[i]);
         }
-        // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
-        // etype = set_endtype(tab, tab->cmds[id][tk_len - 1]);
+        // printf(":: etype:[%s]", tab->cmds[id][tk_len - 1]);
+        // etype = set_etype(tab, tab->cmds[id][tk_len - 1]);
         printf("}::t->i:[%d]::", node->infile);
         printf("t->o[%d]::\n", node->outfile);
         // id++;
@@ -96,7 +96,7 @@ void display_one_tkn(t_node *node, int id)
     //     if (!t)
     //         exit(0);
         
-    //     // node->endtype = 0;
+    //     // node->etype = 0;
     //     // while (id <= tab->tk_num)
     //     // {
     //         tk_len = ft_mx_len(t->cmd[id]);
@@ -107,9 +107,9 @@ void display_one_tkn(t_node *node, int id)
     //         {
     //             mx_display_str(t->cmd[id][i]);
     //         }
-    //         // printf(":: endtype:[%s]", tab->cmds[id][tk_len - 1]);
-    //         // etype = set_endtype(tab, t->cmd[id][z- 1]);
-    //         printf("} :: etype:[%d]\n", t->endtype);
+    //         // printf(":: etype:[%s]", tab->cmds[id][tk_len - 1]);
+    //         // etype = set_etype(tab, t->cmd[id][z- 1]);
+    //         printf("} :: etype:[%d]\n", t->etype);
     //         id++;
     //     // }
 // }
