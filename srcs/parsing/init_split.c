@@ -60,7 +60,7 @@ char *type_check(char *input, char *meta)
     return(input);
 }
 
-static int node_count(const char *s, char *c, int i[2]) // 
+static int token_count(const char *s, char *c, int i[2]) // 
 {
     int     q[2];   // quotes match delimter
 
@@ -88,13 +88,13 @@ static int node_count(const char *s, char *c, int i[2]) //
             i[1]++;
         }
     }
-    // printf("DEBUG: node_count: (n = %d)\n", i[1]);
+    // printf("DEBUG: token_count: (n = %d)\n", i[1]);
     return (i[1] );//+ 1); // start[0] +1 && invisible endtype +1
 }
 
-static char **node_fill(t_table *tab, const char *s, char *set, int i[3]) 
+static char **token_fill(t_table *tab, const char *s, char *set, int i[3]) 
 {
-    int     n;      //node id
+    int     n;      //token id
     int     len;
     int     q[2];       // uniq_quotes ignore
 
@@ -107,13 +107,13 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
     {                   //sans espace ...
         if(!ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  //  if not spc 
         {
-            i[2] = i[0]; // node start = i[2]
+            i[2] = i[0]; // token start = i[2]
             while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
             {                 
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore simpl_q
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
                 i[0]++; // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
-            }           // ... spaceless node ++
+            }           // ... spaceless token ++
             i[1] = i[0]; 
         }              // str avec espace
         if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  // ++ until spc found
@@ -124,13 +124,13 @@ static char **node_fill(t_table *tab, const char *s, char *set, int i[3])
         }
         if (i[0] <= len && i[2] > -1) // still left && pass thru "nospaceland"
         {
-            tab->node[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
-            tab->node = ft_mx_ext(tab->node, tab->node[n]);          
-            printf("node[%d] => ::%s::\n", n, tab->node[n]);
+            tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
+            tab->token = ft_mx_ext(tab->token, tab->token[n]);          
+            printf("token[%d] => ::%s::\n", n, tab->token[n]);
             n++;
         }           
     }
-    return (tab->node);
+    return (tab->token);
 }
 
 char **init_split(char *input, char *set, t_table *tab)
@@ -147,22 +147,23 @@ char **init_split(char *input, char *set, t_table *tab)
     if (!input)
         return (NULL);    
     input = type_check(input, "<|>");   // padding endtype count 
+    
     printf("DEBUG: pass_to_init :: %s \n", input);   
 
-    n = node_count(input, set, count);  // word_count >.<
+    n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
-        return (NULL);    // printf("node = %d::\n", n);
-    tab->node = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
-    if (!tab->node)
+        return (NULL);    // printf("token = %d::\n", n);
+    tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
+    if (!tab->token)
         return (NULL);
-    tab->node = node_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    return (tab->node);   // ret(tab->node)
+    tab->token = token_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    return (tab->token);   // return clean token space-split args
 }
 
 /*
 from parse.c
-/// endtype-padding + node_split * 
+/// endtype-padding + token_split * 
     init_split => split *str by space only (quote rule (ok if both))
-    word_count + ft_fill_node ... ... seems legit!
-    *** init_split: trunk at space to make token part
+    word_count + ft_fill_token ... ... seems legit!
+    *** init_split: trunk at space to make node part
 */

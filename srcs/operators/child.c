@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 extern int g_status;
 
-void	child_builtin(t_table *tab, t_token *t)
+void	child_builtin(t_table *tab, t_node *t)
 {
     int l;  //cmd len
 	char **cmd;
@@ -49,11 +49,11 @@ void	child_builtin(t_table *tab, t_token *t)
 	}
 }
 
-static void	*child_redir(t_token *t, int fd[2])
+static void	*child_redir(t_node *t, int fd[2])
 {
-    // t_token	*t;
+    // t_node	*t;
 
-	// t = token;
+	// t = node;
 	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->endtype, t->infile, t->outfile);
 	if (t->infile != STDIN_FILENO)
 	{
@@ -74,12 +74,12 @@ static void	*child_redir(t_token *t, int fd[2])
 	return ("");
 }
 
-void	*born_child(t_table *tab, t_token *t, int fd[2])
+void	*born_child(t_table *tab, t_node *t, int fd[2])
 {
-    // t_token*t;
+    // t_node*t;
 	int		l;
 
-	// t = token;
+	// t = node;
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
@@ -92,13 +92,13 @@ void	*born_child(t_table *tab, t_token *t, int fd[2])
 
 	child_builtin(tab, t);
 	printf("end_born_child\n");
-    // remove token
+    // remove node
     // free_cont
 	// ft_lstclear(&prompt->cmds, free_content);
 	exit(g_status);
 }
 
-void    exc_fork(t_table *tab, t_token *t, int fd[2])
+void    exc_fork(t_table *tab, t_node *t, int fd[2])
 {
     pid_t	pid;
 
@@ -113,12 +113,12 @@ void    exc_fork(t_table *tab, t_token *t, int fd[2])
 		born_child(tab, t, fd);
 }
 
-void *chk_fork(t_table *tab, t_token *t, int fd[2])
+void *chk_fork(t_table *tab, t_node *t, int fd[2])
 {
-    // t_token *t;
+    // t_node *t;
     DIR     *dir;
 	// printf("DEBUG: TEST chk_fork \n");
-    // t = token;
+    // t = node;
     dir = NULL;
     if (t->cmd)
         dir = opendir(*t->cmd);

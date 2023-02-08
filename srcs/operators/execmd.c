@@ -45,7 +45,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	return (path);
 }
 
-static DIR	*cmd_checks(t_table *tab, t_token *t, char **s, char *path)
+static DIR	*cmd_checks(t_table *tab, t_node *t, char **s, char *path)
 {
 	DIR		*dir;
 
@@ -103,12 +103,12 @@ char	*getpath(char *cmd, char **env)
 	return (cmd);
 }
 
-void 	get_cmd(t_table *tab, t_token *t)
+void 	get_cmd(t_table *tab, t_node *t)
 {
 	char	*full_path;
 	DIR		*dir;
 
-	// t = token;
+	// t = node;
 	printf("DEBUG::: get_cmd ==> {%s}\n", *t->cmd);
 	if (!t->path)
 		t->path = getpath(*t->cmd, tab->envp);
@@ -124,12 +124,12 @@ void 	get_cmd(t_table *tab, t_token *t)
 	// return (t->path);
 			// t->path = ft_strdup((const char*)full_path);
 			// printf("DEBUG::: get_cmd t->full {%s} \n", t->full);
-			// printf("DEBUG::: get_cmd t->ofile {%s} \n", t->ofile);
+			// printf("DEBUG::: get_cmd t->xfile {%s} \n", t->xfile);
 		// printf("\nDEBUG::: CHKCHK get_cmd t->lead {%s} \n", t->lead);
 		// printf("\nDEBUG::: CHKCHK get_cmd t->path{%s} \n", t->path);
 }
 
-void *execmd(t_table *tab, t_token *t)
+void *execmd(t_table *tab, t_node *t)
 {
     int fd[2];
 	char *path;

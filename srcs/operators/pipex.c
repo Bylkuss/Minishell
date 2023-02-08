@@ -71,7 +71,7 @@ void	pipex_bonus(t_token *tok, int i)
 	char	*cmd;
 	char	**opt;
 
-	while (i < tok->table->tk_num)
+	while (i < tok->table->nod_num)
 		run_process(&tok[i++]);
 	dup2(tok->infile, STDOUT_FILENO);
 	if (execve(tok->cmd_path, tok->cmd, tok->table->envp) == -1)

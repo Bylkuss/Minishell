@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 extern int g_status;
-int is_builtin(t_token *t)
+int is_builtin(t_node *t)
 {
     int l;
     int id;
@@ -61,15 +61,15 @@ void    exit_builtin(char **cmd)
 
 
 // void    builtins_handler(char *input, char **envp)
-int    builtins_handler(t_table *tab, t_token *token)
+int    builtins_handler(t_table *tab, t_node *node)
 {
     char *input;
     char **envp;
 
     // int i = 0;
     // envp = tab->envp;
-     // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", token->path); 	//len[%d]", l);
-    input = *token->cmd;
+     // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+    input = *node->cmd;
     envp = save_old_pwd(envp);    
     if (ft_strnstr(input, "exit", 5))
         exit_builtin(ft_split(input, ' '));
@@ -88,7 +88,7 @@ int    builtins_handler(t_table *tab, t_token *token)
     {
         signal(SIGINT, SIG_IGN);
         signal(SIGQUIT, SIG_IGN);
-        execmd(tab, token);
+        execmd(tab, node);
         
     }
     return (g_status);

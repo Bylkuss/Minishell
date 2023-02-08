@@ -39,16 +39,14 @@ void    execustom(char **out, char *full, char *args, char **envp)
 {
     pid_t   pid;
     int     fd[2];
-    char    **mx; //token->cmd 
+    char    **mx; //node->cmd 
 
-    // printf("welcome to execustom!\n");
     pipe(fd);                                             
     pid = fork();                                          
     if(!pid)
     {
         close(fd[READ_END]);
-        mx = ft_split(args, ' ');
-        // mx = ft_split(args, ' ');                                  
+        mx = ft_split(args, ' ');                   
         dup2(fd[WRITE_END], STDOUT_FILENO);
         close(fd[WRITE_END]);
         if(!access(full, F_OK))

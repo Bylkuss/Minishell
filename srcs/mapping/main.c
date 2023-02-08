@@ -83,7 +83,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);    
-    tab = init_token(tab);          
+    tab = init_node(tab);          
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
@@ -92,11 +92,7 @@ int main(int ac, char **av, char **envp)
         if (str)
             input = readline(str);                    
         else
-            input = readline("guest@minishell $ ");
-        //fonction on his own { built_outs }
-        // builtins_handler(input, envp);
-        
-
+            input = readline("guest@minishell $ ");        
         free(str);
         if (!check_args(input, tab))
             break;

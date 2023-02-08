@@ -4,36 +4,34 @@
 
 extern int g_status;
 
-t_table *init_token(t_table *tab)
+t_table *init_node(t_table *tab)
 {
-    t_token *token;
+    t_node *node;
 
-    token = malloc(sizeof(t_token));
+    node = malloc(sizeof(t_node));
     
-    tab->token = token;
-    token->id = 0;
-    token->cmd = NULL;  
-    token->lead = NULL;
-    token->path = NULL;
-    token->full = NULL;
-    token->ofile = NULL;
-    token->endtype = -1;
-    token->infile = 0;
-    token->outfile = 1;
-    token->tk_len = 0;
+    tab->node = node;
+    node->id = 0;
+    node->cmd = NULL;  
+    node->path = NULL;
+    node->xfile = NULL;
+    node->endtype = -1;
+    node->infile = 0;
+    node->outfile = 1;
+    node->nod_len = 0;
     return (tab);   
 }
 
 t_table *init_tab(t_table *tab)
 {
     tab->envp = NULL;
-    tab->node = NULL;
     tab->cmds = NULL ;   
-    tab->tk_num = 1;
-    tab->refs  = NULL;
-    (void) tab->pid;
     tab->token = NULL;
+    tab->refs  = NULL;
+    tab->nod_num = 1;
+    (void) tab->pid;
     return (tab);
+    // tab->node = NULL;
 }
 
 // /*

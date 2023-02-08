@@ -14,7 +14,7 @@ Mimic of Shell command
 ## Parsing
    * Init. args   			__(enum char)
    * Manage quotes		  __(split_able)
-   * Node split	    	  __(space_divide)
+   * token split	    	  __(space_divide)
       * Meta_char  “|” , “<” , “>” ...
    * Token_izer      		__(command line)
       * “JOB”:”ARGS”:”REDIR”...

@@ -18,7 +18,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 {
 	int	fd;
 
-	printf("\nDEBUG: get_fd:: token->file = {%s}\n", path);
+	printf("\nDEBUG: get_fd:: node->file = {%s}\n", path);
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
@@ -39,8 +39,8 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		fd = oldfd;
 	return (fd);
 }
-// t_token	*get_outfile1(t_token *t, int i)
-t_token	*get_outfile1(t_token *t, t_table *tab)
+// t_node	*get_outfile1(t_node *t, int i)
+t_node	*get_outfile1(t_node *t, t_table *tab)
 {
 	char	*nl;
 	int		flags[2];
@@ -49,10 +49,10 @@ t_token	*get_outfile1(t_token *t, t_table *tab)
 
 	flags[0] = 1;
 	flags[1] = 0;
-	nl = "minishell: syntax error near unexpected token `newline'";
+	nl = "minishell: syntax error near unexpected node `newline'";
 	// i++;
-	if (t->ofile)
-		t->outfile = get_fd(t->outfile, t->ofile, flags);
+	if (t->xfile)
+		t->outfile = get_fd(t->outfile, t->xfile, flags);
 	if (!t->cmd || t->outfile == -1)
 	{
 		// i = -1;
@@ -64,11 +64,11 @@ t_token	*get_outfile1(t_token *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// token->endtype = 1;
+	// node->endtype = 1;
 	return (t);
 }
-// t_token	*get_outfile2(t_token *t, int i)
-t_token	*get_outfile2(t_token *t, t_table *tab)
+// t_node	*get_outfile2(t_node *t, int i)
+t_node	*get_outfile2(t_node *t, t_table *tab)
 {
 	char	*nl;
 	int 	id;
@@ -77,10 +77,10 @@ t_token	*get_outfile2(t_token *t, t_table *tab)
 	id = 0;
 	flags[0] = 1;
 	flags[1] = 1;
-	nl = "minishell: syntax error near unexpected token `newline'";
+	nl = "minishell: syntax error near unexpected node `newline'";
 	// (*i)++;
-	if (t->ofile)
-		t->outfile = get_fd(t->outfile, t->ofile, flags);
+	if (t->xfile)
+		t->outfile = get_fd(t->outfile, t->xfile, flags);
 	if (!t->path || t->outfile == -1)
 	{
 		// *i = -1;
@@ -92,12 +92,12 @@ t_token	*get_outfile2(t_token *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// token->endtype = 2;
+	// node->endtype = 2;
 	return (t);
 }
 
-// t_token	*get_infile1(t_token *t, int i)
-t_token	*get_infile1(t_token *t, t_table *tab)
+// t_node	*get_infile1(t_node *t, int i)
+t_node	*get_infile1(t_node *t, t_table *tab)
 {
 	char	*nl;
 	int 	id;
@@ -106,12 +106,12 @@ t_token	*get_infile1(t_token *t, t_table *tab)
 	id = 0;
 	flags[0] = 0;
 	flags[1] = 0;
-	nl = "minishell: syntax error -1- near unexpected token `newline'";
+	nl = "minishell: syntax error -1- near unexpected node `newline'";
 	// (*i)++;
-	if (!t->infile && t->ofile)
-		t->infile = get_fd(t->infile, t->ofile, flags);
+	if (!t->infile && t->xfile)
+		t->infile = get_fd(t->infile, t->xfile, flags);
 	printf("DEBUG:: infile_1  fd = [%d] t->infile\n", t->infile);
-	if (!t->ofile || t->infile == -1)
+	if (!t->xfile || t->infile == -1)
 	{
 		// *i = -1;
 		if (t->infile != -1)
@@ -122,12 +122,12 @@ t_token	*get_infile1(t_token *t, t_table *tab)
 		else
 			g_status = 1;
 	}
-	// token->endtype = 3;
+	// node->endtype = 3;
 	return (t);
 }
 
-// t_token	*get_infile2(t_token *t, int i)
-t_token	*get_infile2(t_token *t, t_table *tab)
+// t_node	*get_infile2(t_node *t, int i)
+t_node	*get_infile2(t_node *t, t_table *tab)
 {
 	char	*aux[2];
 	char	*nl;
@@ -136,7 +136,7 @@ t_token	*get_infile2(t_token *t, t_table *tab)
 	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error -2- near unexpected token `newline'";
+	nl = "minishell: syntax error -2- near unexpected node `newline'";
 	// (*i)++;
 	if (t->path)
 	{
