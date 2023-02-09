@@ -1,7 +1,7 @@
 
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   div_token.c                                        :+:      :+:    :+:   */
+/*   div_node.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,102 +13,104 @@
 
 #include "../../includes/minishell.h"
 
-// /*	token get-set */
-int	set_endtype(t_table *tab, char *etype) //, char **a[2])//, int *i) // endtype (int)
+// /*	node get-set */
+int	set_etype(t_table *tab, char *etype) //, char **a[2])//, int *i) // etype (int)
 {
 	int type;	// int cmd;	
 	
 	type = 0;	// cmd = 0;
 	if (ft_strcmp(etype, "<<") == 0)
-		tab->token->endtype = INF2_END; // # 5 	//  token = get_infile2(token, token->cmd[id], i);
+		tab->node->etype = INF2_END; // # 5 	//  node = get_infile2(node, node->cmd[id], i);
 	else if (ft_strcmp(etype, "<") == 0)
-		tab->token->endtype = INF1_END;		// token = get_infile1(token, token->cmd[id]);
+		tab->node->etype = INF1_END;		// node = get_infile1(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,">>") == 0)
-		tab->token->endtype = OUTF2_END;	// token = get_outfile2(token, token->cmd[id]);
+		tab->node->etype = OUTF2_END;	// node = get_outfile2(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,">") == 0)
-		tab->token->endtype = OUTF1_END;  	// token = get_outfile1(token, token->cmd[id]);
+		tab->node->etype = OUTF1_END;  	// node = get_outfile1(node, node->cmd[id]);
 	else if (ft_strcmp(etype ,"|") == 0)
-		tab->token->endtype = PIPE_END;		// exec_custom???
+		tab->node->etype = PIPE_END;		// exec_custom???
 	else //if (ft_strcmp(etype ,"@") == 0)
-		tab->token->endtype = DEAD_END;     
+		tab->node->etype = DEAD_END;     
 	
-	return (tab->token->endtype);
+	return (tab->node->etype);
 }
 
-//char ** tab->node, token->id, endtype (int)
-t_token	*get_token(t_table *tab, t_token *token, int id)  
+//char ** tab->token, node->id, etype (int)
+t_node	*get_node(t_table *tab, t_node *node, int id)  
 {
 	int typ;	
-	int nod;	
+	int nod_len;	
 	int i;
 		
 	typ = 0;
-	nod = 0;
-	i = -1;
+	nod_len = 0;
+	i = 0;
 
-	if ((tab->token->id) && id <= tab->tk_num && tab->cmds[id])
+	// pre-requis builder_node
+	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
 	{
-		while(id <= tab->tk_num) //if
+		while(id <= tab->nods) //if
 		{
-			tab->token->id = id;
-			nod = tab->refs[tab->token->id];
-			tab->token->cmd = ft_mx_ext(tab->token->cmd, *tab->cmds[id]);
-			tab->token->endtype = set_endtype(tab, tab->node[nod]);	
-			printf("\nDEBUG:: Get_token t->t->id [%d] [refs:%d]\n", tab->token->id, nod);
-			printf("DEBUG:: Get_token:: endtype [%d] \n", tab->token->endtype);
+			// tab->nums = id;
+			nod_len = tab->refs[id];
+			tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
+			// tab->node->cmd = ft_mx_dup(tab->cmds[id]);
+			tab->node->etype = set_etype(tab, tab->token[nod_len]);	
+			printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", id, nod_len);
+			printf("DEBUG:: Get_node:: etype [%d] \n", tab->node->etype);
 		
-			while(++i < nod)
+			while(++i < nod_len)
 			{
-				if (set_endtype(tab, tab->node[i]) > 1)	
+				if (set_etype(tab, tab->token[i]) > 1)	
 				{
-					tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[i + 1]);	
+					tab->node->xfile = ft_strdup(tab->token[i + 1]);	
 					i++;
 					break;
 				}			
-				// tab->token->full = ft_strjoin(tab->token->full, tab->cmds[id][i]);
+				// tab->node->full = ft_strjoin(tab->node->full, tab->cmds[id][i]);
 				// if ((i + 1) < (nod))
-					// tab->token->full = ft_strjoin(tab->token->full, " ");
+					// tab->node->full = ft_strjoin(tab->node->full, " ");
 
 			}
-			if (tab->token->endtype == 2 || tab->token->endtype == 3)
-				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-			if (tab->token->endtype == 4)
-				tab->token->ofile = ft_strjoin(tab->token->ofile, tab->node[nod + 1]);
-			if (tab->token->ofile)
-				printf("DEBUG: Get_token->ofile {%s} \n", tab->token->ofile);
+			if (tab->node->etype == 2 || tab->node->etype == 3)
+				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
+			if (tab->node->etype == 4)
+				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
+			
+			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
+			printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
+			// printf("DEBUG: node->full __%s__\n\n", tab->node->full);
 
-			// printf("DEBUG: Get_token->endtype [%d]\n", tab->token->endtype);
-			// printf("DEBUG: token->full __%s__\n\n", tab->token->full);
-			// tab->token->full = NULL;
-			i = -1;		
-			if (tab->token->endtype == 2 )// || tab->token->endtype == 3)
-				token = get_outfile1(token, tab);
-			else if (tab->token->endtype == 3)
-				token = get_outfile2(token, tab);
-			else if (tab->token->endtype == 4)
-				token = get_infile1(token, tab);
-			else if (tab->token->endtype == 5)
-				token = get_infile2(token, tab);   
+			
+			i = 0;		
+			if (tab->node->etype == 2 )// || tab->node->etype == 3)
+				node = get_outfile1(node, tab);
+			else if (tab->node->etype == 3)
+				node = get_outfile2(node, tab);
+			else if (tab->node->etype == 4)
+				node = get_infile1(node, tab);
+			else if (tab->node->etype == 5)
+				node = get_infile2(node, tab);   
 			id++;
-			tab->token->endtype = -1;
+			tab->node->etype = -1;
 		}
 	}
 	// ls > popov.txt
 	// wc < toto.txt 
-			// tab->token->cmd[nod - 1] = NULL;	
-			// got to do token with tab data
-			// 		- token->id = 1; parce que! tab->cmds[id]...
-			//		- token->cmd** = {"","",""} start with cmd[0] to exec
+			// tab->node->cmd[nod - 1] = NULL;	
+			// got to do node with tab data
+			// 		- node->id = 1; parce que! tab->cmds[id]...
+			//		- node->cmd** = {"","",""} start with cmd[0] to exec
 			//		-				=  follow by args (if so) cmd[1]
-			//		-				= cmd[eot] : eot= endoftoken - aka endtype
-			//		redir set by endtype
+			//		-				= cmd[eot] : eot= endofnode - aka etype
+			//		redir set by etype
 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
-		// if (tab->cmds[cmd][nod] && (nod < token->tkn_len) && (cmd < tab->tk_num))
-	// tab->token->id = 1;
-	return (tab->token);
+		// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
+	// tab->nums = 1;
+	return (tab->node);
 }
 
-static int	div_count(char **nodes, char *set, int strt)
+static int	node_count(char **tokens, char *set, int strt)
 {
 	int		q[2];
 	int		i;
@@ -119,20 +121,20 @@ static int	div_count(char **nodes, char *set, int strt)
 	n = strt;
 	q[0] = 0;
 	q[1] = 0;
-	// printf("DEBUG: token_count begin :: \tn = (%d)\n", strt);
-	while (etype < 0 && (nodes[n]))
+	// printf("DEBUG: node_count begin :: \tn = (%d)\n", strt);
+	while (etype < 0 && (tokens[n]))
 	{
 		i = 0;
-		while (nodes[n] && nodes[n][i] != '\0')
+		while (tokens[n] && tokens[n][i] != '\0')
 		{		
-			if (ft_strchr(set, nodes[n][i]))
+			if (ft_strchr(set, tokens[n][i]))
 				return(n);
-			if (!ft_strchr(set, nodes[n][i]))
+			if (!ft_strchr(set, tokens[n][i]))
 			{
-				while ((!ft_strchr(set, nodes[n][i])) && nodes[n][i] != '\0')
+				while ((!ft_strchr(set, tokens[n][i])) && tokens[n][i] != '\0')
 				{ 
-						q[0] = (q[0] + (!q[1] && nodes[n][i] == '\'')) % 2;
-						q[1] = (q[1] + (!q[0] && nodes[n][i] == '\"')) % 2; 
+						q[0] = (q[0] + (!q[1] && tokens[n][i] == '\'')) % 2;
+						q[1] = (q[1] + (!q[0] && tokens[n][i] == '\"')) % 2; 
 						i++;
 				}
 				if (q[0] || q[1])
@@ -145,37 +147,34 @@ static int	div_count(char **nodes, char *set, int strt)
 	return (n); 
 }
 
-// token_fill : use tab->cmds[] to stack token... former tab->node[]
-static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
+// node_fill : use tab->cmds[] to stack node... former tab->token[]
+static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 {	
-	int i;	//node pos
+	int i;	//token pos
 	int id;
-	int tk_len;
-
-
-	tk_len = 0;
+	int nod_len;
+	
+	nod_len = 0;
 	i = 0;
 	id = tab->token->id;
 	id = 1;
-	tk_len = tab->refs[id];
-	printf("\nDEBUG: START>> token_fill [%d] tk_id[%d]:: tk_len[%d]\n", i, id, tk_len);	
-	while (id <= tab->tk_num)
+	while (id <= tab->nods)
 	{
-		// tk_len = tab->refs[strt];
+		nod_len = tab->refs[id];
+		// printf("node_fill => nod_len(%d)\n", nod_len);
 		tab->cmds[id] = ft_mx_dup(tkn);
-		tk_len = tab->refs[id];
-		// tab->cmds[id] = ft_mx_dup(tkn);
-		printf("token_fill => tk_len[pos:%d]\n", tk_len);
-		while (i < (tk_len ))
+		while (i < (nod_len))
 		{
-			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->node[i]);
-			printf("DEBUG: token_fill cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
+			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
+			printf("DEBUG: node_fill cmds[%d] token[%d] {%s} \n", id, i, tab->token[i]);	
 			i++;
 		}
-		tab->token->endtype = set_endtype(tab, tab->node[tk_len]);
-		if (tab->token->endtype == 0)
+				// endt = tab->token[tab->refs[id-1]];
+		// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
+		tab->node->etype = set_etype(tab, tab->token[nod_len]);
+		if (tab->node->etype == 0)
 			break;		
-		else if (tab->token->endtype == 1)
+		else if (tab->node->etype == 1)
 			i++;
 		id++;
 	}
@@ -184,30 +183,31 @@ static t_table *token_fill(t_table *tab, int len, int strt, char **tkn)
 
 //
    
-t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
+t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 {
-	t_token	*token;			// token sub_split by endtype
+	t_node	*node;			// node sub_split by etype
 	char **tkn;
 	int 	pass_len;		// pos to start
 	int 	tk_id;
 	
-	token = tab->token;
+	node = tab->node;
 	pass_len = 0;
 	tk_id = 0;
-	if ((tk_id < tab->tk_num))// start at zero < token->id start at 1
+	
+	if ((tk_id < tab->nods))// start at zero < node->id start at 1
 	{
-		token->tk_len = div_count(tab->node, set, pass_len);	// how many node into this token
-			printf("DEBUG: div_t tk_len (%d) \n", token->tk_len);		
-			printf("DEBUG: div_t tk_num (%d) \n", tab->tk_num);		
-		tkn = (char **)malloc(sizeof(char *) * (token->tk_len + 1)); 
+		node->nod_len = node_count(tab->token, set, pass_len);	// how many token into this node
+			printf("DEBUG: div_t nod_len (%d) \n", node->nod_len);		
+			printf("DEBUG: div_t nod_num (%d) \n", tab->nods);		
+		tkn = (char **)malloc(sizeof(char *) * (node->nod_len )); 
 		if (!(tkn))
-			return (NULL);	
-		tab = token_fill(tab, token->tk_len, pass_len, tkn);	
-		// printf("DEBUG: token->cmd[%d] ==> {%s} \n", tk_id + 1, token->cmd[tk_id + 1]);
+			return (NULL);
+		tab = node_fill(tab, node->nod_len, pass_len, tkn);	
+		// printf("DEBUG: node->cmd[%d] ==> {%s} \n", tk_id + 1, node->cmd[tk_id + 1]);
 		// tk_id++;
 	}	
-	printf("DEBUG: div_token:: end... \t... go for get_token \n\n");
-	// tab->token = get_token(tab, token, 1);
+	printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
+	// tab->node = get_node(tab, node, 1);
 		/*
 		now tab->cmds[id][cmd[0]] 				char *
 		and then so ... tab->cmds[id][cmd[i++]] char *
@@ -226,7 +226,7 @@ t_table	 *div_token(t_table *tab, char *set) // call by parse>split_all
  
 /*
 from parse.c /split_all ->
-	div_token 	=> token spliter by ending char (<,>,|)
+	div_node 	=> node spliter by ending char (<,>,|)
 	word_count & ft_fill_array ... no comment!
-	*** return table_command : called token !
+	*** return table_command : called node !
 */

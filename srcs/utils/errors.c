@@ -21,7 +21,7 @@ void *chk_error(int err_type, char *param, int err)
 	else if (err_type == PIPERR)
 		ft_putstr_fd("minishell: error creating pipe\n", 2);
 	else if (err_type == PIPENDERR)
-		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
+		ft_putstr_fd("minishell: syntax error near unexpected node `|'\n", 2);
 	else if (err_type == MEM)
 		ft_putstr_fd("minishell: no memory left on device\n", 2);
 	else if (err_type == IS_DIR)
@@ -34,30 +34,30 @@ void *chk_error(int err_type, char *param, int err)
 
 // void free_cont(void *content, int id)
 // {
-//     t_token *token;
+//     t_node *node;
 
-//     token->cmd = content;
-//     ft_mx_free(&token->cmd);
-//     free(token->path);
-//     if (token->infile != STDIN_FILENO)
-//         close(token->infile);
-//     if (token->outfile != STDOUT_FILENO)
-//         close(token->outfile);
-//     free(token);
+//     node->cmd = content;
+//     ft_mx_free(&node->cmd);
+//     free(node->path);
+//     if (node->infile != STDIN_FILENO)
+//         close(node->infile);
+//     if (node->outfile != STDOUT_FILENO)
+//         close(node->outfile);
+//     free(node);
 // }
 
 void free_cont(void *content)
 {
-    t_token *token;
+    t_node *node;
 
-    token = content;
-    ft_mx_free(&token->cmd);
-	// free(token->ofile);
-    free(token->path);
-	free(token->full);
-    if (token->infile != STDIN_FILENO)
-        close(token->infile);
-    if (token->outfile != STDOUT_FILENO)
-        close(token->outfile);
-    free(token);
+    node = content;
+    ft_mx_free(&node->cmd);
+	// free(node->xfile);
+    free(node->path);
+	// free(node->full);
+    if (node->infile != STDIN_FILENO)
+        close(node->infile);
+    if (node->outfile != STDOUT_FILENO)
+        close(node->outfile);
+    free(node);
 }

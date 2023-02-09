@@ -14,7 +14,7 @@
 #include "../../includes/minishell.h"
 extern int g_status;
 
-void	child_builtin(t_table *tab, t_token *t)
+void	child_builtin(t_table *tab, t_node *t)
 {
     int l;  //cmd len
 	char **cmd;
@@ -49,12 +49,12 @@ void	child_builtin(t_table *tab, t_token *t)
 	}
 }
 
-static void	*child_redir(t_token *t, int fd[2])
+static void	*child_redir(t_node *t, int fd[2])
 {
-    // t_token	*t;
+    // t_node	*t;
 
-	// t = token;
-	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->endtype, t->infile, t->outfile);
+	// t = node;
+	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -67,38 +67,38 @@ static void	*child_redir(t_token *t, int fd[2])
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->outfile);
 	}
-	else if (t->endtype > 0 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
+	else if (t->etype > 0 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->endtype);
+	// printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
 	return ("");
 }
 
-void	*born_child(t_table *tab, t_token *t, int fd[2])
+void	*born_child(t_table *tab, t_node *t, int fd[2])
 {
-    // t_token*t;
+    // t_node*t;
 	int		l;
 
-	// t = token;
+	// t = node;
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
-	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
 	// printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
-	printf("DEBUG: born_chld_fork :: t->endtype [%d] \n", t->endtype);
+	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
+	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
 	child_redir(t, fd);
 
 	close(fd[READ_END]);
 
 	child_builtin(tab, t);
 	printf("end_born_child\n");
-    // remove token
+    // remove node
     // free_cont
 	// ft_lstclear(&prompt->cmds, free_content);
 	exit(g_status);
 }
 
-void    exc_fork(t_table *tab, t_token *t, int fd[2])
+void    exc_fork(t_table *tab, t_node *t, int fd[2])
 {
     pid_t	pid;
 
@@ -113,12 +113,12 @@ void    exc_fork(t_table *tab, t_token *t, int fd[2])
 		born_child(tab, t, fd);
 }
 
-void *chk_fork(t_table *tab, t_token *t, int fd[2])
+void *chk_fork(t_table *tab, t_node *t, int fd[2])
 {
-    // t_token *t;
+    // t_node *t;
     DIR     *dir;
 	// printf("DEBUG: TEST chk_fork \n");
-    // t = token;
+    // t = node;
     dir = NULL;
     if (t->cmd)
         dir = opendir(*t->cmd);
