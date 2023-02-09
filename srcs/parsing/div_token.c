@@ -156,7 +156,6 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 	
 	nod_len = 0;
 	i = 0;
-	id = tab->token->id;
 	id = 1;
 	while (id <= tab->nods)
 	{
@@ -177,6 +176,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 		else if (tab->node->etype == 1)
 			i++;
 		id++;
+		// printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 	}
 	return (tab);
 }
