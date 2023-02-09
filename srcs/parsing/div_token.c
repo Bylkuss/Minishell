@@ -176,6 +176,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 		else if (tab->node->etype == 1)
 			i++;
 		id++;
+		// printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
 	}
 	return (tab);
 }
@@ -215,7 +216,7 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	return (tab);    
 }
   //   ls -l -t -a| head -2 |wc -c>> out.txt   
-  //    ls -lta >> popov.txt    
+  //      
   // cat < popov.txt
   //   < popov.txt | wc -l 
   //  < popov.txt wc -l | cat > titi2.txt
