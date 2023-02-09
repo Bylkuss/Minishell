@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/09 14:23:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:58:54 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ static t_table	*redir_type(t_table *tab)
     cmd = tab->token; 
     n = ft_mx_len(cmd);
     printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
-    tab->nods = 1;
-    // tab->refs[tab->nods] = 0; 
+    tab->nods = 0;
+   ref[tab->nods] = 0; 
     // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
 
     while (++id < (n -1))
@@ -49,20 +49,20 @@ static t_table	*redir_type(t_table *tab)
             {
                 tab->node->etype = 1;
                 tab->nods++;  
-                // tab->refs[tab->nods] = id;                
+                //ref[tab->nods] = id;                
             }
             // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->etype, tab->nods);
             if (tab->node->etype != -1)
                 printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nods, ref[tab->nods]);
             
         }
-        else
+        // else
             tab->node->etype = -1;
     }
     ref[tab->nods] = id;
     if (tab->node->etype == -1)
         tab->node->etype = 0;
-    tab->refs = ref;
+   tab->refs = ref;
     return (tab);
 }
 
@@ -77,8 +77,8 @@ static t_table *split_all(t_table *tab)
     tab->nods = 1;
     
     printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", 0, tab->token[0]);	
-    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+    // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     //
         // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
         // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
@@ -111,7 +111,9 @@ static t_table  *parse_args(t_table *tab)
     // tab = split_all(tab);      
     printf("DEBUG: into... parse\n");
 
-
+    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+    
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
 
     tab->nods = 1;
