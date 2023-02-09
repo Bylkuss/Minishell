@@ -24,14 +24,17 @@ static t_table	*redir_type(t_table *tab)
     int     *ref;
 
     id = -1;
-    //cmd = ft_mx_dup(tab->token); 
     cmd = tab->token; 
-    tab->node->nod_len = ft_mx_len(cmd);   
+    n = ft_mx_len(cmd);
+    printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
     tab->nods = 1;
-    ref[tab->nods] = 0; 
+    // tab->refs[tab->nods] = 0; 
+    // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
+
     while (++id < (n -1))
     {
         // tab->nods = tab->nod_num;   
+        printf("DEBUG:: redir_type cmd[id:%d] str{%s} \n", id, cmd[id]);
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
@@ -44,13 +47,14 @@ static t_table	*redir_type(t_table *tab)
                 tab->node->etype = 2;
             else if (*cmd[id] == '|')
             {
-                tab->nods++;  
                 tab->node->etype = 1;
+                tab->nods++;  
+                // tab->refs[tab->nods] = id;                
             }
-            ref[tab->nods] = id;                
-            // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->etype, tab->nod_num);
+            // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->etype, tab->nods);
             if (tab->node->etype != -1)
                 printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nods, ref[tab->nods]);
+            
         }
         // else
             tab->node->etype = -1;
@@ -72,12 +76,12 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
     tab->nods = 1;
     
+    printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", 0, tab->token[0]);	
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     //
-        // printf("DEBUG:  nod_num    __%d__ ...\n", tab->nod_num);        
-        // printf("DEBUG:  t->tk->id __%d__ ...\n", tab->nums); 
-        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nums]); 
+        // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
+        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
     //
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
@@ -86,7 +90,6 @@ static t_table *split_all(t_table *tab)
         //expand_path ...  cmd_chks legit!      
         tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
        
-        	// printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", i, tab->token[i]);	
             // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
     // tab->node = get_node(tab, tab->node, tkn_id);
@@ -105,8 +108,8 @@ static t_table  *parse_args(t_table *tab)
     node = tab->node;
     tab->nods = 1;
 
+    // tab = split_all(tab);      
     printf("DEBUG: into... parse\n");
-    tab = split_all(tab);      
 
 
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
