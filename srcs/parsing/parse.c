@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/07 00:58:29 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/09 14:23:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static t_table	*redir_type(t_table *tab)
                 printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nods, ref[tab->nods]);
             
         }
-        // else
+        else
             tab->node->etype = -1;
     }
     ref[tab->nods] = id;
