@@ -40,7 +40,7 @@ t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 	int nod_len;		// array width
 
 	id = 1; 
-	nod_len = 0;//= tab->refs[id];	
+	nod_len = tab->refs[id];	
         // printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
         // printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nod_num);
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
