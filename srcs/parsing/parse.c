@@ -62,8 +62,9 @@ static t_table	*redir_type(t_table *tab)
         // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n",   tab->nods, ref[id]);
     if (tab->node->etype == -1)
     {
-        ref[tab->node->id] = id-1;
+        ref[tab->node->id] = id - 1;
         tab->node->etype = 0;
+    }
    tab->refs = ref;
     return (tab);
 }
@@ -119,7 +120,7 @@ static t_table  *parse_args(t_table *tab)
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
 
     tab->nods = 1;
-    // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", tab->nums, tab->nod_num);
+    printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", tab->node->id, tab->nods);
     
     while (tab->nods)// <= tab->nod_num)
     {
