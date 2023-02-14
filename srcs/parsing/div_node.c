@@ -57,6 +57,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			nod_len = tab->refs[id];
 			// tab->node->cmd = ft_mx_dup(tab->cmds[id]);
 			tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
+			printf("DEBUG: node->cmd __%s__\n\n", *tab->node->cmd);
 			tab->node->etype = set_etype(tab, tab->token[nod_len]);	
 			printf("DEBUG:: Get_node:: etype [%d] \n", tab->node->etype);
 		
@@ -80,7 +81,6 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			
 			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
 			printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
-			// printf("DEBUG: node->full __%s__\n\n", tab->node->full);
 
 			
 			i = 0;		

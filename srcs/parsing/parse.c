@@ -123,8 +123,7 @@ static t_table  *parse_args(t_table *tab)
     
     while (tab->nods)// <= tab->nod_num)
     {
-        node = get_node(tab, tab->node, tab->nods);
-        tab->node = node;
+        tab->node = get_node(tab, tab->node, tab->nods);
         g_status = builtins_handler(tab, tab->node);
         waitpid(-1, &g_status, 0);
         
