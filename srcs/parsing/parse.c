@@ -28,7 +28,7 @@ static t_table	*redir_type(t_table *tab)
     n = ft_mx_len(cmd);
     printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
     tab->nods = 1;
-//    ref[tab->nods] = 0; 
+    tab->refs[tab->nods] = 0; 
     // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
 
     while (++id < (n - 1))
@@ -48,12 +48,13 @@ static t_table	*redir_type(t_table *tab)
             {
                 tab->nods++;  
                 tab->node->etype = 1;
-                tab->nods++;  
                 tab->refs[tab->nods] = id;                
             }
-            ref[tab->node->id] = id;
             if (tab->node->etype != -1)
+            {
+                tab->refs[tab->node->id] = id;
                 printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nods, tab->refs[tab->nods]);
+            }
             
         }
         tab->node->etype = -1;
@@ -61,8 +62,9 @@ static t_table	*redir_type(t_table *tab)
     tab->refs[tab->nods] = id;
     if (tab->node->etype == -1)
     {
-        ref[tab->node->id] = id - 1;
+        tab->refs[tab->node->id] = id - 1;
         tab->node->etype = 0;
+    }
 //    tab->refs = ref;
     return (tab);
 }

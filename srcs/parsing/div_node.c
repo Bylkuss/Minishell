@@ -161,14 +161,14 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 	id = 1;
 
 
-	while (id <= tab->nods)
+	while (id <= tab->nods )//|| tab->token[i] != "\0")
 	{
-		node->nod_len = tab->refs[id];
-		printf("node_fill => node->id[%d]:: nod_len(%d)\n", id, node->nod_len);
+		node->nod_len = (tab->refs[id]);// - node->nod_len);
+		printf("node_fill => node->id[%d]:: nod_len(%d)\n\n", id, node->nod_len);
 		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
 		printf("DEBUG: TEST >> etype_ _%d_ _  \n", tab->node->etype);
-		// tab->cmds[id] = ft_mx_dup(tkn);
-		while (i <= (node->nod_len))
+		tab->cmds[id] = ft_mx_dup(tkn);	
+		while (i < node->nod_len)
 		{
 			printf("DEBUG: node_fill tab->cmds[%d] token[%d] {%s} \n", id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
@@ -178,15 +178,17 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 		// if (tab->node->etype == 0)
 		// 	break;		
 		// else if (tab->node->etype == 1)
-		// 	id++;
+		// printf("DEBUG: TEST >> ref_  {%s} _  \n", tab->token[tab->refs[id]]);
+		printf("DEBUG: node_fill _out_reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->token[i]);	
+		id++;
 		i++;
-		printf("DEBUG: TEST >> ref_  {%s} _  \n", tab->token[tab->refs[id]]);
-		printf("DEBUG: node_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->token[i]);	
 	}
+	tab->node = node;
+	printf ("DEBUG:: exit _nod_fill\n");
 	return (tab);
 }
 
-//
+// ls -lt | wc -l >> ut.txt
    
 t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 {
@@ -208,7 +210,7 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 		if (!(tkn))
 			return (NULL);
 		tab = node_fill(tab, node->nod_len, node->nod_len, tkn);	
-		printf("DEBUG: node->cmd[%d] ==> {%s} \n", node->id, node->cmd[node->id]);
+		// printf("DEBUG: node->cmd[%d] ==> {%s} \n", tab->node->id, node->cmd[node->id]);
 		// tk_id++;
 	}	
 	printf("DEBUG::div_: t->id[%d] OF nods[%d] << node...\n", node->id, tab->nods);
