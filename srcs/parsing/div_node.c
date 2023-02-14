@@ -158,25 +158,29 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 	node->nod_len = 0;
 	i = 0;
 	id = 1;
+
+
 	while (id <= tab->nods)
 	{
 		node->nod_len = tab->refs[id];
-		printf("node_fill => nod_len(%d)\n", node->nod_len);
-		tab->cmds[id] = ft_mx_dup(tkn);
-		while (i < (node->nod_len))
+		printf("node_fill => node->id[%d]:: nod_len(%d)\n", id, node->nod_len);
+		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
+		printf("DEBUG: TEST >> etype_ _%d_ _  \n", tab->node->etype);
+		// tab->cmds[id] = ft_mx_dup(tkn);
+		while (i <= (node->nod_len))
 		{
+			printf("DEBUG: node_fill tab->cmds[%d] token[%d] {%s} \n", id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
-			printf("DEBUG: node_fill cmds[%d] token[%d] {%s} \n", id, i, tab->token[i]);	
 			i++;
 		}	
 		// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
-		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
-		printf("DEBUG: token_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->node[i]);	
-		if (tab->node->etype == 0)
-			break;		
-		else if (tab->node->etype == 1)
-			i++;
-		id++;
+		// if (tab->node->etype == 0)
+		// 	break;		
+		// else if (tab->node->etype == 1)
+		// 	id++;
+		i++;
+		printf("DEBUG: TEST >> ref_  {%s} _  \n", tab->token[tab->refs[id]]);
+		printf("DEBUG: node_fill reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->token[i]);	
 	}
 	return (tab);
 }
@@ -202,8 +206,8 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 		tkn = (char **)malloc(sizeof(char *) * (node->nod_len )); 
 		if (!(tkn))
 			return (NULL);
-		printf("DEBUG: node->cmd[%d] ==> {%s} \n", node->id, node->cmd[node->id]);
 		tab = node_fill(tab, node->nod_len, node->nod_len, tkn);	
+		printf("DEBUG: node->cmd[%d] ==> {%s} \n", node->id, node->cmd[node->id]);
 		// tk_id++;
 	}	
 	printf("DEBUG::div_: t->id[%d] OF nods[%d] << node...\n", node->id, tab->nods);

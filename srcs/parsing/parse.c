@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/13 23:26:25 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:04:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_table	*redir_type(t_table *tab)
     cmd = tab->token; 
     n = ft_mx_len(cmd);
     printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
-    tab->nods = 0;
+    tab->nods = 1;
 //    ref[tab->nods] = 0; 
     // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
 
@@ -82,6 +82,7 @@ static t_table *split_all(t_table *tab)
         //
         //
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    printf("DEBUG:: split node->id[%d] OF nods[%d] << node...\n", tab->node->id, tab->nods);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
@@ -92,7 +93,6 @@ static t_table *split_all(t_table *tab)
        
             // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
-    printf("DEBUG:: split node->id[%d] OF nods[%d] << node...\n", tab->node->id, tab->nods);
     
             // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
             // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
