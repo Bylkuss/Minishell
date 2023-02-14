@@ -68,7 +68,7 @@ int    builtins_handler(t_table *tab, t_node *node)
 
     // int i = 0;
     // envp = tab->envp;
-     // printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+     printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
     input = *node->cmd;
     envp = save_old_pwd(envp);    
     if (ft_strnstr(input, "exit", 5))

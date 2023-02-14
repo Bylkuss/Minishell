@@ -21,14 +21,12 @@ void	child_builtin(t_table *tab, t_node *t)
 
     l = ft_strlen(*t->cmd);	
 
-	// if (t->full)
-	// 	t->cmd = ft_split(t->full, ' ');
-	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(t->cmd));
+	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(tab->cmds[t->id]));
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
-		execve(t->path, *tab->cmds, tab->envp);
+		execve(t->path, t->cmd, tab->envp);
 		  //
 			//
 			// {

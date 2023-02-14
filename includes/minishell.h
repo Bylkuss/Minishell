@@ -66,20 +66,20 @@ struct 		s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "eof",	
 	char	**cmd;		//	token_array
 	char 	*path;		// 	path to find exec
 	char 	*xfile;		// 	to store redir_arg. ext.
-	int		etype;	// 	etype:: pipe, redir, end
+	int		etype;		// 	etype:: pipe, redir, end
 	int 	infile;		// 	fd[0] == STDIN_FILNO  <|also|>  [READ_END] 
  	int		outfile;	// 	fd[1] == STDOUT_FILNO <|also|>  [WRITE_END]
-	int 	nod_len;	// 	how many token by node (min 2) ref by
+	int 	nod_len;	// 	how many token by node (min 2) ref by (TMP)
 	struct 	s_table	*table; 
 };	//t_node;
 
 struct		s_table 	/*	Main Struct  tab->*/
 {
 	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
-	char	***cmds;    //	[ID][token_array]
-	char	**token;    //	token_array == input* spc_split
+	char	***cmds;    //	[ID][token_array] 
+	char	**token;    //	token_array == input* >>> token** " ":spc_split
 	int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
-	int 	nods;    	// 	num. cmd.
+	int 	nods;    	// 	nombre de node total.
 	pid_t 	pid;        //	fork dup wait
 	struct 	s_node *node; 
 };  //t_table;

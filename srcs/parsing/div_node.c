@@ -43,44 +43,45 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	int i;
 		
 	typ = 0;
-	nod_len = tab->refs[i];
-	i = 0;
+	i = -1;
+	node->nod_len = tab->refs[id];
 
 	// pre-requis builder_node
-	printf("DEBUG:: Get_node t->t->id [%d] [refs:%d]\n", id, nod_len);
-	printf("DEBUG:: Get_node t->node->id [%d] {%s}\n", tab->refs[id], tab->token[nod_len]);
 	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
 	{
+		printf("DEBUG:: Get_node t->node->[id:%d] XXX nod_len [%d] by Refs \n", id, tab->refs[id]);
 		while(id <= tab->nods) //if
 		{
 			// tab->nums = id;
-			nod_len = tab->refs[id];
-			// tab->node->cmd = ft_mx_dup(tab->cmds[id]);
-			tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
-			printf("DEBUG: node->cmd __%s__\n\n", *tab->node->cmd);
-			tab->node->etype = set_etype(tab, tab->token[nod_len]);	
-			printf("DEBUG:: Get_node:: etype [%d] \n", tab->node->etype);
+			node->nod_len = tab->refs[id];
+				// tab->node->cmd = ft_mx_dup(tab->cmds[id]);
+			node->etype = set_etype(tab, tab->token[node->nod_len]);	
+			printf("DEBUG:: Get_node:: ::preset:: etype [%d] \n", node->etype);
+			printf("DEBUG:: Get_node node->id [%d] [nod_len:%d]\n", id, node->nod_len);
 		
-			while(++i < nod_len)
+			while(i++ < node->nod_len)
 			{
+				// tab->node->cmd = ft_mx_ext(tab->node->cmd, *tab->cmds[id]);
+				printf("DEBUG: TTT->cmds[%d] {__%s__}::len:%d::\n\n", i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
+				tab->node->cmd = ft_mx_ext(tab->node->cmd, tab->cmds[id][i]);
+				printf("DEBUG: _node_init__[i= %d] == {_%s_}\n", i, node->cmd[i]);
 				if (set_etype(tab, tab->token[i]) > 1)	
 				{
-					tab->node->xfile = ft_strdup(tab->token[i + 1]);	
-					i++;
-					break;
-				}			
+					tab->node->xfile = ft_strdup(tab->token[i + 1]);			
+					printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
+				}
 				// tab->node->full = ft_strjoin(tab->node->full, tab->cmds[id][i]);
-				// if ((i + 1) < (nod))
+				// if ((i) < (node->nod_len))
+				// 	break;
 					// tab->node->full = ft_strjoin(tab->node->full, " ");
 
 			}
-			if (tab->node->etype == 2 || tab->node->etype == 3)
+			printf("DEBUG:: Get_node t->node->cmd {%s} \n", *node->cmd);
+			if (tab->node->etype >= 2 && tab->node->etype <= 4)
+			{
 				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
-			if (tab->node->etype == 4)
-				tab->node->xfile = ft_strdup(tab->token[nod_len + 1]);
-			
-			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
-			printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
+				printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
+			}
 
 			
 			i = 0;		
@@ -168,17 +169,17 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
 		printf("DEBUG: TEST >> etype_ _%d_ _  \n", tab->node->etype);
 		tab->cmds[id] = ft_mx_dup(tkn);	
-		while (i < node->nod_len)
+		while (i <= node->nod_len)
 		{
 			printf("DEBUG: node_fill tab->cmds[%d] token[%d] {%s} \n", id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
 			i++;
 		}	
-		// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
-		// if (tab->node->etype == 0)
-		// 	break;		
-		// else if (tab->node->etype == 1)
-		// printf("DEBUG: TEST >> ref_  {%s} _  \n", tab->token[tab->refs[id]]);
+			// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
+			// if (tab->node->etype == 0)
+			// 	break;		
+			// else if (tab->node->etype == 1)
+			// printf("DEBUG: TEST >> ref_  {%s} _  \n", tab->token[tab->refs[id]]);
 		printf("DEBUG: node_fill _out_reject!! cmds[%d] node[%d] {%s} \n", id, i, tab->token[i]);	
 		id++;
 		i++;
