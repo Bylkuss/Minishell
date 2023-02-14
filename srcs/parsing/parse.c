@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/09 14:58:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/14 01:04:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static t_table	*redir_type(t_table *tab)
     char    **cmd;
     int     n;
     int     id;
-    int     *ref;
+    // int     *ref;
 
     id = -1;
     cmd = ft_mx_dup(tab->token); 
     n = ft_mx_len(cmd);
     printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
-    tab->nods = 0;
-   ref[tab->nods] = 0; 
+    tab->nods = 1;
+//    ref[tab->nods] = 0; 
     // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
 
     while (++id < (n - 1))
@@ -49,23 +49,21 @@ static t_table	*redir_type(t_table *tab)
                 tab->nods++;  
                 tab->node->etype = 1;
                 tab->nods++;  
-                //ref[tab->nods] = id;                
+                tab->refs[tab->nods] = id;                
             }
             ref[tab->node->id] = id;
             if (tab->node->etype != -1)
-                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(::%d:: pos[%d])\n", tab->nods, tab->node->etype, ref[tab->node->id]);
+                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", tab->nods, tab->refs[tab->nods]);
             
         }
         tab->node->etype = -1;
     }
-        // printf  ("DEBUG: id[%d] ::REDIR::{%d}:: nod_num[%d]\n", id, tab->node->etype, tab->nods);
-        // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n",   tab->nods, ref[id]);
+    tab->refs[tab->nods] = id;
     if (tab->node->etype == -1)
     {
         ref[tab->node->id] = id - 1;
         tab->node->etype = 0;
-    }
-   tab->refs = ref;
+//    tab->refs = ref;
     return (tab);
 }
 
@@ -79,13 +77,14 @@ static t_table *split_all(t_table *tab)
     quotes[1] = 0;
     tab->node->id = 1;
     
-    printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", 0, tab->token[0]);	
-    // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-    //
-        // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
-        // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
-    //
+    printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
+        // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+        // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+        //
+        //
+    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    printf("DEBUG:: split node->id[%d] OF nods[%d] << node...\n", tab->node->id, tab->nods);
+    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
@@ -95,8 +94,9 @@ static t_table *split_all(t_table *tab)
        
             // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
-    // tab->node = get_node(tab, tab->node, tkn_id);
     
+            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
+            // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
     return (tab); 
 }
 
@@ -113,14 +113,11 @@ static t_table  *parse_args(t_table *tab)
 
     // tab = split_all(tab);      
     printf("DEBUG: into... parse\n");
-
-    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-    
+  
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
 
+    printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
     tab->nods = 1;
-    printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", tab->node->id, tab->nods);
     
     while (tab->nods)// <= tab->nod_num)
     {

@@ -78,7 +78,7 @@ struct		s_table 	/*	Main Struct  tab->*/
 	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char	***cmds;    //	[ID][token_array]
 	char	**token;    //	token_array == input* spc_split
-	int 	*refs;      // 	tab->refs[id] =  token[pos]; etype_flag
+	int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
 	int 	nods;    	// 	num. cmd.
 	pid_t 	pid;        //	fork dup wait
 	struct 	s_node *node; 
