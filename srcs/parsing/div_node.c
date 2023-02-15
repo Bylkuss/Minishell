@@ -158,32 +158,36 @@ static t_table *node_fill(t_table *tab, int len, int strt, char **tkn)
 
 	while (node->id <= tab->nods && i < ft_mx_len(tab->token))
 	{
-		// tab->node->id = id;
-		node->nod_len = tab->refs[node->id]; // - node->nod_len);
-		printf("node_fill => node->id[%d]:: nod_len(%d)\n\n", node->id, node->nod_len);
-		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
-		printf("DEBUG: TEST >> etype_ _%d_ _  \n", tab->node->etype);
+		tab->node->id = id;
 		tab->cmds[id] = ft_mx_dup(tkn);
+
+		node->nod_len = tab->refs[node->id]; // - node->nod_len);
+		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
+		printf("\nDEBUG: TEST >> etype_ _%d_ _  \n", tab->node->etype);
+		printf("DEBUG::node_fill => node->id[%d]:: nod_len(%d) i=%d\n", node->id, node->nod_len, i);
+
 		if (node->nod_len == 0)
-		{
-			node->nod_len = tab->refs[0]-1;
-			i = tab->refs[node->id] + 2;
-			printf("DEBUG: TEST:0:  node_fill nod_len[%d] i[%d] \n", node->nod_len, i);	
-		}
+			node->nod_len = tab->refs[0] - 1;
+
+		printf("DEBUG: TEST:0:  node_fill nod_len[%d] i[%d] \n", node->nod_len, i);	
+		// }
 		while (i < node->nod_len)
 		{
 			printf("DEBUG: +++ node_fill tab->cmds[%d] token[%d] {%s} \n", node->id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
+			printf("DEBUG: *** node_fill tab->cmds{%s} i= [%d] \n", *tab->cmds[id], i);	
 			i++;
 		}	
+		if (i == node->nod_len)//tab->refs[node->id])
+			i++;
 			// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
 					// if (tab->node->etype == 0)
 					// else if (tab->node->etype == 1)
 				// if (i > ft_mx_len(tab->token))
 				// 	break;		
 		// else
-		printf("DEBUG: TEST >> node->id(%d) :: ->nods_(%d) _  \n", node->id, tab->nods);
-		if (node->id < tab->nods)
+		// printf("DEBUG: TEST >> node->id(%d) :: ->nods_(%d) _  \n", node->id, tab->nods);
+		if (id < tab->nods)
 			id++;
 		else 
 		{
