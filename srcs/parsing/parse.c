@@ -35,7 +35,7 @@ static t_table	*redir_type(t_table *tab)
     while (++id < (n - 1))
     {
         // tab->nods = tab->node->id;
-        tab->node->etype = -1;
+        tab->node->etype = 0;
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
@@ -59,9 +59,9 @@ static t_table	*redir_type(t_table *tab)
             }
         }
     }
-    if (tab->node->etype == -1)
+    if (tab->node->etype != 0)
     {
-        // tab->refs[tab->node->id] = id;
+        tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
     }
     return (tab);
@@ -84,6 +84,7 @@ static t_table *split_all(t_table *tab)
         //
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
     printf("DEBUG:: split node->id[%d] OF nods[%d] << node...\n", tab->node->id, tab->nods);
+    // printf("DEBUG:: split ref[id:%d] OF ref{value:%s} << node...\n", tab->node->id, tab->token[tab->refs[tab->node->id]]);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
@@ -132,14 +133,15 @@ static t_table  *parse_args(t_table *tab)
         tab->nods--;     
     }
           
-    if (tab->cmds && is_exit)
+    if (tab->nods == 0)// && is_exit)
     {
+        printf("yo_ empty_ me_\n");
         tab->nods = 0;
+        ft_mx_free(&tab->node->cmd);
+        free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
-        free_cont(tab->node);
-        ft_mx_free(&tab->node->cmd);
-        return (NULL);
+        // return (NULL);
     }
     return (tab);
 }

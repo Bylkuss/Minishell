@@ -14,7 +14,7 @@ t_table *init_node(t_table *tab)
     node->cmd = NULL;  
     node->path = NULL;
     node->xfile = NULL;
-    node->etype = -1;
+    node->etype = 0;
     node->infile = 0;
     node->outfile = 1;
     node->nod_len = 0;

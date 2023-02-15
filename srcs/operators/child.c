@@ -67,7 +67,7 @@ static void	*child_redir(t_node *t, int fd[2])
 	}
 	else if (t->etype > 0 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
-	// printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
+	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -81,7 +81,7 @@ void	*born_child(t_table *tab, t_node *t, int fd[2])
 	l = 0;
 	if (t->cmd)
 		l = ft_strlen(t->cmd[0]);
-	// printf("DEBUG: born_chld_fork :: t->full{%s} \n", t->full);
+	
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
 	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
 	child_redir(t, fd);
@@ -113,10 +113,9 @@ void    exc_fork(t_table *tab, t_node *t, int fd[2])
 
 void *chk_fork(t_table *tab, t_node *t, int fd[2])
 {
-    // t_node *t;
+ 
     DIR     *dir;
-	// printf("DEBUG: TEST chk_fork \n");
-    // t = node;
+
     dir = NULL;
     if (t->cmd)
         dir = opendir(*tab->cmds[1]);
@@ -124,7 +123,6 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
 		exc_fork(tab, t, fd);
-		// printf("DEBUG: GRR.. exc_frk\n");}
     else if (!is_builtin(t) && ((t->path && !access(t->path, F_OK)) || dir))
         g_status = 126;
     else if (!is_builtin(t) && t->cmd)
@@ -134,6 +132,3 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
 	printf("DEBUG: wanna_exit_ _ _ exc_frk\n\n");
     return ("");
 }
-	// {
-		// printf("DEBUG: GRR..NO_BUILTIN exc_frk \n");
-	// }
