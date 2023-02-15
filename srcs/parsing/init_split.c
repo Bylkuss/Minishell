@@ -83,20 +83,21 @@ static char *type_check(char *input, char *meta)
         p[1] = ft_strchar_i(srcs, meta);
         if (p[1] == -1)
             break;//padd = 1;
+        else if (p[1] == 0)
+            srcs = ft_strjoin(" ", srcs);
         p[3] = ft_strlen(srcs);      
-        if ((p[1]) && (input[p[1] - 1] != 32) )
+        if ((p[1]) && ((srcs[p[1] - 1] != 32)))
         {
 
-            /// ft_spacer(char *srcs, pos = p[1]*, int fl) only_one spc before...
-            // input = ft_spacer(input, p[1], 1); //fl = 1
-
-            // printf("DEBUG :: only_1_AV_\n");
+                    /// ft_spacer(char *srcs, pos = p[1]*, int fl) only_one spc before...
+                    // input = ft_spacer(input, p[1], 1); //fl = 1
+                    // printf("DEBUG :: only_1_AV_\n");    
             dest = ft_substr(srcs, 0, p[1]); //bfore etype        
             dest = ft_strjoin(dest, " ");
             rest = ft_strjoin(rest, dest);
-            // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+                    // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-            // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+                    // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
         }    
         else if ((input[p[1] + 1] != 32) && (p[1] + 1 != p[1]))
         {
@@ -189,7 +190,7 @@ static char **token_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
             tab->token = ft_mx_ext(tab->token, tab->token[n]);          
-            printf("token[%d] => ::%s::\n", n, tab->token[n]);
+            printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);
             n++;
         }           
     }
@@ -216,10 +217,10 @@ char **init_split(char *input, char *set, t_table *tab)
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
         return (NULL);   
-    printf("DEBUG:: token = %d::\n", n);
     tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->token)
         return (NULL);
+    printf("DEBUG:: init_token_count = %d::\n", n);
     tab->token = token_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->token);   // return clean token space-split args
 }

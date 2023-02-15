@@ -30,12 +30,13 @@ static t_table	*redir_type(t_table *tab)
     tab->nods = 1;
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
+    tab->refs[0] = n ;
     printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, tab->refs[tab->nods]);
 
     while (++id < (n - 1))
     {
         // tab->nods = tab->node->id;
-        tab->node->etype = 0;
+        tab->node->etype = -1;
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
@@ -59,7 +60,7 @@ static t_table	*redir_type(t_table *tab)
             }
         }
     }
-    if (tab->node->etype != 0)
+    if (tab->node->etype == 0)
     {
         tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
@@ -96,8 +97,8 @@ static t_table *split_all(t_table *tab)
             // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
     
-            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
-            // printf("DEBUG:  t->refs   __%d__ ...\n", tab->refs[tab->nods]); 
+            printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
+            printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
     return (tab); 
 }
 
