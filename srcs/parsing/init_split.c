@@ -211,11 +211,12 @@ char **init_split(char *input, char *set, t_table *tab)
         return (NULL);    
     input = type_check(input, "<|>");   // padding etype count 
 
-    printf("DEBUG: pass_to_init :: %s \n", input);   
+    printf("DEBUG: pass_to_init :: %s \n", input);
 
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
-        return (NULL);    // printf("token = %d::\n", n);
+        return (NULL);   
+    printf("DEBUG:: token = %d::\n", n);
     tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->token)
         return (NULL);

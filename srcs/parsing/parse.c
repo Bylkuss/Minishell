@@ -26,11 +26,11 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->token); 
     n = ft_mx_len(cmd);
-    printf("DEBUG:: redir_type tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
+    printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
     tab->nods = 1;
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
-    // printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, ref[tab->nods]);
+    printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, tab->refs[tab->nods]);
 
     while (++id < (n - 1))
     {
@@ -55,7 +55,7 @@ static t_table	*redir_type(t_table *tab)
             if (tab->node->etype > 1)
             {
                 tab->refs[tab->node->id] = id;
-                printf  ("DEBUG: REDIR_ NEW_REF::ID[%d]== ETYPE(pos[%d])\n", id, tab->refs[tab->node->id]);
+                printf  ("DEBUG: REDIR_ tkID[%d]== ETYPE(pos[%d])\n", id, tab->refs[tab->node->id]);
             }
         }
     }
@@ -83,7 +83,7 @@ static t_table *split_all(t_table *tab)
         //
         //
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    printf("DEBUG:: split node->id[%d] OF nods[%d] << node...\n", tab->node->id, tab->nods);
+    printf("DEBUG:: split node->id[%d] OF nods[%d] ....\n", tab->node->id, tab->nods);
     // printf("DEBUG:: split ref[id:%d] OF ref{value:%s} << node...\n", tab->node->id, tab->token[tab->refs[tab->node->id]]);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
