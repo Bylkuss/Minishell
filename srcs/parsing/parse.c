@@ -31,12 +31,12 @@ static t_table	*redir_type(t_table *tab)
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
     tab->refs[0] = n ;
-    printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n", tab->nods, tab->refs[tab->nods]);
+    printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n\n", tab->nods, tab->refs[tab->nods]);
 
+    tab->node->etype = -1;
     while (++id < (n - 1))
     {
         // tab->nods = tab->node->id;
-        tab->node->etype = -1;
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
@@ -60,7 +60,7 @@ static t_table	*redir_type(t_table *tab)
             }
         }
     }
-    if (tab->node->etype == 0)
+    if (tab->node->etype == -1)
     {
         tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
@@ -119,11 +119,11 @@ static t_table  *parse_args(t_table *tab)
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
 
     // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-    tab->nods = 1;
+    tab->node->id = 1;
     
     while (tab->nods)// <= tab->nod_num)
     {
-        tab->node = get_node(tab, tab->node, tab->nods);
+        tab->node = get_node(tab, tab->node, tab->node->id);
         g_status = builtins_handler(tab, tab->node);
         waitpid(-1, &g_status, 0);
         
@@ -137,7 +137,6 @@ static t_table  *parse_args(t_table *tab)
     if (tab->nods == 0)// && is_exit)
     {
         printf("yo_ empty_ me_\n");
-        tab->nods = 0;
         ft_mx_free(&tab->node->cmd);
         free_cont(tab->node);
         ft_mx_free(tab->cmds);

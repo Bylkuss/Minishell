@@ -49,11 +49,8 @@ static DIR	*cmd_checks(t_table *tab, t_node *t, char **s, char *path)
 {
 	DIR		*dir;
 
-		//	dir = NULL;
 		// printf("DEBUG: START cmd_chk ... \n");
 	dir = opendir(path);
-	// printf("DEBUG: TEST cmd_chk >> path{%s}  \n", path);
-	// printf("DEBUG: TEST cmd_chk >> cmd{%s}  \n", *t->cmd);
 	if (t && path && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 	{
 		printf("DEBUG: FIRST_IF cmd_chk ... \n");
@@ -105,10 +102,8 @@ char	*getpath(char *cmd, char **env)
 
 void 	get_cmd(t_table *tab, t_node *t)
 {
-	char	*full_path;
 	DIR		*dir;
 
-	// t = node;
 	printf("DEBUG::: get_cmd ==> {%s}\n", *t->cmd);
 	if (!t->path)
 		t->path = getpath(*t->cmd, tab->envp);
