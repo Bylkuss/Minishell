@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 11:52:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:49:40 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	*child_redir(t_node *t, int fd[2])
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->outfile);
 	}
-	else if (t->etype > 0 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
+	else if (t->etype == 1 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
 	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
@@ -118,7 +118,7 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
 
     dir = NULL;
     if (t->cmd)
-        dir = opendir(*tab->cmds[1]);
+        dir = opendir(*t->cmd);
     if (t->infile == -1 || t->outfile == -1)
         return (NULL);
     if ((t->path && access(t->path, X_OK) == 0) || is_builtin(t))
