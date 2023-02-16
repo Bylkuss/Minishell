@@ -129,6 +129,6 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-	printf("DEBUG: wanna_exit_ _ _ exc_frk\n\n");
+	printf("DEBUG:\t wanna_exit_ _ _ _ _exc_frk\n");
     return ("");
 }

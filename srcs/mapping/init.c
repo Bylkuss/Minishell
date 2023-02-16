@@ -4,7 +4,7 @@
 
 extern int g_status;
 
-t_table *init_node(t_table *tab)
+t_node *init_node(t_table *tab)
 {
     t_node *node;
 
@@ -15,10 +15,10 @@ t_table *init_node(t_table *tab)
     node->path = NULL;
     node->xfile = NULL;
     node->etype = 0;
-    node->infile = 0;
-    node->outfile = 1;
+    node->infile = STDIN_FILENO;
+    node->outfile = STDOUT_FILENO;
     node->nod_len = 0;
-    return (tab);   
+    return (tab->node);   
 }
 
 t_table *init_tab(t_table *tab)

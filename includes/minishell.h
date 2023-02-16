@@ -88,7 +88,8 @@ struct		s_table 	/*	Main Struct  tab->*/
 int    			builtins_handler(t_table *tab, t_node *node);
 // void    			builtins_handler(char *input, char **envp);
 int					is_builtin(t_node *t);
-// void	    		exit_builtin(char **cmd);
+int					builtins(t_table *tab, int *is_exit);
+int	    		exit_builtin(char **cmd, int *is_exit);
 // cd 
 int	cd(char **cmd, char **env);
 // echo
@@ -97,7 +98,7 @@ int						echo(char **cmd);
 int						pwd(void);
 int						ms_export(char **cmd, char **envp);
 void					env(char **envp);
-void					exit_builtin(char **cmd);
+// void					exit_builtin(char **cmd);
 char					**save_old_pwd(char **envp);
 int						unset(char **cmd, char **envp);
 char					**edit_env(char **envp, int pos);
@@ -105,7 +106,7 @@ char					**edit_env(char **envp, int pos);
 //main
 char					*getprompt(t_table *tab);
 //mapping
-t_table					*init_node(t_table *tab);
+t_node					*init_node(t_table *tab);
 t_table					*init_tab(t_table *tab);
 t_table					*node_alloc(t_table *tab);
 //signal.c

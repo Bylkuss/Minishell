@@ -13,6 +13,7 @@
 #include "../../includes/minishell.h"
 
 extern int g_status;
+
 int is_builtin(t_node *t)
 {
     int l;
@@ -41,11 +42,12 @@ int is_builtin(t_node *t)
 	return (0);
 }
 
-
-void    exit_builtin(char **cmd)
+int    exit_builtin(char **cmd, int *is_exit)
 {
-    int exiit = 0;
+    int exiit;// = 0;
     int i = 0;
+
+    exiit = *is_exit;
     if(cmd[1] && !cmd[2])
     {
         while(cmd[1][i])
@@ -56,40 +58,78 @@ void    exit_builtin(char **cmd)
         }
         exiit = ft_atoi(cmd[1]);
     }
-    exit(exiit);
+    // exit(exiit);
+    return (exiit);
 }
 
+// int    exit_builtin(t_node *node, int *is_exit)
+    // {
+    //     int exiit;
+    //     int i;
+    //     char **cmd;
 
-// void    builtins_handler(char *input, char **envp)
-int    builtins_handler(t_table *tab, t_node *node)
+    //     exiit = 0;
+    //     i = 0;
+    //     cmd = node->cmd;
+    //     if(cmd[1] && !cmd[2])
+    //     {
+    //         while(cmd[1][i])
+    //         {
+    //             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+    //                 error_msg("exit: numeric argument required\n", 255);
+    //             i++;                
+    //         }
+    //         exiit = ft_atoi(cmd[1]);
+    //     }
+    //     exit(exiit);
+// }
+
+
+
+int    builtins(t_table *tab,  int *is_exit)
 {
-    char *input;
-    char **envp;
+    t_node  *node;
+    char    **arg;
+    int     l;
+    char     *input;
 
-    // int i = 0;
-    // envp = tab->envp;
-     printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-    input = *node->cmd;
-    envp = save_old_pwd(envp);    
-    if (ft_strnstr(input, "exit", 5))
-        exit_builtin(ft_split(input, ' '));
-    else if(ft_strnstr(input, "cd", 10))
-        g_status = cd(ft_split(input, ' '), envp);
-    else if(ft_strnstr(input, "export", 10))
-        g_status = ms_export(ft_split(input, ' ') , envp);
-    else if(ft_strnstr(input, "unset", 10))
+
+
+    node = tab->node;
+
+    while(node->id <= tab->nods)
     {
-        if(unset(ft_split(input, ' '), envp) == 0)
-            printf("No such variable\n");
-    } 
-    else if(ft_strnstr(input, "env", 5))
-        env(envp);
-    else 
-    {
-        signal(SIGINT, SIG_IGN);
-        signal(SIGQUIT, SIG_IGN);
-        execmd(tab, node);
+        node = get_node(tab, node, node->id);
+
+        printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+        arg = node->cmd;
+        l = 0;
+        input = *node->cmd;
+        tab->envp = save_old_pwd(tab->envp);    
+        if (arg)
+            l = ft_strlen(*arg);
         
+        if (arg && !ft_strncmp(*arg, "exit", l) && l == 4)
+            g_status = exit_builtin(node->cmd, is_exit);
+        else if(ft_strnstr(input, "cd", 10))
+            g_status = cd(ft_split(input, ' '), tab->envp);
+        else if(ft_strnstr(input, "export", 10))
+            g_status = ms_export(ft_split(input, ' ') , tab->envp);
+        else if(ft_strnstr(input, "unset", 10))
+        {
+            if(unset(ft_split(input, ' '), tab->envp) == 0)
+                printf("No such variable\n");
+        } 
+        else if(ft_strnstr(input, "env", 5))
+            env(tab->envp);
+        else 
+        {
+            signal(SIGINT, SIG_IGN);
+            signal(SIGQUIT, SIG_IGN);
+            execmd(tab, node);
+        }
+        node->id++;
+
     }
     return (g_status);
     // else if(ft_strnstr(input, "echo", 10))
@@ -97,5 +137,44 @@ int    builtins_handler(t_table *tab, t_node *node)
     // else if (ft_strnstr(input, "pwd", 10))
     //     g_status = pwd();
 }
+
+// void    builtins_handler(char *input, char **envp)
+
+// int    builtins_handler(t_table *tab, t_node *node)
+// {
+//     char *input;
+//     char **envp;
+
+//     // int i = 0;
+//     // envp = tab->envp;
+//      printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+//     input = *node->cmd;
+//     envp = save_old_pwd(envp);    
+//     if (ft_strnstr(input, "exit", 5))
+//         exit_builtin(ft_split(input, ' '));
+//     else if(ft_strnstr(input, "cd", 10))
+//         g_status = cd(ft_split(input, ' '), envp);
+//     else if(ft_strnstr(input, "export", 10))
+//         g_status = ms_export(ft_split(input, ' ') , envp);
+//     else if(ft_strnstr(input, "unset", 10))
+//     {
+//         if(unset(ft_split(input, ' '), envp) == 0)
+//             printf("No such variable\n");
+//     } 
+//     else if(ft_strnstr(input, "env", 5))
+//         env(envp);
+//     else 
+//     {
+//         signal(SIGINT, SIG_IGN);
+//         signal(SIGQUIT, SIG_IGN);
+//         execmd(tab, node);
+        
+//     }
+//     return (g_status);
+//     // else if(ft_strnstr(input, "echo", 10))
+//     //     g_status = echo(ft_split(input, ' '));
+//     // else if (ft_strnstr(input, "pwd", 10))
+//     //     g_status = pwd();
+// }
 
 

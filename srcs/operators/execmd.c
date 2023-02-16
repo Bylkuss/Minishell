@@ -145,6 +145,7 @@ void *execmd(t_table *tab, t_node *t)
     if (!chk_fork(tab, t, fd))
         return (NULL);
     close(fd[WRITE_END]);
+	printf("read_end = %d \n", READ_END);
 	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
 	else

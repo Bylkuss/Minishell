@@ -83,7 +83,7 @@ int main(int ac, char **av, char **envp)
     t_table *tab;
 
     tab = init_prompt(av, envp);    
-    tab = init_node(tab);          
+    // tab = init_node(tab);
     while (av && ac) 
     {
         signal(SIGINT, handle_sigint);               
