@@ -53,6 +53,8 @@ static void	*child_redir(t_node *t, int fd[2])
 
 	// t = node;
 	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
+	printf("DEBUG: TEST child_redir_END::welcome!{[i:%d],[o:%d]}\n",  READ_END, WRITE_END);
+	printf("DEBUG: TEST child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -65,7 +67,7 @@ static void	*child_redir(t_node *t, int fd[2])
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->outfile);
 	}
-	else if (t->etype == 1 && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
+	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDIN_FILENO) == -1))
 		return (chk_error(DUPERR, NULL, 1));
 	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
@@ -74,24 +76,23 @@ static void	*child_redir(t_node *t, int fd[2])
 
 void	*born_child(t_table *tab, t_node *t, int fd[2])
 {
-    // t_node*t;
+    t_node *new;
 	int		l;
 
-	// t = node;
+	new = t;
 	l = 0;
-	if (t->cmd)
-		l = ft_strlen(t->cmd[0]);
+	if (new->cmd)
+		l = ft_strlen(*t->cmd);
 	
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
 	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
-	child_redir(t, fd);
-
+	child_redir(new, fd);
 	close(fd[READ_END]);
 
-	child_builtin(tab, t);
+	child_builtin(tab, new);
 	printf("end_born_child\n");
     // remove node
-    // free_cont
+    free_cont(new);
 	// ft_lstclear(&prompt->cmds, free_content);
 	exit(g_status);
 }

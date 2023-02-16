@@ -136,7 +136,7 @@ void *execmd(t_table *tab, t_node *t)
 	
 	if (t->path)
 		t->path = NULL;
-	// 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, t->cmd[id]);
+	printf("DEBUG: TEST execmd >> infile[%d] + outfile[%d] \n", t->infile, t->outfile);
     get_cmd(tab, t);
 	printf("DEBUG: TEST execmd ::t->cmd{%s}\n", *t->cmd);
 	printf("DEBUG: TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
@@ -154,6 +154,7 @@ void *execmd(t_table *tab, t_node *t)
 		close(t->infile);
 	if (t->outfile > 2)
 		close(t->outfile);
+	printf("DEBUG: EXIT execmd >> infile[%d] + outfile[%d] \n", t->infile, t->outfile);
 	return (NULL);
 
 }

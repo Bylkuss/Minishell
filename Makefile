@@ -56,3 +56,5 @@ RED = \033[1;31m
 GREEN = \033[1;32m
 YELLOW = \033[1;33m
 DEFAULT = \033[0m
+
+#  valgrind --leak-check=full --show-reachable=yes --track-fds=yes --suppressions=./minishell.sup ./minishell

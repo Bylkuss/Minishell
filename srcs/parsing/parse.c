@@ -115,8 +115,8 @@ static t_table  *parse_args(t_table *tab)
     printf("DEBUG: into... parse\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-    tab->node->id = 1;
-    while (tab->node->id <= tab->nods)// <= tab->nod_num)
+    node->id = 1;
+    while (node->id <= tab->nods)// <= tab->nod_num)
     {
         // tab->node = get_node(tab, tab->node, tab->node->id);
         g_status = builtins(tab, &is_exit);
@@ -126,9 +126,9 @@ static t_table  *parse_args(t_table *tab)
             g_status = 0;
         if (g_status > 255)
             g_status = g_status / 255;
-        tab->node->id++; 
+        node->id++; 
     }
-          
+    tab->node = node;
     if (tab->nods == 0)// && is_exit)
     {
         printf("yo_ empty_ me_\n");

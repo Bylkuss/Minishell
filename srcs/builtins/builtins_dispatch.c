@@ -111,6 +111,10 @@ int    builtins(t_table *tab,  int *is_exit)
         
         if (arg && !ft_strncmp(*arg, "exit", l) && l == 4)
             g_status = exit_builtin(node->cmd, is_exit);
+        else if(ft_strnstr(input, "echo", 10))
+            g_status = echo(ft_split(input, ' '));
+        else if (ft_strnstr(input, "pwd", 10))
+            g_status = pwd();
         else if(ft_strnstr(input, "cd", 10))
             g_status = cd(ft_split(input, ' '), tab->envp);
         else if(ft_strnstr(input, "export", 10))
@@ -132,10 +136,6 @@ int    builtins(t_table *tab,  int *is_exit)
 
     }
     return (g_status);
-    // else if(ft_strnstr(input, "echo", 10))
-    //     g_status = echo(ft_split(input, ' '));
-    // else if (ft_strnstr(input, "pwd", 10))
-    //     g_status = pwd();
 }
 
 // void    builtins_handler(char *input, char **envp)
