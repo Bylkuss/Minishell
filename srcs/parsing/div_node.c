@@ -45,6 +45,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	typ = 0;
 	i = -1;
 	node->nod_len = tab->refs[id];
+	node->id = id;
 
 	// pre-requis builder_node
 	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
@@ -56,8 +57,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 		{
 			node->id = id;
 			node->nod_len = tab->refs[node->id];
-			if (node->nod_len == 0)
-				node->nod_len = tab->refs[0] - 1;
+			// if (node->nod_len == 0)
+			// 	node->nod_len = tab->refs[0] - 1;
 
 			printf("DEBUG::: SET_node->id [%d] [nod_len:%d]\n", id, node->nod_len);
 					// node->etype = set_etype(tab, tab->token[node->nod_len]);				
@@ -88,7 +89,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 				node = get_infile1(node, tab);
 			else if (tab->node->etype == 5)
 				node = get_infile2(node, tab);   
-			id++;
+			else if (tab->node->etype == 1) 
+				id++;
 			tab->node->etype = -1;
 			// if ((id) > (tab->nods))
 			// 	break;
