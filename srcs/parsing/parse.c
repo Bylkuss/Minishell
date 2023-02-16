@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/14 01:04:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/15 21:52:12 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static t_table	*redir_type(t_table *tab)
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
     tab->refs[0] = n ;
-    printf("DEBUG:: redir_type tab->token[id:%d] ref[%d] \n\n", tab->nods, tab->refs[tab->nods]);
 
     tab->node->etype = -1;
     while (++id < (n - 1))
     {
-        // tab->nods = tab->node->id;
+        tab->nods = tab->node->id;
+        tab->node->etype = -1;
         if (cmd[id] && (id + 1) < (n - 1))
         {
             if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
@@ -49,14 +49,15 @@ static t_table	*redir_type(t_table *tab)
                 tab->node->etype = 2;
             else if (*cmd[id] == '|')
             {
-                tab->nods++;  
                 tab->node->etype = 1;
                 tab->refs[tab->node->id] = id;                
+                // printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
+                tab->node->id++;  
             }
             if (tab->node->etype > 1)
             {
                 tab->refs[tab->node->id] = id;
-                printf  ("DEBUG: REDIR_ tkID[%d]== ETYPE(pos[%d])\n", id, tab->refs[tab->node->id]);
+                // printf  ("DEBUG: REDIR_ tkID[%d]== ETYPE(pos[%d])\n", id, tab->refs[tab->node->id]);
             }
         }
     }
@@ -131,7 +132,8 @@ static t_table  *parse_args(t_table *tab)
             g_status = 0;
         if (g_status > 255)
             g_status = g_status / 255;
-        tab->nods--;     
+        tab->nods--;    
+        tab->node->id++; 
     }
           
     if (tab->nods == 0)// && is_exit)

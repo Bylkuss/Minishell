@@ -36,20 +36,22 @@ t_table *init_tab(t_table *tab)
 t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 {
 	// int i;	    // i = 0;
-	int id;			// node id
+	// int id;			// node id
 	int nod_len;		// array width
 
-	id = 1; 
-        // printf("DEBUG : start_dup:nod_len(%d)::\n", nod_len);	
-        // printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nod_num);
+	tab->node->id = 1; 
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
-	nod_len = tab->refs[id];	
- 	while(id <= tab->nods) //id tab->nods  
+    // printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nods);
+ 	while(tab->node->id < tab->nods) //id tab->nods  
 	{		
-		nod_len = (tab->refs[id] - nod_len);  // actual_len == (etype[pos] - old_len)
-        tab->cmds[id] = (char **)malloc(sizeof(char *) * nod_len);
-        id++;
+	    nod_len = tab->refs[tab->node->id];	
+        // printf("DEBUG : start_dup:[id:%d]nod_len(%d)::\n", tab->node->id, nod_len);	
+        tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
+        tab->node->id++;
 	}			
+    nod_len = ((tab->refs[0] - 1) - nod_len);  // actual_len == (etype[pos] - old_len)
+    // printf("DEBUG : start_dup:[id:%d]nod_len(%d)::\n", tab->node->id, nod_len);	
+    tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
 	return (tab);
 }
 

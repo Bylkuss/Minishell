@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 12:02:18 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/16 00:42:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void *execmd(t_table *tab, t_node *t)
     if (!chk_fork(tab, t, fd))
         return (NULL);
     close(fd[WRITE_END]);
-	if (t->etype < 4 )//&& !(t->infile))// ouf?  next t->infile
+	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
 		t->infile = fd[READ_END];//??
 	else
 		close(fd[READ_END]);
