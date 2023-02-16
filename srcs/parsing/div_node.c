@@ -49,7 +49,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	// pre-requis builder_node
 	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
 	{
-		printf("\nDEBUG:: ### Get_node t->node->[id:%d] X0X nod_len [%d] by Refs \n", node->id, tab->refs[node->id]);
+		printf("\nDEBUG::: ### SET_node t->node->[id:%d] X0X nod_len [%d] by Refs \n", node->id, tab->refs[node->id]);
 
 		tab->node->etype = set_etype(tab, tab->token[tab->refs[node->id]]); // - node->nod_len);
 		if(id <= tab->nods) //if // while
@@ -59,26 +59,25 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			if (node->nod_len == 0)
 				node->nod_len = tab->refs[0] - 1;
 
-			printf("DEBUG:: Get_node node->id [%d] [nod_len:%d]\n", id, node->nod_len);
-			// node->etype = set_etype(tab, tab->token[node->nod_len]);				
+			printf("DEBUG::: SET_node->id [%d] [nod_len:%d]\n", id, node->nod_len);
+					// node->etype = set_etype(tab, tab->token[node->nod_len]);				
+					// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
 			if(++i <= node->nod_len - 1)
-			{
-				// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
+			{				
 				tab->node->cmd = ft_mx_dup(tab->cmds[id]);
-				printf("DEBUG: node->cmd[%d] {__%s__}:: mx_len:%d::\n\n", id,  *tab->node->cmd, ft_mx_len(tab->node->cmd));
-			
+				printf("DEBUG::: SET_node->cmd[%d] {__%s__}:: mx_len:%d::\n\n", id,  *tab->node->cmd, ft_mx_len(tab->node->cmd));
 			}
 				// if (node->etype > 1)				// if (set_etype(tab, tab->token[i]) > 1)	
 				// {
 				// 	tab->node->xfile = ft_strdup(tab->token[node->nod_len + 1]);			
 				// 	printf("DEBUG: Get_node->xfile {%s} ref + 1\n", tab->node->xfile);
 				// }
-			printf("DEBUG:: Get_node t->node->cmd {%s} \n", *node->cmd);
-			printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
+				// printf("DEBUG:: Get_node t->node->cmd {%s} \n", *node->cmd);
+				// printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
 			if (tab->node->etype >= 2 && tab->node->etype <= 4)
 			{
 				tab->node->xfile = ft_strdup(tab->token[tab->refs[node->id]+1]);
-				printf("DEBUG: Get_node->xfile {%s} \n", tab->node->xfile);
+				printf("DEBUG::: Get_node->xfile {%s} \n", tab->node->xfile);
 			}		
 			i = 0;		
 			if (tab->node->etype == 2 )// || tab->node->etype == 3)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/02/06 13:23:51 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/02/15 22:10:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int    builtins_handler(t_table *tab, t_node *node)
 
     // int i = 0;
     // envp = tab->envp;
-     printf("\nDEBUG: b_handler:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+     printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
     input = *node->cmd;
     envp = save_old_pwd(envp);    
     if (ft_strnstr(input, "exit", 5))
