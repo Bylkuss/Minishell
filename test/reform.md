@@ -39,4 +39,7 @@ nodes           : token_node, ...type_check, ...type_padd
 
 
 	
-// match far args ... over redir
+ <!-- match far args ... over redir -->
+<!-- is_exit flag for builtin -->
+<!-- waitpid cuz 2nd dont wait fot first_end_out 
+-->

@@ -139,15 +139,12 @@ void *execmd(t_table *tab, t_node *t)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, fd))
         return (NULL);
+	printf("read_end = %d \n", READ_END);
 	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
-	{
-		// dup2(WRITE_END, STDIN_FILENO);
 		t->infile = fd[READ_END];//??
-	}
 	else
 		close(fd[READ_END]);
     close(fd[WRITE_END]);
-	printf("read_end = %d \n", READ_END);
 	if (t->infile > 2)
 		close(t->infile);
 	if (t->outfile > 2)

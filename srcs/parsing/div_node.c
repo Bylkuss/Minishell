@@ -138,7 +138,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 				// if (node->nod_len == 0)
 				// 	node->nod_len = tab->refs[0] - 1;
 
-			printf("DEBUG::  SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
+				// printf("DEBUG::  SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
 					// node->etype = set_etype(tab, tab->token[node->nod_len]);				
 					// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
 			if(++i <= new->nod_len - 1)
