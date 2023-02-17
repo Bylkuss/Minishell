@@ -140,7 +140,7 @@ t_node	*get_infile2(t_node *t, t_table *tab)
 	// (*i)++;
 	if (t->path)
 	{
-		aux[0] = *tab->cmds[0];
+		aux[0] = t->cmd[1];
 		t->infile = get_here_doc(str, aux);  /*later */
 	}
 	if (!t->path || t->infile == -1)

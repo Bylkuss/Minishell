@@ -53,7 +53,6 @@ static void	*child_redir(t_node *t, int fd[2])
 	// t = node;
 	printf("DEBUG: __child_redir_{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
 	// printf("DEBUG: __child_redir_END::welcome!{[i:%d],[o:%d]}\n",  READ_END, WRITE_END);
-	// printf("DEBUG: __child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -61,14 +60,15 @@ static void	*child_redir(t_node *t, int fd[2])
 		close(t->infile);
 	}
 	if (t->outfile != STDOUT_FILENO)
-	{
+	{	
 		if (dup2(t->outfile, STDOUT_FILENO) == -1)
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->outfile);
 	}
 	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDIN_FILENO) == -1))
 		return (chk_error(DUPERR, NULL, 1));
-	// printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
+	printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
+	printf("DEBUG: __child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
 	close(fd[WRITE_END]);
 	return ("");
 }

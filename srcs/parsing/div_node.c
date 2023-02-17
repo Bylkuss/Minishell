@@ -99,17 +99,6 @@ int	set_etype(t_table *tab, char *etype) //, char **a[2])//, int *i) // etype (i
 	// 			// 	break;
 	// 		}
 	// 	}
-	// 	// ls > popov.txt
-	// 	// wc < toto.txt 
-	// 			// tab->node->cmd[nod - 1] = NULL;	
-	// 			// got to do node with tab data
-	// 			// 		- node->id = 1; parce que! tab->cmds[id]...
-	// 			//		- node->cmd** = {"","",""} start with cmd[0] to exec
-	// 			//		-				=  follow by args (if so) cmd[1]
-	// 			//		-				= cmd[eot] : eot= endofnode - aka etype
-	// 			//		redir set by etype
-	// 			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
-	// 		// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
 	// 	// tab->nums = 1;
 	// 	return (tab->node);
 // }

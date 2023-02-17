@@ -141,7 +141,7 @@ void *execmd(t_table *tab, t_node *t)
         return (NULL);
 	printf("read_end = %d \n", READ_END);
 	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
-		t->infile = fd[READ_END];//??
+		t->infile = fd[WRITE_END];//??
 	else
 		close(fd[READ_END]);
     close(fd[WRITE_END]);

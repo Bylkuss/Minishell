@@ -63,7 +63,7 @@ static t_table	*redir_type(t_table *tab)
     }
     if (tab->node->etype == -1)
     {
-        tab->refs[0] = id;
+        tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
     }
     return (tab);
