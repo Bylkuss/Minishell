@@ -133,7 +133,7 @@ void *execmd(t_table *tab, t_node *t)
 		t->path = NULL;
 	printf("DEBUG: __TEST execmd >> infile[%d] + outfile[%d] \n", t->infile, t->outfile);
     get_cmd(tab, t);
-	printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
+	// printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
 	printf("DEBUG: __TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));

@@ -1,0 +1,31 @@
+DEBUG:: ___chld_bltn :: cmd_len[2]
+DEBUG::___EXECVE:: chld_bltn :: [id:2]
+total 112
+-rw-rw-r-- 1 ghebert ghebert    74 Feb 17 00:24 fds.txt
+-rwxrwxr-x 1 ghebert ghebert 60440 Feb 17 00:24 minishell
+drwxrwxr-x 5 ghebert ghebert  4096 Feb 16 23:04 libft
+drwxrwxr-x 7 ghebert ghebert  4096 Feb 16 23:04 objs
+drwxrwxr-x 2 ghebert ghebert  4096 Feb 16 23:04 includes
+-rw-rw-r-- 1 ghebert ghebert  1360 Feb 16 23:04 Makefile
+drwxrwxr-x 3 ghebert ghebert  4096 Feb 16 23:04 test
+-rw-rw-r-- 1 ghebert ghebert   490 Feb 16 22:15 minishell.sup
+-rw-rw-r-- 1 ghebert ghebert   173 Feb 16 22:15 oo.txt
+-rw-rw-r-- 1 ghebert ghebert   775 Feb 13 15:46 README.md
+-rw-rw-r-- 1 ghebert ghebert  3852 Feb 13 15:44 popov.txt
+drwxrwxr-x 2 ghebert ghebert  4096 Feb 13 15:44 Random
+drwxrwxr-x 2 ghebert ghebert  4096 Dec 20 14:33 readline
+drwxrwxr-x 7 ghebert ghebert  4096 Dec 14 12:07 srcs
+fds.txt
+includes
+libft
+Makefile
+minishell
+minishell.sup
+objs
+oo.txt
+popov.txt
+Random
+readline
+README.md
+srcs
+test

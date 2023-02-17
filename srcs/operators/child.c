@@ -68,7 +68,7 @@ static void	*child_redir(t_node *t, int fd[2])
 	}
 	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDIN_FILENO) == -1))
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
+	// printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -83,7 +83,7 @@ void	*born_child(t_table *tab, t_node *t, int fd[2])
 	
 	printf("DEBUG: _born_ _fork :: t->cmd{%s} \n", *t->cmd);
 	printf("DEBUG: _born_ _fork :: t->nod_len[%d] \n", ft_mx_len(t->cmd));
-	printf("DEBUG: _born_ _fork :: t->etype [%d] \n", t->etype);
+	// printf("DEBUG: _born_ _fork :: t->etype [%d] \n", t->etype);
 	child_redir(t, fd);
 	close(fd[READ_END]);
 

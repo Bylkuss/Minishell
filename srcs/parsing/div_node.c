@@ -179,7 +179,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			// if ((id) > (tab->nods))
 			// 	break;
 		}
-		printf("DEBUG::	 ### END_SET_NEW etype [%d]\n\n", tab->node->etype);
+		printf("DEBUG::	 ###   END_SET_NEW  etype [%d]\n\n", tab->node->etype);
 	}
 	new->id++;
 		// ls > popov.txt
@@ -247,7 +247,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 	node->nod_len = 0;
 	i = 0;
 	tab->node->id = 1;
-	printf ("\nDEBUG:: start _nod_fill NODS = [ %d ]\n", tab->nods);
+	printf ("DEBUG:: start _nod_fill NODS = [ %d ]\n", tab->nods);
 	// printf("DEBUG::: TEST node >> infile[%d] + outfile[%d] \n", node->infile, node->outfile);
 	while (tab->node->id <= tab->nods && i < ft_mx_len(tab->token))
 	{
@@ -271,7 +271,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 		{
 			// if (i == tab->refs[node->id])
 			// 	i++;
-			printf("DEBUG: +++ node_fill tab->cmds[%d] token[%d] {%s} \n", node->id, i, tab->token[i]);	
+		printf("DEBUG: +++ node_fill tab->cmds[%d] token[%d] {%s} \n", node->id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
 			i++;
 		}	
@@ -297,7 +297,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 	}
 	tab->nods = id;
 	tab->node = node;
-	printf ("DEBUG:: \tEND_nod_fill NODS = [ %d ]\t _ _ _\n\n", tab->nods);
+	// printf ("DEBUG:: \tEND_nod_fill NODS = [ %d ]\t _ _ _\n\n", tab->nods);
 	return (tab);
 }
 
@@ -318,8 +318,8 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 		node->nod_len = tab->refs[node->id];
 			// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
 			// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
-		printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
-		printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
+		// printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
+		// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
 		tkn = (char **)malloc(sizeof(char *) * (tab->nods)); 
 			if (!(tkn))
 				return (NULL);

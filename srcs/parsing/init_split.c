@@ -120,7 +120,7 @@ static char *type_check(char *input, char *meta)
     }
     rest = ft_strjoin(rest, srcs);         // input = dest; 
     input = ft_strdup(rest);         // input = dest;
-    printf("DEBUG ::NEW_ input_check[%ld] ::%s: \n",ft_strlen(input), input);
+    printf("DEBUG::  NEW_input_[%ld]_{%s}_\n",ft_strlen(input), input);
     return(input);
 }
 
@@ -190,7 +190,7 @@ static char **token_fill(t_table *tab, const char *s, char *set, int i[3])
         {
             tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
             tab->token = ft_mx_ext(tab->token, tab->token[n]);          
-            printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);
+            // printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);
             n++;
         }           
     }
@@ -212,7 +212,7 @@ char **init_split(char *input, char *set, t_table *tab)
         return (NULL);    
     input = type_check(input, "<|>");   // padding etype count 
 
-    printf("DEBUG: pass_to_init :: %s \n", input);
+    // printf("DEBUG: pass_to_init :: %s \n", input);
 
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
@@ -220,7 +220,7 @@ char **init_split(char *input, char *set, t_table *tab)
     tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->token)
         return (NULL);
-    printf("DEBUG:: init_token_count = %d::\n", n);
+    // printf("DEBUG:: Init_token[%d] ::\n", n);
     tab->token = token_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
     return (tab->token);   // return clean token space-split args
 }

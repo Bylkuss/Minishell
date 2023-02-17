@@ -26,7 +26,7 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->token); 
     n = ft_mx_len(cmd);
-    printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
+    // printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
     tab->nods = 1;
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
@@ -63,7 +63,7 @@ static t_table	*redir_type(t_table *tab)
     }
     if (tab->node->etype == -1)
     {
-        tab->refs[tab->node->id] = id;
+        tab->refs[0] = id;
         tab->node->etype = 0;
     }
     return (tab);
@@ -85,8 +85,8 @@ static t_table *split_all(t_table *tab)
         //
         //
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    printf("DEBUG:: split node->id[%d] OF nods[%d] ....\n", tab->node->id, tab->nods);
-    // printf("DEBUG:: split ref[id:%d] OF ref{value:%s} << node...\n", tab->node->id, tab->token[tab->refs[tab->node->id]]);
+    printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
+        // printf("DEBUG:: split ref[id:%d] OF ref{value:%s} << node...\n", tab->node->id, tab->token[tab->refs[tab->node->id]]);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
@@ -95,11 +95,10 @@ static t_table *split_all(t_table *tab)
         //expand_path ...  cmd_chks legit!      
         tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
        
-            // printf("DEBUG: split_all tab->node->path == {%s} \n", tab->node->path);
     }
     
-            printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
-            printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
+            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
+            // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
     return (tab); 
 }
 
@@ -113,9 +112,9 @@ static t_table  *parse_args(t_table *tab)
     is_exit = 0;
     tab->node = init_node(tab);
     node = tab->node;
-    printf("DEBUG: into... parse\n");
+    printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
-        printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
+        // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
     node->id = 1;
     while (node->id <= tab->nods)// <= tab->nod_num)
     {
@@ -137,7 +136,6 @@ static t_table  *parse_args(t_table *tab)
         free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
-        // return (NULL);
     }
     return (tab);
 }
