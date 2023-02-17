@@ -145,7 +145,7 @@ void			display_tkn_id(t_node *t, int id);
 // t_table  	*parse_args(t_table *tab);
 // char   		*getprompt(t_table tab);
 char			*getcmd(char **paths, char *cmd);
-void    		execustom(char **out, char *full, char *args, char **envp) ;
+void    		execustom(char ***out, char *full, char *args, char **envp) ;
 // char    		token_trim_q(const char *s, int squote, int dquote);
 
 // xcve.c

@@ -47,7 +47,7 @@ static char *get_user(t_table *tab)
     user = NULL;
     tmp2 = NULL;
 
-    execustom(user, "/usr/bin/whoami", "whoami", tab->envp);  
+    execustom(&user, "/usr/bin/whoami", "whoami", tab->envp);  
     if (!user)
         user = ft_mx_ext(user, "guest");                          
     if (!ft_strncmp(user[0], "root", 4))
@@ -63,8 +63,8 @@ static char *get_user(t_table *tab)
     else 
         tmp2 = ft_strjoin(NULL, YELLOW);
     tmp = ft_strjoin(tmp2, *user);
-    if (!(tab->envp))
-        return (tmp);
+    // if (!(tab->envp))
+    //     return (tmp);
     free(tmp2);
     ft_mx_free(&user);
     return (tmp); 
