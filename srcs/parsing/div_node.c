@@ -116,20 +116,20 @@ int	set_etype(t_table *tab, char *etype) //, char **a[2])//, int *i) // etype (i
 
 t_node	*get_node(t_table *tab, t_node *node, int id)  
 {
-	int typ;	
+	t_node *new;
 	int nod_len;	
 	int i;
-	t_node *new;
 		
-	typ = 0;
+	new = node;//init_node(tab);	
 	i = -1;
 	new->nod_len = tab->refs[id];
 	new->id = id;
+
 		// pre-requis builder_node
-	printf("\nDEBUG::: ### SET_node t->node->[id:%d] X0X nod_len [%d] by Refs \n", new->id, tab->refs[new->id]);
+	printf("\nDEBUG::: ### SET_NEW [id:%d]  pos_end:[%d] by Refs \n", new->id, tab->refs[new->id]);
 	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
 	{
-		printf("DEBUG::: TEST NEW >> infile[%d] + outfile[%d] \n", new->infile, new->outfile);
+		printf("DEBUG::	 SET NEW >> infile[%d] + outfile[%d] \n", new->infile, new->outfile);
 		new->etype = set_etype(tab, tab->token[tab->refs[new->id]]); // - node->nod_len);
 		if(new->id <= tab->nods) //if // while
 		{
@@ -138,13 +138,13 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 				// if (node->nod_len == 0)
 				// 	node->nod_len = tab->refs[0] - 1;
 
-			printf("DEBUG::: SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
+			printf("DEBUG::  SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
 					// node->etype = set_etype(tab, tab->token[node->nod_len]);				
 					// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
 			if(++i <= new->nod_len - 1)
 			{				
 				new->cmd = ft_mx_dup(tab->cmds[id]);
-				printf("DEBUG::: SET_node->cmd[%d] {__%s__}:: mx_len:%d::\n\n", id, *new->cmd, ft_mx_len(new->cmd));
+				printf("DEBUG::  SET_node->cmd[%d] {__%s__}:: mx_len:%d::\n\n", id, *new->cmd, ft_mx_len(new->cmd));
 			}
 				// if (node->etype > 1)				// if (set_etype(tab, tab->token[i]) > 1)	
 				// {
@@ -156,7 +156,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			if (new->etype >= 2 && new->etype <= 4)
 			{
 				new->xfile = ft_strdup(tab->token[tab->refs[new->id]+1]);
-				printf("DEBUG::: Get_node->xfile {%s} \n", new->xfile);
+				printf("DEBUG::: XXX SET_node->xfile {%s} \n", new->xfile);
 			}		
 			i = 0;		
 			if (new->etype == 2 )// || tab->node->etype == 3)
@@ -171,27 +171,29 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			{
 
 				// id++;
-				printf("\nDEBUG::: ### SET_[infile:%d] X0X [outfile:%d] \n", new->infile, new->outfile);
+				printf("\t - - - - - - \n");
+				printf("\nDEBUG::  SET_[infile:%d] X0X [outfile:%d] \n", new->infile, new->outfile);
 
 			}
 			// tab->node->etype = -1;
 			// if ((id) > (tab->nods))
 			// 	break;
 		}
-		printf("DEBUG:: Get_node->etype [%d]\n", tab->node->etype);
+		printf("DEBUG::	 ### END_SET_NEW etype [%d]\n\n", tab->node->etype);
 	}
-	// ls > popov.txt
-	// wc < toto.txt 
-			// tab->node->cmd[nod - 1] = NULL;	
-			// got to do node with tab data
-			// 		- node->id = 1; parce que! tab->cmds[id]...
-			//		- node->cmd** = {"","",""} start with cmd[0] to exec
-			//		-				=  follow by args (if so) cmd[1]
-			//		-				= cmd[eot] : eot= endofnode - aka etype
-			//		redir set by etype
-			//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
-		// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
-	// tab->nums = 1;
+	new->id++;
+		// ls > popov.txt
+		// wc < toto.txt 
+				// tab->node->cmd[nod - 1] = NULL;	
+				// got to do node with tab data
+				// 		- node->id = 1; parce que! tab->cmds[id]...
+				//		- node->cmd** = {"","",""} start with cmd[0] to exec
+				//		-				=  follow by args (if so) cmd[1]
+				//		-				= cmd[eot] : eot= endofnode - aka etype
+				//		redir set by etype
+				//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
+			// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
+		// tab->nums = 1;
 	return (new);
 }
 
@@ -261,8 +263,8 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 		}
 		// printf("\nDEBUG: TEST >> id[%d] :: token->nod_len{%s} \n", id, tab->token[node->nod_len]);
 		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
-		printf("\nDEBUG: TEST >> node->id[%d] :: etype_ _%d_ _  \n", tab->node->id, node->etype);
-		printf("DEBUG::node_fill => node->id[%d]:: nod_len(%d) i=%d\n", tab->node->id, node->nod_len, i);
+		printf("\nDEBUG:::	TEST >> node->id[%d] :: etype_ _%d_ _  \n", tab->node->id, node->etype);
+		printf("DEBUG::	:: TEST => nod_len(%d) i=%d\n", node->nod_len, i);
 
 
 		while (i < node->nod_len)
@@ -295,7 +297,7 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 	}
 	tab->nods = id;
 	tab->node = node;
-	printf ("\nDEBUG:: exit _nod_fill NODS = [ %d ]\n\n", tab->nods);
+	printf ("DEBUG:: \tEND_nod_fill NODS = [ %d ]\t _ _ _\n\n", tab->nods);
 	return (tab);
 }
 

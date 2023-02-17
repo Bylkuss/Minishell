@@ -85,11 +85,12 @@ struct		s_table 	/*	Main Struct  tab->*/
 };  //t_table;
 
 //builtins
-int    			builtins_handler(t_table *tab, t_node *node);
-// void    			builtins_handler(char *input, char **envp);
-int					is_builtin(t_node *t);
-int					builtins(t_table *tab, int *is_exit);
-int	    		exit_builtin(char **cmd, int *is_exit);
+int 	   				builtins_handler(t_table *tab, t_node *node);
+int						is_builtin(t_node *t);
+void					exit_builtin(char **cmd);
+	// int	    		exit_builtin(char **cmd, int *is_exit);
+	// void    			builtins_handler(char *input, char **envp);
+	// int					builtins(t_table *tab, int *is_exit);
 // cd 
 int	cd(char **cmd, char **env);
 // echo
@@ -98,7 +99,6 @@ int						echo(char **cmd);
 int						pwd(void);
 int						ms_export(char **cmd, char **envp);
 void					env(char **envp);
-// void					exit_builtin(char **cmd);
 char					**save_old_pwd(char **envp);
 int						unset(char **cmd, char **envp);
 char					**edit_env(char **envp, int pos);

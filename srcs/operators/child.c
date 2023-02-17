@@ -21,13 +21,13 @@ void	child_builtin(t_table *tab, t_node *t)
 
     l = ft_strlen(*t->cmd);	
 
-	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", t->nod_len);
+	printf("DEBUG:: ___chld_bltn :: cmd_len[%d]\n", t->nod_len);
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
 	{
-		printf("DEBUG:: EXECVE:: chd_bltn :: [id:%d]\n", t->id);//t->path); 	//len[%d]", l);
+		printf("DEBUG::___EXECVE:: chld_bltn :: [id:%d]\n", t->id);//t->path); 	//len[%d]", l);
 		execve(t->path, t->cmd, tab->envp);
 		  //
 			//
@@ -41,8 +41,7 @@ void	child_builtin(t_table *tab, t_node *t)
 		g_status = echo(cmd);
 	else if (is_builtin(t) && cmd && !ft_strncmp(*cmd, "env", l) && l == 3)
 	{
-		// ft_mx_fd(tab->envp, 1);
-		env(tab->envp);
+		ft_mx_fd(tab->envp, 1);
 		g_status = 0;
 	}
 }
@@ -52,9 +51,9 @@ static void	*child_redir(t_node *t, int fd[2])
     // t_node	*t;
 
 	// t = node;
-	printf("DEBUG: TEST child_redir{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
-	printf("DEBUG: TEST child_redir_END::welcome!{[i:%d],[o:%d]}\n",  READ_END, WRITE_END);
-	printf("DEBUG: TEST child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
+	printf("DEBUG: __child_redir_{etype[%d]} ::welcome!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
+	// printf("DEBUG: __child_redir_END::welcome!{[i:%d],[o:%d]}\n",  READ_END, WRITE_END);
+	// printf("DEBUG: __child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
 	if (t->infile != STDIN_FILENO)
 	{
 		if (dup2(t->infile, STDIN_FILENO) == -1)
@@ -69,7 +68,7 @@ static void	*child_redir(t_node *t, int fd[2])
 	}
 	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDIN_FILENO) == -1))
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: TEST child_redir ::byebye!, t->etype(%d)\n", t->etype);
+	printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -82,16 +81,16 @@ void	*born_child(t_table *tab, t_node *t, int fd[2])
 	// if (t->cmd)
 	// 	l = ft_strlen(t->cmd[0]);
 	
-	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
-	printf("DEBUG: born_chld_fork :: t->nod_len[%d] \n", ft_mx_len(t->cmd));
-	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
-	child_redir(new, fd);
+	printf("DEBUG: _born_ _fork :: t->cmd{%s} \n", *t->cmd);
+	printf("DEBUG: _born_ _fork :: t->nod_len[%d] \n", ft_mx_len(t->cmd));
+	printf("DEBUG: _born_ _fork :: t->etype [%d] \n", t->etype);
+	child_redir(t, fd);
 	close(fd[READ_END]);
 
-	child_builtin(tab, new);
-	printf("end_born_child\n");
+	child_builtin(tab, t);
+	printf("DEBUG:: END_ _born_ \n");
     // remove node
-    free_cont(new);
+    free_cont(t);
 	// ft_lstclear(&prompt->cmds, free_content);
 	exit(g_status);
 }

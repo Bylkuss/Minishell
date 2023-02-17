@@ -42,12 +42,12 @@ int is_builtin(t_node *t)
 	return (0);
 }
 
-int    exit_builtin(char **cmd, int *is_exit)
+void    exit_builtin(char **cmd)//, int *is_exit)
 {
-    int exiit;// = 0;
+    int exiit = 0;
     int i = 0;
 
-    exiit = *is_exit;
+    // exiit = *is_exit;
     if(cmd[1] && !cmd[2])
     {
         while(cmd[1][i])
@@ -58,114 +58,52 @@ int    exit_builtin(char **cmd, int *is_exit)
         }
         exiit = ft_atoi(cmd[1]);
     }
-    // exit(exiit);
-    return (exiit);
+    exit(exiit);
+    // return (exiit);
 }
 
-// int    exit_builtin(t_node *node, int *is_exit)
-    // {
-    //     int exiit;
-    //     int i;
-    //     char **cmd;
 
-    //     exiit = 0;
-    //     i = 0;
-    //     cmd = node->cmd;
-    //     if(cmd[1] && !cmd[2])
-    //     {
-    //         while(cmd[1][i])
-    //         {
-    //             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
-    //                 error_msg("exit: numeric argument required\n", 255);
-    //             i++;                
-    //         }
-    //         exiit = ft_atoi(cmd[1]);
-    //     }
-    //     exit(exiit);
-// }
-
-
-
-int    builtins(t_table *tab,  int *is_exit)
+int    builtins_handler(t_table *tab, t_node *node)
 {
-    t_node  *node;
-    char    **arg;
-    int     l;
-    char     *input;
-
-
-
-    node = tab->node;
-
-    while(node->id <= tab->nods)
-    {
-        node = get_node(tab, node, node->id);
+    char *input;
+    char **envp;
 
     // int i = 0;
     // envp = tab->envp;
-    printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-    input = node->cmd[0];
-    envp = save_old_pwd(envp);    
-    if (ft_strnstr(input, "exit", 5))
-        exit_builtin(ft_split(input, ' '));
-    else if(ft_strnstr(input, "cd", 10))
-        g_status = cd(ft_split(input, ' '), envp);
-    else if(ft_strnstr(input, "export", 10))
-        g_status = ms_export(ft_split(input, ' ') , envp);
-    else if(ft_strnstr(input, "unset", 10))
+    while(node->id <= tab->nods)
     {
-        if(unset(ft_split(input, ' '), envp) == 0)
-            printf("No such variable\n");
-    } 
-    else if(ft_strnstr(input, "env", 5))
-        env(envp);
-    else 
-    {
-        signal(SIGINT, SIG_IGN);
-        signal(SIGQUIT, SIG_IGN);
-        execmd(tab, node);
-        
+        printf("\nDEBUG: @_@_@_@ Builtins ::::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+        node = get_node(tab, node, node->id);
+
+        input = *node->cmd;
+        envp = save_old_pwd(envp);    
+        if (ft_strnstr(input, "exit", 5))
+            exit_builtin(ft_split(input, ' '));
+        else if(ft_strnstr(input, "cd", 10))
+            g_status = cd(ft_split(input, ' '), envp);
+        else if(ft_strnstr(input, "export", 10))
+            g_status = ms_export(ft_split(input, ' ') , envp);
+        else if(ft_strnstr(input, "echo", 10))
+            g_status = echo(ft_split(input, ' '));
+        else if (ft_strnstr(input, "pwd", 10))
+            g_status = pwd();
+        else if(ft_strnstr(input, "unset", 10))
+        {
+            if(unset(ft_split(input, ' '), envp) == 0)
+                printf("No such variable\n");
+        } 
+        else if(ft_strnstr(input, "env", 5))
+            env(envp);
+        else 
+        {
+            signal(SIGINT, SIG_IGN);
+            signal(SIGQUIT, SIG_IGN);
+            execmd(tab, node);
+            
+        }
+        // node->id++;
     }
     return (g_status);
 }
-
-// void    builtins_handler(char *input, char **envp)
-
-// int    builtins_handler(t_table *tab, t_node *node)
-// {
-//     char *input;
-//     char **envp;
-
-//     // int i = 0;
-//     // envp = tab->envp;
-//      printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-//     input = *node->cmd;
-//     envp = save_old_pwd(envp);    
-//     if (ft_strnstr(input, "exit", 5))
-//         exit_builtin(ft_split(input, ' '));
-//     else if(ft_strnstr(input, "cd", 10))
-//         g_status = cd(ft_split(input, ' '), envp);
-//     else if(ft_strnstr(input, "export", 10))
-//         g_status = ms_export(ft_split(input, ' ') , envp);
-//     else if(ft_strnstr(input, "unset", 10))
-//     {
-//         if(unset(ft_split(input, ' '), envp) == 0)
-//             printf("No such variable\n");
-//     } 
-//     else if(ft_strnstr(input, "env", 5))
-//         env(envp);
-//     else 
-//     {
-//         signal(SIGINT, SIG_IGN);
-//         signal(SIGQUIT, SIG_IGN);
-//         execmd(tab, node);
-        
-//     }
-//     return (g_status);
-//     // else if(ft_strnstr(input, "echo", 10))
-//     //     g_status = echo(ft_split(input, ' '));
-//     // else if (ft_strnstr(input, "pwd", 10))
-//     //     g_status = pwd();
-// }
 
 
