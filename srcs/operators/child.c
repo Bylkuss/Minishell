@@ -21,20 +21,20 @@ void	child_builtin(t_table *tab, t_node *t)
 
     l = ft_strlen(*t->cmd);	
 
-	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", ft_mx_len(tab->cmds[t->id]));
+	printf("DEBUG:@@ chld_bltn :: cmd_len[%d]\n", t->nod_len);
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	//
 	if (!is_builtin(t) && t->cmd)
+	{
+		printf("DEBUG:: EXECVE:: chd_bltn :: [id:%d]\n", t->id);//t->path); 	//len[%d]", l);
 		execve(t->path, t->cmd, tab->envp);
 		  //
 			//
-			// {
-			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd[id:%d]\n", id);//t->path); 	//len[%d]", l);
 			// 	// printf("DEBUG:@@ chk_bltn :: t->cmd{%s}\n", t->cmd[id]);//t->path); 	//len[%d]", l);
 			// 	printf("DEBUG:@@ chld_bltn :: t->path { %s }\n", t->path); 	//len[%d]", l);
 			// 	printf("DEBUG:@@ chld_bltn :: t->cmd len (%d) \n", ft_mx_len(cmd)); 
-			// }
+	}
 	else if (t->cmd && !ft_strncmp(*cmd, "pwd", l) && l == 3)
 		g_status = pwd();
 	else if (is_builtin(t) && cmd && !ft_strncmp(*cmd, "echo", l) && l == 4)
@@ -76,15 +76,14 @@ static void	*child_redir(t_node *t, int fd[2])
 
 void	*born_child(t_table *tab, t_node *t, int fd[2])
 {
-    t_node *new;
-	int		l;
+	// int		l;
 
-	new = t;
-	l = 0;
-	if (new->cmd)
-		l = ft_strlen(*t->cmd);
+	// l = 0;
+	// if (t->cmd)
+	// 	l = ft_strlen(t->cmd[0]);
 	
 	printf("DEBUG: born_chld_fork :: t->cmd{%s} \n", *t->cmd);
+	printf("DEBUG: born_chld_fork :: t->nod_len[%d] \n", ft_mx_len(t->cmd));
 	printf("DEBUG: born_chld_fork :: t->etype [%d] \n", t->etype);
 	child_redir(new, fd);
 	close(fd[READ_END]);

@@ -32,19 +32,6 @@ void *chk_error(int err_type, char *param, int err)
     return (NULL);
 }
 
-// void free_cont(void *content, int id)
-// {
-//     t_node *node;
-
-//     node->cmd = content;
-//     ft_mx_free(&node->cmd);
-//     free(node->path);
-//     if (node->infile != STDIN_FILENO)
-//         close(node->infile);
-//     if (node->outfile != STDOUT_FILENO)
-//         close(node->outfile);
-//     free(node);
-// }
 
 void free_cont(void *content)
 {
@@ -52,9 +39,8 @@ void free_cont(void *content)
 
     node = content;
     ft_mx_free(&node->cmd);
-	// free(node->xfile);
+	free(node->xfile);
     free(node->path);
-	// free(node->full);
     if (node->infile != STDIN_FILENO)
         close(node->infile);
     if (node->outfile != STDOUT_FILENO)

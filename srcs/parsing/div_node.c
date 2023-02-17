@@ -178,6 +178,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 			// if ((id) > (tab->nods))
 			// 	break;
 		}
+		printf("DEBUG:: Get_node->etype [%d]\n", tab->node->etype);
 	}
 	// ls > popov.txt
 	// wc < toto.txt 
@@ -266,7 +267,9 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 
 		while (i < node->nod_len)
 		{
-			printf("DEBUG: +++ node_fill tab->cmds[%d] token[%d] {%s} \n", tab->node->id, i, tab->token[i]);	
+			// if (i == tab->refs[node->id])
+			// 	i++;
+			printf("DEBUG: +++ node_fill tab->cmds[%d] token[%d] {%s} \n", node->id, i, tab->token[i]);	
 			tab->cmds[id] = ft_mx_ext(tab->cmds[id], tab->token[i]);
 			i++;
 		}	
@@ -279,8 +282,8 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 				// 	break;		
 				// else
 				// printf("DEBUG: TEST >> node->id(%d) :: ->nods_(%d) _  \n", node->id, tab->nods);
-		if (tab->node->id < tab->nods)
-			tab->node->id++;
+		if (node->id < tab->nods)
+			node->id++;
 		else 
 			break;
 				// {

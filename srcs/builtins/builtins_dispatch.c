@@ -101,39 +101,30 @@ int    builtins(t_table *tab,  int *is_exit)
     {
         node = get_node(tab, node, node->id);
 
-        printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-        arg = node->cmd;
-        l = 0;
-        input = *node->cmd;
-        tab->envp = save_old_pwd(tab->envp);    
-        if (arg)
-            l = ft_strlen(*arg);
+    // int i = 0;
+    // envp = tab->envp;
+    printf("\nDEBUG: Builtins:: chk_bltn ::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+    input = node->cmd[0];
+    envp = save_old_pwd(envp);    
+    if (ft_strnstr(input, "exit", 5))
+        exit_builtin(ft_split(input, ' '));
+    else if(ft_strnstr(input, "cd", 10))
+        g_status = cd(ft_split(input, ' '), envp);
+    else if(ft_strnstr(input, "export", 10))
+        g_status = ms_export(ft_split(input, ' ') , envp);
+    else if(ft_strnstr(input, "unset", 10))
+    {
+        if(unset(ft_split(input, ' '), envp) == 0)
+            printf("No such variable\n");
+    } 
+    else if(ft_strnstr(input, "env", 5))
+        env(envp);
+    else 
+    {
+        signal(SIGINT, SIG_IGN);
+        signal(SIGQUIT, SIG_IGN);
+        execmd(tab, node);
         
-        if (arg && !ft_strncmp(*arg, "exit", l) && l == 4)
-            g_status = exit_builtin(node->cmd, is_exit);
-        else if(ft_strnstr(input, "echo", 10))
-            g_status = echo(ft_split(input, ' '));
-        else if (ft_strnstr(input, "pwd", 10))
-            g_status = pwd();
-        else if(ft_strnstr(input, "cd", 10))
-            g_status = cd(ft_split(input, ' '), tab->envp);
-        else if(ft_strnstr(input, "export", 10))
-            g_status = ms_export(ft_split(input, ' ') , tab->envp);
-        else if(ft_strnstr(input, "unset", 10))
-        {
-            if(unset(ft_split(input, ' '), tab->envp) == 0)
-                printf("No such variable\n");
-        } 
-        else if(ft_strnstr(input, "env", 5))
-            env(tab->envp);
-        else 
-        {
-            signal(SIGINT, SIG_IGN);
-            signal(SIGQUIT, SIG_IGN);
-            execmd(tab, node);
-        }
-        node->id++;
-
     }
     return (g_status);
 }

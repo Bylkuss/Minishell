@@ -32,6 +32,7 @@ static t_table	*redir_type(t_table *tab)
     tab->refs[tab->node->id] = 0; 
     tab->refs[0] = n ;
 
+    tab->node->etype = -1;
     while (++id < (n - 1))
     {
         tab->nods = tab->node->id;
@@ -60,7 +61,7 @@ static t_table	*redir_type(t_table *tab)
             }
         }
     }
-    if (tab->node->etype == 0)
+    if (tab->node->etype == -1)
     {
         tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
@@ -132,7 +133,6 @@ static t_table  *parse_args(t_table *tab)
     if (tab->nods == 0)// && is_exit)
     {
         printf("yo_ empty_ me_\n");
-        tab->nods = 0;
         ft_mx_free(&tab->node->cmd);
         free_cont(tab->node);
         ft_mx_free(tab->cmds);

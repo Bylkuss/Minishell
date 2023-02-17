@@ -13,7 +13,7 @@
 #include "../../includes/minishell.h"
 
 
-static void update_output(char **out, int fd)
+static void update_output(char ***out, int fd)
 {
     char **aux;
     char *tmp;
@@ -31,11 +31,11 @@ static void update_output(char **out, int fd)
         aux = ft_mx_ext(aux, tmp);                       
         free(tmp);
     }
-    ft_mx_free(&out);
-    out = aux; 
+    ft_mx_free(out);
+    *out = aux; 
 }
 
-void    execustom(char **out, char *full, char *args, char **envp) 
+void    execustom(char ***out, char *full, char *args, char **envp) 
 {
     pid_t   pid;
     int     fd[2];
