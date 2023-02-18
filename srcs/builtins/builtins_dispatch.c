@@ -72,7 +72,7 @@ int    builtins_handler(t_table *tab, t_node *node)
     // envp = tab->envp;
     while(node->id <= tab->nods)
     {
-        printf("\nDEBUG: @_@_@_@ Builtins ::::[id:%d] \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+        printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
         node = get_node(tab, node, node->id);
 
         input = *node->cmd;
@@ -98,10 +98,11 @@ int    builtins_handler(t_table *tab, t_node *node)
         {
             signal(SIGINT, SIG_IGN);
             signal(SIGQUIT, SIG_IGN);
+            printf("\nDEBUG:::___ ___  builtin => execmd___ ___ ___\n");
             execmd(tab, node);
             
         }
-        // node->id++;
+        node->id++;
     }
     return (g_status);
 }

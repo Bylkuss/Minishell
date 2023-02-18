@@ -109,7 +109,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	int nod_len;	
 	int i;
 		
-	new = node;//init_node(tab);	
+	new = node;
+	// new = init_node(tab);	
 	i = -1;
 	new->nod_len = tab->refs[id];
 	new->id = id;
@@ -159,11 +160,18 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 		else if (new->etype == 1) 
 		{
 			// id++;
+			
 			printf("DEBUG::	 ###  SET_[infile:%d] X0X [outfile:%d] \n", new->infile, new->outfile);
 
 		}
+		if ((new->id) > 1)
+		{
+			new->infile = new->outfile;
+			new->outfile = STDOUT_FILENO;
+		}
+
 	}
-	printf("DEBUG::: ###   END_SET_NEW  etype [%d]   ###\n", tab->node->etype);
+	printf("DEBUG::: ### END_SET_NEW ID:%d  t->id:%d etype[%d] ###\n", new->id, tab->node->id, tab->node->etype);
 		// ls > popov.txt
 		// wc < toto.txt 
 				// tab->node->cmd[nod - 1] = NULL;	
@@ -176,9 +184,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 				//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 			// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
 	
-			// if ((new->id) < (tab->nods))
-	printf("- - -\t - - -\t - - - \n\n");
-	new->id++;	
+	printf("- - -\t - - -\t - - - \n");
+	// new->id++;	
 	return (new);
 }
 

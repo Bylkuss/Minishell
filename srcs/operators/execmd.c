@@ -53,7 +53,7 @@ static DIR	*cmd_checks(t_table *tab, t_node *t, char **s, char *path)
 	dir = opendir(path);
 	if (t && path && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 	{
-		printf("DEBUG: __FIRST_IF cmd_chk ... \n");
+		// printf("DEBUG: __FIRST_IF cmd_chk ... \n");
 		s = ft_split(path, '/');
 		path = ft_strdup((const char *)s);
 		// free(path);
@@ -61,7 +61,7 @@ static DIR	*cmd_checks(t_table *tab, t_node *t, char **s, char *path)
 	}
 	else if (!is_builtin(t) && t && path && !dir)
 	{
-		printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
+		// printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
 		path = ms_getenv("PATH", tab->envp, 4);
 		s = ft_split(path, ':');
 		free(t->path);
@@ -104,7 +104,7 @@ void 	get_cmd(t_table *tab, t_node *t)
 {
 	DIR		*dir;
 
-	printf("DEBUG::__TEST get_cmd ==> {%s}\n", *t->cmd);
+	// printf("DEBUG::__TEST get_cmd ==> {%s}\n", *t->cmd);
 	if (!t->path)
 		t->path = getpath(*t->cmd, tab->envp);
 	dir = cmd_checks(tab, t, tab->envp, t->path);
@@ -131,7 +131,7 @@ void *execmd(t_table *tab, t_node *t)
 	
 	if (t->path)
 		t->path = NULL;
-	printf("DEBUG: __TEST execmd [id%d]>> infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
+	printf("DEBUG:__TEST execmd [id%d]>> infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
     get_cmd(tab, t);
 	// printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
 	printf("DEBUG: __TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
@@ -139,13 +139,13 @@ void *execmd(t_table *tab, t_node *t)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, fd))
         return (NULL);
-	printf("DEBUG: __INTO__ execmd >> infile[%d] + outfile[%d] \n\n", t->infile, t->outfile);
 	printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
 	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
 		t->outfile = fd[WRITE_END];//??
 	else
 		close(fd[READ_END]);
     close(fd[WRITE_END]);
+	printf("DEBUG: __INTO__ execmd >> infile[%d] + outfile[%d] \n\n", t->infile, t->outfile);
 	if (t->infile > 2)
 		close(t->infile);
 	if (t->outfile > 2)
