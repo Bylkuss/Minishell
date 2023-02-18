@@ -39,6 +39,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		fd = oldfd;
 	return (fd);
 }
+
 // t_node	*get_outfile1(t_node *t, int i)
 t_node	*get_outfile1(t_node *t, t_table *tab)
 {

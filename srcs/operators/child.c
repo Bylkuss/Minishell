@@ -55,20 +55,22 @@ static void	*child_redir(t_node *t, int fd[2])
 	// printf("DEBUG: __child_redir_END::welcome!{[i:%d],[o:%d]}\n",  READ_END, WRITE_END);
 	if (t->infile != STDIN_FILENO)
 	{
+		printf("DEBUG: __child_redir ::t->infile !=  t->etype(%d)\n", t->etype);
 		if (dup2(t->infile, STDIN_FILENO) == -1)
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->infile);
 	}
 	if (t->outfile != STDOUT_FILENO)
 	{	
+		printf("DEBUG: __child_redir ::t->outfile !=  t->etype(%d)\n", t->etype);
 		if (dup2(t->outfile, STDOUT_FILENO) == -1)
 			return (chk_error(DUPERR, NULL, 1));
 		close(t->outfile);
 	}
-	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDIN_FILENO) == -1))
+	else if (t->etype == 1 && (dup2(fd[WRITE_END], STDOUT_FILENO) == -1))
 		return (chk_error(DUPERR, NULL, 1));
-	printf("DEBUG: __child_redir ::byebye!, t->etype(%d)\n", t->etype);
-	printf("DEBUG: __child_redir_FILENO::welcome!{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
+	printf("DEBUG: __child_redir_{etype[%d]} ::byebye!{[i:%d],[o:%d]}\n", t->etype, t->infile, t->outfile);
+	printf("DEBUG: __child_redir ::byebye!, _FILENO::{[i:%d],[o:%d]}\n",  STDIN_FILENO, STDOUT_FILENO);
 	close(fd[WRITE_END]);
 	return ("");
 }
@@ -83,7 +85,7 @@ void	*born_child(t_table *tab, t_node *t, int fd[2])
 	
 	printf("DEBUG: _born_ _fork :: t->cmd{%s} \n", *t->cmd);
 	printf("DEBUG: _born_ _fork :: t->nod_len[%d] \n", ft_mx_len(t->cmd));
-	// printf("DEBUG: _born_ _fork :: t->etype [%d] \n", t->etype);
+	printf("DEBUG: _born_ _fork :: t->etype [%d] t->id: %d\n", t->etype, t->id);
 	child_redir(t, fd);
 	close(fd[READ_END]);
 

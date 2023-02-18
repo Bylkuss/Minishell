@@ -116,61 +116,54 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 
 		// pre-requis builder_node
 	printf("\nDEBUG::: ### SET_NEW [id:%d]  pos_end:[%d] by Refs \n", new->id, tab->refs[new->id]);
-	if ((tab->nods) && id <= tab->nods && tab->cmds[id])
+	if (new->id <= tab->nods && tab->cmds[id])
 	{
 		printf("DEBUG::	 SET NEW >> infile[%d] + outfile[%d] \n", new->infile, new->outfile);
 		new->etype = set_etype(tab, tab->token[tab->refs[new->id]]); // - node->nod_len);
-		if(new->id <= tab->nods) //if // while
-		{
+		// if(new->id <= tab->nods) //if // while
+		// {
 			// node->id = id;
-			new->nod_len = tab->refs[new->id];
-				// if (node->nod_len == 0)
-				// 	node->nod_len = tab->refs[0] - 1;
+			// new->nod_len = tab->refs[new->id];
+		new->cmd = ft_mx_dup(tab->cmds[id]);
+		printf("DEBUG::  SET_node->cmd[%d] {__%s__}:: mx_len:%d::\n", id, *new->cmd, ft_mx_len(new->cmd));
+					// if (node->nod_len == 0)
+					// 	node->nod_len = tab->refs[0] - 1;
 
-				// printf("DEBUG::  SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
-					// node->etype = set_etype(tab, tab->token[node->nod_len]);				
-					// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
-			if(++i <= new->nod_len - 1)
-			{				
-				new->cmd = ft_mx_dup(tab->cmds[id]);
-				printf("DEBUG::  SET_node->cmd[%d] {__%s__}:: mx_len:%d::\n\n", id, *new->cmd, ft_mx_len(new->cmd));
-			}
-				// if (node->etype > 1)				// if (set_etype(tab, tab->token[i]) > 1)	
-				// {
-				// 	tab->node->xfile = ft_strdup(tab->token[node->nod_len + 1]);			
-				// 	printf("DEBUG: Get_node->xfile {%s} ref + 1\n", tab->node->xfile);
+					// printf("DEBUG::  SET_node->id [%d] [nod_len:%d]\n", id, new->nod_len);
+						// node->etype = set_etype(tab, tab->token[node->nod_len]);				
+						// printf("DEBUG: TTT->cmds[%d][%d] {__%s__}::len:%d::\n\n", id, i, tab->cmds[id][i], ft_mx_len(tab->cmds[id]));
+				// if(++i <= new->nod_len - 1)
+				// {				
 				// }
-				// printf("DEBUG:: Get_node t->node->cmd {%s} \n", *node->cmd);
-				// printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
-			if (new->etype >= 2 && new->etype <= 4)
-			{
-				new->xfile = ft_strdup(tab->token[tab->refs[new->id]+1]);
-				printf("DEBUG::: XXX SET_node->xfile {%s} \n", new->xfile);
-			}		
-			i = 0;		
-			if (new->etype == 2 )// || tab->node->etype == 3)
-				new = get_outfile1(new, tab);
-			else if (new->etype == 3)
-				new = get_outfile2(new, tab);
-			else if (new->etype == 4)
-				new = get_infile1(new, tab);
-			else if (new->etype == 5)
-				new = get_infile2(new, tab);   
-			else if (new->etype == 1) 
-			{
+					// if (node->etype > 1)				// if (set_etype(tab, tab->token[i]) > 1)	
+					// {
+					// 	tab->node->xfile = ft_strdup(tab->token[node->nod_len + 1]);			
+					// 	printf("DEBUG: Get_node->xfile {%s} ref + 1\n", tab->node->xfile);
+					// }
+					// printf("DEBUG:: Get_node t->node->cmd {%s} \n", *node->cmd);
+					// printf("DEBUG: Get_node->etype [%d]\n", tab->node->etype);
+		if (new->etype >= 2 && new->etype <= 4)
+		{
+			new->xfile = ft_strdup(tab->token[tab->refs[new->id]+1]);
+			printf("DEBUG::: XXX SET_node->xfile {%s} \n", new->xfile);
+		}		
+		i = 0;		
+		if (new->etype == 2 )// || tab->node->etype == 3)
+			new = get_outfile1(new, tab);
+		else if (new->etype == 3)
+			new = get_outfile2(new, tab);
+		else if (new->etype == 4)
+			new = get_infile1(new, tab);
+		else if (new->etype == 5)
+			new = get_infile2(new, tab);   
+		else if (new->etype == 1) 
+		{
+			// id++;
+			printf("DEBUG::	 ###  SET_[infile:%d] X0X [outfile:%d] \n", new->infile, new->outfile);
 
-				// id++;
-				printf("\t - - - - - - \n");
-				printf("\nDEBUG::  SET_[infile:%d] X0X [outfile:%d] \n", new->infile, new->outfile);
-
-			}
-			// tab->node->etype = -1;
-			// if ((id) > (tab->nods))
-			// 	break;
 		}
-		printf("DEBUG::	 ###   END_SET_NEW  etype [%d]\n\n", tab->node->etype);
 	}
-	new->id++;
+	printf("DEBUG::: ###   END_SET_NEW  etype [%d]   ###\n", tab->node->etype);
 		// ls > popov.txt
 		// wc < toto.txt 
 				// tab->node->cmd[nod - 1] = NULL;	
@@ -182,7 +175,10 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 				//		redir set by etype
 				//		-	dead_end :normal ending close fd/free/exit (1) ... aka "fit"
 			// if (tab->cmds[cmd][nod] && (nod < node->tkn_len) && (cmd < tab->nod_num))
-		// tab->nums = 1;
+	
+			// if ((new->id) < (tab->nods))
+	printf("- - -\t - - -\t - - - \n\n");
+	new->id++;	
 	return (new);
 }
 
@@ -314,7 +310,7 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 				return (NULL);
 		tab = node_fill(tab, node->nod_len, node->nod_len, tkn);	
 	}	
-	printf("DEBUG: div_node:: end... \t... go for get_node \n");
+	printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
 
 	tab->node = node;
 	return (tab);    

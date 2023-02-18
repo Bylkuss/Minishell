@@ -131,7 +131,7 @@ void *execmd(t_table *tab, t_node *t)
 	
 	if (t->path)
 		t->path = NULL;
-	printf("DEBUG: __TEST execmd >> infile[%d] + outfile[%d] \n", t->infile, t->outfile);
+	printf("DEBUG: __TEST execmd [id%d]>> infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
     get_cmd(tab, t);
 	// printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
 	printf("DEBUG: __TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
@@ -139,9 +139,10 @@ void *execmd(t_table *tab, t_node *t)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, fd))
         return (NULL);
-	printf("read_end = %d \n", READ_END);
+	printf("DEBUG: __INTO__ execmd >> infile[%d] + outfile[%d] \n\n", t->infile, t->outfile);
+	printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
 	if (t->etype == 1 )//&& !(t->infile))// ouf?  next t->infile
-		t->infile = fd[WRITE_END];//??
+		t->outfile = fd[WRITE_END];//??
 	else
 		close(fd[READ_END]);
     close(fd[WRITE_END]);
@@ -149,7 +150,6 @@ void *execmd(t_table *tab, t_node *t)
 		close(t->infile);
 	if (t->outfile > 2)
 		close(t->outfile);
-	printf("DEBUG: __EXIT execmd >> infile[%d] + outfile[%d] \n\n", t->infile, t->outfile);
 	return (NULL);
 
 }
