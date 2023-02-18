@@ -51,21 +51,22 @@ static t_table	*redir_type(t_table *tab)
             {
                 tab->node->etype = 1;
                 tab->refs[tab->node->id] = id;                
-                // printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
+                printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
                 tab->node->id++;  
             }
             if (tab->node->etype > 1)
             {
                 tab->refs[tab->node->id] = id;
-                // printf  ("DEBUG: REDIR_ tkID[%d]== ETYPE(pos[%d])\n", id, tab->refs[tab->node->id]);
+                printf  ("DEBUG: REDIR_nods[%d] eType[%d]== refs(pos[%d])\n", tab->node->id, tab->node->etype, tab->refs[tab->node->id]);
             }
         }
     }
-    if (tab->node->etype == -1)
+    if (  tab->refs[tab->node->id] < 1 && tab->node->etype == -1)
     {
         tab->refs[tab->node->id] = id;
         tab->node->etype = 0;
     }
+    printf  ("DEBUG: REDIR_ Etype[%d]== ETYPE(pos[%d])\n", tab->node->etype, tab->refs[tab->node->id]);
     return (tab);
 }
 
@@ -111,29 +112,30 @@ static t_table  *parse_args(t_table *tab)
 
     is_exit = 0;
     tab->node = init_node(tab);
-    node = tab->node;
+    // node = tab->node;
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-    node->id = 1;
-    while (node->id <= tab->nods)// <= tab->nod_num)
+    tab->node->id = 1;
+    while (tab->node->id <= tab->nods)// <= tab->nod_num)
     {
         // tab->node = get_node(tab, tab->node, tab->node->id);
-        g_status = builtins_handler(tab, node);
+        g_status = builtins_handler(tab, tab->node);
         waitpid(-1, &g_status, 0);
         
         if (!is_exit && g_status == 13)
             g_status = 0;
         if (g_status > 255)
             g_status = g_status / 255;
-        node->id++; 
+        tab->node->id++; 
     }
-    tab->node = node;
+    // tab->node = node;
+    tab->nods = 0;
     if (tab->nods == 0)// && is_exit)
     {
         printf("yo_ empty_ me_\n");
         ft_mx_free(&tab->node->cmd);
-        free_cont(tab->node);
+        // free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
     }

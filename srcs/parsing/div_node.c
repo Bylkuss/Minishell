@@ -109,8 +109,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	int nod_len;	
 	int i;
 		
+	new = init_node(tab);	
 	new = node;
-	// new = init_node(tab);	
 	i = -1;
 	new->nod_len = tab->refs[id];
 	new->id = id;
@@ -171,7 +171,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 		}
 
 	}
-	printf("DEBUG::: ### END_SET_NEW ID:%d  t->id:%d etype[%d] ###\n", new->id, tab->node->id, tab->node->etype);
+	printf("DEBUG::: ### END_SET_NEW ID:%d  t->id:%d etype[%d] ###\n", new->id, node->id, tab->node->etype);
 		// ls > popov.txt
 		// wc < toto.txt 
 				// tab->node->cmd[nod - 1] = NULL;	

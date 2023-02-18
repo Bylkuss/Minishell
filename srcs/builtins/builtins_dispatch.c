@@ -65,34 +65,34 @@ void    exit_builtin(char **cmd)//, int *is_exit)
 
 int    builtins_handler(t_table *tab, t_node *node)
 {
-    char *input;
+    // char *input;
     char **envp;
 
     // int i = 0;
     // envp = tab->envp;
-    while(node->id <= tab->nods)
+    while(tab->node->id <= tab->nods)
     {
         printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-        node = get_node(tab, node, node->id);
+        tab->node = get_node(tab, node, node->id);
 
-        input = *node->cmd;
+        // input = *node->cmd;
         envp = save_old_pwd(envp);    
-        if (ft_strnstr(input, "exit", 5))
-            exit_builtin(ft_split(input, ' '));
-        else if(ft_strnstr(input, "cd", 10))
-            g_status = cd(ft_split(input, ' '), envp);
-        else if(ft_strnstr(input, "export", 10))
-            g_status = ms_export(ft_split(input, ' ') , envp);
-        else if(ft_strnstr(input, "echo", 10))
-            g_status = echo(ft_split(input, ' '));
-        else if (ft_strnstr(input, "pwd", 10))
+        if (ft_strnstr(*node->cmd, "exit", 5))
+            exit_builtin(node->cmd);
+        else if(ft_strnstr(*node->cmd, "cd", 10))
+            g_status = cd(node->cmd, envp);
+        else if(ft_strnstr(*node->cmd, "export", 10))
+            g_status = ms_export(node->cmd , envp);
+        else if(ft_strnstr(*node->cmd, "echo", 10))
+            g_status = echo(node->cmd);
+        else if (ft_strnstr(*node->cmd, "pwd", 10))
             g_status = pwd();
-        else if(ft_strnstr(input, "unset", 10))
+        else if(ft_strnstr(*node->cmd, "unset", 10))
         {
-            if(unset(ft_split(input, ' '), envp) == 0)
+            if(unset((node->cmd), envp) == 0)
                 printf("No such variable\n");
         } 
-        else if(ft_strnstr(input, "env", 5))
+        else if(ft_strnstr(*node->cmd, "env", 5))
             env(envp);
         else 
         {

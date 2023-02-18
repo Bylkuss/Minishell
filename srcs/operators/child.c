@@ -52,8 +52,8 @@ static void	*child_redir(t_node *t, int fd[2])
 
 	// t = node;
 	printf("DEBUG: __child_redir _ID [%d] :: {[i:%d],[o:%d]}\n", t->id, t->infile, t->outfile);
-	printf("DEBUG: __child_redir _FILENO  :: {[i:%d],[o:%d]}\t**\n",  STDIN_FILENO, STDOUT_FILENO);
-	printf("DEBUG: __child_redir _W/R_END :: {[i:%d],[o:%d]}\n\n",  READ_END, WRITE_END);
+	// printf("DEBUG: __child_redir _FILENO  :: {[i:%d],[o:%d]}\t**\n",  STDIN_FILENO, STDOUT_FILENO);
+	// printf("DEBUG: __child_redir _W/R_END :: {[i:%d],[o:%d]}\n\n",  READ_END, WRITE_END);
 	if (t->infile != STDIN_FILENO)
 	{
 		printf("DEBUG: __child_redir ::t->infile !=  t->etype(%d)\n", t->etype);
