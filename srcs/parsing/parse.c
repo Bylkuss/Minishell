@@ -109,6 +109,7 @@ static t_table  *parse_args(t_table *tab)
 
     int is_exit;
     t_node *node;
+    int id;
 
     is_exit = 0;
     tab->node = init_node(tab);
@@ -117,27 +118,30 @@ static t_table  *parse_args(t_table *tab)
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
     tab->node->id = 1;
-    while (tab->node->id <= tab->nods)// <= tab->nod_num)
-    {
-        // tab->node = get_node(tab, tab->node, tab->node->id);
-        g_status = builtins_handler(tab, tab->node);
+    id = 0;
+            // while (tab->node->id <= tab->nods)// <= tab->nod_num)
+            // {
+                // tab->node = get_node(tab, tab->node, tab->node->id);
+    g_status = builtins_handler(tab, tab->node, &is_exit);
+    while (id++ <= tab->nods)
         waitpid(-1, &g_status, 0);
-        
-        if (!is_exit && g_status == 13)
-            g_status = 0;
-        if (g_status > 255)
-            g_status = g_status / 255;
-        tab->node->id++; 
-    }
+    
+    if (!is_exit && g_status == 13)
+        g_status = 0;
+    if (g_status > 255)
+        g_status = g_status / 255;
+        // tab->node->id++; 
+    // }
     // tab->node = node;
     tab->nods = 0;
     if (tab->nods == 0)// && is_exit)
     {
-        printf("yo_ empty_ me_\n");
+        printf("yo_ empty_ me_ g_status = %d__\n", g_status);
         ft_mx_free(&tab->node->cmd);
         // free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
+        return (NULL);
     }
     return (tab);
 }

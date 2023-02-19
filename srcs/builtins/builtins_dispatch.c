@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 extern int g_status;
 
 int is_builtin(t_node *t)
@@ -62,6 +61,33 @@ void    exit_builtin(char **cmd)//, int *is_exit)
     // return (exiit);
 }
 
+// int    exit_builtin(t_table *tab, int *is_exit)
+// {
+//     char ** cmd;
+//     int i = 0;
+
+//     cmd = tab->node->cmd;
+//     *is_exit = 1;
+//     if(cmd[1] && !cmd[2])
+//     {
+//         while(cmd[1][i])
+//         {
+//             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+//                 error_msg("exit: numeric argument required\n", 255);
+//             i++;                
+//         }
+//         *is_exit = ft_atoi(cmd[1]);
+//         if (*is_exit == -1)
+//             return (255);
+//     }
+//     else 
+//     {
+//         *is_exit = 0;
+//         return (1);
+//     }
+//     // exit(exiit);
+//     return (g_status);
+// }
 
 int    builtins_handler(t_table *tab, t_node *node)
 {
@@ -78,15 +104,15 @@ int    builtins_handler(t_table *tab, t_node *node)
         // input = *node->cmd;
         envp = save_old_pwd(envp);    
         if (ft_strnstr(*node->cmd, "exit", 5))
-            exit_builtin(node->cmd);
+            exit_builtin(tab->node->cmd);
         else if(ft_strnstr(*node->cmd, "cd", 10))
             g_status = cd(node->cmd, envp);
         else if(ft_strnstr(*node->cmd, "export", 10))
             g_status = ms_export(node->cmd , envp);
-        else if(ft_strnstr(*node->cmd, "echo", 10))
-            g_status = echo(node->cmd);
-        else if (ft_strnstr(*node->cmd, "pwd", 10))
-            g_status = pwd();
+                // else if(ft_strnstr(*node->cmd, "echo", 10))
+                //     g_status = echo(node->cmd);
+                // else if (ft_strnstr(*node->cmd, "pwd", 10))
+                //     g_status = pwd();
         else if(ft_strnstr(*node->cmd, "unset", 10))
         {
             if(unset((node->cmd), envp) == 0)
@@ -102,7 +128,7 @@ int    builtins_handler(t_table *tab, t_node *node)
             execmd(tab, node);
             
         }
-        node->id++;
+        tab->node->id++;
     }
     return (g_status);
 }

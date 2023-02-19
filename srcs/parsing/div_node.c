@@ -108,7 +108,8 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 	t_node *new;
 	int nod_len;	
 	int i;
-		
+	int oldfd;
+
 	new = init_node(tab);	
 	new = node;
 	i = -1;
@@ -166,7 +167,7 @@ t_node	*get_node(t_table *tab, t_node *node, int id)
 		}
 		if ((new->id) > 1)
 		{
-			new->infile = new->outfile;
+			oldfd = new->outfile;
 			new->outfile = STDOUT_FILENO;
 		}
 

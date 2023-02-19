@@ -15,7 +15,7 @@
 extern int g_status;
 
 
-static char	*find_command(char **env_path, char *cmd, char *path)
+static char	*find_command(char **env_path, char *cqmd, char *path)
 {
 	char	*temp;
 	int		i;
@@ -134,7 +134,7 @@ void *execmd(t_table *tab, t_node *t)
 	printf("DEBUG:__TEST execmd [id%d]>> infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
     get_cmd(tab, t);
 	// printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
-	printf("DEBUG: __TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
+	printf("DEBUG:__TEST execmd >> path{%s} + cmd{%s} \n", t->path, *t->cmd);
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, t, fd))

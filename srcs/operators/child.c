@@ -48,12 +48,10 @@ void	child_builtin(t_table *tab, t_node *t)
 
 static void	*child_redir(t_node *t, int fd[2])
 {
-    // t_node	*t;
-
-	// t = node;
+	
 	printf("DEBUG: __child_redir _ID [%d] :: {[i:%d],[o:%d]}\n", t->id, t->infile, t->outfile);
-	// printf("DEBUG: __child_redir _FILENO  :: {[i:%d],[o:%d]}\t**\n",  STDIN_FILENO, STDOUT_FILENO);
-	// printf("DEBUG: __child_redir _W/R_END :: {[i:%d],[o:%d]}\n\n",  READ_END, WRITE_END);
+		// printf("DEBUG: __child_redir _FILENO  :: {[i:%d],[o:%d]}\t**\n",  STDIN_FILENO, STDOUT_FILENO);
+		// printf("DEBUG: __child_redir _W/R_END :: {[i:%d],[o:%d]}\n\n",  READ_END, WRITE_END);
 	if (t->infile != STDIN_FILENO)
 	{
 		printf("DEBUG: __child_redir ::t->infile !=  t->etype(%d)\n", t->etype);
@@ -120,6 +118,7 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
     DIR     *dir;
 
     dir = NULL;
+	printf("\nDEBUG::_TEST chk_frk [id%d] :: infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
     if (t->cmd)
         dir = opendir(*t->cmd);
     if (t->infile == -1 || t->outfile == -1)
@@ -132,6 +131,6 @@ void *chk_fork(t_table *tab, t_node *t, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-	printf("DEBUG:\t wanna_exit_ _ _ _ _exc_frk\n");
+	printf("DEBUG::: wanna_exit_ _ _ _ _chk_frk __ __ [id:%d] \n", t->id);
     return ("");
 }

@@ -88,7 +88,7 @@ struct		s_table 	/*	Main Struct  tab->*/
 int 	   				builtins_handler(t_table *tab, t_node *node);
 int						is_builtin(t_node *t);
 void					exit_builtin(char **cmd);
-	// int	    		exit_builtin(char **cmd, int *is_exit);
+// int					    exit_builtin(t_table *tab, int *is_exit);
 	// void    			builtins_handler(char *input, char **envp);
 	// int					builtins(t_table *tab, int *is_exit);
 // cd 
