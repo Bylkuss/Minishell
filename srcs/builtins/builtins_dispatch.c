@@ -89,7 +89,7 @@ void    exit_builtin(char **cmd)//, int *is_exit)
 //     return (g_status);
 // }
 
-int    builtins_handler(t_table *tab, t_node *node)
+int    builtins(t_table *tab, t_node *node, int *is_exit)
 {
     // char *input;
     char **envp;
@@ -99,7 +99,7 @@ int    builtins_handler(t_table *tab, t_node *node)
     while(tab->node->id <= tab->nods)
     {
         printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-        tab->node = get_node(tab, node, node->id);
+        // tab->node = get_node(tab, node, node->id);
 
         // input = *node->cmd;
         envp = save_old_pwd(envp);    

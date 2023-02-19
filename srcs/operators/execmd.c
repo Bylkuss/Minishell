@@ -15,7 +15,7 @@
 extern int g_status;
 
 
-static char	*find_command(char **env_path, char *cqmd, char *path)
+static char	*find_command(char **env_path, char *cmd, char *path)
 {
 	char	*temp;
 	int		i;

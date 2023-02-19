@@ -112,17 +112,27 @@ static t_table  *parse_args(t_table *tab)
     int id;
 
     is_exit = 0;
-    tab->node = init_node(tab);
-    // node = tab->node;
+    // tab->node = init_node(tab);
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
+    node = tab->node;
     tab->node->id = 1;
     id = 0;
+
+    // tab->cmdl = get_node(tab, node, node->id);
+
+
+    
+    // tab->cmdl = get_node
+    ///
+    //  add get_node 2.0 ... list maker ...
+    ///
             // while (tab->node->id <= tab->nods)// <= tab->nod_num)
             // {
                 // tab->node = get_node(tab, tab->node, tab->node->id);
-    g_status = builtins_handler(tab, tab->node, &is_exit);
+    
+    g_status = builtins(tab, tab->node, &is_exit);
     while (id++ <= tab->nods)
         waitpid(-1, &g_status, 0);
     

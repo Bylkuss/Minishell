@@ -78,6 +78,7 @@ struct		s_table 	/*	Main Struct  tab->*/
 	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	char	***cmds;    //	[ID][token_array] 
 	char	**token;    //	token_array == input* >>> token** " ":spc_split
+	t_list	*cmdl;
 	int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
 	int 	nods;    	// 	nombre de node total.
 	pid_t 	pid;        //	fork dup wait
@@ -85,7 +86,8 @@ struct		s_table 	/*	Main Struct  tab->*/
 };  //t_table;
 
 //builtins
-int 	   				builtins_handler(t_table *tab, t_node *node);
+// int 	   				builtins_handler(t_table *tab, t_node *node);
+int 	   				builtins(t_table *tab, t_node *node, int *is_exit);
 int						is_builtin(t_node *t);
 void					exit_builtin(char **cmd);
 // int					    exit_builtin(t_table *tab, int *is_exit);
@@ -106,7 +108,8 @@ char					**edit_env(char **envp, int pos);
 //main
 char					*getprompt(t_table *tab);
 //mapping
-t_node					*init_node(t_table *tab);
+t_node					*init_node(void);
+// t_node					*init_node(t_table *tab);
 t_table					*init_tab(t_table *tab);
 t_table					*node_alloc(t_table *tab);
 //signal.c
@@ -120,7 +123,7 @@ char					**init_split(char *input, char *set, t_table *tab);
 // div_node
 int						set_etype(t_table *tab, char *etype);
 t_table					*div_node(t_table *tab, char *set);
-t_node					*get_node(t_table *tab, t_node *node, int id);
+t_list					*get_node(t_table *tab, t_node *node, int id);
 
 //expand
 char			*expand_vars(char *str, int i, int quotes[2], t_table *tab);
