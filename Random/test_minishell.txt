@@ -1,4 +1,10 @@
 
+WORKING: --ls -l > out.txt--
+WORKING: ls -l | wc -la
+WORKING: pwd
+WORKING: pwd | wc -la
+WORKING: cat <unexisting file>
+
 TODO: -- eCHO 2x-- 
 TODO: 
 TODO: -- < a << eof < a cat -e | cat -e
