@@ -78,9 +78,9 @@ static t_table *split_all(t_table *tab)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    tab->node->id = 1;
+    // tab->node->id = 1; 
     
-    // printf("DEBUG/: split_all tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
+    printf("DEBUG/: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
         // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
         // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
         //
@@ -112,19 +112,15 @@ static t_table  *parse_args(t_table *tab)
     int id;
 
     is_exit = 0;
-    // tab->node = init_node(tab);
+    tab->node = malloc(sizeof(t_node));
+    // node = tab->node;
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-    node = tab->node;
     tab->node->id = 1;
-    id = 0;
+    id = ft_lstsize(tab->cmdl);
+    printf("DEBUG:: ready to go cmdl = %d ::\n", id);
 
-    // tab->cmdl = get_node(tab, node, node->id);
-
-
-    
-    // tab->cmdl = get_node
     ///
     //  add get_node 2.0 ... list maker ...
     ///
@@ -132,8 +128,8 @@ static t_table  *parse_args(t_table *tab)
             // {
                 // tab->node = get_node(tab, tab->node, tab->node->id);
     
-    g_status = builtins(tab, tab->node, &is_exit);
-    while (id++ <= tab->nods)
+    g_status = builtins(tab, tab->cmdl, &is_exit);
+    while (id-- > 0)
         waitpid(-1, &g_status, 0);
     
     if (!is_exit && g_status == 13)
@@ -143,11 +139,12 @@ static t_table  *parse_args(t_table *tab)
         // tab->node->id++; 
     // }
     // tab->node = node;
-    tab->nods = 0;
-    if (tab->nods == 0)// && is_exit)
+    // tab->nods = 0;
+    if (tab && is_exit)
     {
         printf("yo_ empty_ me_ g_status = %d__\n", g_status);
-        ft_mx_free(&tab->node->cmd);
+        ft_lstclear(&tab->cmdl,free_cont);
+        // ft_mx_free(&tab->node->cmd);
         // free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);

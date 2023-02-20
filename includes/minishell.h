@@ -87,7 +87,8 @@ struct		s_table 	/*	Main Struct  tab->*/
 
 //builtins
 // int 	   				builtins_handler(t_table *tab, t_node *node);
-int 	   				builtins(t_table *tab, t_node *node, int *is_exit);
+// int 	   				builtins(t_table *tab, t_node *node, int *is_exit);
+int					    builtins(t_table *tab, t_list *cmd, int *is_exit);
 int						is_builtin(t_node *t);
 void					exit_builtin(char **cmd);
 // int					    exit_builtin(t_table *tab, int *is_exit);
@@ -162,8 +163,9 @@ char			**str_split(char *str, char sep);
 // void			*getcmd(char **paths, char *cmd);
 
 //execmd.c
-void			*execmd(t_table *tab, t_node *t);
-void 			get_cmd(t_table *tab, t_node *t);
+void			*execmd(t_table *tab, t_list *cmd);
+// void 			get_cmd(t_table *tab, t_list *cmd);
+void		 	get_cmd(t_table *tab, t_list *cmd, char **s, char *path);
 char			*getpath(char *cmd, char **env);
 
 //error
@@ -172,10 +174,10 @@ void			*chk_error(int err_type, char *param, int err);
 void			free_cont(void *content);
 
 //child
-void			child_builtin(t_table *tab, t_node *t);
-void			*born_child(t_table *tab, t_node *node, int fd[2]);
-void			*chk_fork(t_table *tab, t_node *t, int fd[2]);
-void    		exc_fork(t_table *tab, t_node *t, int fd[2]);
+void			child_builtin(t_table *tab, t_node *t, int l, t_list *cmd);
+void			*born_child(t_table *tab, t_list *cmd, int fd[2]);
+void			*chk_fork(t_table *tab, t_list *cmd, int fd[2]);
+void    		exc_fork(t_table *tab, t_list *cmd, int fd[2]);
 
 
 #endif

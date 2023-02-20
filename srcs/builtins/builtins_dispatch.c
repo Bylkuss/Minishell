@@ -89,46 +89,46 @@ void    exit_builtin(char **cmd)//, int *is_exit)
 //     return (g_status);
 // }
 
-int    builtins(t_table *tab, t_node *node, int *is_exit)
+int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
 {
     // char *input;
-    char **envp;
+    // char **envp;
+    char **aux;
+    int i;
 
-    // int i = 0;
     // envp = tab->envp;
-    while(tab->node->id <= tab->nods)
+    while (cmdl)
     {
-        printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
-        // tab->node = get_node(tab, node, node->id);
-
-        // input = *node->cmd;
-        envp = save_old_pwd(envp);    
-        if (ft_strnstr(*node->cmd, "exit", 5))
-            exit_builtin(tab->node->cmd);
-        else if(ft_strnstr(*node->cmd, "cd", 10))
-            g_status = cd(node->cmd, envp);
-        else if(ft_strnstr(*node->cmd, "export", 10))
-            g_status = ms_export(node->cmd , envp);
+        printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", tab->node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
+        aux = ((t_node *)cmdl->content)->cmd;
+        i = 0;
+        if (aux)
+            i = ft_strlen(*aux);
+        if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
+            exit_builtin(aux);
+        else if(!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
+            g_status = cd(aux, tab->envp);
+        else if(!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
+            g_status = ms_export(aux , tab->envp);
                 // else if(ft_strnstr(*node->cmd, "echo", 10))
                 //     g_status = echo(node->cmd);
                 // else if (ft_strnstr(*node->cmd, "pwd", 10))
                 //     g_status = pwd();
-        else if(ft_strnstr(*node->cmd, "unset", 10))
+        else if(!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
         {
-            if(unset((node->cmd), envp) == 0)
+            if(unset((aux), tab->envp) == 0)
                 printf("No such variable\n");
         } 
-        else if(ft_strnstr(*node->cmd, "env", 5))
-            env(envp);
+        else if(!ft_strncmp(*aux, "env", i) && i == 3)
+            env(tab->envp);
         else 
         {
             signal(SIGINT, SIG_IGN);
             signal(SIGQUIT, SIG_IGN);
             printf("\nDEBUG:::___ ___  builtin => execmd___ ___ ___\n");
-            execmd(tab, node);
-            
+            execmd(tab, cmdl);
         }
-        tab->node->id++;
+        cmdl = cmdl->next;
     }
     return (g_status);
 }
