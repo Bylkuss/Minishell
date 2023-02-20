@@ -12,59 +12,56 @@
 
 #include "../../includes/minishell.h"
 
-
-
 /*
     space between ... pos[flag]  [0/4]
     flag = {none, all_b4, one_b4, one_a4,all_a4}
 
 */
 // static char *ft_spacer(char* srcs, int* pos[4], int fl)
-// {
-//     // int i;
-//     // int f;
-     
-//     // i = 0;
-//     // f = pos[i];
+    // {
+    //     // int i;
+    //     // int f;
+        
+    //     // i = 0;
+    //     // f = pos[i];
 
-//     // pos[fl] = {POS = token[pos], FL = space_type } / 0:all_b4(etype) / 1:one_b4(etype) / 2:one_a4(etype) / 3:all_a4(etype)
-//     if (fl > 1)
-//     {
-//         // meaning cut after etype for spc manager
-//         //
-//         /// 2 = set one_space after etype
-//         //
-//         /// 3 = set no_space_end
-//           printf("DEBUG :: only_1_AP_\n");
-//             // p[2] = p[1] + 1;
-//             // if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
-//             //     p[2] = p[1] + 2;
-//             // dest = ft_substr(srcs, 0, p[2]); //bfore etype        
-//             // dest = ft_strjoin(dest, " ");
-//             // rest = ft_strjoin(rest, dest); 
-//             // // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//             // srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-//             // // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
-//     }
-//     else
-//     {
-//         // meaning cut before etype ... spc manager
-//         //
-//         /// 0 = set no_space_start
-//         //
-//         /// 1 = set one_space before_etype
+    //     // pos[fl] = {POS = token[pos], FL = space_type } / 0:all_b4(etype) / 1:one_b4(etype) / 2:one_a4(etype) / 3:all_a4(etype)
+    //     if (fl > 1)
+    //     {
+    //         // meaning cut after etype for spc manager
+    //         //
+    //         /// 2 = set one_space after etype
+    //         //
+    //         /// 3 = set no_space_end
+    //           printf("DEBUG :: only_1_AP_\n");
+    //             // p[2] = p[1] + 1;
+    //             // if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
+    //             //     p[2] = p[1] + 2;
+    //             // dest = ft_substr(srcs, 0, p[2]); //bfore etype        
+    //             // dest = ft_strjoin(dest, " ");
+    //             // rest = ft_strjoin(rest, dest); 
+    //             // // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+    //             // srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
+    //             // // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
+    //     }
+    //     else
+    //     {
+    //         // meaning cut before etype ... spc manager
+    //         //
+    //         /// 0 = set no_space_start
+    //         //
+    //         /// 1 = set one_space before_etype
 
-//           printf("DEBUG :: only_1_AV_\n");
-//             // dest = ft_substr(srcs, 0, p[1]); //bfore etype        
-//             // dest = ft_strjoin(dest, " ");
-//             // rest = ft_strjoin(rest, dest);
-//             // // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//             // srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-//             // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+    //           printf("DEBUG :: only_1_AV_\n");
+    //             // dest = ft_substr(srcs, 0, p[1]); //bfore etype        
+    //             // dest = ft_strjoin(dest, " ");
+    //             // rest = ft_strjoin(rest, dest);
+    //             // // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+    //             // srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
+    //             // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
 
-//     }
-//     // while (srcs && (i < pos)
-
+    //     }
+    //     // while (srcs && (i < pos)
 // }
 
 static char *type_check(char *input, char *meta)
@@ -212,7 +209,7 @@ char **init_split(char *input, char *set, t_table *tab)
         return (NULL);    
     input = type_check(input, "<|>");   // padding etype count 
 
-    // printf("DEBUG: pass_to_init :: %s \n", input);
+    printf("DEBUG: pass_to_init :: %s \n", input);
 
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)

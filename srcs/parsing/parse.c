@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/15 21:52:12 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 10:08:43 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ static t_table *split_all(t_table *tab)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    // printf("DEBUG:: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+    printf("DEBUG:: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {

@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/20 09:54:54 by gehebert          #+#    #+#             */
+/*   Updated: 2023/02/20 09:54:56 by gehebert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
@@ -36,28 +47,21 @@ t_table *init_tab(t_table *tab)
 }
 
 t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
-{
-	// int i;	    // i = 0;
-	// int id;			// node id
+{	
 	int nod_len;		// array width
 
 	tab->node->id = 1; 
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
-    // printf("DEBUG : start_dup:nod_num(%d)::\n", tab->nods);
  	while(tab->node->id < tab->nods) //id tab->nods  
 	{		
 	    nod_len = tab->refs[tab->node->id];	
-        // printf("DEBUG : start_dup:[id:%d]nod_len(%d)::\n", tab->node->id, nod_len);	
         tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
         tab->node->id++;
 	}			
     nod_len = ((tab->refs[0] - 1) - nod_len);  // actual_len == (etype[pos] - old_len)
-    // printf("DEBUG : start_dup:[id:%d]nod_len(%d)::\n", tab->node->id, nod_len);	
     tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
 	return (tab);
 }
-
-			// tab->node->cmd[id] = (char **)malloc(sizeof(char *) * nod_len);
 
 // /*
 // main :  init_prompt => get user info to be stock into *p {struct t_dot}   
