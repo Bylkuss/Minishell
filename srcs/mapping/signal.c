@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 08:54:25 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 09:41:11 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void    handle_sigint(int sig)
     {
         g_status = 130;
         ioctl(STDIN_FILENO, TIOCSTI, "\n");                           
-        rl_replace_line("", 0);                                    
+        // rl_replace_line("", 0);                                    
         rl_on_new_line();                                          
     } 
 }
