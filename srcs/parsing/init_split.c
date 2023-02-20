@@ -150,7 +150,7 @@ static int token_count(const char *s, char *c, int i[2]) //
         }
     }
     // printf("DEBUG: token_count: (n = %d)\n", i[1]);
-    return (i[1] );//+ 1); // start[0] +1 && invisible etype +1
+    return (i[1] + 1);//+ 1); // start[0] +1 && invisible etype +1
 }
 
 static char **token_fill(t_table *tab, const char *s, char *set, int i[3]) 
@@ -186,10 +186,11 @@ static char **token_fill(t_table *tab, const char *s, char *set, int i[3])
         if (i[0] <= len && i[2] > -1) // still left && pass thru "nospaceland"
         {
             tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
-            tab->token = ft_mx_ext(tab->token, tab->token[n]);          
-            // printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);
+            // tab->token = ft_mx_ext(tab->token, tab->token[n]);  
             n++;
         }           
+            // printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);        
+            // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[n-1]);
     }
     return (tab->token);
 }
@@ -209,7 +210,7 @@ char **init_split(char *input, char *set, t_table *tab)
         return (NULL);    
     input = type_check(input, "<|>");   // padding etype count 
 
-    printf("DEBUG: pass_to_init :: %s \n", input);
+    // printf("DEBUG: pass_to_init :: %s \n", input);
 
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
@@ -217,8 +218,10 @@ char **init_split(char *input, char *set, t_table *tab)
     tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
     if (!tab->token)
         return (NULL);
-    // printf("DEBUG:: Init_token[%d] ::\n", n);
     tab->token = token_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    printf("DEBUG:: Init_token[%d] ::\n", ft_mx_len(tab->token));
+    // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[ft_mx_len(tab->token)-1]);
+    // printf("tkn_fll[%d] => ::%s::\n", 1, tab->token[1]);
     return (tab->token);   // return clean token space-split args
 }
 

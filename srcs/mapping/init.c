@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:54:54 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 09:54:56 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:07:15 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,23 @@ t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
 {	
 	int nod_len;		// array width
 
-	tab->node->id = 1; 
+	tab->node->id = 1;
+    printf("DEBUG:: tab->nods = %d\n", tab->nods);
 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
- 	while(tab->node->id < tab->nods) //id tab->nods  
-	{		
-	    nod_len = tab->refs[tab->node->id];	
+    if (tab->node->id <tab->nods)
+    {
+        while(tab->node->id <= tab->nods) //id tab->nods  
+        {		
+            nod_len = tab->refs[tab->node->id];	
+            tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
+            tab->node->id++;
+        }		
+    }
+    else if (tab->node->id == tab->nods)	
+    {
+        nod_len = ft_mx_len(tab->token);  // actual_len == (etype[pos] - old_len)
         tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
-        tab->node->id++;
-	}			
-    nod_len = ((tab->refs[0] - 1) - nod_len);  // actual_len == (etype[pos] - old_len)
-    tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
+    }
 	return (tab);
 }
 

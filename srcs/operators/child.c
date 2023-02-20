@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 09:44:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:12:57 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,12 @@ void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(n) && n->cmd)
+	{
+		
+		printf("DEBUG:: __ __chl_exec __len:%d __ \n", ft_mx_len(n->cmd));
+		printf("DEBUG:: __ __chl_exec __len:%s__ \n", n->cmd[1]);
 		execve(n->path, n->cmd, tab->envp);
+	}
 	else if (n->cmd && !ft_strncmp(*n->cmd, "pwd", l) && l == 3)
 		g_status = pwd();
 	else if (is_builtin(n) && n->cmd && !ft_strncmp(*n->cmd, "echo", l) && l == 4)

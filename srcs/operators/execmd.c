@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/16 00:42:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 11:14:14 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	int		i;
 
 	i = -1;
-	// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
-	printf("DEBUG: TEST find_command \n");//>> cmd{%s}  \n", cmd);
+	// printf("DEBUG: TEST find_command \n");//>> cmd{%s}  \n", cmd);
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
@@ -42,6 +41,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		free(path);
 		return (NULL);
 	}
+	printf("DEBUG: TEST find_command >> path{%s}  \n", path);
 	return (path);
 }
 
@@ -57,7 +57,7 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 		dir = opendir(*n->cmd);
 	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir) //*tab instead of tab!?
 	{
-		// printf("DEBUG: __FIRST_IF cmd_chk ... \n");
+		printf("DEBUG: __FIRST_IF cmd_chk ... \n");
 		*s = ft_split(*n->cmd, '/');
 		n->path = ft_strdup(*n->cmd);
 		free(n->cmd[0]);
@@ -65,7 +65,7 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 	}
 	else if (!is_builtin(n) && n &&n->cmd && !dir)
 	{
-		// printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
+		printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
 		path = ms_getenv("PATH", tab->envp, 4);
 		*s = ft_split(path, ':');
 		free(path);
@@ -120,8 +120,8 @@ void *execmd(t_table *tab, t_list *cmd)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, cmd, fd))
         return (NULL);
+	printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
     close(fd[WRITE_END]);
-	// printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
 	if (tab->cmdl->next && !((t_node *)tab->cmdl->next->content)->infile)// ouf?  next t->infile
 		((t_node *)tab->cmdl->next->content)->infile = fd[READ_END];
 	else
