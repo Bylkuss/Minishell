@@ -131,10 +131,10 @@ char			*expand_vars(char *str, int i, int quotes[2], t_table *tab);
 char			*expand_path(char *str, int i, int quotes[2], char *var);
 //redir
 int				get_fd(int oldfd, char *path, int flags[2]);
-t_node			*get_outfile1(t_node *t, t_table *tab);
-t_node			*get_outfile2(t_node *t, t_table *tab);
-t_node			*get_infile1(t_node *t, t_table *tab);
-t_node			*get_infile2(t_node *t, t_table *tab);
+t_node			*get_outfile1(t_node *t, t_table *tab, char **a,int *i);
+t_node			*get_outfile2(t_node *t, t_table *tab, char **a, int *i);
+t_node			*get_infile1(t_node *t, t_table *tab, char **a, int *i);
+t_node			*get_infile2(t_node *t, t_table *tab, char **a, int *i);
 //heredoc
 char			*get_here_str(char *str[2], size_t len, char *limit, char *warn);
 int				get_here_doc(char *str[2], char *aux[2]);

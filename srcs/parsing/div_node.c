@@ -133,13 +133,13 @@ static t_node	*get_params(t_table *tab,t_node *node, char **a, int *i)
 		etype = set_etype(tab, a[*i]);
 		// printf("DEBUG:: ID:%d :: \n", *i);
 		if (etype == 3)
-			node = get_outfile2(node, tab);
+			node = get_outfile2(node, tab, a, i);
 		else if (etype == 2)
-			node = get_outfile1(node, tab);
+			node = get_outfile1(node, tab, a, i);
 		else if (etype == 5)
-			node = get_infile2(node, tab);
+			node = get_infile2(node, tab, a, i);
 		else if (etype == 4)
-			node = get_infile1(node, tab);
+			node = get_infile1(node, tab, a, i);
 		else if (etype != 1)
 			node->cmd = ft_mx_ext(node->cmd, a[*i]);			
 		else
@@ -200,7 +200,7 @@ static t_table *node_fill(t_table *tab, t_node *node, char** tkn)
 	int id;
 	
 	i = 0;
-	tab->node->id = 1;
+	tab->node->id = 1;	
 	printf ("DEBUG:: start _nod_fill NODS = [ %d ]\n", tab->nods);
 	while (tab->node->id <= tab->nods && i < ft_mx_len(tab->token))
 	{

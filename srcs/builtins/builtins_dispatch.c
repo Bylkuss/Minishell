@@ -61,33 +61,6 @@ void    exit_builtin(char **cmd)//, int *is_exit)
     // return (exiit);
 }
 
-// int    exit_builtin(t_table *tab, int *is_exit)
-// {
-//     char ** cmd;
-//     int i = 0;
-
-//     cmd = tab->node->cmd;
-//     *is_exit = 1;
-//     if(cmd[1] && !cmd[2])
-//     {
-//         while(cmd[1][i])
-//         {
-//             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
-//                 error_msg("exit: numeric argument required\n", 255);
-//             i++;                
-//         }
-//         *is_exit = ft_atoi(cmd[1]);
-//         if (*is_exit == -1)
-//             return (255);
-//     }
-//     else 
-//     {
-//         *is_exit = 0;
-//         return (1);
-//     }
-//     // exit(exiit);
-//     return (g_status);
-// }
 
 int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
 {
