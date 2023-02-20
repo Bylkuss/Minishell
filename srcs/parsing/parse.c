@@ -21,13 +21,13 @@ static t_table	*redir_type(t_table *tab)
     int     id;
 
     id = -1;
+    n = ft_mx_len(tab->token);
+    printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", tab->token[0] , n);
     cmd = ft_mx_dup(tab->token); 
-    n = ft_mx_len(cmd);
     tab->nods = 1;
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
     tab->refs[0] = n ;
-
     tab->node->etype = -1;
     if (n > 1)
     {
@@ -76,9 +76,10 @@ static t_table *split_all(t_table *tab)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
+    printf("DEBUG:: pre_redir split_all token_len [%d]\n", ft_mx_len(tab->token));
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-    printf("DEBUG:: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
+    printf("DEBUG:: post_alloc split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
