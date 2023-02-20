@@ -131,7 +131,7 @@ static t_node	*get_params(t_table *tab,t_node *node, char **a, int *i)
 	if (a[*i])
 	{
 		etype = set_etype(tab, a[*i]);
-		// printf("DEBUG:: ID:%d :: \n", *i);
+		// printf("DEBUG:: ID:%d :: eType:%d \n", *i, etype);
 		if (etype == 3)
 			node = get_outfile2(node, tab, a, i);
 		else if (etype == 2)
@@ -158,7 +158,7 @@ static t_node	*get_params(t_table *tab,t_node *node, char **a, int *i)
 static t_list	*stop_fill(t_list *cmdl, char **args, char **temp)
 {
 	ft_lstclear(&cmdl, free_cont);
-	ft_mx_free(&temp);
+	// ft_mx_free(&temp);
 	ft_mx_free(&args);
 	return (NULL);
 }
@@ -176,14 +176,16 @@ t_list	*get_node(t_table *tab, t_node *node, int i)
 	// printf("DEBUG:: into the beast::  tkn = {%s} :: \n", tkn[(ft_mx_len(tkn) - 1)]);
 	while(tkn[++i])
 	{
-		cmdl[1] = ft_lstlast(cmdl[0]);		// printf("DEBUG:: begin get_node tk_id:%d\n", i);
+		cmdl[1] = ft_lstlast(cmdl[0]);		
+		printf("DEBUG:: begin get_node tk_id:%d\n", i);
 		if( i == 0 || (tkn[i][0] == '|' ))
 		{
 			i += tkn[i][0] == '|';
 			ft_lstadd_back(&cmdl[0], ft_lstnew(init_node()));
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}
-		tmp = tkn;	// printf("DEBUG:: into_if tkn_id = %d tkn = {%s}:: \n", i, tkn[i]);
+		tmp = tkn;
+			printf("DEBUG:: into_if tkn_id = %d tkn = {%s}:: \n", i, tkn[i]);
 		cmdl[1]->content = get_params(tab, cmdl[1]->content, tmp, &i);
 		if (i < 0)
 			return (stop_fill(cmdl[0], tkn, tmp));
@@ -222,23 +224,12 @@ static t_table *node_fill(t_table *tab, t_node *node, char** tkn)
 		}	
 		if (node->etype == 1)
 			i++;
-				// tab->node->etype = set_etype(tab, tab->token[tab->refs[tab->nums]]);
-					// if (tab->node->etype == 0)
-					// else if (tab->node->etype == 1)
-				// if (i > ft_mx_len(tab->token))
-				// 	break;		
-				// else
-				// printf("DEBUG: TEST >> node->id(%d) :: ->nods_(%d) _  \n", node->id, tab->nods);
+
 		if (node->id < tab->nods)
 			node->id++;
 		else 
 			break;
-				// {
-				// 	printf("DEBUG: TEST >> token_len = (%d)  _  \n", ft_mx_len(tab->token));
-				// 	while (i++ < ft_mx_len(tab->token) - 1)
-				// 		printf("DEBUG: node_fill _out_reject!! node->id[%d] idex[%d] token{%s} \n", id, i, tab->token[i]);
-				// 		// ++i;
-				// }
+			
 	}
 	tab->nods = id;
 	tab->node = node;// printf ("DEBUG:: \tEND_nod_fill NODS = [ %d ]\t _ _ _\n\n", tab->nods);
@@ -256,19 +247,18 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	if (node->id <= tab->nods)// start at zero < node->id start at 1
 	{
 		node->nod_len = tab->refs[tab->node->id];
-				// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
-				// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
-			printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
-			// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
+		printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
 		tkn = (char **)malloc(sizeof(char *) * (tab->nods)); 
 		if (!(tkn))
 			return (NULL);
-		// tab->node = node;
 		tab = node_fill(tab, node, tkn);	
 	}	
 		printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
 	tab->cmdl = get_node(tab, node, -1);
 	return (tab);    
+				// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
+				// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
+			// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
 }
   //   ls -l -t -a | head -2 | wc -c >> out.txt   
   //      

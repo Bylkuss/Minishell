@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/22 22:06:40 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:47:36 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ t_node	*get_outfile1(t_node *t, t_table *tab, char **a,int *i)
 t_node	*get_outfile2(t_node *t, t_table *tab, char **a, int *i)
 {
 	char	*nl;
-	// int 	id;
 	int		flags[2];
 
-	// id = 0;
 	flags[0] = 1;
 	flags[1] = 1;
 	nl = "minishell: syntax error near unexpected node `newline'";

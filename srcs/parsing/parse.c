@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 12:20:54 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/20 12:43:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static t_table  *parse_args(t_table *tab)
     if (tab && is_exit)
     {
         printf("yo_ empty_ me_ g_status = %d__\n", g_status);
-        ft_lstclear(&tab->cmdl,free_cont);
+        ft_lstclear(&tab->cmdl, free_cont);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
         return (NULL);
