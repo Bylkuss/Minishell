@@ -23,7 +23,6 @@ static t_table	*redir_type(t_table *tab)
     id = -1;
     cmd = ft_mx_dup(tab->token); 
     n = ft_mx_len(cmd);
-    // printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", cmd[n - 1] , n);
     tab->nods = 1;
     tab->node->id = 1;
     tab->refs[tab->node->id] = 0; 
@@ -75,9 +74,8 @@ static t_table *split_all(t_table *tab)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    printf("DEBUG/: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
+    // printf("DEBUG:: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    // printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
@@ -86,17 +84,17 @@ static t_table *split_all(t_table *tab)
         //expand_path ...  cmd_chks legit!      
         tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
     }
+    // maybe div_ here instead ... part by  part ... and free asap
     return (tab); 
 }
+        // printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
             // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
             // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
 
 
 static t_table  *parse_args(t_table *tab)
 {
-
     int is_exit;
-    // t_node *node;
     int id;
 
     is_exit = 0;
@@ -127,27 +125,27 @@ static t_table  *parse_args(t_table *tab)
 
 void  *check_args(char *input, t_table *tab)    // main deploy >parse
 {
-    int n;     
+    t_node *n;     
      
-    n = 0;
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
     tab->token = init_split(input, " ", tab);   // input* >>> tab->token**
-    if (!tab->token)
-        return ("");
-    tab = parse_args(tab);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
     free(input);
+    if (!tab->token)
+    {
+        chk_error(QUOTE, NULL, 1);
+        return ("");
+    }
+    tab = parse_args(tab);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
 
-    // update-- envp -- should be execute here...
-    ///
-        //if nod_num == 0 
-    /// update env 
-        // free -> tab (content)
-        // empty-> arrays
-        // close -- next
-    
+    if (tab && tab->cmdl)
+        n = tab->cmdl->content;
+    if (tab && tab->cmdl && n  && n->cmd && ft_lstsize(tab->cmdl) == 1)
+        tab->envp = ms_setenv("_", n->cmd[ft_mx_len(n->cmd) -1], tab->envp, 1);
+    if (tab && tab->cmdl)
+        ft_lstclear(&tab->cmdl, free_cont);    
     return (tab); 
 
 /*

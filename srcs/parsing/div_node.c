@@ -197,16 +197,17 @@ t_list	*get_node(t_table *tab, t_node *node, int i)
 	return(cmdl[0]);
 }
 
-static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
+static t_table *node_fill(t_table *tab, t_node *node, char** tkn)
 {	
 	int i;	//token pos
 	int id;
-	t_node *node;
+	// t_node *node;
 	
-	node = tab->node;	
+	// node = tab->node;	
 	node->nod_len = 0;
 	i = 0;
 	tab->node->id = 1;
+
 	printf ("DEBUG:: start _nod_fill NODS = [ %d ]\n", tab->nods);
 	while (tab->node->id <= tab->nods && i < ft_mx_len(tab->token))
 	{
@@ -267,7 +268,6 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	int 	i;		// pos to start
 
 	i = 0;
-		// tab->node = t_node(tab);
 	node = tab->node;	
 	if (node->id <= tab->nods)// start at zero < node->id start at 1
 	{
@@ -277,9 +277,10 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 			// printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
 			// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
 		tkn = (char **)malloc(sizeof(char *) * (tab->nods)); 
-			if (!(tkn))
-				return (NULL);
-		tab = node_fill(tab, node->nod_len, node->nod_len, tkn);	
+		if (!(tkn))
+			return (NULL);
+		tab->node = node;
+		tab = node_fill(tab, node, tkn);	
 	}	
 		printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
 	tab->cmdl = get_node(tab, node, -1);
