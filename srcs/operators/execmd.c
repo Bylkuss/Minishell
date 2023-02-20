@@ -50,14 +50,14 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 	DIR		*dir;
 	t_node	*n;
 
-		printf("DEBUG: START cmd_chk ... \n");
+	printf("DEBUG: START cmd_chk ... \n");
 	dir = NULL;
 	n = cmd->content;
 	if (n && n->cmd)// && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
 		dir = opendir(*n->cmd);
 	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir) //*tab instead of tab!?
 	{
-		printf("DEBUG: __FIRST_IF cmd_chk ... \n");
+		// printf("DEBUG: __FIRST_IF cmd_chk ... \n");
 		*s = ft_split(*n->cmd, '/');
 		n->path = ft_strdup(*n->cmd);
 		free(n->cmd[0]);
@@ -65,7 +65,7 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 	}
 	else if (!is_builtin(n) && n &&n->cmd && !dir)
 	{
-		printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
+		// printf("DEBUG: __TEST -- ELSE --cmd_chk ... \n");
 		path = ms_getenv("PATH", tab->envp, 4);
 		*s = ft_split(path, ':');
 		free(path);
@@ -115,19 +115,17 @@ void *execmd(t_table *tab, t_list *cmd)
 	if (tab->node->path)
 		tab->node->path = NULL;
     get_cmd(tab, cmd, NULL, NULL);
-	printf("DEBUG:__TEST execmd [id]>> infile[] + outfile[] \n");//, t->id, t->infile, t->outfile);
-	// printf("DEBUG: __TEST execmd ::t->cmd{%s}\n", *t->cmd);
-	// printf("DEBUG:__TEST execmd >> path{%s} + cmd{%s} \n", tab->node->path, *tab->node->cmd);
+	printf("DEBUG: TEST execmd \n");	
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, cmd, fd))
         return (NULL);
-	printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
+    close(fd[WRITE_END]);
+	// printf("read_end = %d write_end = %d\n", READ_END, WRITE_END);
 	if (tab->cmdl->next && !((t_node *)tab->cmdl->next->content)->infile)// ouf?  next t->infile
 		((t_node *)tab->cmdl->next->content)->infile = fd[READ_END];
 	else
 		close(fd[READ_END]);
-    close(fd[WRITE_END]);
 	// printf("DEBUG: __INTO__ execmd >> infile[%d] + outfile[%d] \n\n", n->infile, n->outfile);
 	if (((t_node *)tab->cmdl->content)->infile > 2)
 		close(((t_node *)tab->cmdl->content)->infile);

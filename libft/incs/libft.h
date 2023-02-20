@@ -120,6 +120,7 @@ char		**ft_lst_mx(t_list *lst);
 char		*ft_char_str(char c);
 char		**ft_mx_dup(char **mx);
 char		**ft_mx_ext(char **stk, char *str);
+void		ft_mx_fd(char **s, int fd);
 char		*ft_mx_unx(char *full, char **tab, int len);
 char		**ft_mx_rpl(char ***full, char **tab, int n);
 int			ft_mx_len(char **mx);

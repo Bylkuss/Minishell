@@ -51,10 +51,7 @@ static t_table	*redir_type(t_table *tab)
                 tab->node->id++;  
             }
             if (tab->node->etype > 1)
-            {
                 tab->refs[tab->node->id] = id;
-                printf  ("DEBUG: REDIR_nods[%d] eType[%d]== refs(pos[%d])\n", tab->node->id, tab->node->etype, tab->refs[tab->node->id]);
-            }
         }
     }
     if (  tab->refs[tab->node->id] < 1 && tab->node->etype == -1)

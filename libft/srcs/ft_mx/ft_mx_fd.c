@@ -6,7 +6,7 @@ void	ft_mx_fd(char **s, int fd)
 
 	i = 0;
 	if (!s)
-		return ;
+		return;
 	while(s && (*s[i] != '\0'))
 	{
 		write (fd, s, ft_strlen(s[i]));
