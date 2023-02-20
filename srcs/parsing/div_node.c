@@ -167,9 +167,7 @@ t_list	*get_node(t_table *tab, t_node *node, int i)
 {
 	t_list 	*cmdl[2];
 	char	**tmp;
-	char	**tkn;
-	// t_node *new;
-	// int nod_len;	
+	char	**tkn;	
 
 	tkn = ft_mx_dup(tab->token);
 	cmdl[0] = NULL;
@@ -199,7 +197,6 @@ t_list	*get_node(t_table *tab, t_node *node, int i)
 	return(cmdl[0]);
 }
 
-// node_fill : use tab->cmds[] to stack node... former tab->token[]
 static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 {	
 	int i;	//token pos
@@ -211,7 +208,6 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 	i = 0;
 	tab->node->id = 1;
 	printf ("DEBUG:: start _nod_fill NODS = [ %d ]\n", tab->nods);
-	// printf("DEBUG::: TEST node >> infile[%d] + outfile[%d] \n", node->infile, node->outfile);
 	while (tab->node->id <= tab->nods && i < ft_mx_len(tab->token))
 	{
 		id = tab->node->id;
@@ -222,14 +218,11 @@ static t_table *node_fill(t_table *tab, int len, int strt, char** tkn)
 		{
 			node->nod_len = tab->refs[0] - 1;
 			printf("DEBUG: TEST:0:  node_fill nod_len[%d] i[%d] \n", node->nod_len, i);
-			// break;
 		}
 		// printf("\nDEBUG: TEST >> id[%d] :: token->nod_len{%s} \n", id, tab->token[node->nod_len]);
 		tab->node->etype = set_etype(tab, tab->token[node->nod_len]);
-		printf("\nDEBUG:::	TEST >> node->id[%d] :: etype_ _%d_ _  \n", tab->node->id, node->etype);
-		printf("DEBUG::	:: TEST => nod_len(%d) i=%d\n", node->nod_len, i);
-
-
+			printf("\nDEBUG:::	TEST >> node->id[%d] :: etype_ _%d_ _  \n", tab->node->id, node->etype);
+			printf("DEBUG::	:: TEST => nod_len(%d) i=%d\n", node->nod_len, i);
 		while (i < node->nod_len)
 		{
 			// if (i == tab->refs[node->id])
@@ -274,26 +267,22 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	int 	i;		// pos to start
 
 	i = 0;
-	// tab->node = t_node(tab);
+		// tab->node = t_node(tab);
 	node = tab->node;	
 	if (node->id <= tab->nods)// start at zero < node->id start at 1
 	{
 		node->nod_len = tab->refs[node->id];
-			// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
-			// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
-		// printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
-		// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
+				// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
+				// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
+			// printf("DEBUG: div_ node->nod_len (%d) \n", node->nod_len);
+			// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
 		tkn = (char **)malloc(sizeof(char *) * (tab->nods)); 
 			if (!(tkn))
 				return (NULL);
 		tab = node_fill(tab, node->nod_len, node->nod_len, tkn);	
 	}	
-
-	// tab->node = node;
-	printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
+		printf("DEBUG: div_node:: end... \t... go for get_node \n\n");
 	tab->cmdl = get_node(tab, node, -1);
-
-//    printf("DEBUG: TEST command >> {%s}  \n", (t_node *)path);
 	return (tab);    
 }
   //   ls -l -t -a | head -2 | wc -c >> out.txt   

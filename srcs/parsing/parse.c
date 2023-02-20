@@ -13,15 +13,12 @@
 #include "../../includes/minishell.h"
 
 extern int g_status;
-/*
-* etype spot etype index (nod_len, nod_num)
-*/
+
 static t_table	*redir_type(t_table *tab) 
 {
     char    **cmd;
     int     n;
     int     id;
-    // int     *ref;
 
     id = -1;
     cmd = ft_mx_dup(tab->token); 
@@ -78,74 +75,49 @@ static t_table *split_all(t_table *tab)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    // tab->node->id = 1; 
-    
     printf("DEBUG/: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
-        // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-        // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-        //
-        //
     tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
-        // printf("DEBUG:: split ref[id:%d] OF ref{value:%s} << node...\n", tab->node->id, tab->token[tab->refs[tab->node->id]]);
+    // printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
     tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
     while (tab->token[++i] && i <= tab->node->nod_len)       
     {
         //expand_var ...   meta-char- safe-check execeptions 
         tab->token[i] = expand_vars(tab->token[i], -1, quotes, tab);  
         //expand_path ...  cmd_chks legit!      
-        tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));
-       
+        tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
     }
-    
-            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
-            // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
     return (tab); 
 }
+            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
+            // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
 
 
 static t_table  *parse_args(t_table *tab)
 {
 
     int is_exit;
-    t_node *node;
+    // t_node *node;
     int id;
 
     is_exit = 0;
     tab->node = malloc(sizeof(t_node));
-    // node = tab->node;
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
         // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-    tab->node->id = 1;
+        // tab->node->id = 1;
     id = ft_lstsize(tab->cmdl);
     printf("DEBUG:: ready to go cmdl = %d ::\n", id);
-
-    ///
-    //  add get_node 2.0 ... list maker ...
-    ///
-            // while (tab->node->id <= tab->nods)// <= tab->nod_num)
-            // {
-                // tab->node = get_node(tab, tab->node, tab->node->id);
-    
     g_status = builtins(tab, tab->cmdl, &is_exit);
     while (id-- > 0)
         waitpid(-1, &g_status, 0);
-    
     if (!is_exit && g_status == 13)
         g_status = 0;
     if (g_status > 255)
         g_status = g_status / 255;
-        // tab->node->id++; 
-    // }
-    // tab->node = node;
-    // tab->nods = 0;
     if (tab && is_exit)
     {
         printf("yo_ empty_ me_ g_status = %d__\n", g_status);
         ft_lstclear(&tab->cmdl,free_cont);
-        // ft_mx_free(&tab->node->cmd);
-        // free_cont(tab->node);
         ft_mx_free(tab->cmds);
         ft_mx_free(&tab->token);
         return (NULL);
