@@ -133,13 +133,13 @@ static t_node	*get_params(t_table *tab,t_node *node, char **a, int *i)
 		etype = set_etype(tab, a[*i]);
 		// printf("DEBUG:: ID:%d :: eType:%d \n", *i, etype);
 		if (etype == 3)
-			node = get_outfile2(node, tab, a, i);
+			node = get_outfile2(node, a, i);
 		else if (etype == 2)
-			node = get_outfile1(node, tab, a, i);
+			node = get_outfile1(node, a, i);
 		else if (etype == 5)
-			node = get_infile2(node, tab, a, i);
+			node = get_infile2(node, a, i);
 		else if (etype == 4)
-			node = get_infile1(node, tab, a, i);
+			node = get_infile1(node, a, i);
 		else if (etype != 1)
 			node->cmd = ft_mx_ext(node->cmd, a[*i]);			
 		else
@@ -244,6 +244,7 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 
 	i = 0;
 	node = tab->node;	
+		printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
 	if (node->id <= tab->nods)// start at zero < node->id start at 1
 	{
 		node->nod_len = tab->refs[tab->node->id];
@@ -257,7 +258,6 @@ t_table	 *div_node(t_table *tab, char *set) // call by parse>split_all
 	tab->cmdl = get_node(tab, node, -1);
 	return (tab);    
 				// node->nod_len = node_count(tab->token, set, 0);	// how many token into this node
-				// printf("DEBUG: div_ nods = %d :: tkn = %d ::\n", tab->nods, tab->refs[0]);
 			// printf("DEBUG: div_ tab->node->[id:%d] [ref:%d] \n", node->id, tab->refs[node->id]);
 }
   //   ls -l -t -a | head -2 | wc -c >> out.txt   
