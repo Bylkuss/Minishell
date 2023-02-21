@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 12:47:36 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:39:50 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 }
 
 // t_node	*get_outfile1(t_node *t, int i)
-t_node	*get_outfile1(t_node *t, t_table *tab, char **a,int *i)
+t_node	*get_outfile1(t_node *t, char **a,int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -69,7 +69,7 @@ t_node	*get_outfile1(t_node *t, t_table *tab, char **a,int *i)
 	return (t);
 }
 // t_node	*get_outfile2(t_node *t, int i)
-t_node	*get_outfile2(t_node *t, t_table *tab, char **a, int *i)
+t_node	*get_outfile2(t_node *t, char **a, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -96,7 +96,7 @@ t_node	*get_outfile2(t_node *t, t_table *tab, char **a, int *i)
 }
 
 // t_node	*get_infile1(t_node *t, int i)
-t_node	*get_infile1(t_node *t, t_table *tab, char **a, int *i)
+t_node	*get_infile1(t_node *t, char **a, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -105,7 +105,7 @@ t_node	*get_infile1(t_node *t, t_table *tab, char **a, int *i)
 	flags[1] = 0;
 	nl = "minishell: syntax error -1- near unexpected node `newline'";
 	(*i)++;
-	if (!a[*i])
+	if (a[*i])
 		t->infile = get_fd(t->infile, a[*i], flags);
 	printf("DEBUG:: infile_1  fd = [%d] t->infile\n", t->infile);
 	if (!a[*i] || t->infile == -1)
@@ -124,7 +124,7 @@ t_node	*get_infile1(t_node *t, t_table *tab, char **a, int *i)
 }
 
 // t_node	*get_infile2(t_node *t, int i)
-t_node	*get_infile2(t_node *t, t_table *tab, char **a, int *i)
+t_node	*get_infile2(t_node *t,  char **a, int *i)
 {
 	char	*aux[2];
 	char	*nl;

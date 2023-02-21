@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 12:43:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/21 13:45:42 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ static t_table  *parse_args(t_table *tab)
     tab->node = malloc(sizeof(t_node));
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
-        // printf("DEBUG:: parse: t->id[%d] OF [%d] << node...\n", node->id, tab->nods);
-        // tab->node->id = 1;
     id = ft_lstsize(tab->cmdl);
     printf("DEBUG:: ready to go cmdl = %d ::\n", id);
     g_status = builtins(tab, tab->cmdl, &is_exit);
