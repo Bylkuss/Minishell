@@ -14,7 +14,7 @@
 
 extern int g_status;
 
-// static t_table	*redir_type(t_table *tab) 
+// static t_table	*redir_type(t_table tab) 
     // {
     //     char    **cmd;
     //     int     n;
@@ -81,7 +81,6 @@ static char **split_all(t_table *tab, char **aux)
         // printf("DEBUG:: pre_redir split_all token_len [%d]\n", ft_mx_len(tab->token));
         // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
         // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-        // printf("DEBUG:: post_alloc split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
     while (aux && aux[++i])// && i <= tab->node->nod_len)       
     {
         aux[i] = expand_vars(aux[i], -1, quotes, tab);  
@@ -91,10 +90,11 @@ static char **split_all(t_table *tab, char **aux)
             // tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         aux[i] = expand_path(aux[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         sub = div_str(aux[i], "<|>");  // node_builder:: redir//alloc
+        printf("DEBUG:: inner split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, tab->token);	
         ft_mx_rpl(&aux, sub, i);
-        printf("DEBUG:: ... split_all ... end\n");
         i +=  ft_mx_len(sub) - 1;
         ft_mx_free(&sub);
+        printf("DEBUG:: ... split_all ... end\n");
             // printf("DEBUG:  SPLIT_AUX    __{%s}__ \n", aux[i]);        
     }
     return (aux); 
@@ -127,7 +127,7 @@ static void *parse_args(t_table *tab, char **aux)
     {
         printf("yo_ empty_ me_ g_status = %d__\n", g_status);
         ft_lstclear(&tab->cmdl, free_cont);
-        ft_mx_free(tab->cmds);
+        // ft_mx_free(tab->cmds);
         // ft_mx_free(&tab->token);
         return (NULL);
     }

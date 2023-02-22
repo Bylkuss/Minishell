@@ -199,7 +199,7 @@ static char **token_fill(char **aux, const char *s, char *set, int i[2])
     return (aux);
 }
 
-char **init_split(char *input, char *set)//, t_table *tab)
+char **init_split(char *input, char *set)//, t_table tab)
 {
     char    **aux;
     int     n;

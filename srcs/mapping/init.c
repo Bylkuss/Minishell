@@ -86,43 +86,43 @@ char	*q_trim(char const *s1, int squote, int dquote)
     //     return (node);   
   // }
 
-t_table *init_tab(t_table *tab)
-{
-    tab = malloc(sizeof(t_table ));
-    tab->envp = NULL;
-    tab->cmds = NULL ;   
-    tab->cmdl = NULL;
-    tab->token = NULL;
-    tab->node = NULL;
-    *tab->refs  = 0;
-    tab->nods = 1;
-    (void) tab->pid;
-    return (tab);
-}
+// t_table *init_tab(t_table tab)
+// {
+//     tab = malloc(sizeof(t_table ));
+//     tab->envp = NULL;
+//     tab->cmds = NULL ;   
+//     tab->cmdl = NULL;
+//     tab->token = NULL;
+//     tab->node = NULL;
+//     tab->refs  = 0;
+//     tab->nods = 1;
+//     (void) tab->pid;
+//     return (tab);
+// }
 
-t_table 	*node_alloc(t_table *tab)	/* call by parse_  <<(node_ized)	*/
-{	
-	int nod_len;		// array width
+// t_table 	*node_alloc(t_table tab)	/* call by parse_  <<(node_ized)	*/
+// {	
+// 	int nod_len;		// array width
 
-	tab->node->id = 1;
-    printf("DEBUG:: tab->nods = %d\n", tab->nods);
-	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
-    if (tab->node->id <tab->nods)
-    {
-        while(tab->node->id <= tab->nods) //id tab->nods  
-        {		
-            nod_len = tab->refs[tab->node->id];	
-            tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
-            tab->node->id++;
-        }		
-    }
-    else if (tab->node->id == tab->nods)	
-    {
-        nod_len = ft_mx_len(tab->token);  // actual_len == (etype[pos] - old_len)
-        tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
-    }
-	return (tab);
-}
+// 	tab->node->id = 1;
+//     printf("DEBUG:: tab->nods = %d\n", tab->nods);
+// 	tab->cmds = (char ***)malloc(sizeof(char **) * tab->nods);
+//     if (tab->node->id <tab->nods)
+//     {
+//         while(tab->node->id <= tab->nods) //id tab->nods  
+//         {		
+//             nod_len = tab->refs[tab->node->id];	
+//             tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
+//             tab->node->id++;
+//         }		
+//     }
+//     else if (tab->node->id == tab->nods)	
+//     {
+//         nod_len = ft_mx_len(tab->token);  // actual_len == (etype[pos] - old_len)
+//         tab->cmds[tab->node->id] = (char **)malloc(sizeof(char *) * nod_len);
+//     }
+// 	return (tab);
+// }
 
 // /*
 // main :  init_prompt => get user info to be stock into *p {struct t_dot}   

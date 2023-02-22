@@ -35,7 +35,7 @@ static void getmypid(t_table *tab)
     tab->pid = pid - 1; 
 }
 
-static t_table init_vars(t_table *tab, char *str, char **av)
+static t_table init_vars(t_table tab, char *str, char **av)
 {
     char *num;
 
@@ -62,15 +62,15 @@ static t_table init_vars(t_table *tab, char *str, char **av)
     return (tab); 
 }
 
-static t_table *init_prompt(char **av, char **envp) 
+static t_table init_prompt(char **av, char **envp) 
 {
-        t_table *tab;      
+        t_table tab;      
         char *str;
 
-        // tab = malloc(sizeof(t_table ));
         // tab = init_tab(tab);
+        // tab = malloc(sizeof(t_table ));
         str = NULL;
-        tab->cmdl = NULL;
+        tab.cmdl = NULL;
         tab.envp = ft_mx_dup(envp); //envp stk ref
         g_status = 0;
         getmypid(&tab);                          
@@ -80,9 +80,9 @@ static t_table *init_prompt(char **av, char **envp)
 
 int main(int ac, char **av, char **envp) 
 {
-    char *str;
-    char *input;
     t_table tab;
+    char    *str;
+    char    *input;
 
     tab = init_prompt(av, envp);    
     while (av && ac) 
@@ -95,7 +95,7 @@ int main(int ac, char **av, char **envp)
         else
             input = readline("guest@minishell $ ");        
         free(str);
-        if (!check_args(input, tab))
+        if (!check_args(input, &tab))
             break;
     }
     exit(g_status); 
