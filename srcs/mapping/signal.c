@@ -21,7 +21,7 @@ void    handle_sigint(int sig)
     {
         g_status = 130;
         ioctl(STDIN_FILENO, TIOCSTI, "\n");                           
-        // rl_replace_line("", 0);                                    
+        rl_replace_line("", 0);                                    
         rl_on_new_line();                                          
     } 
 }
@@ -34,7 +34,7 @@ char    *ms_getenv(char *var, char **envp, int n) // get => search.info ret.(ptr
     i = 0;
     if (n < 0)
         n = ft_strlen(var);
-    while (!ft_strchr(var, '-') && envp && envp[i])
+    while (!ft_strchr(var, '=') && envp && envp[i])
     {
         n2 = n;
         if (n2 < ft_strchr_i(envp[i], '='))                         

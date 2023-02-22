@@ -1,0 +1,72 @@
+DEBUG:@@ chld_bltn :: t->full {:ls:}
+DEBUG:@@ chld_bltn :: t->path {:/usr/bin/ls:}
+DEBUG:@@ chld_bltn :: cmd_len[1]
+includes
+libft
+Makefile
+minishell
+objs
+popov.txt
+Random
+readline
+README.md
+srcs
+test
+toto.txt
+DEBUG:@@ chld_bltn :: cmd_len[2]
+total 680
+drwxr-xr-x@ 18 gehebert  2021_quebec     612 Feb  6 09:51 .
+-rwxr-xr-x   1 gehebert  2021_quebec  311304 Feb  6 09:51 minishell
+drwxr-xr-x   7 gehebert  2021_quebec     238 Feb  6 09:31 libft
+drwxr-xr-x   7 gehebert  2021_quebec     238 Feb  6 09:29 objs
+drwxr-xr-x  15 gehebert  2021_quebec     510 Feb  6 09:29 .git
+-rw-r--r--   1 gehebert  2021_quebec      55 Feb  6 07:39 gg
+-rw-r--r--   1 gehebert  2021_quebec      55 Feb  6 07:39 tt
+-rw-r--r--   1 gehebert  2021_quebec    1250 Feb  6 07:38 Makefile
+-rw-r--r--   1 gehebert  2021_quebec     778 Feb  6 07:38 README.md
+drwxr-xr-x   4 gehebert  2021_quebec     136 Feb  6 07:38 includes
+-rw-r--r--   1 gehebert  2021_quebec     243 Feb  6 07:38 popov.txt
+drwxr-xr-x  13 gehebert  2021_quebec     442 Jan 30 20:58 test
+-rw-r--r--@  1 gehebert  2021_quebec    6148 Jan 18 20:52 .DS_Store
+drwxr-xr-x   3 gehebert  2021_quebec     102 Jan 18 20:47 Random
+drwxr-xr-x   6 gehebert  2021_quebec     204 Jan 18 20:47 readline
+drwxr-xr-x   8 gehebert  2021_quebec     272 Jan 18 20:47 srcs
+-rw-r--r--   1 gehebert  2021_quebec      47 Jan 18 20:47 .gitignore
+drwxrwxrwx   6 gehebert  2021_quebec     204 Jan  5 09:59 ..
+total 664
+drwxr-xr-x@ 16 gehebert  2021_quebec     544 Feb  6 21:45 .
+-rwxr-xr-x   1 gehebert  2021_quebec  311568 Feb  6 21:45 minishell
+drwxr-xr-x  15 gehebert  2021_quebec     510 Feb  6 20:50 .git
+drwxr-xr-x   8 gehebert  2021_quebec     272 Feb  6 20:02 libft
+drwxr-xr-x   7 gehebert  2021_quebec     238 Feb  6 20:02 objs
+drwxr-xr-x   4 gehebert  2021_quebec     136 Feb  6 18:21 Random
+drwxr-xr-x   4 gehebert  2021_quebec     136 Feb  6 18:21 includes
+-rw-r--r--   1 gehebert  2021_quebec    1419 Feb  6 12:49 popov.txt
+-rw-r--r--   1 gehebert  2021_quebec    1250 Feb  6 07:38 Makefile
+-rw-r--r--   1 gehebert  2021_quebec     778 Feb  6 07:38 README.md
+drwxr-xr-x  13 gehebert  2021_quebec     442 Jan 30 20:58 test
+-rw-r--r--@  1 gehebert  2021_quebec    6148 Jan 18 20:52 .DS_Store
+drwxr-xr-x   6 gehebert  2021_quebec     204 Jan 18 20:47 readline
+drwxr-xr-x   8 gehebert  2021_quebec     272 Jan 18 20:47 srcs
+-rw-r--r--   1 gehebert  2021_quebec      47 Jan 18 20:47 .gitignore
+drwxrwxrwx   6 gehebert  2021_quebec     204 Jan  5 09:59 ..
+total 672
+drwxr-xr-x@ 18 gehebert  2021_quebec     612 Feb  7 01:11 .
+-rwxr-xr-x   1 gehebert  2021_quebec  311568 Feb  7 01:11 minishell
+drwxr-xr-x  15 gehebert  2021_quebec     510 Feb  7 00:37 .git
+drwxr-xr-x   3 gehebert  2021_quebec     102 Feb  6 22:14 minishell.dSYM
+-rw-r--r--   1 gehebert  2021_quebec       9 Feb  6 21:54 out.txt
+-rw-r--r--   1 gehebert  2021_quebec    2473 Feb  6 21:46 popov.txt
+drwxr-xr-x   8 gehebert  2021_quebec     272 Feb  6 20:02 libft
+drwxr-xr-x   7 gehebert  2021_quebec     238 Feb  6 20:02 objs
+drwxr-xr-x   4 gehebert  2021_quebec     136 Feb  6 18:21 Random
+drwxr-xr-x   4 gehebert  2021_quebec     136 Feb  6 18:21 includes
+-rw-r--r--   1 gehebert  2021_quebec    1250 Feb  6 07:38 Makefile
+-rw-r--r--   1 gehebert  2021_quebec     778 Feb  6 07:38 README.md
+drwxr-xr-x  13 gehebert  2021_quebec     442 Jan 30 20:58 test
+-rw-r--r--@  1 gehebert  2021_quebec    6148 Jan 18 20:52 .DS_Store
+drwxr-xr-x   6 gehebert  2021_quebec     204 Jan 18 20:47 readline
+drwxr-xr-x   8 gehebert  2021_quebec     272 Jan 18 20:47 srcs
+-rw-r--r--   1 gehebert  2021_quebec      47 Jan 18 20:47 .gitignore
+drwxrwxrwx   6 gehebert  2021_quebec     204 Jan  5 09:59 ..
+[?2004h[0;95mguest@minishell[0;94m-/Documents/GitHub/Minishell [0;94m$ [0;39m^Z[?2004l[?2004h[0;95mguest@minishell[0;94m-/Documents/GitHub/Minishell [0;94m$ [0;39m^Z[?2004l

@@ -6,12 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 09:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/04 09:50:10 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/01/06 06:10:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+//unify path+cmd
 char	*path_join(char *path, char *bin)
 {
 	char	*joined;
@@ -31,6 +32,7 @@ char	*path_join(char *path, char *bin)
 	return (joined);
 }
 
+//cmp 'n ret(0) if ==
 int	str_ncmp(char *str1, char *str2, int n)
 {
 	while (--n > 0 && *str1 && *str2 && *str1 == *str2)
@@ -41,6 +43,7 @@ int	str_ncmp(char *str1, char *str2, int n)
 	return (*str2 - *str1);
 }
 
+//ret index
 int	str_ichr(char *str, char c)
 {
 	int	i;
@@ -53,6 +56,7 @@ int	str_ichr(char *str, char c)
 	return (-1);
 }
 
+//dup[0] + len(n)
 char	*str_ndup(char *str, unsigned int n)
 {
 	char			*duped;
