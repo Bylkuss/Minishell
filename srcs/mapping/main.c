@@ -66,8 +66,8 @@ static t_table *init_prompt(char **av, char **envp)
         t_table *tab;      
         char *str;
 
-        tab = malloc(sizeof(t_table ));
-        init_tab(tab);
+        // tab = malloc(sizeof(t_table ));
+        tab = init_tab(tab);
         str = NULL;
         tab->envp = ft_mx_dup(envp); //envp stk ref
         g_status = 0;

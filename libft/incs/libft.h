@@ -127,6 +127,7 @@ int			ft_mx_len(char **mx);
 void		ft_mx_free(char ***mx);
 int			ft_strchr_i(const char *s, int c);
 int			ft_strchar_i(const char *s, char *set); 
+int			ft_atoi2(const char *nptr, long *nbr);
 
 //int		split_av(char ***str, char **av, char *c);
 

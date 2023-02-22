@@ -112,8 +112,7 @@ void *execmd(t_table *tab, t_list *cmd)
     int fd[2];
 	char *path;
 	
-	if (tab->node->path)
-		tab->node->path = NULL;
+	
     get_cmd(tab, cmd, NULL, NULL);
 	printf("DEBUG: TEST execmd \n");	
     if (pipe(fd) == -1)

@@ -90,7 +90,8 @@ struct		s_table 	/*	Main Struct  tab->*/
 // int 	   				builtins(t_table *tab, t_node *node, int *is_exit);
 int					    builtins(t_table *tab, t_list *cmd, int *is_exit);
 int						is_builtin(t_node *t);
-void					exit_builtin(char **cmd);
+// int					exit_builtin(char **cmd);
+int						ms_exit(t_list *cmdl, int *is_exit);
 // int					    exit_builtin(t_table *tab, int *is_exit);
 	// void    			builtins_handler(char *input, char **envp);
 	// int					builtins(t_table *tab, int *is_exit);
@@ -109,8 +110,9 @@ char					**edit_env(char **envp, int pos);
 //main
 char					*getprompt(t_table *tab);
 //mapping
-t_node					*init_node(void);
+// t_node					*init_node(void);
 // t_node					*init_node(t_table *tab);
+char					*q_trim(char const *s1, int squote, int dquote);
 t_table					*init_tab(t_table *tab);
 t_table					*node_alloc(t_table *tab);
 //signal.c
@@ -122,9 +124,11 @@ void 					*check_args(char *out, t_table *tab);
 // init_split
 char					**init_split(char *input, char *set, t_table *tab);
 // div_node
-int						set_etype(t_table *tab, char *etype);
-t_table					*div_node(t_table *tab, char *set);
-t_list					*get_node(t_table *tab, t_node *node, int id);
+// int						set_etype(t_table *tab, char *etype);
+// t_list					*get_node(t_table *tab, t_node *node, int id);
+t_list					*get_node(char **tkn, int i);
+// t_table					*div_node(t_table *tab, char *set);
+char					**div_str(const char *s, char *set);
 
 //expand
 char			*expand_vars(char *str, int i, int quotes[2], t_table *tab);
