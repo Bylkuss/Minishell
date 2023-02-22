@@ -79,7 +79,7 @@ static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 t_list	*get_node(char **tkn, int i)  
 {
 	t_list 	*cmdl[2];
-	char	**tmp[1];
+	char	**tmp[2];
 	
 	cmdl[0] = NULL;
 	tmp[1] = strtrim(tkn);
