@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/05 05:46:07 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/21 23:45:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static char *get_home(t_table *tab)
 
         pwd = getcwd(NULL, 0);                                        
         if (!pwd)
-            pwd = ft_strdup("@ ");
+            pwd = ft_strdup("0 ");
         home = ms_getenv("HOME", tab->envp, 4);
         if (home && home[0] && ft_strnstr(pwd, home,ft_strlen(pwd)))  
         {
             tmp = pwd;
-            pwd = ft_strjoin("-", &pwd[ft_strlen(home)]);
+            pwd = ft_strjoin("~", &pwd[ft_strlen(home)]);
             free(tmp);
         }
         free(home);

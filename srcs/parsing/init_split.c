@@ -131,6 +131,7 @@ static int token_count(const char *s, char *c, int i[2]) //
     {
         if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
         {
+            i[1]++;
             while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
             {
                 if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
@@ -142,18 +143,19 @@ static int token_count(const char *s, char *c, int i[2]) //
             if (q[0])
                 return (-1);
         }
-        else if (ft_strchr(c, s[i[0]])) 
-        {
-            while (ft_strchr(c, s[i[0]]))
-                i[0]++;
-            i[1]++;
-        }
+        else
+            i[0]++;
+        //  if (ft_strchr(c, s[i[0]])) 
+        // {
+        //     while (ft_strchr(c, s[i[0]]))
+        //     i[1]++;
+        // }
     }
     // printf("DEBUG: token_count: (n = %d)\n", i[1]);
-    return (i[1] + 1);//+ 1); // start[0] +1 && invisible etype +1
+    return (i[1] );//+ 1);//+ 1); // start[0] +1 && invisible etype +1
 }
 
-static char **token_fill(t_table *tab, const char *s, char *set, int i[3]) 
+static char **token_fill(char **aux, const char *s, char *set, int i[2]) 
 {
     int     n;      //token id
     int     len;
@@ -163,40 +165,43 @@ static char **token_fill(t_table *tab, const char *s, char *set, int i[3])
     q[0] = 0;
     q[1] = 0;
     len = ft_strlen(s);
-    i[2] = -1;
-    while (s[i[0]] && i[0] < len)
+    
+    while (s[i[0]])// && i[0] < len)
     {                   //sans espace ...
-        if(!ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  //  if not spc 
-        {
-            i[2] = i[0]; // token start = i[2]
-            while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-            {                 
+        while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  //  if not spc 
+            i[0]++;
+        i[1] = i[0]; // token start = i[2]
+        while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+        {                 
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore simpl_q
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
                 i[0]++; // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
-            }           // ... spaceless token ++
-            i[1] = i[0]; 
-        }              // str avec espace
-        if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  // ++ until spc found
-        {
-            i[1] = i[0]++; 
-            while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
-                i[0]++;
-        }
-        if (i[0] <= len && i[2] > -1) // still left && pass thru "nospaceland"
-        {
-            tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
-            // tab->token = ft_mx_ext(tab->token, tab->token[n]);  
-            printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);        
-            n++;
-        }           
-            // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[n-1]);
+        }           // ... spaceless token ++
+        if (i[1] >=len) 
+            aux[i[2]++] = "\0";
+        else
+            aux[i[2]++] = ft_substr(s, i[1], (i[0] - i[1]));
+        // if(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  // ++ until spc found
+        // {
+        //     i[1] = i[0]++; 
+        //     while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+        //         i[0]++;
+        // }
+        // if (i[0] <= len && i[2] > -1) // still left && pass thru "nospaceland"
+        // {
+        //     tab->token[n] = ft_substr((char *)s, i[2], (i[1] - i[2]));
+        //     // tab->token = ft_mx_ext(tab->token, tab->token[n]);  
+        //     printf("tkn_fll[%d] => ::%s::\n", n, tab->token[n]);        
+        //     n++;
+        // }           
+        //     // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[n-1]);
     }
-    return (tab->token);
+    return (aux);
 }
 
-char **init_split(char *input, char *set, t_table *tab)
+char **init_split(char *input, char *set)//, t_table *tab)
 {
+    char    **aux;
     int     n;
     int     i[3];       // *arr pos: start, sub-end, end
     int     count[2];   // str sub len [0:start/1:end]
@@ -208,21 +213,22 @@ char **init_split(char *input, char *set, t_table *tab)
     count[1] = 0;
     if (!input)
         return (NULL);    
-    input = type_check(input, "<|>");   // padding etype count 
+    // input = type_check(input, "<|>");   // padding etype count 
     // printf("DEBUG:: Init_token[%d] ::\n", ft_mx_len(tab->token));
     // printf("DEBUG: pass_to_init :: %s \n", input);
 
     n = token_count(input, set, count);  // word_count >.<
     if (n == -1)
         return (NULL);   
-    tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
-    if (!tab->token)
+    // tab->token = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
+    aux = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
+    if (!aux)
         return (NULL);
-    tab->token = token_fill(tab, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    printf("DEBUG:: Filled_token[%d] ::\n", ft_mx_len(tab->token));
+    aux = token_fill(aux, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    // printf("DEBUG:: Filled_token[%d] ::\n", ft_mx_len(tab->token));
     // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[ft_mx_len(tab->token)-1]);
     // printf("tkn_fll[%d] => ::%s::\n", 1, tab->token[1]);
-    return (tab->token);   // return clean token space-split args
+    return (aux);   // return clean token space-split args
 }
 
 /*

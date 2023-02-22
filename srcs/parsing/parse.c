@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 13:45:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/21 23:25:05 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void  *check_args(char *input, t_table *tab)    // main deploy >parse
     if (input[0] != '\0')
         add_history(input);
     // tab->token = init_split(input, " ", tab);   // input* >>> tab->token**
-    aux = init_split(input, " ", tab);   // input* >>> tab->token**
+    aux = init_split(input, " ");   // input* >>> tab->token**
     free(input);
     // if (!tab->token )
     if (!aux) 
