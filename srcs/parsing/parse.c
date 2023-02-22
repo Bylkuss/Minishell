@@ -14,95 +14,104 @@
 
 extern int g_status;
 
-static t_table	*redir_type(t_table *tab) 
-{
-    char    **cmd;
-    int     n;
-    int     id;
+// static t_table	*redir_type(t_table *tab) 
+    // {
+    //     char    **cmd;
+    //     int     n;
+    //     int     id;
 
-    id = -1;
-    cmd = ft_mx_dup(tab->token); 
-    n = ft_mx_len(cmd);
-    tab->nods = 1;
-    tab->node->id = 1;
-    tab->refs[tab->node->id] = 0; 
-    tab->refs[0] = n ;
+    //     id = -1;
+    //     n = ft_mx_len(tab->token);
+    //     printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", tab->token[0] , n);
+    //     cmd = ft_mx_dup(tab->token); 
+    //     tab->nods = 1;
+    //     tab->node->id = 1;
+    //     tab->refs[tab->node->id] = 0; 
+    //     tab->refs[0] = n ;
+    //     tab->node->etype = -1;
+    //     if (n > 1)
+    //     {
+    //         while (++id < (n - 1))
+    //         {
+    //             tab->nods = tab->node->id;
+    //             tab->node->etype = -1;
+    //             if (cmd[id] && (id + 1) < (n - 1))
+    //             {
+    //                 if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
+    //                     tab->node->etype = 5;
+    //                 else if (*cmd[id] == '<')
+    //                     tab->node->etype = 4;
+    //                 else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
+    //                     tab->node->etype = 3;
+    //                 else if (*cmd[id] == '>')
+    //                     tab->node->etype = 2;
+    //                 else if (*cmd[id] == '|')
+    //                 {
+    //                     tab->node->etype = 1;
+    //                     tab->refs[tab->node->id] = id;                
+    //                     printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
+    //                     tab->node->id++;  
+    //                 }
+    //                 if (tab->node->etype > 1)
+    //                     tab->refs[tab->node->id] = id;
+    //             }
+    //         }
+    //     }
+    //     if (  tab->refs[tab->node->id] < 1 && tab->node->etype == -1)
+    //     {
+    //         if (id < n)
+    //             id = 0;
+    //         tab->refs[tab->node->id] = id;
+    //         tab->node->etype = 0;
+    //     }
+    //     printf  ("DEBUG: REDIR_ Etype[%d]== ETYPE(pos[%d])\n", tab->node->etype, tab->refs[tab->node->id]);
+    //     return (tab);
+// }
 
-    tab->node->etype = -1;
-    if (n > 1)
-    {
-        while (++id < (n - 1))
-        {
-            tab->nods = tab->node->id;
-            tab->node->etype = -1;
-            if (cmd[id] && (id + 1) < (n - 1))
-            {
-                if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
-                    tab->node->etype = 5;
-                else if (*cmd[id] == '<')
-                    tab->node->etype = 4;
-                else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
-                    tab->node->etype = 3;
-                else if (*cmd[id] == '>')
-                    tab->node->etype = 2;
-                else if (*cmd[id] == '|')
-                {
-                    tab->node->etype = 1;
-                    tab->refs[tab->node->id] = id;                
-                    printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
-                    tab->node->id++;  
-                }
-                if (tab->node->etype > 1)
-                    tab->refs[tab->node->id] = id;
-            }
-        }
-    }
-    if (  tab->refs[tab->node->id] < 1 && tab->node->etype == -1)
-    {
-        if (id < n)
-            id = 0;
-        tab->refs[tab->node->id] = id;
-        tab->node->etype = 0;
-    }
-    printf  ("DEBUG: REDIR_ Etype[%d]== ETYPE(pos[%d])\n", tab->node->etype, tab->refs[tab->node->id]);
-    return (tab);
-}
-
-static t_table *split_all(t_table *tab)  
+static char **split_all(t_table *tab, char **aux)  
 {
     int     i;
     int     quotes[2];
+    char    **sub;
 
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-    tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
-    printf("DEBUG:: split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
-    while (tab->token[++i] && i <= tab->node->nod_len)       
+        // printf("DEBUG:: pre_redir split_all token_len [%d]\n", ft_mx_len(tab->token));
+        // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
+        // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+        // printf("DEBUG:: post_alloc split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, *tab->token);	
+    while (aux && aux[++i])// && i <= tab->node->nod_len)       
     {
-        //expand_var ...   meta-char- safe-check execeptions 
-        tab->token[i] = expand_vars(tab->token[i], -1, quotes, tab);  
-        //expand_path ...  cmd_chks legit!      
-        tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
+        aux[i] = expand_vars(aux[i], -1, quotes, tab);  
+            // //expand_var ...   meta-char- safe-check execeptions 
+            // tab->token[i] = expand_vars(tab->token[i], -1, quotes, tab);  
+            // //expand_path ...  cmd_chks legit!      
+            // tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
+        aux[i] = expand_path(aux[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
+        sub = div_str(aux[i], "<|>");  // node_builder:: redir//alloc
+        ft_mx_rpl(&aux, sub, i);
+        i +=  ft_mx_len(sub) - 1;
+        ft_mx_free(&sub);
+            printf("DEBUG:  SPLIT_AUX    __{%s}__ \n", aux[i]);        
     }
-    // maybe div_ here instead ... part by  part ... and free asap
-    return (tab); 
+    return (aux); 
 }
+    // maybe div_ here instead ... part by  part ... and free asap
         // printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
-            // printf("DEBUG:  nods    __%d__ ...\n", tab->nods);        
             // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
 
 
-static t_table  *parse_args(t_table *tab)
+static void *parse_args(t_table *tab, char **aux)
 {
     int is_exit;
     int id;
 
     is_exit = 0;
-    tab->node = malloc(sizeof(t_node));
+    // tab->node = malloc(sizeof(t_node));
     printf("DEBUG:: ...BEGIN ... PARSE ...\n");
-    tab = div_node(split_all(tab), "<|>"); // node_builder:: redir//alloc
+    tab->cmdl = get_node(split_all(tab, aux), -1);                   // node_builder:: redir//alloc
+    // tab = get_node(split_all(tab), "<|>");  // node_builder:: redir//alloc
     id = ft_lstsize(tab->cmdl);
     printf("DEBUG:: ready to go cmdl = %d ::\n", id);
     g_status = builtins(tab, tab->cmdl, &is_exit);
@@ -117,7 +126,7 @@ static t_table  *parse_args(t_table *tab)
         printf("yo_ empty_ me_ g_status = %d__\n", g_status);
         ft_lstclear(&tab->cmdl, free_cont);
         ft_mx_free(tab->cmds);
-        ft_mx_free(&tab->token);
+        // ft_mx_free(&tab->token);
         return (NULL);
     }
     return (tab);
@@ -125,20 +134,23 @@ static t_table  *parse_args(t_table *tab)
 
 void  *check_args(char *input, t_table *tab)    // main deploy >parse
 {
-    t_node *n;     
+    t_node  *n;     
+    char    **aux;
      
     if (!input)
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    tab->token = init_split(input, " ", tab);   // input* >>> tab->token**
+    // tab->token = init_split(input, " ", tab);   // input* >>> tab->token**
+    aux = init_split(input, " ", tab);   // input* >>> tab->token**
     free(input);
-    if (!tab->token)
+    // if (!tab->token )
+    if (!aux) 
     {
         chk_error(QUOTE, NULL, 1);
         return ("");
     }
-    tab = parse_args(tab);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
+    tab = parse_args(tab, aux);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
 
     if (tab && tab->cmdl)
         n = tab->cmdl->content;
