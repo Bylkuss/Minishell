@@ -124,7 +124,7 @@ char					**ms_setenv(char *var, char *value, char **envp, int n);
 //parsing
 void 					*check_args(char *out, t_table *tab);
 // init_split
-char					**init_split(char *input, char *set);//, t_table tab);
+char					**init_split(char const *input, char *set);//, t_table tab);
 // div_node
 // int						set_etype(t_table tab, char *etype);
 // t_list					*get_node(t_table tab, t_node *node, int id);

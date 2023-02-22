@@ -199,7 +199,7 @@ static char **token_fill(char **aux, const char *s, char *set, int i[2])
     return (aux);
 }
 
-char **init_split(char *input, char *set)//, t_table tab)
+char **init_split(char const *input, char *set)//, t_table tab)
 {
     char    **aux;
     int     n;
@@ -225,6 +225,7 @@ char **init_split(char *input, char *set)//, t_table tab)
     if (!aux)
         return (NULL);
     aux = token_fill(aux, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
+    aux[n]= NULL;
     // printf("DEBUG:: Filled_token[%d] ::\n", ft_mx_len(tab->token));
     // printf("tkn_fll[%d] => ::%s::\n", n-1, tab->token[ft_mx_len(tab->token)-1]);
     // printf("tkn_fll[%d] => ::%s::\n", 1, tab->token[1]);

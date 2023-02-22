@@ -90,7 +90,7 @@ static char **split_all(t_table *tab, char **aux)
             // tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         aux[i] = expand_path(aux[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         sub = div_str(aux[i], "<|>");  // node_builder:: redir//alloc
-        printf("DEBUG:: inner split_all\n");// tab->token[id:%d] token{%s} \n", tab->nods, tab->token);	
+        printf("DEBUG:: inner split_all:: {%s}\n", *sub);// tab->token[id:%d] token{%s} \n", tab->nods, tab->token);	
         ft_mx_rpl(&aux, sub, i);
         i +=  ft_mx_len(sub) - 1;
         ft_mx_free(&sub);
