@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 23:25:05 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:22:28 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ static char **split_all(t_table *tab, char **aux)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
+    printf("DEBUG:: ... split_all ... start\n");
         // printf("DEBUG:: pre_redir split_all token_len [%d]\n", ft_mx_len(tab->token));
         // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
         // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
@@ -91,9 +92,10 @@ static char **split_all(t_table *tab, char **aux)
         aux[i] = expand_path(aux[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         sub = div_str(aux[i], "<|>");  // node_builder:: redir//alloc
         ft_mx_rpl(&aux, sub, i);
+        printf("DEBUG:: ... split_all ... end\n");
         i +=  ft_mx_len(sub) - 1;
         ft_mx_free(&sub);
-            printf("DEBUG:  SPLIT_AUX    __{%s}__ \n", aux[i]);        
+            // printf("DEBUG:  SPLIT_AUX    __{%s}__ \n", aux[i]);        
     }
     return (aux); 
 }

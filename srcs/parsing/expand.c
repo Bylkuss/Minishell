@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:29:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 00:29:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:20:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,25 @@ static char *get_substr_var(char *str, int i, t_table *tab)
     return (aux);
 }
 
+
+char    *expand_vars(char *str, int i, int quotes[2], t_table *tab) // bonus check
+{
+    quotes[0] = 0;
+    quotes[1] = 0;
+
+    while(str && str[++i])
+    {
+        quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2; // chk_flag twin-match simple
+        quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2; // chk_flag twin -match dbl
+        // if no q[0] -smpl- && [i] = $ && [i+1] && ([i+1]  )
+        if (!quotes[0] && str[i] == '$' && str[i + 1] && ((ft_strchar_i(&str[i + 1], "/~%^{}:; ")
+             && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1]))) //
+            return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
+    }
+    
+    return (str);
+}
+
 char    *expand_path(char *str, int i, int quotes[2], char *var)
 {
     char *path;
@@ -68,25 +87,6 @@ char    *expand_path(char *str, int i, int quotes[2], char *var)
     free(var);
     return (str);
 }
-
-char    *expand_vars(char *str, int i, int quotes[2], t_table *tab) // bonus check
-{
-    quotes[0] = 0;
-    quotes[1] = 0;
-
-    while(str && str[++i])
-    {
-        quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2; // chk_flag twin-match simple
-        quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2; // chk_flag twin -match dbl
-        // if no q[0] -smpl- && [i] = $ && [i+1] && ([i+1]  )
-        if (!quotes[0] && str[i] == '$' && str[i + 1] && ((ft_strchar_i(&str[i + 1], "/~%^{}:; ")
-             && !quotes[1]) || (ft_strchar_i(&str[1 + i], "/~%^{}:;\"") && quotes[1]))) //
-            return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
-    }
-    
-    return (str);
-}
-
 /*
 from parse.c (split_all)
     expand_vars => check spec. char. match by get_substr_var();
