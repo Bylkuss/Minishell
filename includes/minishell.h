@@ -1,20 +1,19 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../includes/get_next_line.h"
 # include "../libft/incs/libft.h"
-# include <dirent.h>
-# include <fcntl.h>
-# include <readline/history.h>
+# include "../includes/get_next_line.h
 # include <readline/readline.h>
+# include <readline/history.h>
 # include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/ioctl.h>
-# include <sys/types.h>
 # include <sys/wait.h>
-# include <unistd.h>
-# include <stdbool.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
+// # include <sys/types.h>
+// # include <stdbool.h>
+// # include <stdio.h>
+// # include <stdlib.h>
+// # include <unistd.h>
 
 /* fd Refs*/
 # define READ_END 0
@@ -56,34 +55,35 @@ enum	chk_error
 	NOT_DIR = 13
 };
 
-typedef struct s_node t_node;
-typedef struct s_table t_table;
+// typedef struct s_table t_table;
+// typedef struct s_node t_node;
+
+typedef struct	s_table 	/*	Main Struct  tab->*/
+{
+	t_list	*cmdl;
+	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
+	pid_t 	pid;        //	fork dup wait
+	// char	***cmds;    //	[ID][token_array] 
+	// char	**token;    //	token_array == input* >>> token** " ":spc_split
+	// int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
+	// int 	nods;    	// 	nombre de node total.
+	// struct 	s_node *node; 
+}  		t_table;
 
 // struct duty change : more like a chariot, node to be fill for exec...
-struct 		s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "eof",	*/
+typedef struct s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "eof",	*/
 {
-	int 	id;			//	node_ID 
 	char	**cmd;		//	token_array
 	char 	*path;		// 	path to find exec
-	char 	*xfile;		// 	to store redir_arg. ext.
-	int		etype;		// 	etype:: pipe, redir, end
 	int 	infile;		// 	fd[0] == STDIN_FILNO  <|also|>  [READ_END] 
  	int		outfile;	// 	fd[1] == STDOUT_FILNO <|also|>  [WRITE_END]
-	int 	nod_len;	// 	how many token by node (min 2) ref by (TMP)
-	struct 	s_table	*table; 
-};	//t_node;
+}			t_node;
+	// int 	id;			//	node_ID 
+		// char 	*xfile;		// 	to store redir_arg. ext.
+		// int		etype;		// 	etype:: pipe, redir, end
+		// int 	nod_len;	// 	how many token by node (min 2) ref by (TMP)
 
-struct		s_table 	/*	Main Struct  tab->*/
-{
-	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
-	char	***cmds;    //	[ID][token_array] 
-	char	**token;    //	token_array == input* >>> token** " ":spc_split
-	t_list	*cmdl;
-	int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
-	int 	nods;    	// 	nombre de node total.
-	pid_t 	pid;        //	fork dup wait
-	struct 	s_node *node; 
-};  //t_table;
+
 
 //builtins
 // int 	   				builtins_handler(t_table *tab, t_node *node);
