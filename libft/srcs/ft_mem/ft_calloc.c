@@ -15,12 +15,12 @@
 void	*ft_calloc(size_t n, size_t size)
 {
 	char	*new;
-	size_t	tmp;
 
-	tmp = size * n;
-	new = malloc(tmp);
-	if (!(new))
-		return (0);
-	ft_memset(new, 0, tmp);
-	return (new);
+	if (n <= 0 || size <= 0)
+		new = (char *)malloc(1);
+	else
+		new = (char *)malloc(n * size);
+	if (!new)
+		return (NULL);
+	return (ft_memset(new, 0, n * size));
 }

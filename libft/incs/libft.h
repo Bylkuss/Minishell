@@ -12,10 +12,11 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
-# include <string.h>
-# include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+# include <ctype.h>
 # include <fcntl.h>
 
 # define BUFF_SIZE 32
@@ -53,7 +54,7 @@ int		ps_atoi(char *s);
 //ft_mem
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t n, size_t size);
-void	*ft_memset(void *b, int c, size_t len);
+void	*ft_memset(void *s, int c, size_t len);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t n);
 void	*ft_memchr(const void *s, int c, size_t n);
@@ -121,12 +122,13 @@ char		*ft_char_str(char c);
 char		**ft_mx_dup(char **mx);
 char		**ft_mx_ext(char **stk, char *str);
 void		ft_mx_fd(char **s, int fd);
-char		*ft_mx_unx(char *full, char **tab, int len);
+// char		*ft_mx_unx(char *full, char **tab, int len);
 char		**ft_mx_rpl(char ***full, char **tab, int n);
 int			ft_mx_len(char **mx);
 void		ft_mx_free(char ***mx);
 int			ft_strchr_i(const char *s, int c);
 int			ft_strchar_i(const char *s, char *set); 
+int			ft_atoi2(const char *nptr, long *nbr);
 
 //int		split_av(char ***str, char **av, char *c);
 
