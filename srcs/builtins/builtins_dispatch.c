@@ -41,25 +41,25 @@ int is_builtin(t_node *t)
 	return (0);
 }
 
-void    exit_builtin(char **cmd)//, int *is_exit)
-{
-    int exiit = 0;
-    int i = 0;
+// int    exit_builtin(char **cmd)//, int *is_exit)
+    // {
+    //     int exiit = 0;
+    //     int i = 0;
 
-    // exiit = *is_exit;
-    if(cmd[1] && !cmd[2])
-    {
-        while(cmd[1][i])
-        {
-            if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
-                error_msg("exit: numeric argument required\n", 255);
-            i++;                
-        }
-        exiit = ft_atoi(cmd[1]);
-    }
-    exit(exiit);
-    // return (exiit);
-}
+    //     // exiit = *is_exit;
+    //     if(cmd[1] && !cmd[2])
+    //     {
+    //         while(cmd[1][i])
+    //         {
+    //             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+    //                 error_msg("exit: numeric argument required\n", 255);
+    //             i++;                
+    //         }
+    //         exiit = ft_atoi(cmd[1]);
+    //     }
+    //     exit(exiit);
+    //     return (exiit);
+// }
 
 
 int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
@@ -70,23 +70,21 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
     int i;
 
     // envp = tab->envp;
+    printf("\nDEBUG: @_@_@_@ Builtins ::: ::: ::: \n");//, *aux);
+    if (cmdl)
+        printf("\nDEBUG: part_2::  Builtins ::: ::: ::: \n");
     while (cmdl)
     {
-        printf("\nDEBUG: @_@_@_@ Builtins ::: :::[id:%d] ::: \n", tab->node->id);//t->path { %s }\n", node->path); 	//len[%d]", l);
         aux = ((t_node *)cmdl->content)->cmd;
         i = 0;
         if (aux)
             i = ft_strlen(*aux);
         if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
-            exit_builtin(aux);
+            g_status = ms_exit(cmdl, is_exit);  
         else if(!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
             g_status = cd(aux, tab->envp);
         else if(!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
             g_status = ms_export(aux , tab->envp);
-                // else if(ft_strnstr(*node->cmd, "echo", 10))
-                //     g_status = echo(node->cmd);
-                // else if (ft_strnstr(*node->cmd, "pwd", 10))
-                //     g_status = pwd();
         else if(!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
         {
             if(unset((aux), tab->envp) == 0)

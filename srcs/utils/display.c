@@ -2,12 +2,12 @@
 
 
 
-// void mx_display_tab(char **tab)
+// void mx_display_tab(char *tab)
 // {
 //     int i = 0;
 
 //         printf("START:");
-//         while(tab && (*tab[i] != '\0'))
+//         while(tab && (tab[i] != '\0'))
 //         {
 //             printf ("(%s),", tab[i]);
 //             i++;
@@ -20,7 +20,7 @@
 //     printf(" \n{%s}\n ", str);
 // }
 
-// void display_tkn(t_table *tab)
+// void display_tkn(t_table tab)
     // {
     //     t_node *node;
     //     int id;

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 19:58:53 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/05 05:46:07 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/21 23:45:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 extern int	g_status;
 
-static char *get_home(t_table *tab)
+static char *get_home(t_table tab)
 {
         char *tmp;
         char *pwd;
@@ -22,12 +22,12 @@ static char *get_home(t_table *tab)
 
         pwd = getcwd(NULL, 0);                                        
         if (!pwd)
-            pwd = ft_strdup("@ ");
-        home = ms_getenv("HOME", tab->envp, 4);
+            pwd = ft_strdup("~ ");
+        home = ms_getenv("HOME", tab.envp, 4);
         if (home && home[0] && ft_strnstr(pwd, home,ft_strlen(pwd)))  
         {
             tmp = pwd;
-            pwd = ft_strjoin("-", &pwd[ft_strlen(home)]);
+            pwd = ft_strjoin("~", &pwd[ft_strlen(home)]);
             free(tmp);
         }
         free(home);
@@ -38,7 +38,7 @@ static char *get_home(t_table *tab)
         return(pwd); 
 }
 
-static char *get_user(t_table *tab)
+static char *get_user(t_table tab)
 {
 	char	**user;
 	char	*tmp;
@@ -47,7 +47,7 @@ static char *get_user(t_table *tab)
     user = NULL;
     tmp2 = NULL;
 
-    execustom(&user, "/usr/bin/whoami", "whoami", tab->envp);  
+    execustom(&user, "/usr/bin/whoami", "whoami", tab.envp);  
     if (!user)
         user = ft_mx_ext(user, "guest");                          
     if (!ft_strncmp(user[0], "root", 4))
@@ -63,14 +63,12 @@ static char *get_user(t_table *tab)
     else 
         tmp2 = ft_strjoin(NULL, YELLOW);
     tmp = ft_strjoin(tmp2, *user);
-    // if (!(tab->envp))
-    //     return (tmp);
     free(tmp2);
     ft_mx_free(&user);
     return (tmp); 
 }
 
-char    *getprompt(t_table *tab)
+char    *getprompt(t_table tab)
 {
         char *tmp;
         char *tmp2;

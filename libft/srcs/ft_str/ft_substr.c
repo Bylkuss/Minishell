@@ -13,25 +13,29 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
 	char	*res;
+	size_t	lens;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
-	if (len == 0 || ft_strlen(s) == 0 || start > ft_strlen(s) - 1)
-		return (ft_calloc(sizeof(char), 1));
+	lens = ft_strlen(s);
 	i = 0;
-	while (s[i + start] != '\0' && i < len)
-		i++;
-	res = ft_calloc(sizeof(char), i + 1);
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (s[i + start] && i < len)
+	if (len >= lens)
+		len = lens;
+	if (start >= lens)
 	{
-		res[i] = s[i + start];
-		i++;
+		res = (char *)malloc(1);
+		if (res == NULL)
+			return (NULL);
+		res[0] = '\0';
+		return (res);
 	}
-	res[i] = '\0';
+	res = (char *)malloc(len + 1);
+	if (res == NULL)
+		return (NULL);
+	while (i++ < start)
+		s++;
+	ft_strlcpy(res, s, len + 1);
 	return (res);
 }

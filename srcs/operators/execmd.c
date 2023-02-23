@@ -53,9 +53,9 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 	printf("DEBUG: START cmd_chk ... \n");
 	dir = NULL;
 	n = cmd->content;
-	if (n && n->cmd)// && ft_strchr(path, '/') && !dir) //*tab instead of tab!?
+	if (n && n->cmd)// && ft_strchr(path, '/') && !dir) //tab instead of tab!?
 		dir = opendir(*n->cmd);
-	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir) //*tab instead of tab!?
+	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir) //tab instead of tab!?
 	{
 		printf("DEBUG: __FIRST_IF cmd_chk ... \n");
 		*s = ft_split(*n->cmd, '/');
@@ -112,8 +112,7 @@ void *execmd(t_table *tab, t_list *cmd)
     int fd[2];
 	char *path;
 	
-	if (tab->node->path)
-		tab->node->path = NULL;
+	
     get_cmd(tab, cmd, NULL, NULL);
 	printf("DEBUG: TEST execmd \n");	
     if (pipe(fd) == -1)

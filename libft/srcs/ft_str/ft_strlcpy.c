@@ -36,5 +36,8 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 	if (n != 0)
 		dest[i] = '\0';
 	return (sz);
+<<<<<<< HEAD
 
+=======
+>>>>>>> danger
 }

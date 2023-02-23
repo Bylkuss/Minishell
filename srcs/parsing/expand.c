@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:29:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/23 00:29:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/22 00:20:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static char *get_substr_var(char *str, int i, t_table *tab)
     free(str);
     return (aux);
 }
+
 
 char    *expand_path(char *str, int i, int quotes[2], char *var)
 {
@@ -86,7 +87,6 @@ char    *expand_vars(char *str, int i, int quotes[2], t_table *tab) // bonus che
     
     return (str);
 }
-
 /*
 from parse.c (split_all)
     expand_vars => check spec. char. match by get_substr_var();

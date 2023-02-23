@@ -12,135 +12,96 @@
 
 #include "../../includes/get_next_line.h"
 
-char	*ft_read(int fd)  // , char *line) // remove in transition
+char	*ft_read(int fd)  
 {
-	char	 *buff;
-	char	*box; //conteneur de retour
-	int		ret;	// val de lect. read.
+	char	*aux;
+	int		red;	// val de lect. read.
 
-	ret = 1;
-	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));   // box to be fill
-	if (!buff)
+	aux = malloc(BUFFER_SIZE + 1);// * sizeof(char));   // box to be fill
+	if (!aux)
 		return (NULL);
-	ret = read(fd, buff, BUFFER_SIZE);   // filling it
-	if (ret == -1)	//  err
+	red = read(fd, aux, BUFFER_SIZE);   // filling it
+	if (red < 0)	//  err
 	{
-		free(buff);
+		free(aux);
 		return (NULL);
 	}
-	if (ret == 0)
-	{
-		free (buff);
+	aux[red] = '\0';
+	return (aux);
+}
+
+char	*ft_get_input(char *buf, int fd)
+{
+	char	*aux;
+	char	*box;
+	int		len;
+
+	aux = ft_read(fd);
+	if (!aux)
 		return (NULL);
+	if (!aux[0])
+	{
+		free(aux);
+		return (buf);
 	}
-	buff[ret] = '\0';
-	box = ft_strdup(buff);
-	free (buff);
+	if (!buf)
+		return (aux);
+	len = gnl_strlen(buf) + gnl_strlen(aux);
+	box = malloc(len + 1);
+	if (!box)
+		return (NULL);
+	gnl_strlcpy(box, buf, len + 1);
+	gnl_strlcat(box, aux, len + 1);
+	free(buf);
+	free(aux);
 	return (box);
 }
 
-int		ft_find(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (-1);
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-char	 *ft_get_set(char *line) // get the first line incl \n
+char	 *ft_set_line(char *buf, char *line) 
 {
 	int		i;  // index
-	char	*rtn;  // associated str...
-	char 	*box;	// transport var
+	char	*ret;  // associated str...
+	// char 	*box;	// transport var
+
+	ret = NULL;
+	if (!buf || !line)
+		return(buf);
+	i = gnl_strlen(line);
 	
-	i = 0;
-	rtn = NULL;
-	if (!line)
-		return (0);
-	if (line[i] == '\n')
+	if ((int)gnl_strlen(buf) == i)
 	{
-		rtn = malloc(sizeof(char) * 1);
-		rtn[i] = line[i];
-		box = ft_strdup((const char *) rtn);
-		free (rtn);
-		return (box);
+		free(buf);
+		return (NULL);
 	}
-	while (line[i] && line[i] != '\n')
-		i++;
-	// end of file to be 
-	rtn = malloc(sizeof(char) * (i + 2));
-	if (!rtn)
-		return (0);
-	i = 0;
-	while (line[i] && line[i] != '\n')
-	{
-		rtn[i] = line[i];
-		i++;
-	}
-	rtn[i] = line[i];  // incl.  '\n'
-	if(line[i] == '\n')
-		rtn[i + 1] = '\0';
-	box = ft_strdup((const char *) rtn);	// null-terminated str to be transp
-	free (rtn);		//rtn[i++] = '\0';
-	return (box);
-}
-
-char	 *ft_saved(char *line) // get the first line incl \n
-{
-	int		i;  // index
-	unsigned int 	j;	//passed index
-	size_t 	k;	//len
-	// char	*rtn;  // associated str...
-	char 	*box;	// transport var
-
-	// rtn = NULL;	
-	i = ft_find(line);
-	j = i + 1;
-	while (line[i] != '\0')
-		i++;
-	k = (i - j);
-	box = ft_substr((const char *) line, j, k);	// null-terminated str to be transp
-	return (box);
+	ret = gnl_substr(buf, i, gnl_strlen(buf) - i);
+	free(buf);
+	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
-	char	*str;
-	char	*box;
-	static char *line = NULL;
+	size_t		len;
+	char		*line;
+	static char *box[4096];
 
-	str = NULL;
-	box = NULL;
-	if (!(fd >= 0 && fd < 6) || BUFFER_SIZE <= 0)  // input selector
+	if (fd < 0 || fd > 4095 || BUFFER_SIZE < 0)  // input selector
 		return (NULL);
-	while (ft_find(line) == -1)
+	line = NULL;
+	if (gnl_strchr_i(box[fd], '\n') == -1)
 	{			
-		box = ft_read(fd); // , line);	// get index set to line // safety checked
-		if (box == NULL)
-			return (NULL);
-		line = ft_strjoin((const char *) line, (const char *) box); // set  into JOIN	
+		len = gnl_strlen(box[fd]);
+		box[fd] = ft_get_input(box[fd], fd);
+		if (len == gnl_strlen(box[fd]) && box[fd])
+			line = gnl_substr(box[fd], 0, gnl_strlen(box[fd]));
 	}
-	str = ft_get_set(line); // set str	
-	if ((ft_find(line) + 1) == '\0')
+	if (!box[fd])
+		return (NULL);
+	if (!line && gnl_strchr_i(box[fd], '\n') != -1)
+		line = gnl_substr(box[fd], 0, gnl_strchr_i(box[fd], '\n') + 1);
+	if (line)
 	{
-		free (line);
-		return (NULL); 
+		box[fd] = ft_set_line(box[fd], line);
+		return (line); 
 	}
-	if ((line) > (str))	
-	{
-		 box = ft_saved(line);
-		 line = ft_strdup(box);	
-	}
-	line = ft_saved(line);
-	//free (box);
-	//free (line);
-	return (str);
+	return (get_next_line(fd));
 }
