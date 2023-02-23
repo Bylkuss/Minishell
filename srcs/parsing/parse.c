@@ -14,59 +14,6 @@
 
 extern int g_status;
 
-// static t_table	*redir_type(t_table tab) 
-    // {
-    //     char    **cmd;
-    //     int     n;
-    //     int     id;
-
-    //     id = -1;
-    //     n = ft_mx_len(tab->token);
-    //     printf("DEBUG:: redir_type last token :: tab->token{%s}, (len:%d)\n", tab->token[0] , n);
-    //     cmd = ft_mx_dup(tab->token); 
-    //     tab->nods = 1;
-    //     tab->node->id = 1;
-    //     tab->refs[tab->node->id] = 0; 
-    //     tab->refs[0] = n ;
-    //     tab->node->etype = -1;
-    //     if (n > 1)
-    //     {
-    //         while (++id < (n - 1))
-    //         {
-    //             tab->nods = tab->node->id;
-    //             tab->node->etype = -1;
-    //             if (cmd[id] && (id + 1) < (n - 1))
-    //             {
-    //                 if (*cmd[id] == '<' &&  *cmd[id + 1] == '<')
-    //                     tab->node->etype = 5;
-    //                 else if (*cmd[id] == '<')
-    //                     tab->node->etype = 4;
-    //                 else if ( *cmd[id] == '>' && *cmd[id + 1] == '>')
-    //                     tab->node->etype = 3;
-    //                 else if (*cmd[id] == '>')
-    //                     tab->node->etype = 2;
-    //                 else if (*cmd[id] == '|')
-    //                 {
-    //                     tab->node->etype = 1;
-    //                     tab->refs[tab->node->id] = id;                
-    //                     printf  ("DEBUG: REDIR_nods[%d] tkID[%d]== ETYPE(pos[%d])\n", tab->node->id, id, tab->refs[tab->node->id]);
-    //                     tab->node->id++;  
-    //                 }
-    //                 if (tab->node->etype > 1)
-    //                     tab->refs[tab->node->id] = id;
-    //             }
-    //         }
-    //     }
-    //     if (  tab->refs[tab->node->id] < 1 && tab->node->etype == -1)
-    //     {
-    //         if (id < n)
-    //             id = 0;
-    //         tab->refs[tab->node->id] = id;
-    //         tab->node->etype = 0;
-    //     }
-    //     printf  ("DEBUG: REDIR_ Etype[%d]== ETYPE(pos[%d])\n", tab->node->etype, tab->refs[tab->node->id]);
-    //     return (tab);
-// }
 
 static char **split_all(t_table *tab, char **aux)  
 {

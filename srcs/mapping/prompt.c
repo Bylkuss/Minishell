@@ -22,7 +22,7 @@ static char *get_home(t_table tab)
 
         pwd = getcwd(NULL, 0);                                        
         if (!pwd)
-            pwd = ft_strdup("0 ");
+            pwd = ft_strdup("~ ");
         home = ms_getenv("HOME", tab.envp, 4);
         if (home && home[0] && ft_strnstr(pwd, home,ft_strlen(pwd)))  
         {

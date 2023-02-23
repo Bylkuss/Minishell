@@ -65,11 +65,6 @@ typedef struct	s_table 	/*	Main Struct  tab->*/
 	t_list	*cmdl;
 	char	**envp;     //	[*str][*str] : listed copy		ENVP["PATH"]_=_["/usr/bin"]
 	pid_t 	pid;        //	fork dup wait
-	// char	***cmds;    //	[ID][token_array] 
-	// char	**token;    //	token_array == input* >>> token** " ":spc_split
-	// int 	refs[1000];      // 	tab->refs[id] =  token[pos]; etype_flag
-	// int 	nods;    	// 	nombre de node total.
-	// struct 	s_node *node; 
 }  		t_table;
 
 // struct duty change : more like a chariot, node to be fill for exec...
@@ -80,11 +75,6 @@ typedef struct s_node		/*	 THREE-PART token-FORM node	ex: node[0]= "ls", "-l", "
 	int 	infile;		// 	fd[0] == STDIN_FILNO  <|also|>  [READ_END] 
  	int		outfile;	// 	fd[1] == STDOUT_FILNO <|also|>  [WRITE_END]
 }			t_node;
-	// int 	id;			//	node_ID 
-		// char 	*xfile;		// 	to store redir_arg. ext.
-		// int		etype;		// 	etype:: pipe, redir, end
-		// int 	nod_len;	// 	how many token by node (min 2) ref by (TMP)
-
 
 
 //builtins

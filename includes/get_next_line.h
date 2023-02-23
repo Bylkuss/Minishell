@@ -24,15 +24,15 @@
 #  define BUFFER_SIZE 1000
 # endif
 
+char	*ft_read(int fd);
+char	*ft_get_input(char *buf, int fd);
+char	*ft_set_line(char *buf, char *line);
 char	*get_next_line(int fd);
-char 	*ft_read(int fd);   //, char *line);
-int		ft_find(char *str);
-char    *ft_get_set(char *line);
-char    *ft_saved(char *line);
-char	*ft_strjoin(const char *s1, const char *s2);
-size_t	ft_strlen(const char *str);
+
 char    *ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s);
-void	*ft_memmove(void *dst, const void *src, size_t n);
+size_t	ft_strlen(const char *str);
+size_t	ft_strlcpy(char *dest, const char *src, size_t n);
+size_t	ft_strlcat(char *dst, const char *src, size_t size);
+int     ft_strchr_i(const char *s, int c);
 
 #endif
