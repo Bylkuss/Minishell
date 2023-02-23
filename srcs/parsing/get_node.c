@@ -40,15 +40,16 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 	{
 		// etype = set_etype(tab, a[*i]);
 		printf("DEBUG:: ID:%d :: str:%s \n", *i, a[0][*i]);
-		if (ft_strcmp(a[0][*i] ,">>") == 0)//   etype == 3)
+			if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
-		else if (ft_strcmp(a[0][*i] ,">") == 0)//   etype == 2)
+		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
-		else if ( ft_strcmp(a[0][*i] ,"<<") == 0)//  etype == 5)
+		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+			a[0][*i + 1][0] == '<')
 			node = get_infile2(node, a[1], i);
-		else if ( ft_strcmp(a[0][*i], "<") == 0)//  etype == 4)
+		else if (a[0][*i][0] == '<')
 			node = get_infile1(node, a[1], i);
-		else if (ft_strcmp(a[0][*i] ,"|") != 0)//etype != 1)
+		else if (a[0][*i][0] != '|')
 			node->cmd = ft_mx_ext(node->cmd, a[1][*i]);			
 		else
 		{
