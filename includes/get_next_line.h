@@ -29,10 +29,10 @@ char	*ft_get_input(char *buf, int fd);
 char	*ft_set_line(char *buf, char *line);
 char	*get_next_line(int fd);
 
-char    *ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlen(const char *str);
-size_t	ft_strlcpy(char *dest, const char *src, size_t n);
-size_t	ft_strlcat(char *dst, const char *src, size_t size);
-int     ft_strchr_i(const char *s, int c);
+char    *gnl_substr(char const *s, unsigned int start, size_t len);
+size_t	gnl_strlen(char const *str);
+size_t	gnl_strlcpy(char *dest, const char *src, size_t n);
+size_t	gnl_strlcat(char *dst, const char *src, size_t size);
+int     gnl_strchr_i(const char *s, int c);
 
 #endif

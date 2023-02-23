@@ -12,7 +12,7 @@
 
 #include "../../includes/get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+size_t	gnl_strlen(char const *str)
 {
 	int	num;
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (num);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*gnl_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*res;
 	size_t	lens;
@@ -32,7 +32,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	lens = ft_strlen(s);
+	lens = gnl_strlen(s);
 	i = 0;
 	if (len >= lens)
 		len = lens;
@@ -49,11 +49,11 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	while (i++ < start)
 		s++;
-	ft_strlcpy(res, s, len + 1);
+	gnl_strlcpy(res, s, len + 1);
 	return (res);
 }
 
-size_t	ft_strlcpy(char *dest, const char *src, size_t n)
+size_t	gnl_strlcpy(char *dest, const char *src, size_t n)
 {
 	unsigned int	i;
 	size_t			sz;
@@ -61,7 +61,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 	i = 0;
 	if (src == NULL)
 		return (0);
-	sz = ft_strlen(src);
+	sz = gnl_strlen(src);
 	if ((int)n < 0)
 		n = sz + 1;
 	if (n >= 2 && sz != 0)
@@ -81,15 +81,15 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t n)
 
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	gnl_strlcat(char *dst, const char *src, size_t size)
 {
 	char			*ptr;
 	unsigned int	i;
 
-	if (size < ft_strlen(dst))
-		return (ft_strlen(src) + size);
-	ptr = dst + ft_strlen(dst);
-	i = ft_strlen(dst);
+	if (size < gnl_strlen(dst))
+		return (gnl_strlen(src) + size);
+	ptr = dst + gnl_strlen(dst);
+	i = gnl_strlen(dst);
 	while (i < size - 1 && *src != '\0' && size >= 2)
 	{
 		*ptr = *src;
@@ -99,10 +99,10 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 	}
 	if (size != 0)
 		*ptr = '\0';
-	return (ft_strlen(dst) + ft_strlen(src));
+	return (gnl_strlen(dst) + gnl_strlen(src));
 }
 
-int ft_strchr_i(const char *s, int c)
+int gnl_strchr_i(const char *s, int c)
 {
     unsigned char   un_c;
     int             i;
