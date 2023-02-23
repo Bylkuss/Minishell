@@ -9,7 +9,7 @@
 /*   Updated: 2021/10/12 13:38:30 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+#include "../../incs/libft.h"
 
 
 static int	ft_count_words(const char *str, char charset)
@@ -49,7 +49,7 @@ static char	**ft_write_split(char **split, const char *str, char charset)
 			i++;
 		j = i;
 		while (str[i] != charset && str[i] != '\0')
-			j++;
+			i++;
 		if (j >= len)
 			split[word++] = "\0";
 		else
@@ -70,7 +70,6 @@ char	**ft_split(const char *str, char c)
 	if (res == NULL)
 		return (NULL);
 	res = ft_write_split(res, str, c);
-
 	res[words] = NULL;
 	return (res);
 }
