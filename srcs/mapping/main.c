@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 23:46:58 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 14:28:58 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,12 @@ int main(int ac, char **av, char **envp)
     {
         signal(SIGINT, handle_sigint);               
         signal(SIGQUIT, SIG_IGN);                    
-        str = getprompt(tab);                
-        if (str)
+        str = getprompt(tab);
+        /* if (str)
             input = readline(str);                    
         else
-            input = readline("guest@minishell $ ");        
+            input = readline("guest@minishell $ ");         */
+        input = readline("$ ");
         free(str);
         if (!check_args(input, &tab))
             break;

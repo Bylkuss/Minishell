@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/01/23 10:37:21 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/02/24 16:10:41 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,12 @@ void	env(char **envp)
 
 char	**edit_env(char **envp, int pos)
 {
-	// if (!envp[pos + 1])
-	// {
-	// 	free(envp[pos]);
-	// 	envp[pos] = NULL;
-	// }
 	while (envp && envp[pos + 1])
 	{
-		// printf("%s\n", envp[pos]);
+	
 		envp[pos] = envp[pos + 1];
 		pos++;
 	}
-	// free(envp[pos]);
 	envp[pos] = NULL;
 	return (envp);
 }
@@ -144,7 +138,7 @@ void	print_tab(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		printf("%s\n", tab[i]);
+		printf("declare -x %s\n", tab[i]);
 		i++;
 	}
 }
@@ -172,7 +166,7 @@ int	ms_export(char **cmd, char **envp)
 			return (0);
 	}
 	else if (!cmd[1])
-		env(envp);
+		print_tab(envp);
 	else
 	{
 		printf("Bad var format\n");

@@ -1,0 +1,12 @@
+total 92
+drwxrwxr-x 2 bylkus bylkus  4096 Feb 24 11:33 includes
+drwxrwxr-x 5 bylkus bylkus  4096 Feb 24 14:28 libft
+-rw-rw-r-- 1 bylkus bylkus  1360 Feb 24 11:33 Makefile
+-rwxrwxr-x 1 bylkus bylkus 56296 Feb 24 14:29 minishell
+drwxrwxr-x 3 bylkus bylkus  4096 Feb 24 11:33 minishell.dSYM
+drwxrwxr-x 7 bylkus bylkus  4096 Feb 24 14:28 objs
+drwxrwxr-x 2 bylkus bylkus  4096 Feb 24 11:33 Random
+drwxrwxr-x 2 bylkus bylkus  4096 Feb  9 16:31 readline
+-rw-rw-r-- 1 bylkus bylkus  2415 Feb 24 11:33 README.md
+drwxrwxr-x 7 bylkus bylkus  4096 Feb  9 16:31 srcs
+-rw-rw-r-- 1 bylkus bylkus     0 Feb 24 14:30 wc

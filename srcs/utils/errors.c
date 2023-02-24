@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 03:39:28 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 03:39:31 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 15:34:53 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ms_exit(t_list *cmdl, int *is_exit)
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(node->cmd[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
-		return (255);
+		return (2);
 	}
 	else if (node->cmd[2])
 	{
