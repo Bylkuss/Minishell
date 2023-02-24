@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   errors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/24 03:39:28 by gehebert          #+#    #+#             */
+/*   Updated: 2023/02/24 03:39:31 by gehebert         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -68,7 +80,6 @@ void free_cont(void *content)
 
     node = content;
     ft_mx_free(&node->cmd);
-	// free(node->xfile);
     free(node->path);
     if (node->infile != STDIN_FILENO)
         close(node->infile);

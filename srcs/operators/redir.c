@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 13:39:50 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 03:26:29 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	get_fd(int oldfd, char *path, int flags[2])
 {
 	int	fd;
 
-	printf("\nDEBUG: get_fd:: node->file = {%s}\n", path);
 	if (oldfd > 2)
 		close(oldfd);
 	if (!path)
@@ -40,8 +39,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 	return (fd);
 }
 
-// t_node	*get_outfile1(t_node *t, int i)
-t_node	*get_outfile1(t_node *t, char **a,int *i)
+t_node	*get_outfile1(t_node *t, char **a, int *i)
 {
 	char	*nl;
 	int		flags[2];
@@ -68,7 +66,7 @@ t_node	*get_outfile1(t_node *t, char **a,int *i)
 	// node->etype = 2;
 	return (t);
 }
-// t_node	*get_outfile2(t_node *t, int i)
+
 t_node	*get_outfile2(t_node *t, char **a, int *i)
 {
 	char	*nl;
@@ -91,11 +89,9 @@ t_node	*get_outfile2(t_node *t, char **a, int *i)
 		else
 			g_status = 1;
 	}
-	// node->etype = 3;
 	return (t);
 }
 
-// t_node	*get_infile1(t_node *t, int i)
 t_node	*get_infile1(t_node *t, char **a, int *i)
 {
 	char	*nl;
@@ -107,7 +103,6 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 	(*i)++;
 	if (a[*i])
 		t->infile = get_fd(t->infile, a[*i], flags);
-	printf("DEBUG:: infile_1  fd = [%d] t->infile\n", t->infile);
 	if (!a[*i] || t->infile == -1)
 	{
 		*i = -1;
@@ -123,7 +118,7 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 	return (t);
 }
 
-// t_node	*get_infile2(t_node *t, int i)
+
 t_node	*get_infile2(t_node *t,  char **a, int *i)
 {
 	char	*aux[2];

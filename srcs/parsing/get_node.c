@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:31:08 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 22:31:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 04:27:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,12 @@ static t_node *init_node(void)
     node = malloc(sizeof(t_node));
     if (!node)
         return (NULL);
-    // tab->node = node;
-    // node->id = 0;
     node->cmd = NULL;  
     node->path = NULL;
-    // node->xfile = NULL;
-    // node->etype = 0;
     node->infile = STDIN_FILENO;
     node->outfile = STDOUT_FILENO;
-    // node->nod_len = 0;
     return (node);   
 }
-
 
 static t_node	*get_params(t_node *node, char **a[2], int *i)
 {

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/02/15 22:10:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 03:41:00 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,38 +41,34 @@ int is_builtin(t_node *t)
 	return (0);
 }
 
-// int    exit_builtin(char **cmd)//, int *is_exit)
-    // {
-    //     int exiit = 0;
-    //     int i = 0;
+int    exit_builtin(char **cmd)//, int *is_exit)
+    {
+        int exiit = 0;
+        int i = 0;
 
-    //     // exiit = *is_exit;
-    //     if(cmd[1] && !cmd[2])
-    //     {
-    //         while(cmd[1][i])
-    //         {
-    //             if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
-    //                 error_msg("exit: numeric argument required\n", 255);
-    //             i++;                
-    //         }
-    //         exiit = ft_atoi(cmd[1]);
-    //     }
-    //     exit(exiit);
-    //     return (exiit);
-// }
+        // exiit = *is_exit;
+        if(cmd[1] && !cmd[2])
+        {
+            while(cmd[1][i])
+            {
+                if(!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+                    error_msg("exit: numeric argument required\n", 255);
+                i++;                
+            }
+            exiit = ft_atoi(cmd[1]);
+        }
+        exit(exiit);
+        return (exiit);
+}
 
 
 int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
 {
-    // char *input;
-    // char **envp;
     char **aux;
     int i;
 
-    // envp = tab->envp;
-    printf("\nDEBUG: @_@_@_@ Builtins ::: ::: ::: \n");//, *aux);
-    if (cmdl)
-        printf("\nDEBUG: part_2::  Builtins ::: ::: ::: \n");
+    // if (cmdl)
+    //     printf("\nDEBUG: part_2::  Builtins ::: ::: ::: \n");
     while (cmdl)
     {
         aux = ((t_node *)cmdl->content)->cmd;
@@ -80,7 +76,7 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
         if (aux)
             i = ft_strlen(*aux);
         if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
-            g_status = ms_exit(cmdl, is_exit);  
+            g_status = ms_exit(cmdl, is_exit);  // ms_exit  >> error.c  (signal handling) _sorry 
         else if(!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
             g_status = cd(aux, tab->envp);
         else if(!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
@@ -96,7 +92,6 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
         {
             signal(SIGINT, SIG_IGN);
             signal(SIGQUIT, SIG_IGN);
-            printf("\nDEBUG:::___ ___  builtin => execmd___ ___ ___\n");
             execmd(tab, cmdl);
         }
         cmdl = cmdl->next;

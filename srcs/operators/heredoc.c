@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 08:02:25 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 04:42:27 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ extern int g_status;
 char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 {
 	char	*temp;
-
 	
 	while (g_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len) \
 		|| ft_strlen(limit) != len))

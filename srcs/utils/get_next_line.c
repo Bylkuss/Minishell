@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 20:36:06 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:03:02 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/02/24 04:35:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,11 @@ char	 *ft_set_line(char *buf, char *line)
 {
 	int		i;  // index
 	char	*ret;  // associated str...
-	// char 	*box;	// transport var
 
 	ret = NULL;
 	if (!buf || !line)
 		return(buf);
-	i = gnl_strlen(line);
-	
+	i = gnl_strlen(line);	
 	if ((int)gnl_strlen(buf) == i)
 	{
 		free(buf);

@@ -6,24 +6,21 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 09:41:11 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 05:02:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
-
-int g_status;
+extern int  g_status;
 
 void    handle_sigint(int sig)
 {
     if (sig == SIGINT)
     {
         g_status = 130;
-        ioctl(STDIN_FILENO, TIOCSTI, "\n");                           
-        // rl_replace_line("", 0);                                    
-        rl_on_new_line();                                          
-    } 
+        ioctl(STDIN_FILENO, TIOCSTI, "\n");
+        rl_on_new_line();
+    }
 }
 
 char    *ms_getenv(char *var, char **envp, int n) // get => search.info ret.(ptr)
@@ -37,13 +34,13 @@ char    *ms_getenv(char *var, char **envp, int n) // get => search.info ret.(ptr
     while (!ft_strchr(var, '=') && envp && envp[i])
     {
         n2 = n;
-        if (n2 < ft_strchr_i(envp[i], '='))                         
-            n2 = ft_strchr_i(envp[i], '=');                          
+        if (n2 < ft_strchr_i(envp[i], '='))
+            n2 = ft_strchr_i(envp[i], '=');
         if(!ft_strncmp(envp[i], var, n2))
             return (ft_substr(envp[i], n2 + 1, ft_strlen(envp[i])));
         i++;
     }
-    return (NULL);  
+    return (NULL);
 }
  
 char    **ms_setenv(char *var, char *value, char **envp, int n)
@@ -60,8 +57,8 @@ char    **ms_setenv(char *var, char *value, char **envp, int n)
     while (!ft_strchr(var, '=') && envp && envp[++i[0]])
     {
         i[1] = n;
-        if (i[1] < ft_strchr_i(envp[i[0]], '='))                     
-            i[1] = ft_strchr_i(envp[i[0]], '=');                     
+        if (i[1] < ft_strchr_i(envp[i[0]], '='))                    
+            i[1] = ft_strchr_i(envp[i[0]], '=');
         if (!ft_strncmp(envp[i[0]], var, i[1]))
         {
             aux[0] = envp[i[0]];
@@ -70,13 +67,7 @@ char    **ms_setenv(char *var, char *value, char **envp, int n)
             return (envp);
         }
     }
-    envp = ft_mx_ext(envp, aux[1]);                                 
+    envp = ft_mx_ext(envp, aux[1]);
     free(aux[1]);
-    return (envp); 
+    return (envp);
 }
-/*
-from main.c
-    handle_signal   => signal reference (iotcl) fd, files, err
-    ms_setenv       => fix data into struct     
-    ms_getenv       => go get data to bet set      
-*/

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/22 00:22:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 03:43:26 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,20 @@ static char **split_all(t_table *tab, char **aux)
     i = -1;
     quotes[0] = 0;
     quotes[1] = 0;
-    printf("DEBUG:: ... split_all ... start\n");
-        // printf("DEBUG:: pre_redir split_all token_len [%d]\n", ft_mx_len(tab->token));
-        // tab = redir_type(tab); // node_count:: *refs[id] = token_pos[array]
-        // tab = node_alloc(tab); // node  alloc && node[array]    <<< init.c
+    // printf("DEBUG:: ... split_all ... start\n");
     while (aux && aux[++i])// && i <= tab->node->nod_len)       
     {
         aux[i] = expand_vars(aux[i], -1, quotes, tab);  
-            // //expand_var ...   meta-char- safe-check execeptions 
-            // tab->token[i] = expand_vars(tab->token[i], -1, quotes, tab);  
-            // //expand_path ...  cmd_chks legit!      
-            // tab->token[i] = expand_path(tab->token[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         aux[i] = expand_path(aux[i], -1, quotes, ms_getenv("HOME", tab->envp, 4));  
         sub = div_str(aux[i], "<|>");  // node_builder:: redir//alloc
-        printf("DEBUG:: inner split_all:: {%s}\n", *sub);// tab->token[id:%d] token{%s} \n", tab->nods, tab->token);	
+        // printf("DEBUG:: inner split_all:: {%s}\n", *sub);// tab->token[id:%d] token{%s} \n", tab->nods, tab->token);	
         ft_mx_rpl(&aux, sub, i);
         i +=  ft_mx_len(sub) - 1;
         ft_mx_free(&sub);
-        printf("DEBUG:: ... split_all ... end\n");
-            // printf("DEBUG:  SPLIT_AUX    __{%s}__ \n", aux[i]);        
+        // printf("DEBUG:: ... split_all ... end\n");
     }
     return (aux); 
 }
-    // maybe div_ here instead ... part by  part ... and free asap
-        // printf("DEBUG:: split_ node->id[%d] t->nods[%d] \t.....\n", tab->node->id, tab->nods);
-            // printf("DEBUG:  t->refs max   __%d__ ...\n", tab->refs[0]); 
-
 
 static void *parse_args(t_table *tab, char **aux)
 {
@@ -57,12 +45,10 @@ static void *parse_args(t_table *tab, char **aux)
     int id;
 
     is_exit = 0;
-    // tab->node = malloc(sizeof(t_node));
-    printf("DEBUG:: ...BEGIN ... PARSE ...\n");
-    tab->cmdl = get_node(split_all(tab, aux), -1);                   // node_builder:: redir//alloc
-    // tab = get_node(split_all(tab), "<|>");  // node_builder:: redir//alloc
+
+    // printf("DEBUG:: ...BEGIN ... PARSE ...\n");
+    tab->cmdl = get_node(split_all(tab, aux), -1);              
     id = ft_lstsize(tab->cmdl);
-    printf("DEBUG:: ready to go cmdl = %d ::\n", id);
     g_status = builtins(tab, tab->cmdl, &is_exit);
     while (id-- > 0)
         waitpid(-1, &g_status, 0);
@@ -72,10 +58,7 @@ static void *parse_args(t_table *tab, char **aux)
         g_status = g_status / 255;
     if (tab && is_exit)
     {
-        printf("yo_ empty_ me_ g_status = %d__\n", g_status);
         ft_lstclear(&tab->cmdl, free_cont);
-        // ft_mx_free(tab->cmds);
-        // ft_mx_free(&tab->token);
         return (NULL);
     }
     return (tab);
@@ -90,17 +73,14 @@ void  *check_args(char *input, t_table *tab)    // main deploy >parse
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    // tab->token = init_split(input, " ", tab);   // input* >>> tab->token**
     aux = init_split(input, " ");   // input* >>> tab->token**
     free(input);
-    // if (!tab->token )
     if (!aux) 
     {
         chk_error(QUOTE, NULL, 1);
         return ("");
     }
-    tab = parse_args(tab, aux);                      // tab->token** >>> (tab->)node->cmd**  !!mearly not needed!!
-
+    tab = parse_args(tab, aux);
     if (tab && tab->cmdl)
         n = tab->cmdl->content;
     if (tab && tab->cmdl && n  && n->cmd && ft_lstsize(tab->cmdl) == 1)
