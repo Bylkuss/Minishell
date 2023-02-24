@@ -6,12 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 05:02:22 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/24 05:13:18 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-extern int  g_status;
+
+int  g_status;
 
 void    handle_sigint(int sig)
 {
