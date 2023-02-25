@@ -37,10 +37,20 @@ $(NAME): 	$(OBJS)
 
 all		:	$(NAME)
 
+<<<<<<< HEAD
 clean	:
 				@$(RM) $(OBJ_F) 
 				@$(RM) -rf $(S_OBJ)
 				@echo "$(RED)$(S_OBJ) deleted!$(DEFAULT)"
+=======
+$(NAME): 	$(OBJS)
+		-@$(MAKE) -C $(F_DIR) -s
+		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+
+clean	:
+				$(RM) $(OBJ_F)
+				$(RM) -r $(S_OBJ)
+>>>>>>> e70393d (makefile renew, begin token builder)
 				
 fclean	:	clean
 				@$(RM) -rf $(O_DIR) $(LIBFT) 

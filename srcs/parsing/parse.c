@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 03:43:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/02/25 11:03:12 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,19 @@ void  *check_args(char *input, t_table *tab)    // main deploy >parse
         return (NULL);
     if (input[0] != '\0')
         add_history(input);
-    aux = init_split(input, " ");   // input* >>> tab->token**
-    free(input);
-    if (!aux) 
+        //  input divided by space ::    
+    // printf("GO_GO_GO\n");    // DEBUG
+    tab->cmds = space_split((const char *)input, " ");
+    if (tab->cmds[0])
     {
-        chk_error(QUOTE, NULL, 1);
-        return ("");
+        printf("\nOK TEST INPUT!");           //  DEBUG
+        // mx_display_tab(tab->cmds);
+        // display_tkn(tab);
+        printf(":: :: END !!!");
+        // len = ft_mx_len(tab->node);
+        // printf("\n%d :::\n", len);
+        // mx_display_tab(tab->cmds);
+        return (tab);
     }
     tab = parse_args(tab, aux);
     if (tab && tab->cmdl)
