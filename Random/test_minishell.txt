@@ -1,47 +1,35 @@
-
-WORKING: --ls -l > out.txt--
-WORKING: ls -l | wc -la
-WORKING: pwd
-WORKING: pwd | wc -la
-WORKING: cat <unexisting file>
-
-TODO: -- eCHO 2x-- 
-TODO: 
-TODO: -- < a << eof < a cat -e | cat -e
-TODO: -- cat << | wc -- 
+TOFIX: -- < a << eof < a cat -e | cat -e
+TOFIX: -- cat << | wc -- 
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
-TODO: -- >echo>echo1> -- 
 TODO: -- echo >> | cat makefile -- 
-TODO: -- echo > -- 
 TODO: -- echo coucou >test > >test2 -- 
-TODO: -- cat << c -- 
+TOFIX: -- cat << c -- 
 TODO: -- cat << c|oucou --
-TODO: -- cat >> --
 TODO: -- cat << eof | wc << eof | cat -e | ls << eof -- 
 TODO: -- Continuer de faire des tests plus poussé
-TODO: 
-TODO: -- exit "coucou"
-TODO: -- echo $? -- 
-TODO: 
-TODO: -- exit +204
-TODO: -- echo $? -- 
-TODO: 
-TODO: -- exit "+102"
-TODO: -- echo $? -- renvoie 10 mais devrait renvoyer 102 - 
-TODO: 
-TODO: -- exit 42 42 42
-TODO: -- echo $? -- renvoie 42 mais devrait renvoyer 1 - 
-TODO: 
-TODO: -- exit ++2
-TODO: -- echo $? -- renvoie 0 mais devrait renvoyer 2 - 
-TODO: 
-TODO: -- >echo> -- unintialised values (pas reproduisible - peut etre corrige avec conditional jump ?)
-TODO: 
-TODO: 
+
+
+
+
+WORKING: -- ls -l > out.txt--
+WORKING: -- ls -l | wc -la --
+WORKING: -- pwd --
+WORKING: -- pwd | wc -la --
+WORKING: -- cat <unexisting file> --
+WORKING: -- eCHO 2x-- 
+WORKING: -- >echo>echo1> -- 
+WORKING: -- echo > -- 
+WORKING: -- cat >> --
+WORKING: -- exit "coucou" 
+WORKING: -- exit +204
+WORKING: -- exit "+102" 
+WORKING: -- exit 42 42 42
+WORKING: -- exit ++2 
+WORKING: -- >echo> --
+WORKING: echo "tes>t"
+WORKING: echo "bon>jour"
+
 TODO: -- export TEST="ls       -l     - a" -- conditionnal jump -  (data->status etait pas initialise)
-TODO: 
-TODO: //			TESTS											|	RESULTS
-TODO: //---------------------------------------------------------------------------
 TODO: echo test 1 > test > test1 > test2
 TODO: echo test 2 >1 >2 >3
 TODO: echo test 3> test> test1> test2
@@ -58,85 +46,103 @@ TODO: echo test 13 > "tes>t">test1
 TODO: echo test 14 > 1> 2
 TODO: echo test 15 >"tes>t">test1
 TODO: echo test 16>"tes>t">test1
-TODO: echo "tes>t"
-TODO: echo "bon>jour" ">test" >coucou
-TODO: echo
-TODO: echo echo
-TODO: eCho
-TODO: eChO
-TODO: eCHO
-TODO: ECHO
-TODO: echo rhobebou
-TODO: echo stop barking
-TODO: echo "bonjour"
-TODO: echo bonjour
-TODO: echo 'bonjour'
-TODO: echo -n bonjour
-TODO: echo -nn bonjour
-TODO: echo -n -n -n bonjour
-TODO: echo -n -n -n bonjour
-TODO: echo "-n" bonjour
-TODO: echo -n"-n" bonjour
-TODO: echo "-nnnn" bonjour
-TODO: echo "-n -n -n"-n bonjour
-TODO: echo "-n '-n'" bonjour
-TODO: echo ~
-TODO: echo "~"
-TODO: echo '~'
-TODO: echo ~123
-TODO: echo 123~
-TODO: echo ~/123
-TODO: echo ~/123/456
-TODO: echo $USER
-TODO: echo "$USER"
-TODO: echo "'$USER'"
-TODO: echo " '$USER' "
-TODO: echo text"$USER"
-TODO: echo text"'$USER'" ' $USER '
-TODO: echo "text"   "$USER"    "$USER"
-TODO: echo '              $USER          '
-TODO: echo               text "$USER"            "$USER"text
-TODO: echo ''''''''''$USER''''''''''
-TODO: echo """"""""$USER""""""""
-TODO: echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
-TODO: echo $USER '' $USER $USER '' $USER '' $USER -n $USER
-TODO: echo ' \' ' \'
-TODO: echo '\" ' " \"\""
-TODO: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-TODO: echo "$USER""$USER""$USER"
-TODO: echo text"$USER"test
-TODO: echo '$USER' "$USER" "text \' text"
-TODO: echo '$USER'
-TODO: echo $USER " "
-TODO: echo "$USER""Users/$USER/file""'$USER'"'$USER'
-TODO: echo "$USER$USER$USER"
+TODO: echo ">test" >coucou
+WORKING: echo
+WORKING: echo echo
+WORKING: eCho
+WORKING: eChO
+WORKING: eCHO
+WORKING: ECHO
+WORKING: echo rhobebou
+WORKING: echo stop barking
+WORKING: echo "bonjour"
+WORKING: echo bonjour
+WORKING: echo bOnJoUr
+WORKING: echo 'bonjour'
+WORKING: echo -n bonjour
+WORKING: echo -nn bonjour
+WORKING: echo -n -n -n bonjour
+WORKING: echo -n -n -n bonjour
+WORKING: echo "-n" bonjour
+WORKING: echo -n"-n" bonjour
+WORKING: echo "-nnnn" bonjour
+WORKING: echo "-n -n -n"-n bonjour
+WORKING: echo "-n '-n'" bonjour
+WORKING: echo ~
+TOFIX: echo "~"
+TOFIX: echo '~'
+TOFIX: echo ~123
+TOFIX: echo 123~
+TOFIX: echo ~/123
+TOFIX: echo ~/123/456
+WORKING: echo $USER
+WORKING: echo "$USER"
+WORKING: echo "'$USER'"
+WORKING: echo " '$USER' "
+WORKING: echo text"$USER"
+WORKING: echo text"'$USER'" ' $USER '
+WORKING: echo "text"   "$USER"    "$USER"
+WORKING: echo '              $USER          '
+WORKING: echo               text "$USER"            "$USER"text
+WORKING: echo ''''''''''$USER''''''''''
+WORKING: echo """"""""$USER""""""""
+WORKING: echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
+WORKING: echo $USER '' $USER $USER '' $USER '' $USER -n $USER
+WORKING: echo ' \' ' \'
+TOFIX: echo '\" ' " \"\""
+
+TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
++: \" \" \" \"\"\" \'\'\'
+-: minishell: error while looking for matching quote
+
+
+WORKING: echo "$USER""$USER""$USER"
+WORKING: echo text"$USER"test
+WORKING: echo '$USER' "$USER" "text \' text"
+WORKING: echo '$USER'
+WORKING: echo $USER " "
+WORKING: echo "$USER""Users/$USER/file""'$USER'"'$USER'
+WORKING: echo "$USER$USER$USER"
+WORKING: echo $nothing
+WORKING: echo $nothing
 TODO: echo '$USER'"$USER"'$USER'
 TODO: echo '"$USER"''$USER'"""$USER"
 TODO: echo " $USER  "'$PWD'
 TODO: echo " $USER  \$ "'$PWD'
-TODO: echo $USER=4
-TODO: echo $USER=thallard
-TODO: echo $USER
-TODO: echo $?
-TODO: echo $USER213
-TODO: echo $USER$12USER$USER=4$USER12
+WORKING: echo $USER=4
+WORKING: echo $USER=thallard
+WORKING: echo $USER
+
+TOFIX: echo $?
++: 0
+-: 130, 1/2 rien
+
+WORKING: echo $USER213
+
+TOFIX: echo $USER$12USER$USER=4$USER12
++: bylkus2USERbylkus=4
+-: newline
+
 TODO: echo $USER $123456789USER $USER123456789
 TODO: echo $USER $9999USER $8888USER $7777USER
 TODO: echo $USER $USER9999 $USER8888 $USER7777
 TODO: echo $USER $USER9999 $USER8888 $USER7777 "$USER"
 TODO: echo "$USER=12$USER"
 TODO: echo "$9USER" "'$USER=12$SOMETHING'"
-TODO: echo $PWD/file
-TODO: echo "$PWD/file"
-TODO: echo "text" "text$USER" ... "$USER"
-TODO: echo $PWD
-TODO: echo test     \    test
-TODO: 
-TODO: 
-TODO: cd
-TODO: cd ..
-TODO: cd .
-TODO: cd /Users
+TOFIX: echo $PWD/file
+TOFIX: echo "$PWD/file"
++: /home/bylkus/Desktop/Code/Cursus/Minishell/file
+-: newline
+
+WORKING: echo "text" "text$USER" ... "$USER"
+WORKING: echo $PWD
+WORKING: echo test     \    test
+
+
+WORKING: cd
+WORKING: cd ..
+WORKING: cd .
+WORKING: cd /Users
 TODO: cd //
 TODO: cd '//'
 TODO: cd //////
