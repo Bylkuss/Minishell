@@ -244,10 +244,12 @@ WORKING: exit "'42'"
 WORKING: exit '42'"42"42
 WORKING: exit +'42'"42"42
 WORKING: exit -'42'"42"42
+
 TOFIX:
     exit 9223372036854775807
     exit 9223372036854775808
     TODO: exit ++++3193912939
+
 after echo $? it returns 2 instead of 255
 WORKING: exit -4
 WORKING: exit wrong
@@ -277,60 +279,64 @@ TOFIX: export | grep "OLDPWD"
 TOFIX: export | grep "PWD"
 WORKING: export $?
 WORKING: export TEST
-TODO: export TEST=
-TODO: export TEST=123
-TODO: export ___TEST=123
-TODO: export --TEST=123
-TODO: export ""=""
-TODO: export ''=''
-TODO: export "="="="
-TODO: export '='='='
-TODO: export TE\\\ST=100
-TODO: export TE-ST=100
-TODO: export -TEST=100
-TODO: export TEST-=100
-TODO: export _TEST=100
+WORKING: export TEST=
+WORKING: export TEST=123
+WORKING: export ___TEST=123
+WORKING: export --TEST=123
+WORKING: export ""=""
+WORKING: export ''=''
+WORKING: export "="="="
+WORKING: export '='='='
+WORKING: export TE\\\ST=100
+WORKING: export TE-ST=100
+WORKING: export -TEST=100
+WORKING: export TEST-=100
+WORKING: export _TEST=100
 TODO: export | grep "SHLVL"
-TODO: export TEST
-TODO: export ==========
-TODO: export 1TEST=
-TODO: export TEST
-TODO: export ""=""
-TODO: export TES=T=""
-TODO: export TE+S=T=""
-TODO: export TES\\\\T=123
-TODO: export TES.T=123
-TODO: export TES\\\$T=123
-TODO: export TES\\\\T
-TODO: export TES.T=123
-TODO: export TES+T=123
-TODO: export TES=T=123
-TODO: export TES}T=123
-TODO: export TES{T=123
-TODO: export TES-T=123
-TODO: export -TEST=123
-TODO: export _TEST=123
-TODO: export TES_T=123
-TODO: export TEST_=123
-TODO: export TE*ST=123
-TODO: export TES#T=123
-TODO: export TES@T=123
-TODO: export TES!T=123
-TODO: export TES$?T=123
-TODO: export =============123
-TODO: export +++++++=123
-TODO: export ________=123
-TODO: export export
-TODO: export echo
-TODO: export pwd
-TODO: export cd
-TODO: export export
-TODO: export unset
-TODO: export sudo
-TODO: export TES^T=123
-TODO: export TES!T=123
-TODO: export TES\~T=123
-TODO: export TEST+=100
+WORKING: export TEST
+WORKING: export ==========
+WORKING: export 1TEST=
+WORKING: export TEST
+WORKING: export ""=""
+WORKING: export TES=T=""
+WORKING: export TE+S=T=""
+WORKING: export TES\\\\T=123
+WORKING: export TES.T=123
+WORKING: export TES\\\$T=123
+WORKING: export TES\\\\T
+WORKING: export TES.T=123
+WORKING: export TES+T=123
+WORKING: export TES=T=123
+WORKING: export TES}T=123
+WORKING: export TES{T=123
+WORKING: export TES-T=123
+WORKING: export -TEST=123
+WORKING: export _TEST=123
+WORKING: export TES_T=123
+WORKING: export TEST_=123
+WORKING: export TE*ST=123
+WORKING: export TES#T=123
+WORKING: export TES@T=123
+WORKING: export TES!T=123
+WORKING: export TES$?T=123
+WORKING: export =============123
+WORKING: export +++++++=123
+WORKING: export ________=123
+WORKING: export export
+WORKING: export echo
+WORKING: export pwd
+WORKING: export cd
+WORKING: export export
+WORKING: export unset
+WORKING: export sudo
+WORKING: export TES^T=123
+WORKING: export TES!T=123
+WORKING: export TEST+=100
+
+TOFIX: export TES\~T=123
++:  export: `TES~T=123': not a valid identifier
+-: infite loop
+
 
 TOFIX: env | grep "_="
 TOFIX: env | grep "SHLVL"

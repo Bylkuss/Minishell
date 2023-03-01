@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/01 14:17:50 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/01 16:49:49 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ static int	check_export_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
+		while(str[i] != '=')
+		{
+			if(!ft_isalpha(str[i]) && str[i] != '_')
+				return 0;
+			i++;
+		}
 		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
 			return (1);
 		i++;
