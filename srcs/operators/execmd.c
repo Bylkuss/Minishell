@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 04:19:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/01 14:21:54 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		free(path);
 		return (NULL);
 	}
-	printf("DEBUG: TEST find_command >> path{%s}  \n", path);
+	// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
 	return (path);
 }
 
