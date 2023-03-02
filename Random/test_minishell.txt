@@ -1,9 +1,9 @@
-TOFIX: -- < a << eof < a cat -e | cat -e
-TOFIX: -- cat << | wc -- 
+    TOFIX: -- < a << eof < a cat -e | cat -e        // need to call heredoc 'quand-meme'
+    TOFIX: -- cat << | wc --                        // should not call heredoc  
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
 TODO: -- echo coucou >test > >test2 -- 
-TOFIX: -- cat << c -- 
+    TOFIX: -- cat << c -- 
 TODO: -- cat << c|oucou --
 TODO: -- cat << eof | wc << eof | cat -e | ls << eof -- 
 TODO: -- Continuer de faire des tests plus poussé
@@ -69,12 +69,12 @@ WORKING: echo "-nnnn" bonjour
 WORKING: echo "-n -n -n"-n bonjour
 WORKING: echo "-n '-n'" bonjour
 WORKING: echo ~
-TOFIX: echo "~"
-TOFIX: echo '~'
-TOFIX: echo ~123
-TOFIX: echo 123~
-TOFIX: echo ~/123
-TOFIX: echo ~/123/456
+    TOFIX: echo "~"  SHOULD BE TAG AS WORKING
+    TOFIX: echo '~'  SHOULD BE TAG AS WORKING
+    TOFIX: echo ~123            // expand ... chk
+    TOFIX: echo 123~            // dont know
+    TOFIX: echo ~/123           // should ext_arg
+    TOFIX: echo ~/123/456       // idem
 WORKING: echo $USER
 WORKING: echo "$USER"
 WORKING: echo "'$USER'"
@@ -89,11 +89,11 @@ WORKING: echo """"""""$USER""""""""
 WORKING: echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
 WORKING: echo $USER '' $USER $USER '' $USER '' $USER -n $USER
 WORKING: echo ' \' ' \'
-TOFIX: echo '\" ' " \"\""
+    TOFIX: echo '\" ' " \"\""
 
-TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-+: \" \" \" \"\"\" \'\'\'
--: minishell: error while looking for matching quote
+    TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
+    +: \" \" \" \"\"\" \'\'\'
+    -: minishell: error while looking for matching quote
 
 
 WORKING: echo "$USER""$USER""$USER"
@@ -113,15 +113,15 @@ WORKING: echo $USER=4
 WORKING: echo $USER=thallard
 WORKING: echo $USER
 
-TOFIX: echo $?
-+: 0
--: 130, 1/2 rien
+    TOFIX: echo $?
+    +: 0
+    -: 130, 1/2 rien
 
 WORKING: echo $USER213
 
-TOFIX: echo $USER$12USER$USER=4$USER12
-+: bylkus2USERbylkus=4
--: newline
+    TOFIX: echo $USER$12USER$USER=4$USER12
+    +: bylkus2USERbylkus=4
+    -: newline
 
 TODO: echo $USER $123456789USER $USER123456789
 TODO: echo $USER $9999USER $8888USER $7777USER
@@ -129,10 +129,10 @@ TODO: echo $USER $USER9999 $USER8888 $USER7777
 TODO: echo $USER $USER9999 $USER8888 $USER7777 "$USER"
 TODO: echo "$USER=12$USER"
 TODO: echo "$9USER" "'$USER=12$SOMETHING'"
-TOFIX: echo $PWD/file
-TOFIX: echo "$PWD/file"
-+: /home/bylkus/Desktop/Code/Cursus/Minishell/file
--: newline
+    TOFIX: echo $PWD/file
+    TOFIX: echo "$PWD/file"
+    +: /home/bylkus/Desktop/Code/Cursus/Minishell/file
+    -: newline
 
 WORKING: echo "text" "text$USER" ... "$USER"
 WORKING: echo $PWD

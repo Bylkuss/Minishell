@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 04:41:24 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/02 09:07:39 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,5 @@ void   					error_msg(char *msg, int exiit);
 void	    			error_msg(char *msg, int exiit);
 void					*chk_error(int err_type, char *param, int err);
 void					free_cont(void *content);
-//quotes??
-int						is_quoted(char *str);
-void					print_skip_qt(char *s);
 
 #endif
