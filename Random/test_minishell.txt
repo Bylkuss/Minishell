@@ -5,30 +5,25 @@ TODO: -- echo >> | cat makefile --
 TODO: -- echo coucou >test > >test2 -- 
     TOFIX: -- cat << c -- 
 TODO: -- cat << c|oucou --
-TODO: -- cat << eof | wc << eof | cat -e | ls << eof -- 
+TODO: -- cat << eof | wc << eof | cat -e | ls << eof --
 TODO: -- Continuer de faire des tests plus poussé
-
-
-
-
 WORKING: -- ls -l > out.txt--
 WORKING: -- ls -l | wc -la --
 WORKING: -- pwd --
 WORKING: -- pwd | wc -la --
 WORKING: -- cat <unexisting file> --
-WORKING: -- eCHO 2x-- 
-WORKING: -- >echo>echo1> -- 
-WORKING: -- echo > -- 
+WORKING: -- eCHO 2x--
+WORKING: -- >echo>echo1> --
+WORKING: -- echo > --
 WORKING: -- cat >> --
-WORKING: -- exit "coucou" 
+WORKING: -- exit "coucou"
 WORKING: -- exit +204
-WORKING: -- exit "+102" 
+WORKING: -- exit "+102"
 WORKING: -- exit 42 42 42
-WORKING: -- exit ++2 
+WORKING: -- exit ++2
 WORKING: -- >echo> --
 WORKING: echo "tes>t"
 WORKING: echo "bon>jour"
-
 TODO: -- export TEST="ls       -l     - a" -- conditionnal jump -  (data->status etait pas initialise)
 TODO: echo test 1 > test > test1 > test2
 TODO: echo test 2 >1 >2 >3
@@ -137,228 +132,252 @@ TODO: echo "$9USER" "'$USER=12$SOMETHING'"
 WORKING: echo "text" "text$USER" ... "$USER"
 WORKING: echo $PWD
 WORKING: echo test     \    test
-
-
 WORKING: cd
 WORKING: cd ..
 WORKING: cd .
 WORKING: cd /Users
-TODO: cd //
-TODO: cd '//'
-TODO: cd //////
-TODO: cd ./././
-TODO: cd /
+WORKING: cd //
+These 2 following tests to make sure
+WORKING: cd '//'
+WORKING: cd //////
+TOFIX: cd ./././
++: currect dir
+-: /
+WORKING: cd /
 TODO: cd '/////' 2>/dev/null
-TODO: cd '/etc'
-TODO: cd '/var'
-TODO: cd "$PWD/file_tests"
-TODO: cd "doesntexist"
+WORKING: cd '/etc'
+WORKING: cd '/var'
+WORKING: cd "$PWD/file_tests"
+WORKING: cd "doesntexist"
 TODO: cd "doesntexist" 2>/dev/null
-TODO: cd ../../..
+WORKING: cd ../../..
 TODO: cd "wtf" 2>/dev/null
-TODO: cd ..
-TODO: cd ..
-TODO: cd ?
-TODO: cd +
-TODO: cd _
-TODO: cd woof
-TODO: cd bark bark
-TODO: cd '/'
-TODO: cd $PWD/file_tests
-TODO: cd $OLDPWD/something
-TODO: 
-TODO: test
-TODO: | test
+WORKING: cd ..
+WORKING: cd ?
+WORKING: cd +
+WORKING: cd _
+WORKING: cd woof
+WORKING: cd bark bark
+WORKING: cd '/'
+TOFIX: cd $PWD/file_tests
+TOFIX: cd $OLDPWD/something
++: no such file or directory
+-: it cd to PWD
+WORKING: test
+WORKING: | test
 TODO: echo > <
-TODO: echo | |
-TODO: <
-TODO: |
-TODO: | | |
-TODO: hello world
-TODO: ||||||||
-TODO: 
-TODO: cat wouaf wouaf
-TODO: >
-TODO: >>>>>>>>
-TODO: <<<<<<<<<
-TODO: > > > >
-TODO: >> >> >> >>
-TODO: ~
-TODO: <<
-TODO: /Users
-TODO: 
-TODO: .
-TODO: ..
-TODO: /
+WORKING: echo | |
+WORKING: <
+WORKING: |
+WORKING: | | |
+WORKING: hello world
+WORKING: ||||||||
+WORKING: cat wouaf wouaf
+WORKING: >
+WORKING: >>>>>>>>
+TOFIX: <<<<<<<<<
++: error message
+-: it starts heredoc
+******************************************************
+TODO: fix error msg redir, specify < > >> << instead of 'newline'
+******************************************************
+WORKING: > > > >
+WORKING: >> >> >> >>
+WORKING: ~
+WORKING: <<
+WORKING: /Users
+TOFIX: .
++:  bash: .: filename argument required
+    .: usage: . filename [arguments]
+-:  minishell: Is a directory: .
+TOFIX: ..
++:  ..: command not found
+-:  minishell: Is a directory: ..
+WORKING: /
 TODO: \\\
-TODO: EechoE
-TODO: .echo.
-TODO: >echo>
-TODO: <echo<
-TODO: >>echo>>
-TODO: echo
-TODO: |echo|
-TODO: echo -n
-TODO: echo -n
-TODO: echo
-TODO: echo something
-TODO: rm -f something
-TODO: cat something
-TODO: | echo -n oui
-TODO: echo -n oui
-TODO: trying to destroy your minishell
-TODO: trying something again echo if you see this message thats not a good new
-TODO: qewew
-TODO: wtf
-TODO: ;; test
-TODO: | test
-TODO: echo > <
-TODO: echo | |
-TODO: <
-TODO: 
-TODO: exit 0 0
-TODO: exit 42 42
-TODO: exit -42 -24
-TODO: exit 42
-TODO: exit 42 53 68
-TODO: exit 259
-TODO: exit -12030
-TODO: exit --1239312
-TODO: exit ++++1203020103
-TODO: exit +0
-TODO: exit ++++++0
-TODO: exit -----0
-TODO: exit azerty
-TODO: exit kewkwqke
-TODO: exit a
-TODO: exit z
-TODO: exit "1"
-TODO: exit "2"
-TODO: exit "+102"
-TODO: exit "1230"
-TODO: exit "+++1230"
-TODO: exit "1"23
-TODO: exit "2"32"32"
-TODO: exit "'42'"
-TODO: exit '42'"42"42
-TODO: exit +'42'"42"42
-TODO: exit -'42'"42"42
-TODO: exit 9223372036854775807
-TODO: exit 9223372036854775808
-TODO: exit -4
-TODO: exit wrong
-TODO: exit wrong_command
-TODO: exit something
-TODO: exit 1
-TODO: exit -1
-TODO: exit 42
-TODO: exit 0
-TODO: exit --000
-TODO: exit +++++++000
-TODO: exit ++++3193912939
-TODO: exit ---31232103012
-TODO: exit "something"
-TODO: exit q
-TODO: exit help
-TODO: exit export
-TODO: exit echo
-TODO: exit cd ..
-TODO: exit 0 0
-TODO: exit something somethingv2
-TODO: exit 42 42 42 42 42
-TODO: exit echo something
-TODO: exit exit
-TODO: 
-TODO: env | grep "_="
+WORKING: EechoE
+WORKING: .echo.
+WORKING: >echo>
+WORKING: <echo<
+WORKING: >>echo>>
+WORKING: echo
+WORKING: |echo|
+WORKING: echo -n
+WORKING: echo something
+WORKING: rm -f something
+WORKING: rm -rf <existing_file>
+WORKING: cat something
+TOFIX: | echo -n oui
++:  bash: syntax error near unexpected token `|'
+-: it skips the | and executes echo
+WORKING: echo -n oui
+WORKING: trying to destroy your minishell
+WORKING: trying something again echo if you see this message thats not a good new
+WORKING: trying something again echo if you | see this message thats not a good new
+WORKING: qewew
+WORKING: wtf
+WORKING: ;; test
+TOFIX: | test
++:  bash: syntax error near unexpected token `|'
+-:
+TOFIX: echo > <
++:  bash: syntax error near unexpected token `<'
+-:  newline
+WORKING: echo | |
+WORKING: <
+WORKING: exit 0 0
+WORKING: exit 42 42
+WORKING: exit -42 -24
+WORKING: exit 42
+WORKING: exit 42 53 68
+WORKING: exit 259
+WORKING: exit -12030
+WORKING: exit --1239312
+WORKING: exit ++++1203020103
+WORKING: exit +0
+WORKING: exit ++++++0
+WORKING: exit -----0
+WORKING: exit azerty
+WORKING: exit kewkwqke
+WORKING: exit a
+WORKING: exit z
+WORKING: exit "1"
+WORKING: exit "2"
+WORKING: exit "+102"
+WORKING: exit "1230"
+WORKING: exit "+++1230"
+WORKING: exit "1"23
+WORKING: exit "2"32"32"
+WORKING: exit "'42'"
+WORKING: exit '42'"42"42
+WORKING: exit +'42'"42"42
+WORKING: exit -'42'"42"42
+
+TOFIX:
+    exit 9223372036854775807
+    exit 9223372036854775808
+    TODO: exit ++++3193912939
+
+after echo $? it returns 2 instead of 255
+WORKING: exit -4
+WORKING: exit wrong
+WORKING: exit wrong_command
+WORKING: exit something
+WORKING: exit 1
+WORKING: exit -1
+WORKING: exit 42
+WORKING: exit 0
+WORKING: exit --000
+WORKING: exit +++++++000
+WORKING: exit ---31232103012
+WORKING: exit "something"
+WORKING: exit q
+WORKING: exit help
+WORKING: exit export
+WORKING: exit echo
+WORKING: exit cd ..
+WORKING: exit 0 0
+WORKING: exit something somethingv2
+WORKING: exit 42 42 42 42 42
+WORKING: exit echo something
+WORKING: exit exit
+TOFIX: env | grep "_="
+TOFIX: export | grep "SHLVL"
+TOFIX: export | grep "OLDPWD"
+TOFIX: export | grep "PWD"
+WORKING: export $?
+WORKING: export TEST
+WORKING: export TEST=
+WORKING: export TEST=123
+WORKING: export ___TEST=123
+WORKING: export --TEST=123
+WORKING: export ""=""
+WORKING: export ''=''
+WORKING: export "="="="
+WORKING: export '='='='
+WORKING: export TE\\\ST=100
+WORKING: export TE-ST=100
+WORKING: export -TEST=100
+WORKING: export TEST-=100
+WORKING: export _TEST=100
 TODO: export | grep "SHLVL"
-TODO: export | grep "OLDPWD"
-TODO: export | grep "PWD"
-TODO: export $?
-TODO: export TEST
-TODO: export TEST=
-TODO: export TEST=123
-TODO: export ___TEST=123
-TODO: export --TEST=123
-TODO: export ""=""
-TODO: export ''=''
-TODO: export "="="="
-TODO: export '='='='
-TODO: export TE\\\ST=100
-TODO: export TE-ST=100
-TODO: export -TEST=100
-TODO: export TEST-=100
-TODO: export _TEST=100
-TODO: export | grep "SHLVL"
-TODO: export TEST
-TODO: export ==========
-TODO: export 1TEST=
-TODO: export TEST
-TODO: export ""=""
-TODO: export TES=T=""
-TODO: export TE+S=T=""
-TODO: export TES\\\\T=123
-TODO: export TES.T=123
-TODO: export TES\\\$T=123
-TODO: export TES\\\\T
-TODO: export TES.T=123
-TODO: export TES+T=123
-TODO: export TES=T=123
-TODO: export TES}T=123
-TODO: export TES{T=123
-TODO: export TES-T=123
-TODO: export -TEST=123
-TODO: export _TEST=123
-TODO: export TES_T=123
-TODO: export TEST_=123
-TODO: export TE*ST=123
-TODO: export TES#T=123
-TODO: export TES@T=123
-TODO: export TES!T=123
-TODO: export TES$?T=123
-TODO: export =============123
-TODO: export +++++++=123
-TODO: export ________=123
-TODO: export export
-TODO: export echo
-TODO: export pwd
-TODO: export cd
-TODO: export export
-TODO: export unset
-TODO: export sudo
-TODO: export TES^T=123
-TODO: export TES!T=123
-TODO: export TES\~T=123
-TODO: export TEST+=100
-TODO: 
-TODO: env | grep "_="
-TODO: env | grep "SHLVL"
-TODO: echo oui | cat -e
-TODO: echo oui | echo non | echo something | grep oui
-TODO: echo oui | echo non | echo something | grep non
-TODO: echo oui | echo non | echo something | grep something
-TODO: cd .. | echo "something"
-TODO: cd .. | echo "something"
-TODO: cd / | echo "something"
-TODO: cd .. | pwd
-TODO: ifconfig | grep ":"
-TODO: ifconfig | grep nothing
-TODO: whoami | grep $USER
-TODO: whoami | grep $USER > tmp/file
-TODO: whoami | cat -e | cat -e > tmp/file
-TODO: cat Makefile | grep "FLAGS"
-TODO: cat Makefile | cat -e | cat -e
-TODO: cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
-TODO: export TEST=123 | cat -e | cat -e
-TODO: unset TEST | cat -e
-TODO: 
-TODO: echo test | cat -e | cat -e | cat -e
-TODO: whereis ls | cat -e | cat -e > test
-TODO: echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
-TODO: ls -la | grep "."
-TODO: whereis grep > tmp/file
-TODO: whereis grep > tmp/file
-TODO: ls -la > tmp/file
-TODO: ls -la > tmp/file
-TODO: echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e
-TODO: cat /dev/random | head -c 100 | wc -c
-TODO: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
+WORKING: export TEST
+WORKING: export ==========
+WORKING: export 1TEST=
+WORKING: export TEST
+WORKING: export ""=""
+WORKING: export TES=T=""
+WORKING: export TE+S=T=""
+WORKING: export TES\\\\T=123
+WORKING: export TES.T=123
+WORKING: export TES\\\$T=123
+WORKING: export TES\\\\T
+WORKING: export TES.T=123
+WORKING: export TES+T=123
+WORKING: export TES=T=123
+WORKING: export TES}T=123
+WORKING: export TES{T=123
+WORKING: export TES-T=123
+WORKING: export -TEST=123
+WORKING: export _TEST=123
+WORKING: export TES_T=123
+WORKING: export TEST_=123
+WORKING: export TE*ST=123
+WORKING: export TES#T=123
+WORKING: export TES@T=123
+WORKING: export TES!T=123
+WORKING: export TES$?T=123
+WORKING: export =============123
+WORKING: export +++++++=123
+WORKING: export ________=123
+WORKING: export export
+WORKING: export echo
+WORKING: export pwd
+WORKING: export cd
+WORKING: export export
+WORKING: export unset
+WORKING: export sudo
+WORKING: export TES^T=123
+WORKING: export TES!T=123
+WORKING: export TEST+=100
+
+TOFIX: export TES\~T=123
++:  export: `TES~T=123': not a valid identifier
+-: infite loop
+
+
+TOFIX: env | grep "_="
+TOFIX: env | grep "SHLVL"
+-: infinite loop
+
+TOFIX: echo oui | cat -e
++:  oui$
+-:  oui $
+
+TOFIX: echo oui | echo non | echo something | grep oui
+TOFIX: echo oui | echo non | echo something | grep non
+TOFIX: echo oui | echo non | echo something | grep something
+TOFIX: cat Makefile | cat -e | cat -e
+TOFIX: cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
+TOFIX: echo test | cat -e | cat -e | cat -e
+TOFIX: export TEST=123 | cat -e | cat -e
+TOFIX: whereis ls | cat -e | cat -e > test
+TOFIX: echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e
+TOFIX: cat /dev/random | head -c 100 | wc -c
+-: infinite loop on multipipe
+
+WORKING: cat /dev/random | head -c 100
+WORKING: cd .. | echo "something"
+WORKING: cd / | echo "something"
+WORKING: cd .. | pwd
+WORKING: ifconfig | grep ":"
+WORKING: ifconfig | grep nothing
+WORKING: whoami | grep $USER
+WORKING: cat Makefile | grep "FLAGS"
+WORKING: unset TEST | cat -e
+WORKING: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
+
+TOFIX: whoami | grep $USER > tmp/file
+TOFIX: whoami | cat -e | cat -e > tmp/file
++:  tmp/file: No such file or directory
+-: nothing
