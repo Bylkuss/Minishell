@@ -31,9 +31,7 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 {
 	
 	if (a[0][*i])
-	{
-		// etype = set_etype(tab, a[*i]);
-		// printf("DEBUG:: ID:%d :: str:%s \n", *i, a[0][*i]);
+	{		
 			if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')

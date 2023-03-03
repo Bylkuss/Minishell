@@ -26,7 +26,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 		str[1] = ft_strjoin(str[1], str[0]);
 		free(temp);
 		free(str[0]);
-		str[0] = readline("> ");
+		str[0] = readline(">> ");
 		if (!str[0])
 		{
 			printf("%s (wanted `%s\')\n", warn, limit);
@@ -51,7 +51,7 @@ int	get_here_doc(char *str[2], char *aux[2])
 		chk_error(PIPERR, NULL, 1);
 		return (-1);
 	}
-	printf("HEY, I'M HEREDOC! \n");
+	// printf("HEY, I'M HEREDOC! \n");
 	str[1] = get_here_str(str, 0, aux[0], aux[1]);
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);

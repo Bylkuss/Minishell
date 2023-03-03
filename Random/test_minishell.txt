@@ -159,11 +159,11 @@ WORKING: cd _
 WORKING: cd woof
 WORKING: cd bark bark
 WORKING: cd '/'
-TOFIX: cd $PWD/file_tests
+    TOFIX: cd $PWD/file_tests
 
-TOFIX: cd $OLDPWD/something
-+: no such file or directory
--: it cd to PWD
+    TOFIX: cd $OLDPWD/something
+    +: no such file or directory
+    -: it cd to PWD
 
 WORKING: test
 WORKING: | test
@@ -178,9 +178,9 @@ WORKING: ||||||||
 WORKING: cat wouaf wouaf
 WORKING: >
 WORKING: >>>>>>>>
-TOFIX: <<<<<<<<<
-+: error message
--: it starts heredoc
+    TOFIX: <<<<<<<<<
+    +: error message
+    -: it starts heredoc
 ******************************************************
 TODO: fix error msg redir, specify < > >> << instead of 'newline'
 ******************************************************
@@ -189,13 +189,13 @@ WORKING: >> >> >> >>
 WORKING: ~
 WORKING: <<
 WORKING: /Users
-TOFIX: .
-+:  bash: .: filename argument required
-    .: usage: . filename [arguments]
--:  minishell: Is a directory: .
-TOFIX: ..
-+:  ..: command not found
--:  minishell: Is a directory: ..
+    TOFIX: .
+    +:  bash: .: filename argument required
+        .: usage: . filename [arguments]
+    -:  minishell: Is a directory: .
+    TOFIX: ..
+    +:  ..: command not found
+    -:  minishell: Is a directory: ..
 WORKING: /
 TODO: \\\
 WORKING: EechoE
@@ -210,9 +210,9 @@ WORKING: echo something
 WORKING: rm -f something
 WORKING: rm -rf <existing_file>
 WORKING: cat something
-TOFIX: | echo -n oui
-+:  bash: syntax error near unexpected token `|'
--: it skips the | and executes echo
+    TOFIX: | echo -n oui
+    +:  bash: syntax error near unexpected token `|'
+    -: it skips the | and executes echo
 WORKING: echo -n oui
 WORKING: trying to destroy your minishell
 WORKING: trying something again echo if you see this message thats not a good new
@@ -220,12 +220,12 @@ WORKING: trying something again echo if you | see this message thats not a good 
 WORKING: qewew
 WORKING: wtf
 WORKING: ;; test
-TOFIX: | test
-+:  bash: syntax error near unexpected token `|'
--:
-TOFIX: echo > <
-+:  bash: syntax error near unexpected token `<'
--:  newline
+    TOFIX: | test
+    +:  bash: syntax error near unexpected token `|'
+    -:
+    TOFIX: echo > <
+    +:  bash: syntax error near unexpected token `<'
+    -:  newline
 WORKING: echo | |
 WORKING: <
 WORKING: exit 0 0
@@ -261,7 +261,7 @@ TOFIX:
     exit 9223372036854775808
     TODO: exit ++++3193912939
 
-after echo $? it returns 2 instead of 255
+    after echo $? it returns 2 instead of 255
 WORKING: exit -4
 WORKING: exit wrong
 WORKING: exit wrong_command
@@ -284,10 +284,10 @@ WORKING: exit something somethingv2
 WORKING: exit 42 42 42 42 42
 WORKING: exit echo something
 WORKING: exit exit
-TOFIX: env | grep "_="
-TOFIX: export | grep "SHLVL"
-TOFIX: export | grep "OLDPWD"
-TOFIX: export | grep "PWD"
+    TOFIX: env | grep "_="
+    TOFIX: export | grep "SHLVL"
+    TOFIX: export | grep "OLDPWD"
+    TOFIX: export | grep "PWD"
 WORKING: export $?
 WORKING: export TEST
 WORKING: export TEST=
@@ -344,34 +344,34 @@ WORKING: export TES^T=123
 WORKING: export TES!T=123
 WORKING: export TEST+=100
 
-TOFIX: export TES\~T=123
-+:  export: `TES~T=123': not a valid identifier
--: infite loop
+    TOFIX: export TES\~T=123
+    +:  export: `TES~T=123': not a valid identifier
+    -: infite loop
 
 
-TOFIX: env | grep "_="
-TOFIX: env | grep "SHLVL"
--: infinite loop
+    TOFIX: env | grep "_="
+    TOFIX: env | grep "SHLVL"
+    -: infinite loop
 
-TOFIX: echo oui | cat -e
-+:  oui$
+    TOFIX: echo oui | cat -e
+    +:  oui$
 -:  oui $
 
 WORKING: < salut cat
-TOFIX: << EOF | cat
--: segmentation fault
-TOFIX: echo oui | echo non | echo something | grep oui
-TOFIX: echo oui | echo non | echo something | grep non
-TOFIX: echo oui | echo non | echo something | grep something
-TOFIX: cat Makefile | cat -e | cat -e
-TOFIX: cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
-TOFIX: echo test | cat -e | cat -e | cat -e
-TOFIX: export TEST=123 | cat -e | cat -e
-TOFIX: whereis ls | cat -e | cat -e > test
-TOFIX: echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e
-TOFIX: cat /dev/random | head -c 100 | wc -c
-TOFIX: ls -l | grep "Makefile" | cat -e
--: infinite loop on multipipe
+    TOFIX: << EOF | cat
+    -: segmentation fault
+    TOFIX: echo oui | echo non | echo something | grep oui
+    TOFIX: echo oui | echo non | echo something | grep non
+    TOFIX: echo oui | echo non | echo something | grep something
+    TOFIX: cat Makefile | cat -e | cat -e
+    TOFIX: cat Makefile | grep "FLAGS" | grep "FLAGS" | cat -e
+    TOFIX: echo test | cat -e | cat -e | cat -e
+    TOFIX: export TEST=123 | cat -e | cat -e
+    TOFIX: whereis ls | cat -e | cat -e > test
+    TOFIX: echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e| cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e|cat -e
+    TOFIX: cat /dev/random | head -c 100 | wc -c
+    TOFIX: ls -l | grep "Makefile" | cat -e
+    -: infinite loop on multipipe
 
 WORKING: cat /dev/random | head -c 100
 WORKING: cd .. | echo "something"
@@ -384,7 +384,7 @@ WORKING: cat Makefile | grep "FLAGS"
 WORKING: unset TEST | cat -e
 WORKING: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
 
-TOFIX: whoami | grep $USER > tmp/file
-TOFIX: whoami | cat -e | cat -e > tmp/file
-+:  tmp/file: No such file or directory
--: nothing
+    TOFIX: whoami | grep $USER > tmp/file
+    TOFIX: whoami | cat -e | cat -e > tmp/file
+    +:  tmp/file: No such file or directory
+    -: nothing

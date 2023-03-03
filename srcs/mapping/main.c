@@ -92,7 +92,7 @@ int main(int ac, char **av, char **envp)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");         */
-        input = readline("$ ");
+        input = readline(">$ ");
         free(str);
         if (!check_args(input, &tab))
             break;
