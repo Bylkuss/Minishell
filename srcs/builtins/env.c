@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/02/24 16:10:41 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/01 16:49:49 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ char	**edit_env(char **envp, int pos)
 {
 	while (envp && envp[pos + 1])
 	{
-	
 		envp[pos] = envp[pos + 1];
 		pos++;
 	}
@@ -86,6 +85,12 @@ static int	check_export_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
+		while(str[i] != '=')
+		{
+			if(!ft_isalpha(str[i]) && str[i] != '_')
+				return 0;
+			i++;
+		}
 		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
 			return (1);
 		i++;
@@ -102,7 +107,6 @@ int	is_already_var(char **envp, char *var)
 	{
 		if (ft_strncmp(envp[i], var, ft_strlen_c(envp[i], '=')) == 0)
 			return (i);
-		// if (ft_strcmp_c(envp[i], var, '=') == 0)
 		i++;
 	}
 	return (-1);
@@ -153,7 +157,10 @@ int	ms_export(char **cmd, char **envp)
 		pos = is_already_var(envp, cmd[1]);
 		// printf("pos [%d]\n", is_already_var(envp, cmd[1]));
 		if (pos > -1)
+		{
 			envp[pos] = ft_strdup(cmd[1]);
+			printf("%s\n", envp[pos]);
+		}
 		else
 		{
 			

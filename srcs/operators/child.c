@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 03:24:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:18:02 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
 	child_builtin(tab, n, l, cmd);
-	printf("DEBUG:: END_ _born_ \n");
+	// printf("DEBUG:: END_ _born_ \n");
 	ft_lstclear(&tab->cmdl, free_cont);
 	exit(g_status);
 }
@@ -108,6 +108,6 @@ void *chk_fork(t_table *tab, t_list *cmd, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-	printf("DEBUG:: END chk_frk __ __ \n");
+	// printf("DEBUG:: END chk_frk __ __ \n");
     return ("");
 }
