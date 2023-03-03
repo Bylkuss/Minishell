@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/02/24 15:34:33 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/01 19:29:16 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int is_builtin(t_node *t)
 	l = ft_strlen(*t->cmd);
 	if (!ft_strncmp(*t->cmd, "pwd", l) && l == 3)
 		return (1);
-	if (!ft_strncmp(*t->cmd, "env", l) && l == 3)
+	if ((!ft_strncmp(*t->cmd, "env", l) || !ft_strncmp(*t->cmd, "ENV", l)) && l == 3)
 		return (1);
 	if (!ft_strncmp(*t->cmd, "cd", l) && l == 2)
 		return (1);
@@ -89,7 +89,7 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
             if(unset((aux), tab->envp) == 0)
                 printf("No such variable\n");
         } 
-        else if(!ft_strncmp(*aux, "env", i) && i == 3)
+        else if((!ft_strncmp(*aux, "env", i) || !ft_strncmp(*aux, "ENV", i)) && i == 3)
             env(tab->envp);
         else 
         {

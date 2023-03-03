@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/01 16:49:49 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/01 19:40:23 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	env(char **envp)
 		printf("%s\n", envp[i]);
 		i++;
 	}
-	// printf("**********END***********\n");
+	printf("**********END***********\n");
+	printf("********************* tab lenght: %d\n", ft_mx_len(envp));
 }
 
 char	**edit_env(char **envp, int pos)
@@ -123,14 +124,15 @@ char	**new_envp(char **envp, char *var)
 	new_envp = ft_calloc(sizeof(char *), len);
 	if (!new_envp)
 		return (NULL);
-	i = 0;
+	new_envp[0] = ft_strdup(var);
+	i = 1;
 	while (envp[i])
 	{
 		new_envp[i] = ft_strdup(envp[i]);
 		// printf("%s\n", new_envp[i]);
 		i++;
 	}
-	new_envp[i] = ft_strdup(var);
+	printf("********************* tab lenght: %d\n", ft_mx_len(new_envp));
 	// ft_free_array(envp);
 	return (new_envp);
 }
