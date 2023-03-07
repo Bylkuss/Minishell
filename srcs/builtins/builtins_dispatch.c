@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/02/24 03:41:00 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/07 10:58:01 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int is_builtin(t_node *t)
 	l = ft_strlen(*t->cmd);
 	if (!ft_strncmp(*t->cmd, "pwd", l) && l == 3)
 		return (1);
-	if (!ft_strncmp(*t->cmd, "env", l) && l == 3)
+	if ((!ft_strncmp(*t->cmd, "env", l) || !ft_strncmp(*t->cmd, "ENV", l)) && l == 3)
 		return (1);
 	if (!ft_strncmp(*t->cmd, "cd", l) && l == 2)
 		return (1);
@@ -46,7 +46,6 @@ int    exit_builtin(char **cmd)//, int *is_exit)
         int exiit = 0;
         int i = 0;
 
-        // exiit = *is_exit;
         if(cmd[1] && !cmd[2])
         {
             while(cmd[1][i])
@@ -67,8 +66,6 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
     char **aux;
     int i;
 
-    // if (cmdl)
-    //     printf("\nDEBUG: part_2::  Builtins ::: ::: ::: \n");
     while (cmdl)
     {
         aux = ((t_node *)cmdl->content)->cmd;
@@ -86,7 +83,7 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
             if(unset((aux), tab->envp) == 0)
                 printf("No such variable\n");
         } 
-        else if(!ft_strncmp(*aux, "env", i) && i == 3)
+        else if((!ft_strncmp(*aux, "env", i) || !ft_strncmp(*aux, "ENV", i)) && i == 3)
             env(tab->envp);
         else 
         {
