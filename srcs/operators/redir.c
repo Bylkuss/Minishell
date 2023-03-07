@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 03:26:29 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/07 17:47:54 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		close(oldfd);
 	if (!path)
 		return (-1);
-	if (access(path, F_OK) == -1 && !flags[0])
+	if (access(path, F_OK) == -1 || !flags[0])
 		chk_error(NDIR, path, 127);
 	else if (!flags[0] && access(path, R_OK) == -1)
 		chk_error(NPERM, path, 126);
@@ -48,7 +48,7 @@ t_node	*get_outfile1(t_node *t, char **a, int *i)
 
 	flags[0] = 1;
 	flags[1] = 0;
-	nl = "minishell: syntax error near unexpected node `newline'";
+	nl = "minishell: syntax error near unexpected node `>'";
 	(*i)++;
 	if (a[*i])
 		t->outfile = get_fd(t->outfile, a[*i], flags);
@@ -74,7 +74,7 @@ t_node	*get_outfile2(t_node *t, char **a, int *i)
 
 	flags[0] = 1;
 	flags[1] = 1;
-	nl = "minishell: syntax error near unexpected node `newline'";
+	nl = "minishell: syntax error near unexpected node `>>'";
 	(*i)++;
 	if (a[++(*i)])
 		t->outfile = get_fd(t->outfile, a[*i], flags);
@@ -99,7 +99,7 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 
 	flags[0] = 0;
 	flags[1] = 0;
-	nl = "minishell: syntax error -1- near unexpected node `newline'";
+	nl = "minishell: syntax error -1- near unexpected node `<'";
 	(*i)++;
 	if (a[*i])
 		t->infile = get_fd(t->infile, a[*i], flags);
@@ -128,7 +128,7 @@ t_node	*get_infile2(t_node *t,  char **a, int *i)
 	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error -2- near unexpected node `newline'";
+	nl = "minishell: syntax error -2- near unexpected node `<<'";
 	(*i)++;
 	if (a[++(*i)])
 	{
