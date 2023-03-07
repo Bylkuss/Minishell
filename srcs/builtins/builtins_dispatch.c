@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/01 19:29:16 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/07 10:58:01 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int    exit_builtin(char **cmd)//, int *is_exit)
         int exiit = 0;
         int i = 0;
 
-        // exiit = *is_exit;
         if(cmd[1] && !cmd[2])
         {
             while(cmd[1][i])
@@ -67,8 +66,6 @@ int    builtins(t_table *tab, t_list *cmdl, int *is_exit)
     char **aux;
     int i;
 
-    // if (cmdl)
-    //     printf("\nDEBUG: part_2::  Builtins ::: ::: ::: \n");
     while (cmdl)
     {
         aux = ((t_node *)cmdl->content)->cmd;

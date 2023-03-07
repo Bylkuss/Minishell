@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2023/01/10 10:10:04 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/07 12:36:39 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	print_echo(char **cmd, int flag)
 			printf("%c", cmd[i][j]);
 			j++;
 		}
-		printf(" ");
+		if (cmd[i + 1])
+			printf(" ");
 		i++;
 	}
 }
