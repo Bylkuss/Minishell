@@ -107,11 +107,7 @@ TODO: echo " $USER  \$ "'$PWD'
 WORKING: echo $USER=4
 WORKING: echo $USER=thallard
 WORKING: echo $USER
-
-    TOFIX: echo $?
-    +: 0
-    -: 130, 1/2 rien
-
+WORKING: echo $?
 WORKING: echo $USER213
 
     TOFIX: echo $USER$12USER$USER=4$USER12

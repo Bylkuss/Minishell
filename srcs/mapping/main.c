@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 14:28:58 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/07 12:30:12 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,11 @@ int main(int ac, char **av, char **envp)
         if (!check_args(input, &tab))
             break;
     }
+
+    /*           Tester config          */
+    // if(ac >= 3 && !ft_strcmp(av[1], "-c"))
+        // g_status = ft_launch_minishell(av[2]);
+    /*           Tester config          */
     exit(g_status); 
 }
 
