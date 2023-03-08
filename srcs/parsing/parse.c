@@ -22,8 +22,8 @@ static char **split_all(t_table *tab, char **aux)
     char    **sub;
 
     i = -1;
-    // quotes[0] = 0;
-    // quotes[1] = 0;
+    quotes[0] = 0;
+    quotes[1] = 0;
     // printf("DEBUG:: ... split_all ... start\n");
     while (aux && aux[++i])// && i <= tab->node->nod_len)       
     {
@@ -34,7 +34,6 @@ static char **split_all(t_table *tab, char **aux)
         ft_mx_rpl(&aux, sub, i);
         i +=  ft_mx_len(sub) - 1;
         ft_mx_free(&sub);
-        // printf("DEBUG:: ... split_all ... end\n");
     }
     return (aux); 
 }
@@ -51,7 +50,10 @@ static void *parse_args(t_table *tab, char **aux)
     id = ft_lstsize(tab->cmdl);
     g_status = builtins(tab, tab->cmdl, &is_exit);
     while (id-- > 0)
+    {
         waitpid(-1, &g_status, 0);
+        printf("DEBUG:: ...post_ get_node/split_all ...id[%d]  PID[%d] \n",id, g_status);
+    }
     if (!is_exit && g_status == 13)
         g_status = 0;
     if (g_status > 255)
@@ -63,6 +65,8 @@ static void *parse_args(t_table *tab, char **aux)
     }
     return (tab);
 }
+// ls -lat | head -4 | grep "d*" | wc -l 
+
 
 void  *check_args(char *input, t_table *tab)    // main deploy >parse
 {

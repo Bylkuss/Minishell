@@ -132,6 +132,5 @@ void	free_cont(void *content);
 //quotes??
 int		is_quoted(char *str);
 void	print_skip_qt(char *s);
->>>>>>>>> Temporary merge branch 2
 
 #endif

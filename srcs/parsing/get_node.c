@@ -93,6 +93,7 @@ t_list	*get_node(char **tkn, int i)
 		if( i == 0 || (tkn[i][0] == '|' && tkn[i + 1] && tkn[i + 1][0]))
 		{
 			i += tkn[i][0] == '|';
+			printf("DEBUG:: i = %d\n", i);
 			ft_lstadd_back(&cmdl[0], ft_lstnew(init_node()));
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}

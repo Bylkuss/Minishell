@@ -64,10 +64,10 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 	n = cmd->content;
 	if (n->cmd)
 		l = ft_strlen(*n->cmd);
+	printf("DEBUG:: born_child l = %d:: \n", l);
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
 	child_builtin(tab, n, l, cmd);
-	// printf("DEBUG:: END_ _born_ \n");
 	ft_lstclear(&tab->cmdl, free_cont);
 	exit(g_status);
 }
