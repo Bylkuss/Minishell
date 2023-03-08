@@ -1,9 +1,9 @@
     TOFIX: -- < a << eof < a cat -e | cat -e        // need to call heredoc 'quand-meme'
-    TOFIX: -- cat << | wc --                        // should not call heredoc  
+    TOFIX: -- cat << | wc                           // should not call heredoc  
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
 TODO: -- echo coucou >test > >test2 -- 
-    TOFIX: -- cat << c -- 
+    TOFIX: -- cat << c --  // IS_WORKING
 TODO: -- cat << c|oucou --
 TODO: -- cat << eof | wc << eof | cat -e | ls << eof --
 TODO: -- Continuer de faire des tests plus poussé
@@ -64,8 +64,8 @@ WORKING: echo "-nnnn" bonjour
 WORKING: echo "-n -n -n"-n bonjour
 WORKING: echo "-n '-n'" bonjour
 WORKING: echo ~
-    TOFIX: echo "~"  SHOULD BE TAG AS WORKING
-    TOFIX: echo '~'  SHOULD BE TAG AS WORKING
+    TOFIX: echo "~"   //IS_WORKING
+    TOFIX: echo '~'   //IS_WORKING
     TOFIX: echo ~123            // expand ... chk
     TOFIX: echo 123~            // dont know
     TOFIX: echo ~/123           // should ext_arg

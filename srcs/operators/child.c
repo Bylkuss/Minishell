@@ -16,7 +16,7 @@ extern int g_status;
 
 void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 {
-    
+	
     signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(n) && n->cmd)

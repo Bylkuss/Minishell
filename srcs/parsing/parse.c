@@ -22,8 +22,8 @@ static char **split_all(t_table *tab, char **aux)
     char    **sub;
 
     i = -1;
-    quotes[0] = 0;
-    quotes[1] = 0;
+    // quotes[0] = 0;
+    // quotes[1] = 0;
     // printf("DEBUG:: ... split_all ... start\n");
     while (aux && aux[++i])// && i <= tab->node->nod_len)       
     {

@@ -70,3 +70,32 @@ int	echo(char **cmd)
 	}
 	return (0);
 }
+
+// int	echo(char **cmd)
+	// {
+	// 	int	i;
+	// 	int	j;
+	// 	int	flag;
+
+	// 	i = 0;
+	// 	flag = 1;	// flag = 1 cuz if "-n" let be spce to write = 1
+	// 	while(cmd && cmd[++i])
+	// 	{		
+	// 		 // {
+	// 			// 	printf("\n");
+	// 			// 	return (1);
+	// 			// }
+	// 		if (ft_strcmp(cmd[i], "-n") == 0 || multiple_n(cmd[i]) == 1)
+	// 			flag = 0;	// no spce allow to write
+	// 		else
+	// 			print_echo(cmd[i], flag);
+	// 		if (cmd[i] + 1)
+	// 			printf(" ");
+	// 				// if (flag == 0)
+	// 				// 	// printf("\n");
+	// 				// 	write(1,"\n",)
+	// 				// 	return (1);
+	// 				// i++;
+	// 	}
+	// 	return (write(1, "\n", flag) == 2);
+// }
