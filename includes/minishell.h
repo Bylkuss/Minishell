@@ -3,9 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
+/*   Updated: 2023/03/07 17:52:35 by gehebert         ###   ########.fr       */
 /*   Updated: 2023/03/08 11:07:46 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -131,5 +132,6 @@ void	free_cont(void *content);
 //quotes??
 int		is_quoted(char *str);
 void	print_skip_qt(char *s);
+>>>>>>>>> Temporary merge branch 2
 
 #endif
