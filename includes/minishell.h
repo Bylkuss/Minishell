@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/07 11:03:33 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/08 11:07:46 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ enum	chk_error
 	NOT_DIR = 13
 };
 
+// extern int g_status;
+
 typedef struct s_table /*	Main Struct  tab->*/
 {
 	t_list *cmdl;
@@ -78,6 +80,7 @@ typedef struct s_node /*		THREE-PART token-FORM node	ex: node[0]= "ls",
 ///builtins
 int		builtins(t_table *tab, t_list *cmd, int *is_exit);
 int		is_builtin(t_node *t);
+char 	*cmd_trimmed(char *envp);
 // int					exit_builtin(char **cmd);
 int		ms_exit(t_list *cmdl, int *is_exit);
 // cd
@@ -87,7 +90,8 @@ int		echo(char **cmd);
 // pwd
 int		pwd(void);
 void	env(char **envp);
-int		ms_export(char **cmd, char **envp);
+// int		ms_export(char **cmd, char **envp);
+char	 **ms_export(char **cmd, char **envp);
 int		unset(char **cmd, char **envp);
 char	**save_old_pwd(char **envp);
 char	**edit_env(char **envp, int pos);

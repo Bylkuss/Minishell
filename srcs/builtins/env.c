@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/07 14:20:31 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/08 10:34:28 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**edit_env(char **envp, int pos)
 	return (envp);
 }
  
-static char *cmd_to_unset(char *envp)
+char *cmd_trimmed(char *envp)
 {
 	char *cmd;
 
@@ -79,7 +79,7 @@ int	unset(char **cmd, char **envp)
 	}
 	while (envp[i])
 	{
-		cmd_trim = cmd_to_unset(envp[i]);
+		cmd_trim = cmd_trimmed(envp[i]);
 		if (ft_strcmp(cmd_trim, cmd[1]) == 0)
 		{
 			free(cmd_trim);
@@ -90,102 +90,4 @@ int	unset(char **cmd, char **envp)
 		i++;
 	}
 	return (0);
-}
-
-
-static int	check_export_cmd(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		while(str[i] != '=')
-		{
-			if(!ft_isalpha(str[i]) && str[i] != '_')
-				return 0;
-			i++;
-		}
-		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	is_already_var(char **envp, char *var)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strncmp(envp[i], var, ft_strlen_c(envp[i], '=')) == 0)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-char	**new_envp(char **envp, char *var)
-{
-	int		i;
-	int		pos;
-	int		len;
-	char	**new_envp;
-
-	len = ft_arraylen(envp) + 2;
-	new_envp = ft_calloc(sizeof(char *), len);
-	if (!new_envp)
-		return (NULL);
-	new_envp[0] = ft_strdup(var);
-	i = 1;
-	while (envp[i])
-	{
-		new_envp[i] = ft_strdup(envp[i]);
-		// printf("%s\n", new_envp[i]);
-		i++;
-	}
-	printf("********************* tab lenght: %d\n", ft_mx_len(new_envp));
-	// ft_free_array(envp);
-	return (new_envp);
-}
-
-void	print_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("declare -x %s\n", tab[i]);
-		i++;
-	}
-}
-
-int	ms_export(char **cmd, char **envp)
-{
-	int	pos;
-	
-	if (cmd[1] && check_export_cmd(cmd[1]))
-	{
-		pos = is_already_var(envp, cmd[1]);
-		if (pos > -1)
-		{
-			envp[pos] = ft_strdup(cmd[1]);
-			printf("entered string: %s\n", envp[pos]);
-		}
-		else
-			envp = new_envp(envp, cmd[1]);
-		if (!envp)
-			return (0);
-	}
-	else if (!cmd[1])
-		print_tab(envp);
-	else
-	{
-		printf("Bad var format\n");
-		return (0);
-	}
-	return (1);
 }
