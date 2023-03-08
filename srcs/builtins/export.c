@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/08 11:07:37 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/08 11:37:47 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ char	**new_envp(char **envp, char *var)
 		i++;
 	}
 	new_envp[i] = ft_strdup(var);
+    ft_mx_free(&envp);
 	return (new_envp);
 }
 

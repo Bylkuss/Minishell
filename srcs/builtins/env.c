@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/08 10:34:28 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/08 11:39:52 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	**edit_env(char **envp, int pos)
 		envp[pos] = envp[pos + 1];
 		pos++;
 	}
+	free(envp[pos]);
 	envp[pos] = NULL;
 	return (envp);
 }
