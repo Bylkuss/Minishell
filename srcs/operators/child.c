@@ -6,12 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/02 10:18:02 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:02:47 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
+
 extern int g_status;
 
 void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/07 08:57:24 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/08 23:27:49 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 
 	flags[0] = 0;
 	flags[1] = 0;
-	nl = "minishell: syntax error -1- near unexpected node `<'";
+	nl = "minishell: syntax error near unexpected node `<'";
 	(*i)++;
 	if (a[*i])
 		t->infile = get_fd(t->infile, a[*i], flags);
@@ -127,7 +127,7 @@ t_node	*get_infile2(t_node *t,  char **a, int *i)
 	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error -2- near unexpected node `<<'";
+	nl = "minishell: syntax error near unexpected node `<<'";
 	(*i)++;
 	if (a[++(*i)])
 	{

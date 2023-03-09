@@ -1,4 +1,4 @@
-    TOFIX: -- < a << eof < a cat -e | cat -e        // need to call heredoc 'quand-meme'
+    WORKING: -- < a << eof < a cat -e | cat -e        // need to call heredoc 'quand-meme'
     TOFIX: -- cat << | wc                           // should not call heredoc  
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
@@ -174,7 +174,7 @@ WORKING: ||||||||
 WORKING: cat wouaf wouaf
 WORKING: >
 WORKING: >>>>>>>>
-    TOFIX: <<<<<<<<<
+   WORKING: <<<<<<<<<
     +: error message
     -: it starts heredoc
 ******************************************************
