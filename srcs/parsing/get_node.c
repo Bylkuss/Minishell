@@ -36,8 +36,7 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
-		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
-			a[0][*i + 1][0] == '<')
+		else if (a[0][*i][0] == '<' && a[0][*i + 1] && a[0][*i + 1][0] == '<')
 			node = get_infile2(node, a[1], i);
 		else if (a[0][*i][0] == '<')
 			node = get_infile1(node, a[1], i);
@@ -80,6 +79,23 @@ static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 	return (NULL);
 }
 
+
+	// printf("DEBUG:: into the beast::  tkn = {%s} :: \n", tkn[(ft_mx_len(tkn) - 1)]);
+	// while(tkn[++i])
+	// {
+	// 	cmdl[1] = ft_lstlast(cmdl[0]);		
+	// 	printf("DEBUG:: begin get_node tk_id:%d :: lst_sz : %d\n", i, ft_lstsize(cmdl[1]));
+	// 	if( i == 0 || (tkn[i][0] == '|' && tkn[i + 1] && tkn[i + 1][0]))
+	// 	{
+	// 		i += tkn[i][0] == '|';
+	// 		ft_lstadd_back(&cmdl[0], ft_lstnew(init_node()));
+	// 		cmdl[1] = ft_lstlast(cmdl[0]);
+	// 	}
+	// 	tmp[0] = tkn;
+	// 		// printf("DEBUG:: pre_params tkn_id = %d tkn = {%s}:: \n", i, tkn[i]);
+	// 	cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
+    //     // printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, ((t_node *)cmdl[1]->content)->cmd[i]);
+
 t_list	*get_node(char **tkn, int i)  
 {
 	t_list 	*cmdl[2];
@@ -99,6 +115,7 @@ t_list	*get_node(char **tkn, int i)
 		}
 		tmp[0] = tkn;
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
+        printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, ((t_node *)cmdl[1]->content)->cmd[0]);
 		if (i < 0)
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])

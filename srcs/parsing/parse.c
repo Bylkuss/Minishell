@@ -48,12 +48,11 @@ static void *parse_args(t_table *tab, char **aux)
     // printf("DEBUG:: ...BEGIN ... PARSE ...\n");
     tab->cmdl = get_node(split_all(tab, aux), -1);              
     id = ft_lstsize(tab->cmdl);
+    printf("DEBUG:: ...before  exit[%d] ...get_node/split_all ...id[%d]  PID[%d] \n", is_exit, id, g_status);
     g_status = builtins(tab, tab->cmdl, &is_exit);
-    while (id-- > 0)
-    {
+    while (--id > 0)
         waitpid(-1, &g_status, 0);
-        printf("DEBUG:: ...post_ get_node/split_all ...id[%d]  PID[%d] \n",id, g_status);
-    }
+    // {
     if (!is_exit && g_status == 13)
         g_status = 0;
     if (g_status > 255)
@@ -63,9 +62,11 @@ static void *parse_args(t_table *tab, char **aux)
         ft_lstclear(&tab->cmdl, free_cont);
         return (NULL);
     }
+    // }
+    printf("HEY! ID[%d]\n", id);
     return (tab);
 }
-// ls -lat | head -4 | grep "d*" | wc -l 
+// ls -lat | head -4 | grep "d*" | wc -l  >> good.txt  
 
 
 void  *check_args(char *input, t_table *tab)    // main deploy >parse
@@ -87,6 +88,8 @@ void  *check_args(char *input, t_table *tab)    // main deploy >parse
     tab = parse_args(tab, aux);
     if (tab && tab->cmdl)
         n = tab->cmdl->content;
+    if (n)
+        printf("OK !!BYE!! \n");
     if (tab && tab->cmdl && n  && n->cmd && ft_lstsize(tab->cmdl) == 1)
         tab->envp = ms_setenv("_", n->cmd[ft_mx_len(n->cmd) -1], tab->envp, 1);
     if (tab && tab->cmdl)
