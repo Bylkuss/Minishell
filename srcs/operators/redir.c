@@ -6,12 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/07 17:50:39 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/08 23:42:53 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/minishell.h"
+
 extern int g_status;
 
 int	get_fd(int oldfd, char *path, int flags[2])
@@ -99,7 +100,7 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 
 	flags[0] = 0;
 	flags[1] = 0;
-	nl = "minishell: syntax error -1- near unexpected node `<'";
+	nl = "minishell: syntax error near unexpected node `<'";
 	(*i)++;
 	if (a[*i])
 		t->infile = get_fd(t->infile, a[*i], flags);
@@ -127,7 +128,7 @@ t_node	*get_infile2(t_node *t,  char **a, int *i)
 	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
-	nl = "minishell: syntax error -2- near unexpected node `<<'";
+	nl = "minishell: syntax error near unexpected node `<<'";
 	(*i)++;
 	if (a[++(*i)])
 	{
