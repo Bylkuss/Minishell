@@ -88,11 +88,11 @@ int main(int ac, char **av, char **envp)
         signal(SIGINT, handle_sigint);               
         signal(SIGQUIT, SIG_IGN);                    
         str = getprompt(tab);
-         if (str)
+        if (str)
             input = readline(str);                    
         else
             input = readline("guest@minishell $ ");
-        input = readline(">$ ");
+        // input = readline(">$ ");
         free(str);
         if (!check_args(input, &tab))
             break;

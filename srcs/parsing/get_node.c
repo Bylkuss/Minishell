@@ -34,8 +34,8 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
-		else if (a[0][*i][0] == '<' && a[0][*i + 1] &&
-			 a[0][*i + 1][0] == '<' && a[0][*i + 2][0] != '<')
+		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
+					 a[0][*i + 1][0] == '<' && a[0][*i + 2][0] != '<')
 			node = get_infile2(node, a[1], i);
 		else if (a[0][*i][0] == '<')
 			node = get_infile1(node, a[1], i);

@@ -1,9 +1,9 @@
-    WORKING: -- < a << eof < a cat -e | cat -e        // need to call heredoc 'quand-meme'
+    WORKING: -- < a << eof < a cat -e | cat -e     
     TOFIX: -- cat << | wc                           // should not call heredoc  
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
 TODO: -- echo coucou >test > >test2 -- 
-    TOFIX: -- cat << c --  // IS_WORKING
+    WORKING: -- cat << c --  // IS_WORKING
 TODO: -- cat << c|oucou --
 TODO: -- cat << eof | wc << eof | cat -e | ls << eof --
 TODO: -- Continuer de faire des tests plus poussé
@@ -66,10 +66,10 @@ WORKING: echo "-n '-n'" bonjour
 WORKING: echo ~
     TOFIX: echo "~"   //IS_WORKING
     TOFIX: echo '~'   //IS_WORKING
-    TOFIX: echo ~123            // expand ... chk
-    TOFIX: echo 123~            // dont know
-    TOFIX: echo ~/123           // should ext_arg
-    TOFIX: echo ~/123/456       // idem
+    DO WE_TOFIX: echo ~123            // expand ... chk
+    DO WE_TOFIX: echo 123~            // dont know
+    DO WE_TOFIX: echo ~/123           // should ext_arg
+    DO WE_TOFIX: echo ~/123/456       // idem
 WORKING: echo $USER
 WORKING: echo "$USER"
 WORKING: echo "'$USER'"
@@ -89,6 +89,10 @@ WORKING: echo ' \' ' \'
     TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
     +: \" \" \" \"\"\" \'\'\'
     -: minishell: error while looking for matching quote
+
+pdf!!!!
+• Not interpret unclosed quotes or special characters which are not required by the
+subject such as \ (backslash) or ; (semicolon).
 
 
 WORKING: echo "$USER""$USER""$USER"
