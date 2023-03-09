@@ -1,5 +1,5 @@
     WORKING: -- < a << eof < a cat -e | cat -e     
-    TOFIX: -- cat << | wc                           // should not call heredoc  
+   ****** TOFIX: -- cat << | wc                           // should not call heredoc  
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
 TODO: -- echo coucou >test > >test2 -- 
@@ -64,8 +64,8 @@ WORKING: echo "-nnnn" bonjour
 WORKING: echo "-n -n -n"-n bonjour
 WORKING: echo "-n '-n'" bonjour
 WORKING: echo ~
-    TOFIX: echo "~"   //IS_WORKING
-    TOFIX: echo '~'   //IS_WORKING
+TOFIX: echo "~"   //IS_WORKING
+TOFIX: echo '~'   //IS_WORKING
     DO WE_TOFIX: echo ~123            // expand ... chk
     DO WE_TOFIX: echo 123~            // dont know
     DO WE_TOFIX: echo ~/123           // should ext_arg
@@ -84,11 +84,11 @@ WORKING: echo """"""""$USER""""""""
 WORKING: echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
 WORKING: echo $USER '' $USER $USER '' $USER '' $USER -n $USER
 WORKING: echo ' \' ' \'
-    TOFIX: echo '\" ' " \"\""
+    NO_NEED_TOFIX: echo '\" ' " \"\""
 
-    TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
-    +: \" \" \" \"\"\" \'\'\'
-    -: minishell: error while looking for matching quote
+    NO_NEED_TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
+        +: \" \" \" \"\"\" \'\'\'
+        -: minishell: error while looking for matching quote
 
 pdf!!!!
 • Not interpret unclosed quotes or special characters which are not required by the
@@ -189,13 +189,13 @@ WORKING: >> >> >> >>
 WORKING: ~
 WORKING: <<
 WORKING: /Users
-    TOFIX: .
+  ***  TOFIX: .
     +:  bash: .: filename argument required
         .: usage: . filename [arguments]
     -:  minishell: Is a directory: .
     TOFIX: ..
     +:  ..: command not found
-    -:  minishell: Is a directory: ..
+  ***  -:  minishell: Is a directory: ..
 WORKING: /
 TODO: \\\
 WORKING: EechoE
@@ -344,21 +344,22 @@ WORKING: export TES^T=123
 WORKING: export TES!T=123
 WORKING: export TEST+=100
 
-    TOFIX: export TES\~T=123
+ ****   TOFIX: export TES\~T=123
     +:  export: `TES~T=123': not a valid identifier
     -: infite loop
 
 
-    TOFIX: env | grep "_="
+****    TOFIX: env | grep "_="
     TOFIX: env | grep "SHLVL"
     -: infinite loop
 
     TOFIX: echo oui | cat -e
     +:  oui$
--:  oui $
+    -:  oui $
 
 WORKING: < salut cat
-    TOFIX: << EOF | cat
+    
+***    *** TOFIX: << EOF | cat
     -: segmentation fault
     TOFIX: echo oui | echo non | echo something | grep oui
     TOFIX: echo oui | echo non | echo something | grep non
@@ -384,7 +385,7 @@ WORKING: cat Makefile | grep "FLAGS"
 WORKING: unset TEST | cat -e
 WORKING: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
 
-    TOFIX: whoami | grep $USER > tmp/file
+****    TOFIX: whoami | grep $USER > tmp/file
     TOFIX: whoami | cat -e | cat -e > tmp/file
     +:  tmp/file: No such file or directory
     -: nothing
