@@ -91,13 +91,13 @@ t_list	*get_node(char **tkn, int i)
 		if (i == 0 || (tkn[i][0] == '|' && tkn[i + 1] && tkn[i + 1][0]))
 		{
 			i += tkn[i][0] == '|';
-			printf("DEBUG:: i = %d\n", i);
+			//printf("DEBUG:: i = %d\n", i);
 			ft_lstadd_back(&cmdl[0], ft_lstnew(init_node()));
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}
 		tmp[0] = tkn;
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
-        printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, ((t_node *)cmdl[1]->content)->cmd[0]);
+        //printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, ((t_node *)cmdl[1]->content)->cmd[0]);
 		if (i < 0)
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])

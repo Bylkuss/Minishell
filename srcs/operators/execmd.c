@@ -21,7 +21,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	int		i;
 
 	i = -1;
-	// printf("DEBUG: TEST find_command \n");//>> cmd{%s}  \n", cmd);
+	// //printf("DEBUG: TEST find_command \n");//>> cmd{%s}  \n", cmd);
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
@@ -41,7 +41,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		free(path);
 		return (NULL);
 	}
-	// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
+	// //printf("DEBUG: TEST find_command >> path{%s}  \n", path);
 	return (path);
 }
 
@@ -99,7 +99,7 @@ void *execmd(t_table *tab, t_list *cmd)
 	
 	
     get_cmd(tab, cmd, NULL, NULL);
-	// printf("DEBUG: TEST execmd \n");	
+	// //printf("DEBUG: TEST execmd \n");	
     if (pipe(fd) == -1)
         return (chk_error(PIPERR, NULL, 1));
     if (!chk_fork(tab, cmd, fd))

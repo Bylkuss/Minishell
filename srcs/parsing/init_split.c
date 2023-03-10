@@ -33,16 +33,16 @@
     //         /// 2 = set one_space after etype
     //         //
     //         /// 3 = set no_space_end
-    //           printf("DEBUG :: only_1_AP_\n");
+    //           //printf("DEBUG :: only_1_AP_\n");
     //             // p[2] = p[1] + 1;
     //             // if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
     //             //     p[2] = p[1] + 2;
     //             // dest = ft_substr(srcs, 0, p[2]); //bfore etype        
     //             // dest = ft_strjoin(dest, " ");
     //             // rest = ft_strjoin(rest, dest); 
-    //             // // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+    //             // // //printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
     //             // srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-    //             // // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
+    //             // // //printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
     //     }
     //     else
     //     {
@@ -52,13 +52,13 @@
     //         //
     //         /// 1 = set one_space before_etype
 
-    //           printf("DEBUG :: only_1_AV_\n");
+    //           //printf("DEBUG :: only_1_AV_\n");
     //             // dest = ft_substr(srcs, 0, p[1]); //bfore etype        
     //             // dest = ft_strjoin(dest, " ");
     //             // rest = ft_strjoin(rest, dest);
-    //             // // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+    //             // // //printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
     //             // srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-    //             // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+    //             // //printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
 
     //     }
     //     // while (srcs && (i < pos)
@@ -92,9 +92,9 @@
 //             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
 //                     /// ft_spacer(char *srcs, pos = p[1]*, int fl) only_one spc before...
 //                     // input = ft_spacer(input, p[1], 1); //fl = 1
-//                     // printf("DEBUG :: only_1_AV_\n");    
-//                     // printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//                     // printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
+//                     // //printf("DEBUG :: only_1_AV_\n");    
+//                     // //printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+//                     // //printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
 //         }    
 //         else if ((input[p[1] + 1] != 32) && (p[1] + 1 != p[1]))
 //         {
@@ -107,16 +107,16 @@
 //             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
 //                 //      // only _one spc after
 //                 // input = ft_spacer(input, p[1], 2);  // fl = 2
-//                 // printf("DEBUG :: only_1_AP_\n");
-//                 // printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//                 // printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
+//                 // //printf("DEBUG :: only_1_AP_\n");
+//                 // //printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
+//                 // //printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
 //         }   
 //         else
 //             break;     
 //     }
 //     rest = ft_strjoin(rest, srcs);         // input = dest; 
 //     input = ft_strdup(rest);         // input = dest;
-//     printf("DEBUG::  NEW_input_[%ld]_{%s}_\n",ft_strlen(input), input);
+//     //printf("DEBUG::  NEW_input_[%ld]_{%s}_\n",ft_strlen(input), input);
 //     return(input);
 // }
 
@@ -167,7 +167,7 @@ static char **token_fill(char **aux, const char *s, char *set, int i[2])
         {                 
                 q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore simpl_q
                 q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
-                i[0]++; // printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
+                i[0]++; // //printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
         }           // ... spaceless token ++
         if (i[1] >=len) 
             aux[i[2]++] = "\0";

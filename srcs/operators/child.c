@@ -65,7 +65,7 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 	n = cmd->content;
 	if (n->cmd)
 		l = ft_strlen(*n->cmd);
-	printf("DEBUG:: born_child l = %d:: \n", l);
+	//printf("DEBUG:: born_child l = %d:: \n", l);
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
 	child_builtin(tab, n, l, cmd);
@@ -109,6 +109,6 @@ void *chk_fork(t_table *tab, t_list *cmd, int fd[2])
         g_status = 127;
     if (dir)
         closedir(dir);
-	// printf("DEBUG:: END chk_frk __ __ \n");
+	// //printf("DEBUG:: END chk_frk __ __ \n");
     return ("");
 }
