@@ -114,7 +114,7 @@ WORKING: echo $USER
 WORKING: echo $?
 WORKING: echo $USER213
 
-    TOFIX: echo $USER$12USER$USER=4$USER12
+ ***   TOFIX: echo $USER$12USER$USER=4$USER12
     +: bylkus2USERbylkus=4
     -: newline
 
@@ -124,7 +124,8 @@ TODO: echo $USER $USER9999 $USER8888 $USER7777
 TODO: echo $USER $USER9999 $USER8888 $USER7777 "$USER"
 TODO: echo "$USER=12$USER"
 TODO: echo "$9USER" "'$USER=12$SOMETHING'"
-    TOFIX: echo $PWD/file
+ 
+***    TOFIX: echo $PWD/file
     TOFIX: echo "$PWD/file"
     +: /home/bylkus/Desktop/Code/Cursus/Minishell/file
     -: newline
@@ -140,9 +141,9 @@ WORKING: cd //
 These 2 following tests to make sure
 WORKING: cd '//'
 WORKING: cd //////
-TOFIX: cd ./././
-+: currect dir
--: /
+***    TOFIX: cd ./././
+        +: currect dir
+        -: /
 WORKING: cd /
 TODO: cd '/////' 2>/dev/null
 WORKING: cd '/etc'
@@ -159,11 +160,12 @@ WORKING: cd _
 WORKING: cd woof
 WORKING: cd bark bark
 WORKING: cd '/'
-    TOFIX: cd $PWD/file_tests
+ 
+***    TOFIX: cd $PWD/file_tests
 
-    TOFIX: cd $OLDPWD/something
-    +: no such file or directory
-    -: it cd to PWD
+        TOFIX: cd $OLDPWD/something
+        +: no such file or directory
+        -: it cd to PWD
 
 WORKING: test
 WORKING: | test
@@ -210,9 +212,10 @@ WORKING: echo something
 WORKING: rm -f something
 WORKING: rm -rf <existing_file>
 WORKING: cat something
-    TOFIX: | echo -n oui
-    +:  bash: syntax error near unexpected token `|'
-    -: it skips the | and executes echo
+ 
+ ***   TOFIX: | echo -n oui
+        +:  bash: syntax error near unexpected token `|'
+        -: it skips the | and executes echo
 WORKING: echo -n oui
 WORKING: trying to destroy your minishell
 WORKING: trying something again echo if you see this message thats not a good new
@@ -220,12 +223,13 @@ WORKING: trying something again echo if you | see this message thats not a good 
 WORKING: qewew
 WORKING: wtf
 WORKING: ;; test
-    TOFIX: | test
-    +:  bash: syntax error near unexpected token `|'
-    -:
-    TOFIX: echo > <
-    +:  bash: syntax error near unexpected token `<'
-    -:  newline
+
+***    TOFIX: | test
+        +:  bash: syntax error near unexpected token `|'
+        -:
+        TOFIX: echo > <
+        +:  bash: syntax error near unexpected token `<'
+        -:  newline
 WORKING: echo | |
 WORKING: <
 WORKING: exit 0 0
@@ -256,10 +260,10 @@ WORKING: exit '42'"42"42
 WORKING: exit +'42'"42"42
 WORKING: exit -'42'"42"42
 
-TOFIX:
-    exit 9223372036854775807
-    exit 9223372036854775808
-    TODO: exit ++++3193912939
+***    TOFIX:
+        exit 9223372036854775807
+        exit 9223372036854775808
+        TODO: exit ++++3193912939
 
     after echo $? it returns 2 instead of 255
 WORKING: exit -4
@@ -284,10 +288,11 @@ WORKING: exit something somethingv2
 WORKING: exit 42 42 42 42 42
 WORKING: exit echo something
 WORKING: exit exit
-    TOFIX: env | grep "_="
-    TOFIX: export | grep "SHLVL"
-    TOFIX: export | grep "OLDPWD"
-    TOFIX: export | grep "PWD"
+   
+***     TOFIX: env | grep "_="
+        TOFIX: export | grep "SHLVL"
+        TOFIX: export | grep "OLDPWD"
+        TOFIX: export | grep "PWD"
 WORKING: export $?
 WORKING: export TEST
 WORKING: export TEST=
@@ -386,6 +391,6 @@ WORKING: unset TEST | cat -e
 WORKING: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
 
 ****    TOFIX: whoami | grep $USER > tmp/file
-    TOFIX: whoami | cat -e | cat -e > tmp/file
-    +:  tmp/file: No such file or directory
-    -: nothing
+        TOFIX: whoami | cat -e | cat -e > tmp/file
+        +:  tmp/file: No such file or directory
+        -: nothing
