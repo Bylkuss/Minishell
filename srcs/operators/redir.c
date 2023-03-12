@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/08 23:42:53 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:40:04 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,8 @@ t_node	*get_infile2(t_node *t,  char **a, int *i)
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
 	nl = "minishell: syntax error near unexpected node `<<'";
 	(*i)++;
+	if (a[(*i)])
+		
 	if (a[++(*i)])
 	{
 		aux[0] = a[*i];
