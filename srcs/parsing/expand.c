@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/23 00:29:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 03:36:34 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/12 16:05:05 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static char *get_substr_var(char *str, int i, t_table *tab)
     char *var;  // spec char path check ...
     int pos;    // where to cut // pos ?: ptr to substr
     
-    pos = ft_strchar_i(&str[i], "|\"\'$?>< ") + (ft_strchr("$?", str[i]) != 0); 
+    pos = ft_strchar_i(&str[i], "\"\'$|?>< ") + (ft_strchr("$?", str[i]) != 0); 
     if (pos == -1)
         pos = ft_strlen(str) - 1;
     aux = ft_substr(str, 0, i - 1); 
@@ -78,9 +78,8 @@ char    *expand_vars(char *str, int i, int quotes[2], t_table *tab) // bonus che
     {
         quotes[0] = (quotes[0] + (!quotes[1] && str[i] == '\'')) % 2; // chk_flag twin-match simple
         quotes[1] = (quotes[1] + (!quotes[0] && str[i] == '\"')) % 2; // chk_flag twin -match dbl
-        if (!quotes[0] && str[i] == '$' && str[i + 1] && \
-            ((ft_strchar_i(&str[i + 1], "/~%^{}:; ")  && !quotes[1]) || \
-            (ft_strchar_i(&str[i + 1], "/~%^{}:;\"") && quotes[1]))) 
+        if (!quotes[0] && str[i] == '$' && str[i + 1] && ((ft_strchar_i(&str[i + 1], "/~%^{}:; ") && \
+                !quotes[1]) || (ft_strchar_i(&str[i + 1], "/~%^{}:;\"") && quotes[1]))) 
             return (expand_vars(get_substr_var(str, ++i, tab), -1, quotes, tab)); // get substr of spec char*
     }
     return (str);

@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/24 04:42:27 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/12 15:41:00 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	get_here_doc(char *str[2], char *aux[2])
 		return (-1);
 	}
 	// printf("HEY, I'M HEREDOC! \n");
-	str[1] = get_here_str(str, 0, aux[0], aux[1]);
+	if (*aux[0] != '|')		
+		str[1] = get_here_str(str, 0, aux[0], aux[1]);
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);
 	close(fd[WRITE_END]);
