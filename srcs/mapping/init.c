@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
 
-extern int g_status;
-
+extern int	g_status;
 
 static int	malloc_len(char const *s1)
 {
