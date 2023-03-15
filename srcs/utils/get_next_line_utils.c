@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 20:36:16 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 14:03:08 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:04:56 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ size_t	gnl_strlcpy(char *dest, const char *src, size_t n)
 	if (n != 0)
 		dest[i] = '\0';
 	return (sz);
-
 }
 
 size_t	gnl_strlcat(char *dst, const char *src, size_t size)
@@ -102,22 +101,22 @@ size_t	gnl_strlcat(char *dst, const char *src, size_t size)
 	return (gnl_strlen(dst) + gnl_strlen(src));
 }
 
-int gnl_strchr_i(const char *s, int c)
+int	gnl_strchr_i(const char *s, int c)
 {
-    unsigned char   un_c;
-    int             i;
+	unsigned char	un_c;
+	int				i;
 
-    i = 0;
-    if (!s)
-        return (-1);
-    un_c = (unsigned char)c;
-    while (s[i] != '\0')
-    {
-        if (s[i] == un_c)
-            return (i);
-        i++;
-    }
-    if (un_c == '\0')
-        return (i);
-    return (-1); 
+	i = 0;
+	if (!s)
+		return (-1);
+	un_c = (unsigned char)c;
+	while (s[i] != '\0')
+	{
+		if (s[i] == un_c)
+			return (i);
+		i++;
+	}
+	if (un_c == '\0')
+		return (i);
+	return (-1);
 }

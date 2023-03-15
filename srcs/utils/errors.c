@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 03:39:28 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/01 13:55:13 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/14 23:01:25 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
 
-extern int g_status;
+extern int	g_status;
 
 int	ms_exit(t_list *cmdl, int *is_exit)
 {
@@ -44,10 +43,10 @@ int	ms_exit(t_list *cmdl, int *is_exit)
 	return (status[0]);
 }
 
-void *chk_error(int err_type, char *param, int err)
+void	*chk_error(int err_type, char *param, int err)
 {
-    g_status = err;
-    if (err_type == QUOTE)
+	g_status = err;
+	if (err_type == QUOTE)
 		ft_putstr_fd("minishell: error while looking for matching quote\n", 2);
 	else if (err_type == NDIR)
 		ft_putstr_fd("minishell: No such file or directory: ", 2);
@@ -70,20 +69,19 @@ void *chk_error(int err_type, char *param, int err)
 	else if (err_type == NOT_DIR)
 		ft_putstr_fd("minishell: Not a directory: ", 2);
 	ft_putendl_fd(param, 2);
-    return (NULL);
+	return (NULL);
 }
 
-
-void free_cont(void *content)
+void	free_cont(void *content)
 {
-    t_node *node;
+	t_node	*node;
 
-    node = content;
-    ft_mx_free(&node->cmd);
-    free(node->path);
-    if (node->infile != STDIN_FILENO)
-        close(node->infile);
-    if (node->outfile != STDOUT_FILENO)
-        close(node->outfile);
-    free(node);
+	node = content;
+	ft_mx_free(&node->cmd);
+	free(node->path);
+	if (node->infile != STDIN_FILENO)
+		close(node->infile);
+	if (node->outfile != STDOUT_FILENO)
+		close(node->outfile);
+	free(node);
 }
