@@ -62,10 +62,7 @@ static t_table	init_vars(t_table tab, char *str, char **av)
 }
 
 static t_table	init_prompt(char **av, char **envp)
-static t_table	init_prompt(char **av, char **envp)
 {
-	t_table	tab;
-	char	*str;
 	t_table	tab;
 	char	*str;
 
@@ -86,11 +83,7 @@ static t_table	init_prompt(char **av, char **envp)
 }
 
 int	main(int ac, char **av, char **envp)
-int	main(int ac, char **av, char **envp)
 {
-	t_table	tab;
-	char	*str;
-	char	*input;
 	t_table	tab;
 	char	*str;
 	char	*input;
