@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mx_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:35:37 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/06 12:35:57 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/15 10:28:41 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/libft.h"
 
-void ft_mx_free(char ***mx)
+void	ft_mx_free(char ***mx)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(mx && mx[0] && mx[0][i])
-    {
-        free(mx[0][i]);
-        i++;
-    }
-    if (mx)
-    {
-        free(mx[0]);
-        *mx = NULL;
-    }
+	i = 0;
+	while (mx && mx[0] && mx[0][i])
+	{
+		free(mx[0][i]);
+		i++;
+	}
+	if (mx)
+	{
+		free(mx[0]);
+		*mx = NULL;
+	}
 }

@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 12:46:59 by gehebert          #+#    #+#             */
-/*   Updated: 2021/10/12 13:38:30 by gehebert         ###   ########.fr       */
+/*   Created: 2023/03/15 10:55:43 by loadjou           #+#    #+#             */
+/*   Updated: 2023/03/15 10:55:43 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../incs/libft.h"
 
+#include "../../incs/libft.h"
 
 static int	ft_count_words(const char *str, char charset)
 {
-	int	i;
-	int	words;
+	int		i;
+	int		words;
 
 	words = 0;
 	i = 0;
@@ -35,10 +35,10 @@ static int	ft_count_words(const char *str, char charset)
 
 static char	**ft_write_split(char **split, const char *str, char charset)
 {
-	size_t		i;
-	size_t		j;
-	int			word;
-	size_t		len;
+	size_t	i;
+	size_t	j;
+	int		word;
+	size_t	len;
 
 	word = 0;
 	i = 0;
@@ -53,7 +53,7 @@ static char	**ft_write_split(char **split, const char *str, char charset)
 		if (j >= len)
 			split[word++] = "\0";
 		else
-			split[word++] = ft_substr(str, j, i - j);		
+			split[word++] = ft_substr(str, j, i - j);
 	}
 	return (split);
 }

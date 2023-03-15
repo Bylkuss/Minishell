@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:32:34 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/15 00:00:59 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/15 10:29:37 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_list	*ft_mx_lst(char **mx)
 {
-	t_list *lst;
-	int i;
+	t_list	*lst;
+	int		i;
 
 	lst = NULL;
 	i = -1;

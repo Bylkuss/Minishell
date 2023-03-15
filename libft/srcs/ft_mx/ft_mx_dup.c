@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:34:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/15 00:00:44 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/15 10:24:02 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 char	**ft_mx_dup(char **mx)
 {
-	char **tab;
-	int n_itm;
-	int i;
+	char	**tab;
+	int		n_itm;
+	int		i;
 
 	i = 0;
 	n_itm = ft_mx_len(mx);

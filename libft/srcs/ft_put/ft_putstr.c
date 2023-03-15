@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:06:39 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:06:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/15 10:57:49 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 void	ft_putstr(char *str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str && str[i] != '\0')
