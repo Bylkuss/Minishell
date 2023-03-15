@@ -6,7 +6,7 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/08 11:07:46 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/14 20:31:51 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_node /*		THREE-PART token-FORM node	ex: node[0]= "ls",
 int		builtins(t_table *tab, t_list *cmd, int *is_exit);
 int		is_builtin(t_node *t);
 char 	*cmd_trimmed(char *envp);
+char	**edit_env(char **envp, int pos);
 // int					exit_builtin(char **cmd);
 int		ms_exit(t_list *cmdl, int *is_exit);
 // cd

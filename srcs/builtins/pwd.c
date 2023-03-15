@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 18:00:00 by loadjou           #+#    #+#             */
-/*   Updated: 2023/01/10 10:03:24 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/14 20:56:07 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	**save_old_pwd(char **envp)
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 		perror("getcwd() error");
-	// envp = ms_setenv("OLDPWD", cwd, envp, 1);
 	return (envp);
 }
 
@@ -30,6 +29,6 @@ int	pwd(void)
 	path = getcwd(NULL, 0);
 	if (!path)
 		return (0);
-	printf("%s\n", path); //path));
+	printf("%s\n", path);
 	return (1);
 }
