@@ -6,14 +6,13 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/01 14:21:54 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:10:22 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
-extern int g_status;
 
+extern int	g_status;
 
 static char	*find_command(char **env_path, char *cmd, char *path)
 {
@@ -21,7 +20,6 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	int		i;
 
 	i = -1;
-	// printf("DEBUG: TEST find_command \n");//>> cmd{%s}  \n", cmd);
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
@@ -41,7 +39,6 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		free(path);
 		return (NULL);
 	}
-	// printf("DEBUG: TEST find_command >> path{%s}  \n", path);
 	return (path);
 }
 
@@ -54,14 +51,14 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 	n = cmd->content;
 	if (n && n->cmd)
 		dir = opendir(*n->cmd);
-	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir) 
+	if (n && n->cmd && ft_strchr(*n->cmd, '/') && !dir)
 	{
 		*s = ft_split(*n->cmd, '/');
 		n->path = ft_strdup(*n->cmd);
 		free(n->cmd[0]);
 		n->cmd[0] = ft_strdup(s[0][ft_mx_len(*s) - 1]);
 	}
-	else if (!is_builtin(n) && n &&n->cmd && !dir)
+	else if (!is_builtin(n) && n && n->cmd && !dir)
 	{
 		path = ms_getenv("PATH", tab->envp, 4);
 		*s = ft_split(path, ':');
@@ -69,16 +66,15 @@ static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
 		n->path = find_command(*s, *n->cmd, n->path);
 		if (!n->path || !n->cmd[0] || !n->cmd[0][0])
 			chk_error(NCMD, *n->cmd, 127);
-	}		
+	}
 	return (dir);
 }
 
-
-void 	get_cmd(t_table *tab, t_list *cmd, char **s, char *path)
+void	get_cmd(t_table *tab, t_list *cmd, char **s, char *path)
 {
 	DIR		*dir;
 	t_node	*n;
-	
+
 	n = cmd->content;
 	dir = cmd_checks(tab, cmd, &s, path);
 	if (!is_builtin(n) && n && n->cmd && dir)
@@ -88,24 +84,21 @@ void 	get_cmd(t_table *tab, t_list *cmd, char **s, char *path)
 	else if (!is_builtin(n) && n && n->path && access(n->path, X_OK) == -1)
 		chk_error(NPERM, n->path, 126);
 	if (dir)
-		closedir(dir); 
-	//ft_mx_free();	
+		closedir(dir);
 }
 
-void *execmd(t_table *tab, t_list *cmd)
+void	*execmd(t_table *tab, t_list *cmd)
 {
-    int fd[2];
-	char *path;
-	
-	
-    get_cmd(tab, cmd, NULL, NULL);
-	// printf("DEBUG: TEST execmd \n");	
-    if (pipe(fd) == -1)
-        return (chk_error(PIPERR, NULL, 1));
-    if (!chk_fork(tab, cmd, fd))
-        return (NULL);
-    close(fd[WRITE_END]);
-	if (tab->cmdl->next && !((t_node *)tab->cmdl->next->content)->infile)// ouf?  next t->infile
+	int		fd[2];
+	char	*path;
+
+	get_cmd(tab, cmd, NULL, NULL);
+	if (pipe(fd) == -1)
+		return (chk_error(PIPERR, NULL, 1));
+	if (!chk_fork(tab, cmd, fd))
+		return (NULL);
+	close(fd[WRITE_END]);
+	if (tab->cmdl->next && !((t_node *)tab->cmdl->next->content)->infile)
 		((t_node *)tab->cmdl->next->content)->infile = fd[READ_END];
 	else
 		close(fd[READ_END]);
@@ -114,5 +107,4 @@ void *execmd(t_table *tab, t_list *cmd)
 	if (((t_node *)tab->cmdl->content)->outfile > 2)
 		close(((t_node *)tab->cmdl->content)->outfile);
 	return (NULL);
-
 }

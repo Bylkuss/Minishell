@@ -6,24 +6,24 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/01 14:21:12 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/14 23:07:51 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
-extern int g_status;
+
+extern int	g_status;
 
 void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 {
-    
-    signal(SIGINT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (!is_builtin(n) && n->cmd)
 		execve(n->path, n->cmd, tab->envp);
 	else if (n->cmd && !ft_strncmp(*n->cmd, "pwd", l) && l == 3)
 		g_status = pwd();
-	else if (is_builtin(n) && n->cmd && !ft_strncmp(*n->cmd, "echo", l) && l == 4)
+	else if (is_builtin(n) && n->cmd && !ft_strncmp(*n->cmd, "echo", l)
+		&& l == 4)
 		g_status = echo(n->cmd);
 	else if (is_builtin(n) && cmd && !ft_strncmp(*n->cmd, "env", l) && l == 3)
 	{
@@ -34,9 +34,9 @@ void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 
 static void	*child_redir(t_list *cmd, int fd[2])
 {
-	t_node *n;
+	t_node	*n;
+
 	n = cmd->content;
-	
 	if (n->infile != STDIN_FILENO)
 	{
 		if (dup2(n->infile, STDIN_FILENO) == -1)
@@ -44,12 +44,12 @@ static void	*child_redir(t_list *cmd, int fd[2])
 		close(n->infile);
 	}
 	if (n->outfile != STDOUT_FILENO)
-	{	
+	{
 		if (dup2(n->outfile, STDOUT_FILENO) == -1)
 			return (chk_error(DUPERR, NULL, 1));
 		close(n->outfile);
 	}
-	else if(cmd->next && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
+	else if (cmd->next && dup2(fd[WRITE_END], STDOUT_FILENO) == -1)
 		return (chk_error(DUPERR, NULL, 1));
 	close(fd[WRITE_END]);
 	return ("");
@@ -58,7 +58,7 @@ static void	*child_redir(t_list *cmd, int fd[2])
 void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 {
 	t_node	*n;
-	int l;
+	int		l;
 
 	l = 0;
 	n = cmd->content;
@@ -67,14 +67,13 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
 	child_builtin(tab, n, l, cmd);
-	// printf("DEBUG:: END_ _born_ \n");
 	ft_lstclear(&tab->cmdl, free_cont);
 	exit(g_status);
 }
 
-void    exc_fork(t_table *tab, t_list *cmd, int fd[2])
+void	exc_fork(t_table *tab, t_list *cmd, int fd[2])
 {
-    pid_t	pid;
+	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -87,27 +86,24 @@ void    exc_fork(t_table *tab, t_list *cmd, int fd[2])
 		born_child(tab, cmd, fd);
 }
 
-void *chk_fork(t_table *tab, t_list *cmd, int fd[2])
+void	*chk_fork(t_table *tab, t_list *cmd, int fd[2])
 {
- 
-    DIR     *dir;
+	DIR		*dir;
 	t_node	*n;
 
 	n = cmd->content;
-    dir = NULL;
-	// printf("\nDEBUG::_TEST chk_frk [id%d] :: infile[%d] + outfile[%d] \n", t->id, t->infile, t->outfile);
-    if (n->cmd)
-        dir = opendir(*n->cmd);
-    if (n->infile == -1 || n->outfile == -1)
-        return (NULL);
-    if ((n->path && access(n->path, X_OK) == 0) || is_builtin(n))
+	dir = NULL;
+	if (n->cmd)
+		dir = opendir(*n->cmd);
+	if (n->infile == -1 || n->outfile == -1)
+		return (NULL);
+	if ((n->path && access(n->path, X_OK) == 0) || is_builtin(n))
 		exc_fork(tab, cmd, fd);
-    else if (!is_builtin(n) && ((n->path && !access(n->path, F_OK)) || dir))
-        g_status = 126;
-    else if (!is_builtin(n) && n->cmd)
-        g_status = 127;
-    if (dir)
-        closedir(dir);
-	// printf("DEBUG:: END chk_frk __ __ \n");
-    return ("");
+	else if (!is_builtin(n) && ((n->path && !access(n->path, F_OK)) || dir))
+		g_status = 126;
+	else if (!is_builtin(n) && n->cmd)
+		g_status = 127;
+	if (dir)
+		closedir(dir);
+	return ("");
 }
