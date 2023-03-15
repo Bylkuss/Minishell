@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_all_spaces.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:20:59 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:21:01 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:53:51 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_all_spaces(char *str)
 {
-	int			i;
-	int			j;
+	int	i;
+	int	j;
 
 	i = -1;
 	j = ft_strlen(str);

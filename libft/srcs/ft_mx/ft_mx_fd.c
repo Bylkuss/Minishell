@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mx_fd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 09:42:14 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/20 09:43:02 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/15 00:00:31 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../incs/libft.h"
 
@@ -19,10 +18,10 @@ void	ft_mx_fd(char **s, int fd)
 
 	i = 0;
 	if (!s)
-		return;
-	while(s && (*s[i] != '\0'))
+		return ;
+	while (s && (*s[i] != '\0'))
 	{
-		write (fd, s, ft_strlen(s[i]));
+		write(fd, s, ft_strlen(s[i]));
 		i++;
 	}
 }

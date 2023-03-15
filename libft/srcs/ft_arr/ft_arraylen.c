@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arraylen.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:19:19 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:19:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:54:00 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_arraylen(char **str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])

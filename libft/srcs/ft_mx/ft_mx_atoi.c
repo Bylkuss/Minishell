@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mx_atoi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:32:05 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/21 22:32:08 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/15 00:01:15 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../incs/libft.h"
 
 int	ft_atoi2(const char *nptr, long *nbr)
 {
-	int		sign;
+	int sign;
 
 	sign = 1;
 	*nbr = 0;
