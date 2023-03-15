@@ -6,18 +6,18 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 10:20:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/01/11 10:31:41 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/15 10:55:19 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../../incs/libft.h"
+#include <stdio.h>
 
-
-char *ft_strcpy(char *s1, char *s2)
+char	*ft_strcpy(char *s1, char *s2)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	while (s2[i])
 	{
 		s1[i] = s2[i];
@@ -26,4 +26,3 @@ char *ft_strcpy(char *s1, char *s2)
 	s1[i] = '\0';
 	return (s1);
 }
-

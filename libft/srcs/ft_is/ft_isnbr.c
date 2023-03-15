@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnbr.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:14:31 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:14:34 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:55:05 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 int	ft_isnbr(char *s)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (s[i] == '-' || s[i] == '+')

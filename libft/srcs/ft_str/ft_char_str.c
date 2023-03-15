@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_char_str.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/15 10:52:53 by loadjou           #+#    #+#             */
+/*   Updated: 2023/03/15 10:53:02 by loadjou          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-char *ft_char_str(char c)
+char	*ft_char_str(char c)
 {
-    char *s;
+	char	*s;
 
-    s = malloc(2);
-    if (!s)
-        return (NULL);
-    s[0] = c;
-    s[1] = '\0';
-    return (s);
+	s = malloc(2);
+	if (!s)
+		return (NULL);
+	s[0] = c;
+	s[1] = '\0';
+	return (s);
 }

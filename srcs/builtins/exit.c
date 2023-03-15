@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 18:00:00 by loadjou           #+#    #+#             */
-/*   Updated: 2023/03/14 20:56:07 by bylkus           ###   ########.fr       */
+/*   Created: 2023/03/14 20:26:43 by bylkus            #+#    #+#             */
+/*   Updated: 2023/03/14 20:35:27 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	**save_old_pwd(char **envp)
+int	exit_builtin(char **cmd)
 {
-	char	*cwd;
+	int	exiit;
+	int	i;
 
-	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
-		perror("getcwd() error");
-	return (envp);
-}
-
-int	pwd(void)
-{
-	char	*path;
-
-	path = getcwd(NULL, 0);
-	if (!path)
-		return (0);
-	printf("%s\n", path);
-	return (1);
+	exiit = 0;
+	i = 0;
+	if (cmd[1] && !cmd[2])
+	{
+		while (cmd[1][i])
+		{
+			if (!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
+			{
+				printf("exit: numeric argument required\n");
+				exit(2);
+			}
+			i++;
+		}
+		exiit = ft_atoi(cmd[1]);
+	}
+	exit(exiit);
+	return (exiit);
 }

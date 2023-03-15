@@ -6,12 +6,11 @@
 /*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/08 11:37:47 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/14 20:54:36 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 static void	print_tab(char **tab)
 {
@@ -25,7 +24,6 @@ static void	print_tab(char **tab)
 	}
 }
 
-
 static int	check_export_cmd(char *str)
 {
 	int	i;
@@ -33,10 +31,10 @@ static int	check_export_cmd(char *str)
 	i = 0;
 	while (str[i])
 	{
-		while(str[i] != '=')
+		while (str[i] != '=')
 		{
-			if(!ft_isalpha(str[i]) && str[i] != '_')
-				return 0;
+			if (!ft_isalpha(str[i]) && str[i] != '_')
+				return (0);
 			i++;
 		}
 		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
@@ -48,10 +46,10 @@ static int	check_export_cmd(char *str)
 
 static int	is_already_var(char **envp, char *var)
 {
-	int	i;
-	char *cmd_trim;
-	char *envp_trim;
-	
+	int		i;
+	char	*cmd_trim;
+	char	*envp_trim;
+
 	i = 0;
 	while (envp[i])
 	{
@@ -88,19 +86,19 @@ char	**new_envp(char **envp, char *var)
 		i++;
 	}
 	new_envp[i] = ft_strdup(var);
-    ft_mx_free(&envp);
+	ft_mx_free(&envp);
 	return (new_envp);
 }
 
-char **ms_export(char **cmd, char **envp)
+char	**ms_export(char **cmd, char **envp)
 {
 	int	pos;
-	
+
 	if (cmd[1] && check_export_cmd(cmd[1]))
 	{
 		pos = is_already_var(envp, cmd[1]);
 		if (pos > -1)
-            envp[pos] = ft_strdup(cmd[1]);
+			envp[pos] = ft_strdup(cmd[1]);
 		else
 			envp = new_envp(envp, cmd[1]);
 		return (envp);

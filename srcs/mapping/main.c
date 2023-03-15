@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
 
-extern int g_status;
+extern int		g_status;
 
-static void getmypid(t_table *tab) 
+static void	getmypid(t_table *tab)
 {
 	pid_t   pid;
 
@@ -35,7 +34,7 @@ static void getmypid(t_table *tab)
 	tab->pid = pid - 1; 
 }
 
-static t_table init_vars(t_table tab, char *str, char **av)
+static t_table	init_vars(t_table tab, char *str, char **av)
 {
 	char *num;
 
@@ -63,7 +62,10 @@ static t_table init_vars(t_table tab, char *str, char **av)
 }
 
 static t_table	init_prompt(char **av, char **envp)
+static t_table	init_prompt(char **av, char **envp)
 {
+	t_table	tab;
+	char	*str;
 	t_table	tab;
 	char	*str;
 
@@ -74,10 +76,21 @@ static t_table	init_prompt(char **av, char **envp)
 	getmypid(&tab);
 	tab = init_vars(tab, str, av);
 	return (tab);
+	str = NULL;
+	tab.cmdl = NULL;
+	tab.envp = ft_mx_dup(envp);
+	g_status = 0;
+	getmypid(&tab);
+	tab = init_vars(tab, str, av);
+	return (tab);
 }
 
 int	main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
+	t_table	tab;
+	char	*str;
+	char	*input;
 	t_table	tab;
 	char	*str;
 	char	*input;
@@ -97,10 +110,31 @@ int	main(int ac, char **av, char **envp)
 			break ;
 	}
 	exit(g_status);
+	tab = init_prompt(av, envp);
+	while (av && ac)
+	{
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, SIG_IGN);
+		str = getprompt(tab);
+		if (str)
+			input = readline(str);
+		else
+			input = readline("guest@minishell $ ");
+		free(str);
+		if (!check_args(input, &tab))
+			break ;
+	}
+	exit(g_status);
 }
 
 /*
 main :  init_prompt => get user info to be stock into *p {struct t_dot}   
+		signal      => Global variable to be access anywhere ...
+				getmypid    => fork process for multiple cmd.
+		init_vars   => split envp.args to stock into tab->envp 
+				ms_setenv, ms_getenv   ==> signal.c      
+		getprompt   => prompt.c
+		check_args  => parse.c    
 		signal      => Global variable to be access anywhere ...
 				getmypid    => fork process for multiple cmd.
 		init_vars   => split envp.args to stock into tab->envp 
