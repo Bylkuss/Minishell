@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_nbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:04:34 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:04:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:54:15 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 int	*ft_sort_nbr(int *arr, int len)
 {
-	int		i;
-	int		j;
-	int		tmp;
-	int		*ret;
+	int	i;
+	int	j;
+	int	tmp;
+	int	*ret;
 
 	ret = malloc(sizeof(int) * len);
 	i = -1;

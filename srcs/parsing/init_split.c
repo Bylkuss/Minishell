@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_split.c                                         :+:      :+:    :+:   */
+/*   init_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/09 01:05:13 by gehebert          #+#    #+#             */
-/*   Updated: 2022/11/17 13:36:50 by loadjou          ###   ########.fr       */
+/*   Created: 2023/03/14 22:40:44 by bylkus            #+#    #+#             */
+/*   Updated: 2023/03/14 22:40:46 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,87 +120,86 @@
 //     return(input);
 // }
 
-static int token_count(const char *s, char *c, int i[2]) // 
+static int	token_count(const char *s, char *c, int i[2])
 {
-    int     q[2];   // quotes match delimter
+	int	q[2];
 
-    q[0] = 0;
-    q[1] = 0;
-    while (s[i[0]] != '\0')
-    {
-        if (!ft_strchr(c, s[i[0]])) // value -0- at pos [i] into *s
-        {
-            i[1]++;
-            while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
-            {
-                if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\'')) 
-                    q[1] = s[i[0]];
-                q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
-                q[1] *= q[0] != 0;
-                i[0]++;
-            }
-            if (q[0])
-                return (-1);
-        }
-        else
-            i[0]++;
-    }
-    return (i[1] );//+ 1);//+ 1); // start[0] +1 && invisible etype +1
+	q[0] = 0;
+	q[1] = 0;
+	while (s[i[0]] != '\0')
+	{
+		if (!ft_strchr(c, s[i[0]]))
+		{
+			i[1]++;
+			while ((!ft_strchr(c, s[i[0]]) || q[0]) && s[i[0]] != '\0')
+			{
+				if (!q[1] && (s[i[0]] == '\"' || s[i[0]] == '\''))
+					q[1] = s[i[0]];
+				q[0] = (q[0] + (s[i[0]] == q[1])) % 2;
+				q[1] *= q[0] != 0;
+				i[0]++;
+			}
+			if (q[0])
+				return (-1);
+		}
+		else
+			i[0]++;
+	}
+	return (i[1]);
 }
 
-static char **token_fill(char **aux, const char *s, char *set, int i[2]) 
+static char	**token_fill(char **aux, const char *s, char *set, int i[2])
 {
-    int     n;      //token id
-    int     len;
-    int     q[2];       // uniq_quotes ignore
+	int	n;
+	int	len;
+	int	q[2];
 
-    n = 0;
-    q[0] = 0;
-    q[1] = 0;
-    len = ft_strlen(s);
-    while (s[i[0]])// && i[0] < len)
-    {                   //sans espace ...
-        while(ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')  //  if not spc 
-            i[0]++;
-        i[1] = i[0]; // token start = i[2]
-        while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
-        {                 
-                q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;     //single_ignore simpl_q
-                q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;     //single_ignore dbl_q
-                i[0]++; // //printf("DEBUG: n_fill -- i[2] = [%d][%d][%c]\n", n, i[0], s[i[0]]);     // NOT
-        }           // ... spaceless token ++
-        if (i[1] >=len) 
-            aux[i[2]++] = "\0";
-        else
-            aux[i[2]++] = ft_substr(s, i[1], (i[0] - i[1]));
-    }
-    return (aux);
+	n = 0;
+	q[0] = 0;
+	q[1] = 0;
+	len = ft_strlen(s);
+	while (s[i[0]])
+	{
+		while (ft_strchr(set, s[i[0]]) && s[i[0]] != '\0')
+			i[0]++;
+		i[1] = i[0];
+		while ((!ft_strchr(set, s[i[0]]) || q[0] || q[1]) && s[i[0]])
+		{
+			q[0] = (q[0] + (!q[1] && s[i[0]] == '\'')) % 2;
+			q[1] = (q[1] + (!q[0] && s[i[0]] == '\"')) % 2;
+			i[0]++;
+		}
+		if (i[1] >= len)
+			aux[i[2]++] = "\0";
+		else
+			aux[i[2]++] = ft_substr(s, i[1], (i[0] - i[1]));
+	}
+	return (aux);
 }
 
-char **init_split(const char *input, char *set)//, t_table tab)
+char	**init_split(const char *input, char *set)
 {
-    char    **aux;
-    int     n;
-    int     i[3];       // *arr pos: start, sub-end, end
-    int     count[2];   // str sub len [0:start/1:end]
+	char	**aux;
+	int		n;
+	int		i[3];
+	int		count[2];
 
-    i[0] = 0;
-    i[1] = 0;
-    i[2] = 0;
-    count[0] = 0;
-    count[1] = 0;
-    if (!input)
-        return (NULL);    
-    // input = type_check((const char *)input, "<|>");
-    n = token_count(input, set, count);  // word_count >.<
-    if (n == -1)
-        return (NULL);   
-    aux = malloc(sizeof(char *) * (n + 1));   // malloc +2 EOT char
-    if (!aux)
-        return (NULL);
-    aux = token_fill(aux, input, set, i);    // tab->cmds <<  set(" "), *s, i[] 
-    aux[n] = NULL;  
-    return (aux);   // return clean token space-split args
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	count[0] = 0;
+	count[1] = 0;
+	if (!input)
+		return (NULL);
+	n = token_count(input, set, count);
+	if (n == -1)
+		return (NULL);
+	aux = malloc(sizeof(char *) * (n + 1));
+	if (!aux)
+		return (NULL);
+	aux = token_fill(aux, input, set, i);
+	aux[n] = NULL;
+	return (aux);
 }
 
 /*

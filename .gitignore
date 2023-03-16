@@ -6,6 +6,7 @@ objs/
 minshell
 .DS_Store
 *.d
+venv/
 
 # Object files
 *.o

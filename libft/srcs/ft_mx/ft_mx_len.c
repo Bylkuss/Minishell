@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mx_len.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:34:55 by gehebert          #+#    #+#             */
-/*   Updated: 2022/12/06 12:35:00 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/15 10:29:09 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/libft.h"
 
-int ft_mx_len(char **mx)
+int	ft_mx_len(char **mx)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(mx && mx[i])
-        i++;
-    return (i);
+	i = 0;
+	while (mx && mx[i])
+		i++;
+	return (i);
 }

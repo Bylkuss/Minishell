@@ -1,23 +1,21 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   div_node.c                                        :+:      :+:    :+:   */
+/*   div_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 23:16:15 by gehebert          #+#    #+#             */
-/*   Updated: 2023/02/06 18:10:13 by gehebert         ###   ########.fr       */
+/*   Created: 2023/03/14 21:05:10 by bylkus            #+#    #+#             */
+/*   Updated: 2023/03/14 21:05:17 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../includes/minishell.h"
-
 
 static int	count_str(char *s, char *set, int count)
 {
-	int		q[2];
-	int		i;
+	int	q[2];
+	int	i;
 
 	i = 0;
 	q[0] = 0;
@@ -44,7 +42,7 @@ static int	count_str(char *s, char *set, int count)
 
 static char	**fill_str(char **aux, char *s, char *set, int i[3])
 {
-	int		q[2];
+	int	q[2];
 
 	q[0] = 0;
 	q[1] = 0;
@@ -88,18 +86,3 @@ char	**div_str(char const *s, char *set)
 	aux[nwords] = NULL;
 	return (aux);
 }
-
-  //   ls -l -t -a | head -2 | wc -c >> out.txt   
-  //      
-  // cat < popov.txt
-  //   < popov.txt | wc -l 
-  //  < popov.txt wc -l | cat > titi2.txt
-  //   ls  -lta | wc -l >> out.txt   
-  //   ls -lt | head -2 | wc -l >> out3.txt  
- 
-/*
-from parse.c /split_all ->
-	div_node 	=> node spliter by ending char (<,>,|)
-	word_count & ft_fill_array ... no comment!
-	*** return table_command : called node !
-*/

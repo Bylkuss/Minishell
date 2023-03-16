@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:31:08 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/12 15:21:26 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:30:54 by bylkus           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ static t_node	*init_node(void)
 static t_node	*get_params(t_node *node, char **a[2], int *i)
 {
 	if (a[0][*i])
-	{		
+	{
 		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
-		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
-					 a[0][*i + 1][0] == '<' && a[0][*i + 2][0] != '<')
+		else if (a[0][*i][0] == '<' && a[0][*i + 1] &&
+					a[0][*i + 1][0] == '<')
 			node = get_infile2(node, a[1], i);
 		else if (a[0][*i][0] == '<')
 			node = get_infile1(node, a[1], i);

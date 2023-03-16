@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   it_t.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 07:17:41 by gehebert          #+#    #+#             */
-/*   Updated: 2021/10/01 07:18:40 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:55:50 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
 void	it_t(unsigned int i, char *c)
 {
 	*c = *c + i;
-}// test striteri     remove  it_t libft - Makefile
+}

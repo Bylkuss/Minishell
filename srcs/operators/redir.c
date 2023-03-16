@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/14 16:03:29 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/16 10:12:34 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		chk_error(NPERM, path, 126);
 	if (flags[0] && flags[1])
 		fd = open(path, O_CREAT | O_WRONLY | O_APPEND, 0666);
-	else if (flags[0] && !flags[1]) //(flags[0] && !flags[1])
+	else if (flags[0] && !flags[1])
 		fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	else if (!flags[0] && oldfd != -1) //(!flags[0] && oldfd != -1)
+	else if (!flags[0] && oldfd != -1)
 		fd = open(path, O_RDONLY);
 	else
 		fd = oldfd;
@@ -44,8 +44,6 @@ t_node	*get_outfile1(t_node *t, char **a, int *i)
 	char	*nl;
 	int		flags[2];
 
-	// int 	id;
-	// id = 0;
 	flags[0] = 1;
 	flags[1] = 0;
 	nl = "minishell: syntax error near unexpected node '>'";
@@ -63,7 +61,6 @@ t_node	*get_outfile1(t_node *t, char **a, int *i)
 		else
 			g_status = 1;
 	}
-	// node->etype = 2;
 	return (t);
 }
 
@@ -114,15 +111,15 @@ t_node	*get_infile1(t_node *t, char **a, int *i)
 		else
 			g_status = 1;
 	}
-	// node->etype = 4;
 	return (t);
 }
 
 t_node	*get_infile2(t_node *t, char **a, int *i)
 {
-	char *aux[2];
-	char *nl;
-	char *str[2];
+	char	*aux[2];
+	char	*nl;
+	char	*str[2];
+
 	str[0] = NULL;
 	str[1] = NULL;
 	aux[0] = NULL;
@@ -134,7 +131,7 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 	if (a[++(*i)])
 	{
 		aux[0] = a[*i];
-		t->infile = get_here_doc(str, aux); /*later */
+		t->infile = get_here_doc(str, aux);
 	}
 	if (!a[*i] || t->infile == -1)
 	{

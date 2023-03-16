@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 09:15:47 by gehebert          #+#    #+#             */
-/*   Updated: 2022/07/28 09:15:49 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:54:42 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
 int	ft_getnbr(char const *str)
 {
-	int		nbr;
-	int		neg;
+	int	nbr;
+	int	neg;
 
 	nbr = 0;
 	neg = 0;
