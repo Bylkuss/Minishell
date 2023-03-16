@@ -88,6 +88,7 @@ WORKING: echo """"""""$USER""""""""
 WORKING: echo $USER'$USER'text oui oui     oui  oui $USER oui      $USER ''
 WORKING: echo $USER '' $USER $USER '' $USER '' $USER -n $USER
 WORKING: echo ' \' ' \'
+NOT _________ 
 NO_NEED_TOFIX: echo '\" ' " \"\""
 
 NO_NEED_TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
@@ -97,7 +98,7 @@ NO_NEED_TOFIX: echo \\\" \\\" \\\" \\\"\\\"\\\" \\\'\\\'\\\'
 pdf!!!!
 • Not interpret unclosed quotes or special characters which are not required by the
 subject such as \ (backslash) or ; (semicolon).
-
+_____________
 
 WORKING: echo "$USER""$USER""$USER"
 WORKING: echo text"$USER"test
@@ -118,13 +119,15 @@ WORKING: echo $USER
 WORKING: echo $?
 WORKING: echo $USER213
 
+ 
+ Not    ___ 
  *** ARE YOU SURE ABOUT THAT!!!
                                             ###### 
  ***   TOFIX: echo $USER$12USER$USER=4$USER12
     +: bylkus2USERbylkus=4
     -: newline
 
-        ****
+_____        ****
 
 TODO: echo $USER $123456789USER $USER123456789
 TODO: echo $USER $9999USER $8888USER $7777USER
