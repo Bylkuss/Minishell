@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/14 23:10:48 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/16 12:18:09 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 		free(str[0]);
 		str[0] = readline(">> ");
 		if (!str[0])
-		{
-			printf("%s (wanted `%s\')\n", warn, limit);
 			break ;
-		}
 		temp = str[0];
 		str[0] = ft_strjoin(str[0], "\n");
 		free(temp);
@@ -50,13 +47,13 @@ int	get_here_doc(char *str[2], char *aux[2])
 		chk_error(PIPERR, NULL, 1);
 		return (-1);
 	}
-	// printf("HEY, I'M HEREDOC! \n");
 	if (*aux[0] != '|')		
 		str[1] = get_here_str(str, 0, aux[0], aux[1]);
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);
 	close(fd[WRITE_END]);
-	if (g_status == 130)
+	printf("echo $? = %d\n", g_status);
+	if (g_status == 0)
 	{
 		close(fd[READ_END]);
 		return (-1);
