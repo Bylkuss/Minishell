@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/16 10:13:28 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:38:43 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 	n = cmd->content;
 	if (n->cmd)
 		l = ft_strlen(*n->cmd);
-	//printf("DEBUG:: born_child l = %d:: \n", l);
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
 	child_builtin(tab, n, l, cmd);

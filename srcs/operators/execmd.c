@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/14 23:10:22 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/16 11:53:55 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,13 @@ void	*execmd(t_table *tab, t_list *cmd)
 	if (!chk_fork(tab, cmd, fd))
 		return (NULL);
 	close(fd[WRITE_END]);
-	if (tab->cmdl->next && !((t_node *)tab->cmdl->next->content)->infile)
-		((t_node *)tab->cmdl->next->content)->infile = fd[READ_END];
+	if (cmd->next && !((t_node *)cmd->next->content)->infile)
+		((t_node *)cmd->next->content)->infile = fd[READ_END];
 	else
 		close(fd[READ_END]);
-	if (((t_node *)tab->cmdl->content)->infile > 2)
-		close(((t_node *)tab->cmdl->content)->infile);
-	if (((t_node *)tab->cmdl->content)->outfile > 2)
-		close(((t_node *)tab->cmdl->content)->outfile);
+	if (((t_node *)cmd->content)->infile > 2)
+		close(((t_node *)cmd->content)->infile);
+	if (((t_node *)cmd->content)->outfile > 2)
+		close(((t_node *)cmd->content)->outfile);
 	return (NULL);
 }
