@@ -118,7 +118,7 @@ WORKING: echo $?
 WORKING: echo $USER213
 
  *** ARE YOU SURE ABOUT THAT!!!
-###### 
+                                            ###### 
  ***   TOFIX: echo $USER$12USER$USER=4$USER12
     +: bylkus2USERbylkus=4
     -: newline
@@ -132,7 +132,7 @@ TODO: echo $USER $USER9999 $USER8888 $USER7777 "$USER"
 TODO: echo "$USER=12$USER"
 TODO: echo "$9USER" "'$USER=12$SOMETHING'"
 
-#### 
+                                    #### 
 ***    TOFIX: echo $PWD/file
     TOFIX: echo "$PWD/file"
     +: /home/bylkus/Desktop/Code/Cursus/Minishell/file
@@ -150,7 +150,7 @@ These 2 following tests to make sure
 WORKING: cd '//'
 WORKING: cd //////
 
-####
+                                                ####
 ***    TOFIX: cd ./././
         +: currect dir
         -: /
@@ -171,7 +171,7 @@ WORKING: cd woof
 WORKING: cd bark bark
 WORKING: cd '/'
 
-####### 
+                                        ####### 
 ***    TOFIX: cd $PWD/file_tests
 
         TOFIX: cd $OLDPWD/something
@@ -203,7 +203,7 @@ WORKING: ~
 WORKING: <<
 WORKING: /Users
 
-##########
+                            ##########
   ***  TOFIX: .
     +:  bash: .: filename argument required
         .: usage: . filename [arguments]
@@ -226,7 +226,7 @@ WORKING: rm -f something
 WORKING: rm -rf <existing_file>
 WORKING: cat something
  
- #####
+                                        #####
  ***   TOFIX: | echo -n oui
         +:  bash: syntax error near unexpected token `|'
         -: it skips the | and executes echo
@@ -275,7 +275,7 @@ WORKING: exit '42'"42"42
 WORKING: exit +'42'"42"42
 WORKING: exit -'42'"42"42
 
-########
+                                    ########
 ***    TOFIX:
         exit 9223372036854775807
         exit 9223372036854775808
@@ -305,7 +305,7 @@ WORKING: exit 42 42 42 42 42
 WORKING: exit echo something
 WORKING: exit exit
 
-#######   
+                                #######   
 ***     TOFIX: env | grep "_="
         TOFIX: export | grep "SHLVL"
         TOFIX: export | grep "OLDPWD"
@@ -367,23 +367,23 @@ WORKING: export TES!T=123
 WORKING: export TEST+=100
 
 
-#########
+                                #########
  ****   TOFIX: export TES\~T=123
     +:  export: `TES~T=123': not a valid identifier
     -: infite loop
 
-#############
+                                #############
 ****    TOFIX: env | grep "_="
     TOFIX: env | grep "SHLVL"
     -: infinite loop
-############
+                                    ############
     TOFIX: echo oui | cat -e
     +:  oui$
     -:  oui $
 
 WORKING: < salut cat
     
-########
+                                    ########
 ***    *** TOFIX: << EOF | cat
     -: segmentation fault
 
@@ -411,7 +411,8 @@ WORKING: cat Makefile | grep "FLAGS"
 WORKING: unset TEST | cat -e
 WORKING: ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls|ls
 
-##########
+                                        ##########
+                                        
         WORKING: whoami | grep $USER > tmp/file
         WORKING: whoami | cat -e | cat -e > tmp/file
         +:  tmp/file: No such file or directory
