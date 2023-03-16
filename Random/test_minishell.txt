@@ -1,6 +1,6 @@
     WORKING: -- < a << eof < a cat -e | cat -e     
 WORKING: -- cat << | wc      >>>> calizz i've hard code it! 
-
+test : ls -lat | head -4 | wc -w >> good.txt
 TODO: -- cat makefile >test | wc < | cat makefile >test1 --
 TODO: -- echo >> | cat makefile -- 
 TODO: -- echo coucou >test > >test2 -- 
