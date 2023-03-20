@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:54:36 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:01:06 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern int	g_status;
 
 static void	print_tab(char **tab)
 {
@@ -106,6 +108,9 @@ char	**ms_export(char **cmd, char **envp)
 	else if (!cmd[1])
 		print_tab(envp);
 	else
+	{
 		printf("Bad var format\n");
-	return (0);
+		g_status = 1;
+	}
+	return (envp);
 }
