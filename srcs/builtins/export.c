@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 12:07:51 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:42:31 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	check_export_cmd(char *str)
 		}
 		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
 			return (1);
+		else
+			return (0);
 		i++;
 	}
 	return (0);
@@ -57,7 +59,6 @@ static int	is_already_var(char **envp, char *var)
 	{
 		cmd_trim = cmd_trimmed(var);
 		envp_trim = cmd_trimmed(envp[i]);
-		printf("%s   -     %s\n", cmd_trim, envp_trim);
 		if (ft_strcmp(envp_trim, cmd_trim) == 0)
 		{
 			free(cmd_trim);
@@ -97,9 +98,14 @@ char	**ms_export(char **cmd, char **envp)
 {
 	int	pos;
 
-	if(!check_export_cmd(cmd[1]))
-		return 1;
-	if (cmd[1])
+	if (cmd[2])
+	{
+		g_status = 1;
+		printf("minishell: export: `%s': not a valid identifier\n", cmd[2]);
+	}
+	else if (cmd[1] && !check_export_cmd(cmd[1]))
+		g_status = 1;
+	else if (cmd[1])
 	{
 		pos = is_already_var(envp, cmd[1]);
 		if (pos > -1)
@@ -109,10 +115,5 @@ char	**ms_export(char **cmd, char **envp)
 	}
 	else if (!cmd[1])
 		print_tab(envp);
-	else
-	{
-		printf("Bad var format\n");
-		g_status = 1;
-	}
 	return (envp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 11:27:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:17:21 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	builtin1(t_table *tab, t_list *cmdl, char **aux, int i)
 	if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
 		g_status = cd(aux, tab->envp);
 	else if (!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
-		g_status = ms_export(aux, tab->envp);
+		tab->envp = ms_export(aux, tab->envp);
 	else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
 		unset((aux), tab->envp);
 	else if ((!ft_strncmp(*aux, "env", i) || !ft_strncmp(*aux, "ENV", i))
