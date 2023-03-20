@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/08 23:32:33 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:19:11 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,6 @@ static t_table	init_prompt(char **av, char **envp)
 	getmypid(&tab);
 	tab = init_vars(tab, str, av);
 	return (tab);
-	str = NULL;
-	tab.cmdl = NULL;
-	tab.envp = ft_mx_dup(envp);
-	g_status = 0;
-	getmypid(&tab);
-	tab = init_vars(tab, str, av);
-	return (tab);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -88,21 +81,6 @@ int	main(int ac, char **av, char **envp)
 	char	*str;
 	char	*input;
 
-	tab = init_prompt(av, envp);
-	while (av && ac)
-	{
-		signal(SIGINT, handle_sigint);
-		signal(SIGQUIT, SIG_IGN);
-		str = getprompt(tab);
-		if (str)
-			input = readline(str);
-		else
-			input = readline("guest@minishell $ ");
-		free(str);
-		if (!check_args(input, &tab))
-			break ;
-	}
-	exit(g_status);
 	tab = init_prompt(av, envp);
 	while (av && ac)
 	{
