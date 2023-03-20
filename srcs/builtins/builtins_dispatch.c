@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 11:27:21 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:14:02 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	builtin1(t_table *tab, t_list *cmdl, char **aux, int i)
 	if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
 		g_status = cd(aux, tab->envp);
 	else if (!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
-		g_status = ms_export(aux, tab->envp);
+		tab->envp = ms_export(aux, tab->envp);
 	else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
 		unset((aux), tab->envp);
 	else if ((!ft_strncmp(*aux, "env", i) || !ft_strncmp(*aux, "ENV", i))
@@ -86,8 +86,8 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 		if (aux)
 			i = ft_strlen(*aux);
 		if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
-			// g_status = exit_builtin(aux);
 			g_status = ms_exit(cmdl, is_exit);
+			// g_status = exit_builtin(aux);
 		else
 			builtin1(tab, cmdl, aux, i);
 		cmdl = cmdl->next;

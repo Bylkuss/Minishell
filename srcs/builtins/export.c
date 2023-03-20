@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 12:07:51 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:29:43 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static int	is_already_var(char **envp, char *var)
 	{
 		cmd_trim = cmd_trimmed(var);
 		envp_trim = cmd_trimmed(envp[i]);
-		printf("%s   -     %s\n", cmd_trim, envp_trim);
 		if (ft_strcmp(envp_trim, cmd_trim) == 0)
 		{
 			free(cmd_trim);
@@ -98,7 +97,7 @@ char	**ms_export(char **cmd, char **envp)
 	int	pos;
 
 	if(!check_export_cmd(cmd[1]))
-		return 1;
+		g_status = 1;
 	if (cmd[1])
 	{
 		pos = is_already_var(envp, cmd[1]);
@@ -110,9 +109,6 @@ char	**ms_export(char **cmd, char **envp)
 	else if (!cmd[1])
 		print_tab(envp);
 	else
-	{
-		printf("Bad var format\n");
-		g_status = 1;
-	}
+		g_status = 0;	
 	return (envp);
 }
