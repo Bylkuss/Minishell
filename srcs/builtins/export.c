@@ -6,11 +6,13 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 11:26:19 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:07:51 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern int	g_status;
 
 static void	print_tab(char **tab)
 {
@@ -91,7 +93,7 @@ char	**new_envp(char **envp, char *var)
 	return (new_envp);
 }
 
-int		ms_export(char **cmd, char **envp)
+char	**ms_export(char **cmd, char **envp)
 {
 	int	pos;
 
@@ -110,7 +112,7 @@ int		ms_export(char **cmd, char **envp)
 	else
 	{
 		printf("Bad var format\n");
-		// print_tab(envp);
+		g_status = 1;
 	}
-	return (0);
+	return (envp);
 }

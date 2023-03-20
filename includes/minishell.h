@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/20 10:08:24 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:07:39 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int			echo(char **cmd);
 /**************************pwd*****************************/
 int			pwd(void);
 void		env(char **envp);
-int		ms_export(char **cmd, char **envp);
+char		**ms_export(char **cmd, char **envp);
 int			unset(char **cmd, char **envp);
 char		**save_old_pwd(char **envp);
 char		**edit_env(char **envp, int pos);
