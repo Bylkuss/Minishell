@@ -14,8 +14,8 @@
 
 static int	ft_count_words(const char *str, char charset)
 {
-	int		i;
-	int		words;
+	int	i;
+	int	words;
 
 	words = 0;
 	i = 0;
@@ -35,10 +35,10 @@ static int	ft_count_words(const char *str, char charset)
 
 static char	**ft_write_split(char **split, const char *str, char charset)
 {
-	size_t	i;
-	size_t	j;
-	int		word;
-	size_t	len;
+	size_t		i;
+	size_t		j;
+	int			word;
+	size_t		len;
 
 	word = 0;
 	i = 0;
@@ -61,6 +61,7 @@ static char	**ft_write_split(char **split, const char *str, char charset)
 char	**ft_split(const char *str, char c)
 {
 	char	**res;
+	char	**tmp;
 	int		words;
 
 	if (!str)
@@ -71,5 +72,7 @@ char	**ft_split(const char *str, char c)
 		return (NULL);
 	res = ft_write_split(res, str, c);
 	res[words] = NULL;
-	return (res);
+	tmp = res;
+	free (res);
+	return (tmp);
 }

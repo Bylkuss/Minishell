@@ -14,6 +14,7 @@
 char	*ft_strdup(const char *s)
 {
 	char	*str;
+	char 	*tmp;
 	size_t	size;
 
 	if (!s)
@@ -23,5 +24,7 @@ char	*ft_strdup(const char *s)
 	if (!str)
 		return (NULL);
 	ft_strlcpy(str, s, size + 1);
-	return (str);
+	tmp = str;
+	free(str);
+	return (tmp);
 }
