@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 12:45:17 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:20:25 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 			i = ft_strlen(*aux);
 		if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
 			g_status = ms_exit(cmdl, is_exit);
-			// g_status = exit_builtin(aux);
 		else
 			builtin1(tab, cmdl, aux, i);
 		cmdl = cmdl->next;

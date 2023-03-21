@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 03:39:28 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/20 09:35:33 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:34 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	error_msg(char *msg, int exiit)
 	ft_putstr_fd(msg, 2);
 	exit(exiit);
 }
-
 
 void	*chk_error(int err_type, char *param, int err)
 {

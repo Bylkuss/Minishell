@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/16 11:04:29 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:19 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,6 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
 	nl = "minishell: syntax error near unexpected node `<<'";
 	(*i)++;
-	// if (a[(*i)])
-
 	if (a[++(*i)])
 	{
 		aux[0] = a[*i];

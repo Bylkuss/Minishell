@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:47:38 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:19:46 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ char	**edit_env(char **envp, int pos)
 		pos++;
 	}
 	free(envp[pos]);
-	envp[pos] = NULL;
 	return (envp);
 }
 

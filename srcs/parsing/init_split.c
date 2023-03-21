@@ -3,122 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 22:40:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 22:40:46 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:24:42 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/*
-    space between ... pos[flag]  [0/4]
-    flag = {none, all_b4, one_b4, one_a4,all_a4}
-
-*/
-// static char *ft_spacer(char* srcs, int* pos[4], int fl)
-    // {
-    //     // int i;
-    //     // int f;
-        
-    //     // i = 0;
-    //     // f = pos[i];
-
-    //     // pos[fl] = {POS = token[pos], FL = space_type } / 0:all_b4(etype) / 1:one_b4(etype) / 2:one_a4(etype) / 3:all_a4(etype)
-    //     if (fl > 1)
-    //     {
-    //         // meaning cut after etype for spc manager
-    //         //
-    //         /// 2 = set one_space after etype
-    //         //
-    //         /// 3 = set no_space_end
-    //           //printf("DEBUG :: only_1_AP_\n");
-    //             // p[2] = p[1] + 1;
-    //             // if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
-    //             //     p[2] = p[1] + 2;
-    //             // dest = ft_substr(srcs, 0, p[2]); //bfore etype        
-    //             // dest = ft_strjoin(dest, " ");
-    //             // rest = ft_strjoin(rest, dest); 
-    //             // // //printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-    //             // srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-    //             // // //printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
-    //     }
-    //     else
-    //     {
-    //         // meaning cut before etype ... spc manager
-    //         //
-    //         /// 0 = set no_space_start
-    //         //
-    //         /// 1 = set one_space before_etype
-
-    //           //printf("DEBUG :: only_1_AV_\n");
-    //             // dest = ft_substr(srcs, 0, p[1]); //bfore etype        
-    //             // dest = ft_strjoin(dest, " ");
-    //             // rest = ft_strjoin(rest, dest);
-    //             // // //printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-    //             // srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-    //             // //printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-
-    //     }
-    //     // while (srcs && (i < pos)
-// }
-
-// static char *type_check(char *input, char *meta)
-// {
-//     char    *srcs;  //  start part str
-//     char    *dest;  //  end part str
-//     char    *rest;  //  sub str
-//     int     p[4];   //  ptr pos start/pos/end   
-//     int     fl;     //  spacer_flag
-
-//     p[1] = 0;
-//     rest = "\0";
-//     srcs = ft_strdup(input);    
-//     while (ft_strlen(srcs) > 1 && p[1] != -1) 
-//     {
-//         p[1] = ft_strchar_i(srcs, meta);
-//         if (p[1] == -1)
-//             break;//padd = 1;
-//         else if (p[1] == 0)
-//             srcs = ft_strjoin(" ", srcs);
-//         p[3] = ft_strlen(srcs);      
-//         if ((p[1]) && ((srcs[p[1] - 1] != 32)))
-//         {
-
-//             dest = ft_substr(srcs, 0, p[1]); //bfore etype        
-//             dest = ft_strjoin(dest, " ");
-//             rest = ft_strjoin(rest, dest);
-//             srcs = ft_substr(srcs, p[1] , p[3] - p[1]); // left          
-//                     /// ft_spacer(char *srcs, pos = p[1]*, int fl) only_one spc before...
-//                     // input = ft_spacer(input, p[1], 1); //fl = 1
-//                     // //printf("DEBUG :: only_1_AV_\n");    
-//                     // //printf("DEBUG ::AV_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//                     // //printf("DEBUG ::AV_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs);
-//         }    
-//         else if ((input[p[1] + 1] != 32) && (p[1] + 1 != p[1]))
-//         {
-//             p[2] = p[1] + 1;
-//             if ((srcs[p[1] + 1]) == (srcs[p[1]]))   // twin chk ! 
-//                 p[2] = p[1] + 2;
-//             dest = ft_substr(srcs, 0, p[2]); //bfore etype        
-//             dest = ft_strjoin(dest, " ");
-//             rest = ft_strjoin(rest, dest); 
-//             srcs = ft_substr(srcs, p[2], p[3] - (p[2])); // left          
-//                 //      // only _one spc after
-//                 // input = ft_spacer(input, p[1], 2);  // fl = 2
-//                 // //printf("DEBUG :: only_1_AP_\n");
-//                 // //printf("DEBUG ::AP_ rest_check[%ld] ::%s: \n",ft_strlen(rest), rest);
-//                 // //printf("DEBUG ::AP_ new_src_check[%ld] ::%s: \n",ft_strlen(srcs), srcs); 
-//         }   
-//         else
-//             break;     
-//     }
-//     rest = ft_strjoin(rest, srcs);         // input = dest; 
-//     input = ft_strdup(rest);         // input = dest;
-//     //printf("DEBUG::  NEW_input_[%ld]_{%s}_\n",ft_strlen(input), input);
-//     return(input);
-// }
 
 static int	token_count(const char *s, char *c, int i[2])
 {
