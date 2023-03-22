@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/22 14:30:33 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:53:58 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,12 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		free(path);
 		temp = ft_strjoin(env_path[i], "/");
 		free(env_path[i]);
-		if (!temp)
-			return (NULL);
 		path = ft_strjoin(temp, cmd);
 		free(temp);
-		if (!path)
-			return (NULL);
 		if (access(path, F_OK) == 0)
 			return (path);
 	}
-	if (!env_path || !env_path[i])
-		free(path);
+	free(path);
 	return (NULL);
 }
 
