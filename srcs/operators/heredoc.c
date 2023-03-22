@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/16 12:18:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/22 13:35:15 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	get_here_doc(char *str[2], char *aux[2])
 		chk_error(PIPERR, NULL, 1);
 		return (-1);
 	}
-	if (*aux[0] != '|')		
+	if (*aux[0] != '|')
 		str[1] = get_here_str(str, 0, aux[0], aux[1]);
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);

@@ -1,4 +1,3 @@
-
 NAME 	=	minishell
 
 #	LIBFT
@@ -30,9 +29,12 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 				@-$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 $(NAME): 	$(OBJS)
+				@norminette srcs libft includes
+				@echo "$(GREEN)****NORMINETTE OK ✅****$(DEFAULT)"
+				@echo "$(GREEN)Compiling libft... ⌛️$(DEFAULT)"
 				@$(MAKE) -C $(F_DIR) -s
 				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
-				@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
+				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
 
 all		:	$(NAME)
 
@@ -41,13 +43,14 @@ all		:	$(NAME)
 # 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
 
 clean	:
-				$(RM) $(OBJ_F)
-				$(RM) -r $(S_OBJ)
+				@-$(RM) $(OBJ_F)
+				@-$(RM) -r $(S_OBJ)
+				@echo "$(RED)Cleaning... 🧹$(DEFAULT)"
 				
 fclean	:	clean
-				@$(RM) -rf $(O_DIR) $(LIBFT) 
-				@$(RM) $(NAME)
-				@echo "$(RED)$(NAME) deleted!$(DEFAULT)"
+				@-$(RM) -rf $(O_DIR) $(LIBFT) 
+				@-$(RM) $(NAME)
+				@echo "$(RED)$(LIBFT), $(NAME) deleted!$(DEFAULT)"
 
 re		:	fclean all
 

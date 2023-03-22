@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:54:36 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/20 12:45:42 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+extern int	g_status;
 
 static void	print_tab(char **tab)
 {
@@ -39,6 +41,8 @@ static int	check_export_cmd(char *str)
 		}
 		if (i > 0 && str[i] == '=' && str[i + 1] != '=' && str[i - 1] != '=')
 			return (1);
+		else
+			return (0);
 		i++;
 	}
 	return (0);
@@ -94,18 +98,22 @@ char	**ms_export(char **cmd, char **envp)
 {
 	int	pos;
 
-	if (cmd[1] && check_export_cmd(cmd[1]))
+	if (cmd[2])
+	{
+		g_status = 1;
+		printf("minishell: export: `%s': not a valid identifier\n", cmd[2]);
+	}
+	else if (cmd[1] && !check_export_cmd(cmd[1]))
+		g_status = 1;
+	else if (cmd[1])
 	{
 		pos = is_already_var(envp, cmd[1]);
 		if (pos > -1)
 			envp[pos] = ft_strdup(cmd[1]);
 		else
 			envp = new_envp(envp, cmd[1]);
-		return (envp);
 	}
 	else if (!cmd[1])
 		print_tab(envp);
-	else
-		printf("Bad var format\n");
-	return (0);
+	return (envp);
 }

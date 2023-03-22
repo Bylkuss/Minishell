@@ -6,10 +6,9 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/14 23:30:41 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/21 15:27:53 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 
@@ -81,6 +80,7 @@ int			builtins(t_table *tab, t_list *cmd, int *is_exit);
 int			is_builtin(t_node *t);
 char		*cmd_trimmed(char *envp);
 char		**edit_env(char **envp, int pos);
+// int 		exit_builtin(char **cmd);
 int			ms_exit(t_list *cmdl, int *is_exit);
 /*************************cd*******************************/
 int			cd(char **cmd, char **env);

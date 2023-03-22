@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:48:49 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/14 22:36:36 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:25:22 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static void	*parse_args(t_table *tab, char **aux)
 	}
 	return (tab);
 }
-// ls -lat | head -4 | grep "d*" | wc -l  >> good.txt  
-
 
 void	*check_args(char *input, t_table *tab)
 {

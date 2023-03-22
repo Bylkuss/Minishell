@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2023/03/14 20:53:56 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/22 12:15:32 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static char	*get_cd_path(char **cmd, char **env)
 		path = ft_strdup("..");
 	else if (ft_strcmp(cmd[1], "/") == 0)
 		path = ft_strdup("/");
-	else if (ft_strcmp(cmd[1], "-") == 0)
-		path = ft_strdup(cd_hyphen(env));
 	else
 		path = ft_strdup(cmd[1]);
 	return (path);

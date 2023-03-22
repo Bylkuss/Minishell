@@ -3,35 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:26:43 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:35:27 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:22:44 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	exit_builtin(char **cmd)
+int	ms_exit(t_list *cmdl, int *is_exit)
 {
-	int	exiit;
-	int	i;
+	t_node	*node;
+	long	status[2];
 
-	exiit = 0;
-	i = 0;
-	if (cmd[1] && !cmd[2])
+	node = cmdl->content;
+	*is_exit = !cmdl->next;
+	if (*is_exit)
+		ft_putstr_fd("exit\n", 2);
+	if (!node->cmd || !node->cmd[1])
+		return (0);
+	status[1] = ft_atoi2(node->cmd[1], &status[0]);
+	if (status[1] == -1)
 	{
-		while (cmd[1][i])
-		{
-			if (!ft_isdigit(cmd[1][i]) && cmd[1][i] != '-')
-			{
-				printf("exit: numeric argument required\n");
-				exit(2);
-			}
-			i++;
-		}
-		exiit = ft_atoi(cmd[1]);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(node->cmd[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+		return (2);
 	}
-	exit(exiit);
-	return (exiit);
+	else if (node->cmd[2])
+	{
+		*is_exit = 0;
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+		return (1);
+	}
+	status[0] %= 256 + 256 * (status[0] < 0);
+	return (status[0]);
 }
