@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/22 12:05:53 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/22 13:52:58 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 	path = NULL;
 	while (env_path && env_path[++i])
 	{
+		free(path);
 		temp = ft_strjoin(env_path[i], "/");
-		free(env_path[i]);
 		if (!temp)
 			return (NULL);
 		path = ft_strjoin(temp, cmd);
@@ -32,11 +32,14 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		if (!path)
 			return (NULL);
 		if (access(path, F_OK) == 0)
-			return (path);
+			break ;
 	}
 	if (!env_path || !env_path[i])
+	{
 		free(path);
-	return (NULL);
+		return (NULL);
+	}
+	return (path);
 }
 
 static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
