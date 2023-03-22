@@ -1,0 +1,13 @@
+Makefile
+README.md
+Random
+file.txt
+file1.txt
+includes
+libft
+minishell
+minishell.dSYM
+minishell.sup
+objs
+readline
+srcs
