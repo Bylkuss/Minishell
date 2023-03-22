@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 17:03:50 by loadjou           #+#    #+#             */
-/*   Updated: 2023/03/22 12:15:32 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/22 14:08:15 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*cd_hyphen(char **env)
 {
 	char	*old_pwd;
 
-	old_pwd = ms_getenv("OLDPWD", env, 1);
+	old_pwd = ms_getenv("OLDPWD", env, 6);
 	if (old_pwd)
 		return (old_pwd);
 	ft_putstr_fd("Error while trying to get old_pwd\n", 2);
@@ -47,6 +47,8 @@ static char	*get_cd_path(char **cmd, char **env)
 		path = ft_strdup("..");
 	else if (ft_strcmp(cmd[1], "/") == 0)
 		path = ft_strdup("/");
+	else if (ft_strcmp(cmd[1], "-") == 0)
+		path = cd_hyphen(env);
 	else
 		path = ft_strdup(cmd[1]);
 	return (path);
