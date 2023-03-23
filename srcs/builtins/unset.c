@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:29:09 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:31:00 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/23 14:02:20 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ int	unset(char **cmd, char **envp)
 		cmd_trim = cmd_trimmed(envp[i]);
 		if (ft_strcmp(cmd_trim, cmd[1]) == 0)
 		{
-			free(cmd_trim);
 			envp = edit_env(envp, i);
+			free(cmd_trim);
 			return (1);
 		}
-		free(cmd_trim);
 		i++;
 	}
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:43:54 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:53:20 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,51 @@ char	**ms_setenv(char *var, char *value, char **envp, int n)
 	envp = ft_mx_ext(envp, aux[1]);
 	free(aux[1]);
 	return (envp);
+}
+
+static int	var_envp(char *argv, char **envp, int k[2])
+{
+	int	pos;
+
+	k[1] = 0;
+	pos = ft_strchr_i(argv, '=');
+	if (pos == -1)
+		return (-1);
+	while (envp[k[1]])
+	{
+		printf("____k[1]= %d \n", k[1]);
+		if (!ft_strncmp(envp[k[1]], argv, pos + 1))
+			return (1);
+		k[1]++;
+	}
+	return (0);
+}
+
+int	ms_unset(t_table *tab)
+{
+	char	**argv;
+	char	*aux;
+	int		k[2];
+
+	k[0] = 0;
+	argv = ((t_node *)tab->cmdl->content)->cmd;
+	if (ft_mx_len(argv) >= 2)
+	{
+		while (argv[++k[0]])
+		{
+			if (argv[k[0]][ft_strlen(argv[k[0]]) - 1] != '=')
+			{
+				aux = ft_strjoin(argv[k[0]], "=");
+				free(argv[k[0]]);
+				argv[k[0]] = aux;
+			}
+			if (var_envp(argv[k[0]], tab->envp, k))
+			{
+				printf("goto [:%d] k[1]= %d \n", ft_mx_len(tab->envp), k[1]);
+				ft_mx_rpl(&tab->envp, NULL, k[1]);
+				printf("rtrn [:%d]  \n", ft_mx_len(tab->envp));
+			}
+		}
+	}
+	return (0);
 }
