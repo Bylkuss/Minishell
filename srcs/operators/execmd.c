@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/22 15:01:52 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/23 08:43:44 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		if (access(path, F_OK) == 0)
 			break ;
 	}
-	free(path);
-	return (NULL);
+	return (path);
 }
 
 static DIR	*cmd_checks(t_table *tab, t_list *cmd, char ***s, char *path)
@@ -78,6 +77,7 @@ void	get_cmd(t_table *tab, t_list *cmd, char **s, char *path)
 		chk_error(NPERM, n->path, 126);
 	if (dir)
 		closedir(dir);
+	ft_mx_free(&s);
 }
 
 void	*execmd(t_table *tab, t_list *cmd)
