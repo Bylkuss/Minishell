@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mx_rpl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/06 12:34:29 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/15 10:30:10 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/23 15:24:42 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	**ft_mx_rpl(char ***full, char **tab, int n)
 	if (!full || n < 0 || n >= ft_mx_len(*full))
 		return (NULL);
 	tmp = ft_calloc(ft_mx_len(*full) + ft_mx_len(tab), sizeof(char *));
-	while (tab && full[0][++i[0]])
+	while (tmp && full[0][++i[0]])
 	{
 		if (i[0] != n)
 			tmp[++i[2]] = ft_strdup(full[0][i[0]]);
