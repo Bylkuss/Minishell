@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 10:31:44 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/20 12:45:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:03:26 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,27 @@ char	**new_envp(char **envp, char *var)
 char	**ms_export(char **cmd, char **envp)
 {
 	int	pos;
+	int	i;
 
-	if (cmd[2])
+	i = 1;
+	while (cmd[i])
 	{
-		g_status = 1;
-		printf("minishell: export: `%s': not a valid identifier\n", cmd[2]);
+		if (check_export_cmd(cmd[i]))
+		{
+			pos = is_already_var(envp, cmd[i]);
+			if (pos > -1)
+				envp[pos] = ft_strdup(cmd[i]);
+			else
+				envp = new_envp(envp, cmd[i]);
+		}
+		else if (i > 1 && !check_export_cmd(cmd[i]))
+		{
+			g_status = 1;
+			printf("minishell: export: `%s': not a valid identifier\n", cmd[2]);
+		}
+		i++;
 	}
-	else if (cmd[1] && !check_export_cmd(cmd[1]))
-		g_status = 1;
-	else if (cmd[1])
-	{
-		pos = is_already_var(envp, cmd[1]);
-		if (pos > -1)
-			envp[pos] = ft_strdup(cmd[1]);
-		else
-			envp = new_envp(envp, cmd[1]);
-	}
-	else if (!cmd[1])
+	if (!cmd[1])
 		print_tab(envp);
 	return (envp);
 }

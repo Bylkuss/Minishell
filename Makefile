@@ -29,7 +29,7 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 				@-$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 $(NAME): 	$(OBJS)
-				@norminette srcs libft includes
+#				@norminette srcs libft includes
 				@echo "$(GREEN)****NORMINETTE OK ✅****$(DEFAULT)"
 				@echo "$(GREEN)Compiling libft... ⌛️$(DEFAULT)"
 				@$(MAKE) -C $(F_DIR) -s

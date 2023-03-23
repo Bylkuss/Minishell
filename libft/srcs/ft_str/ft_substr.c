@@ -24,13 +24,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (len >= lens)
 		len = lens;
 	if (start >= lens)
-	{
-		res = (char *)malloc(1);
-		if (res == NULL)
-			return (NULL);
-		res[0] = '\0';
-		return (res);
-	}
+		return "\0";
 	res = (char *)malloc(len + 1);
 	if (res == NULL)
 		return (NULL);

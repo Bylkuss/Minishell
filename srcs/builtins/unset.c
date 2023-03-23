@@ -3,37 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bylkus <bylkus@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 20:29:09 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/14 20:31:00 by bylkus           ###   ########.fr       */
+/*   Updated: 2023/03/23 14:16:54 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+extern int	g_status;
+
 int	unset(char **cmd, char **envp)
 {
 	int		i;
+	int		j;
 	char	*cmd_trim;
 
-	i = 0;
-	if (!cmd[1] || cmd[2])
+	j = 1;
+	g_status = 1;
+	while (cmd[j])
 	{
-		printf("Missmatch args nb\n");
-		return (0);
-	}
-	while (envp[i])
-	{
-		cmd_trim = cmd_trimmed(envp[i]);
-		if (ft_strcmp(cmd_trim, cmd[1]) == 0)
+		i = 0;
+		while (envp[i])
 		{
+			cmd_trim = cmd_trimmed(envp[i]);
+			if (ft_strcmp(cmd_trim, cmd[j]) == 0)
+			{
+				envp = edit_env(envp, i);
+				free(envp[i]);
+				g_status = 0;
+			}
 			free(cmd_trim);
-			envp = edit_env(envp, i);
-			return (1);
+			i++;
 		}
-		free(cmd_trim);
-		i++;
+		j++;
 	}
-	return (0);
+	if (!cmd[1])
+		ft_putstr_fd("Missmatch args nb\n", 2);
+	return (g_status);
 }

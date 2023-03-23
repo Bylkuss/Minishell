@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:12:07 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/21 15:19:46 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:03:24 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**edit_env(char **envp, int pos)
 		envp[pos] = envp[pos + 1];
 		pos++;
 	}
-	free(envp[pos]);
+	envp[pos] = NULL;
 	return (envp);
 }
 
