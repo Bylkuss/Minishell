@@ -25,9 +25,12 @@ void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 	else if (is_builtin(n) && n->cmd && !ft_strncmp(*n->cmd, "echo", l)
 		&& l == 4)
 		g_status = echo(n->cmd);
-	else if (is_builtin(n) && cmd && !ft_strncmp(*n->cmd, "env", l) && l == 3)
+	else if (is_builtin(n) && cmd && (!ft_strncmp(*n->cmd, "env", l)
+			|| !ft_strncmp(*n->cmd, "ENV", l)) && l == 3)
 	{
-		ft_mx_fd(tab->envp, n->outfile);
+		env(tab->envp);
+		if (n->outfile != 1)
+			ft_mx_fd(tab->envp, n->outfile);
 		g_status = 0;
 	}
 }
