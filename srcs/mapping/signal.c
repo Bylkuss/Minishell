@@ -6,13 +6,13 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/23 15:48:48 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/24 10:02:56 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	g_status;
+int		g_status;
 
 void	handle_sigint(int sig)
 {
