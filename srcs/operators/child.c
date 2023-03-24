@@ -27,7 +27,7 @@ void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 		g_status = echo(n->cmd);
 	else if (is_builtin(n) && cmd && !ft_strncmp(*n->cmd, "env", l) && l == 3)
 	{
-		ft_mx_fd(tab->envp, 1);
+		ft_mx_fd(tab->envp, n->outfile);
 		g_status = 0;
 	}
 }
