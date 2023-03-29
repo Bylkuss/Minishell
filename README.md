@@ -1,4 +1,14 @@
-# minishell 42 - documentation
+# Minishell 42 - documentation
+
+<p align="center">
+    <a href="https://www.cprogramming.com/"><img alt="Made with C" src="https://img.shields.io/badge/Made%20with-C-1f425f.svg"/></a>
+    <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/bylkuss/minishell?color=lightblue" />
+    <img alt="Number of lines of code" src="https://img.shields.io/tokei/lines/github/bylkuss/minishell?color=critical" />
+    <img alt="Code language count" src="https://img.shields.io/github/languages/count/bylkuss/minishell?color=yellow" />
+    <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/bylkuss/minishell?color=blue" />
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/bylkuss/minishell?color=green" />
+</p>
+
 
 1. [Sujet](#sujet)
 2. [Notes](#notes)
