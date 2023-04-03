@@ -134,7 +134,7 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 	if (!a[*i] || t->infile == -1)
 	{
 		*i = -1;
-		if (t->infile == -1)
+		if (t->infile != -1)
 		{
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
