@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/23 09:04:37 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 12:11:44 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	*execmd(t_table *tab, t_list *cmd)
 	close(fd[WRITE_END]);
 	if (cmd->next && !((t_node *)cmd->next->content)->infile)
 		((t_node *)cmd->next->content)->infile = fd[READ_END];
-	else
+	else 
 		close(fd[READ_END]);
 	if (((t_node *)cmd->content)->infile > 2)
 		close(((t_node *)cmd->content)->infile);

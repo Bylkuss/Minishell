@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/03/23 15:38:34 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/03 10:59:51 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,28 +51,6 @@ int	is_builtin(t_node *t)
 	return (0);
 }
 
-static void	execmd_1(t_table *tab, t_list *cmdl)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	execmd(tab, cmdl);
-}
-
-static void	builtin1(t_table *tab, t_list *cmdl, char **aux, int i)
-{
-	if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
-		g_status = cd(aux, tab->envp);
-	else if (!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
-		tab->envp = ms_export(aux, tab->envp);
-	else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
-		g_status = ms_unset(tab);
-	else if ((!ft_strncmp(*aux, "env", i) || !ft_strncmp(*aux, "ENV", i))
-		&& i == 3)
-		env(tab->envp);
-	else
-		execmd_1(tab, cmdl);
-}
-
 int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 {
 	char	**aux;
@@ -87,8 +65,18 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 			i = ft_strlen(*aux);
 		if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
 			g_status = ms_exit(cmdl, is_exit);
+		else if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
+			g_status = cd(aux, tab->envp);
+		else if (!cmdl->next && aux && !ft_strncmp(*aux, "export", i) && i == 6)
+			tab->envp = ms_export(aux, tab->envp);
+		else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
+			g_status = ms_unset(tab);
 		else
-			builtin1(tab, cmdl, aux, i);
+		{
+			signal(SIGINT, SIG_IGN);
+			signal(SIGQUIT, SIG_IGN);
+			execmd(tab, cmdl);
+		}
 		cmdl = cmdl->next;
 	}
 	return (g_status);

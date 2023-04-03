@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_node.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:31:08 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:25:07 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/03 10:10:53 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_list	*get_node(char **tkn, int i)
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}
 		tmp[0] = tkn;
-		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
+		cmdl[1]->content = get_params(cmdl[0]->content, tmp, &i);
 		if (i < 0)
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])

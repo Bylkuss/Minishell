@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/23 17:40:09 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:51:38 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	get_here_doc(char *str[2], char *aux[2])
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);
 	close(fd[WRITE_END]);
-	if (g_status == 130)
+	if (g_status == 0)
 	{
 		close(fd[READ_END]);
 		return (-1);

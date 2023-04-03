@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/23 16:35:47 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 11:54:17 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 	if (!a[*i] || t->infile == -1)
 	{
 		*i = -1;
-		if (t->infile != -1)
+		if (t->infile == -1)
 		{
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
