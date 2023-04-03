@@ -22,7 +22,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		close(oldfd);
 	if (!path)
 		return (-1);
-	if (access(path, F_OK) == -1 && !flags[0])
+	if (access(path, F_OK) == -1 || !flags[0])
 		chk_error(NDIR, path, 127);
 	else if (!flags[0] && access(path, R_OK) == -1)
 		chk_error(NPERM, path, 126);
