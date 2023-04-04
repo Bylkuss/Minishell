@@ -6,21 +6,23 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:43:54 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/04 07:22:04 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	g_status;
+int		g_status;
 
 void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_status = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+		write(1, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_status = 130;
 	}
 }
 

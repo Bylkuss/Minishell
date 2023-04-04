@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 23:15:52 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:23:22 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/23 09:03:08 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ static t_table	init_vars(t_table tab, char *str, char **av)
 	if (!str)
 		tab.envp = ms_setenv("PATH",
 				"/usr/local/sbin/:/usr/local/bin:/usr/bin:/bin",
-				tab.envp,
-				4);
+				tab.envp, 4);
 	free(str);
 	str = ms_getenv("_", tab.envp, 1);
 	if (!str)

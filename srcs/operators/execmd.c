@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:33:02 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:43:36 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/04 07:46:07 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*find_command(char **env_path, char *cmd, char *path)
 		if (!path)
 			return (NULL);
 		if (access(path, F_OK) == 0)
-			return (path);
+			break ;
 	}
 	if (!env_path || !env_path[i])
 	{
@@ -85,6 +85,7 @@ void	get_cmd(t_table *tab, t_list *cmd, char **s, char *path)
 		chk_error(NPERM, n->path, 126);
 	if (dir)
 		closedir(dir);
+	ft_mx_free(&s);
 }
 
 void	*execmd(t_table *tab, t_list *cmd)

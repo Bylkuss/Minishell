@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/24 04:36:20 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:27:53 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/03/23 14:25:13 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ char		**edit_env(char **envp, int pos);
 /*                       MAPPING                           */
 /***********************************************************/
 void		handle_sigint(int sig);
+char		*q_trim(char const *s1, int squote, int dquote);
 char		*getprompt(t_table tab);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 char		*ms_getenv(char *var, char **envp, int n);
-char		*q_trim(char const *s1, int squote, int dquote);
+int			ms_unset(t_table *tab);
 /***********************************************************/
 /*                       PARSING                           */
 /***********************************************************/
