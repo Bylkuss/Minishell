@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/03 20:09:27 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:45:22 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
 		}
+		else
+			g_status = 1;			
 	}
 	return (t);
 }

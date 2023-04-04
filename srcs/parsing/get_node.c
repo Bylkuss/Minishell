@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:31:08 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/03 20:35:42 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:46:45 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,13 +97,7 @@ t_list	*get_node(char **tkn, int i)
 		tmp[0] = tkn;
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
 		if (!((t_node *)cmdl[1]->content)->cmd)
-		{
-			printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, *tkn);//((t_node *)cmdl[1]->content)->cmd[0]);
 			i = -1;
-		}
-		// if (((t_node *)cmdl[1]->content)->cmd)
-			// printf("DEBUG:: post_params tkn_id = %d tkn = {%s}:: \n", i, tkn[0]);
-		// else 
 		if (i < 0 )
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])
