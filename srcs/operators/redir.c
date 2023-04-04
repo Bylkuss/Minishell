@@ -6,7 +6,7 @@
 /*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/03 11:54:17 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:09:27 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_fd(int oldfd, char *path, int flags[2])
 		close(oldfd);
 	if (!path)
 		return (-1);
-	if (access(path, F_OK) == -1 || !flags[0])
+	if (access(path, F_OK) == -1 && !flags[0])
 		chk_error(NDIR, path, 127);
 	else if (!flags[0] && access(path, R_OK) == -1)
 		chk_error(NPERM, path, 126);
