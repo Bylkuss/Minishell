@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/03 10:05:52 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/04 07:45:33 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ void	*born_child(t_table *tab, t_list *cmd, int fd[2])
 		l = ft_strlen(*n->cmd);
 	child_redir(cmd, fd);
 	close(fd[READ_END]);
-	//
 	child_builtin(tab, n, l, cmd);
-	
 	ft_lstclear(&tab->cmdl, free_cont);
 	exit(g_status);
 }

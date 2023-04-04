@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 01:40:01 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/03 10:41:14 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/04 07:22:04 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)
 	{
-		g_status = 130;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n"); 
-		// rl_replace_line("", 0);
+		write(1, "\n", 1);
 		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		g_status = 130;
 	}
 }
 

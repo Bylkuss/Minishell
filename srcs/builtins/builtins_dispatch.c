@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_dispatch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/04/03 10:59:51 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/04 07:55:35 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,13 @@ int	is_builtin(t_node *t)
 	return (0);
 }
 
+static void	execmd_1(t_table *tab, t_list *cmdl)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	execmd(tab, cmdl);
+}
+
 int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 {
 	char	**aux;
@@ -72,11 +79,7 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 		else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
 			g_status = ms_unset(tab);
 		else
-		{
-			signal(SIGINT, SIG_IGN);
-			signal(SIGQUIT, SIG_IGN);
-			execmd(tab, cmdl);
-		}
+			execmd_1(tab, cmdl);
 		cmdl = cmdl->next;
 	}
 	return (g_status);
