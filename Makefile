@@ -29,22 +29,22 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 				@-mkdir -p $(S_OBJ) $(OBJS_DIRS)
 				@-$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
-# $(NAME): 	$(OBJS)
-# 				@echo "$(GREEN)****BUILDING READLINE****$(DEFAULT)"
-# 				@cd ./includes/readline && ./configure
-# 				@$(MAKE) everything -C ./includes/readline
-# 				@echo "$(GREEN)****READLINE OK ✅****$(DEFAULT)"
-# 				@norminette srcs libft includes/*.h
-# 				@echo "$(GREEN)****NORMINETTE OK ✅****$(DEFAULT)"
-# 				@echo "$(GREEN)Compiling libft... ⌛️$(DEFAULT)"
-# 				@$(MAKE) -C $(F_DIR) -s
-# 				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME) 
-# 				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
-
 $(NAME): 	$(OBJS)
+				@echo "$(GREEN)****BUILDING READLINE****$(DEFAULT)"
+				@cd ./includes/readline && ./configure
+				@$(MAKE) everything -C ./includes/readline
+				@echo "$(GREEN)****READLINE OK ✅****$(DEFAULT)"
+				@norminette srcs libft includes/*.h
+				@echo "$(GREEN)****NORMINETTE OK ✅****$(DEFAULT)"
+				@echo "$(GREEN)Compiling libft... ⌛️$(DEFAULT)"
 				@$(MAKE) -C $(F_DIR) -s
 				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME) 
 				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
+
+# $(NAME): 	$(OBJS)
+# 				@$(MAKE) -C $(F_DIR) -s
+# 				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME) 
+# 				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
 
 all		:	$(NAME)
 
