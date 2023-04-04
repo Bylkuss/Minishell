@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 21:32:42 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/16 11:38:43 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/04 07:45:33 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ void	child_builtin(t_table *tab, t_node *n, int l, t_list *cmd)
 {
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
-	if (!is_builtin(n) && n->cmd)
+	if (!is_builtin(n) && cmd)
 		execve(n->path, n->cmd, tab->envp);
 	else if (n->cmd && !ft_strncmp(*n->cmd, "pwd", l) && l == 3)
 		g_status = pwd();
 	else if (is_builtin(n) && n->cmd && !ft_strncmp(*n->cmd, "echo", l)
 		&& l == 4)
 		g_status = echo(n->cmd);
-	else if (is_builtin(n) && cmd && !ft_strncmp(*n->cmd, "env", l) && l == 3)
+	else if (is_builtin(n) && cmd && (!ft_strncmp(*n->cmd, "env", l)
+			|| !ft_strncmp(*n->cmd, "ENV", l)) && l == 3)
 	{
-		ft_mx_fd(tab->envp, 1);
+		env(tab->envp);
+		if (n->outfile != 1)
+			ft_mx_fd(tab->envp, n->outfile);
 		g_status = 0;
 	}
 }

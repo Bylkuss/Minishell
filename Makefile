@@ -17,7 +17,8 @@ SRCS		= $(foreach dir, $(SRCS_DIRS), $(wildcard $(dir)/*.c))
 OBJS		= $(subst $(S_DIR), $(S_OBJ), $(SRCS:.c=.o))
 
 #	READLINE HEADER
-RDPATH 		= readline/libreadline.a readline/libhistory.a
+RDPATH 		= .includes/reachable
+READLINE = ./includes/readline/libreadline.a ./includes/readline/libhistory.a -lreadline -lcurses
 #	HEADER
 H_DIR		= -I includes
 
@@ -29,18 +30,23 @@ $(S_OBJ)/%.o :	$(S_DIR)/%.c
 				@-$(CC) $(CFLAGS) $(H_DIR) -c $< -o $@
 
 $(NAME): 	$(OBJS)
-				@norminette srcs libft includes
+				@echo "$(GREEN)****BUILDING READLINE****$(DEFAULT)"
+				@cd ./includes/readline && ./configure
+				@$(MAKE) everything -C ./includes/readline
+				@echo "$(GREEN)****READLINE OK ✅****$(DEFAULT)"
+				@norminette srcs libft includes/*.h
 				@echo "$(GREEN)****NORMINETTE OK ✅****$(DEFAULT)"
 				@echo "$(GREEN)Compiling libft... ⌛️$(DEFAULT)"
 				@$(MAKE) -C $(F_DIR) -s
-				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME) 
 				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
 
-all		:	$(NAME)
-
 # $(NAME): 	$(OBJS)
-# 		-@$(MAKE) -C $(F_DIR) -s
-# 		-@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(RDPATH) -lcurses -lreadline -o $(NAME) 
+# 				@$(MAKE) -C $(F_DIR) -s
+# 				@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME) 
+# 				@echo "$(GREEN)$(NAME) created! 💯$(DEFAULT)"
+
+all		:	$(NAME)
 
 clean	:
 				@-$(RM) $(OBJ_F)

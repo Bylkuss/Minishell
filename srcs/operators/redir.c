@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/13 21:28:46 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:24:19 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/04 07:48:16 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,6 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 	char	*nl;
 	char	*str[2];
 
-	str[0] = NULL;
-	str[1] = NULL;
 	aux[0] = NULL;
 	aux[1] = "minishell: warning: here-document delimited by end-of-file";
 	nl = "minishell: syntax error near unexpected node `<<'";
@@ -139,6 +137,8 @@ t_node	*get_infile2(t_node *t, char **a, int *i)
 			ft_putendl_fd(nl, 2);
 			g_status = 2;
 		}
+		else
+			g_status = 1;
 	}
 	return (t);
 }

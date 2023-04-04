@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/03/21 15:23:41 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/04 08:16:16 by gehebert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 {
 	char	*temp;
 
-	while (g_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len)
+	while (g_status != 130 && (!str[0] || ft_strncmp(str[0], limit, len) \
 			|| ft_strlen(limit) != len))
 	{
 		temp = str[1];
@@ -27,10 +27,7 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 		free(str[0]);
 		str[0] = readline(">> ");
 		if (!str[0])
-		{
-			printf("%s (wanted `%s\')\n", warn, limit);
 			break ;
-		}
 		temp = str[0];
 		str[0] = ft_strjoin(str[0], "\n");
 		free(temp);
@@ -55,7 +52,7 @@ int	get_here_doc(char *str[2], char *aux[2])
 	write(fd[WRITE_END], str[1], ft_strlen(str[1]));
 	free(str[1]);
 	close(fd[WRITE_END]);
-	if (g_status == 130)
+	if (g_status == 1)
 	{
 		close(fd[READ_END]);
 		return (-1);
