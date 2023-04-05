@@ -72,6 +72,7 @@ static char	**strtrim(char **args)
 
 static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 {
+	printf("\t...STOP... \n");
 	ft_lstclear(&cmdl, free_cont);
 	ft_mx_free(&tmp);
 	ft_mx_free(&tkn);
@@ -95,6 +96,8 @@ t_list	*get_node(char **tkn, int i)
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}
 		tmp[0] = tkn;
+		printf("\t...get_node... i[%d]\n", i);
+		printf("\t...get_node... tmp[%s]\n", *tmp[0]);
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
 		if (i < 0 || (ft_mx_len(tkn) == 3 && i != 0))
 			return (stop_fill(cmdl[0], tkn, tmp[1]));

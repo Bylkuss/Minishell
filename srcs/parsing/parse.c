@@ -42,8 +42,10 @@ static void	*parse_args(t_table *tab, char **aux)
 	int	id;
 
 	is_exit = 0;
+	printf("DEBUG:: ...before  status[%d] ...get_node/split_all ... \n", g_status);
 	tab->cmdl = get_node(split_all(tab, aux), -1);
 	id = ft_lstsize(tab->cmdl);
+	printf("DEBUG::  ......id[%d]  PID[%d] \n", id, g_status);
 	g_status = builtins(tab, tab->cmdl, &is_exit);
 	while (id-- > 0)
 		waitpid(-1, &g_status, 0);
