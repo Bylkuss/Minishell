@@ -64,4 +64,35 @@ char	*q_trim(char const *s1, int squote, int dquote)
 	trimmed[++i[1]] = '\0';
 	return (trimmed);
 }
+
+void	orphan_redir(char **tmp)
+{
+	int i;
+
+	i = 0;
+
+	// printf("Orphan_Managed tmp{%s}\n", tmp[i]);
+	// 	i++;
+	// }
+	if (!ft_strcmp("<<", tmp[i]) && !tmp[i - 1])
+			chk_error(PIPENDERR, NULL, 2);
+	// else if (!ft_strcmp("<", tmp[i]))
+
+	// else if (!ft_strcmp(">>", tmp[i]))
+	// else if (!ft_strcmp(">", tmp[i]))
+	if ((ft_strcmp("|", tmp[i]) == 0) && tmp[i - 1]) 
+			chk_error(PIPENDERR, NULL, 2);
+	// {
+		// printf("Orphan_Managed pipe_opt\n");
+		// if (!tmp[i - 1])
+		// {
+		// 	printf("Orphan_Managed POST INSIDER\n");
+		// 	// chk_error(PIPENDERR, NULL, 2);
+		// }
+		// else if (tmp[i - 1])
+		// {
+		// 	printf("Orphan_Managed with INSIDER{%s}\n", tmp[i]);
+		// }
+	// }
+}
 /* get_node -> sub_chek quots by token */

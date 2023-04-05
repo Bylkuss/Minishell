@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gehebert <gehebert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 08:02:21 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/04 08:16:16 by gehebert         ###   ########.fr       */
+/*   Updated: 2023/04/05 09:19:35 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ char	*get_here_str(char *str[2], size_t len, char *limit, char *warn)
 	{
 		temp = str[1];
 		str[1] = ft_strjoin(str[1], str[0]);
-		// free(temp);
-		// free(str[0]);
 		str[0] = readline(">> ");
 		if (!str[0])
 			break ;

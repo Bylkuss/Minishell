@@ -67,6 +67,7 @@ static char	**strtrim(char **args)
 		free(temp[j]);
 		temp[j] = aux;
 	}
+	// orphan_redir(temp);
 	return (temp);
 }
 
