@@ -51,7 +51,7 @@ static void	*parse_args(t_table *tab, char **aux)
 		g_status = 0;
 	if (g_status > 255)
 		g_status = g_status / 255;
-	if (tab && is_exit)
+	if (tab->cmdl && is_exit)
 	{
 		ft_lstclear(&tab->cmdl, free_cont);
 		return (NULL);

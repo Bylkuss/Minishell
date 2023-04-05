@@ -65,34 +65,56 @@ char	*q_trim(char const *s1, int squote, int dquote)
 	return (trimmed);
 }
 
-void	orphan_redir(char **tmp)
+int	orphan_redir(int i, char **tmp)
 {
-	int i;
+	// int i;
 
-	i = 0;
+	// i = 0;
 
-	// printf("Orphan_Managed tmp{%s}\n", tmp[i]);
+	printf("Orphan_Managed [%d] tmp{%s}\n", i, tmp[i]);
 	// 	i++;
 	// }
 	if (!ft_strcmp("<<", tmp[i]) && !tmp[i - 1])
+	{
 			chk_error(PIPENDERR, NULL, 2);
-	// else if (!ft_strcmp("<", tmp[i]))
+			i = -2;
 
-	// else if (!ft_strcmp(">>", tmp[i]))
-	// else if (!ft_strcmp(">", tmp[i]))
-	if ((ft_strcmp("|", tmp[i]) == 0) && tmp[i - 1]) 
-			chk_error(PIPENDERR, NULL, 2);
-	// {
-		// printf("Orphan_Managed pipe_opt\n");
+	}
+		// else if (!ft_strcmp("<", tmp[i]))
+		// else if (!ft_strcmp(">>", tmp[i]))
+		// else if (!ft_strcmp(">", tmp[i]))
+	if ((!ft_strcmp("|", tmp[i]) && tmp[i - 1]))
+	{
+		printf("Orphan_Managed before pipe_opt\n");
+		chk_error(PIPENDERR, NULL, 2);
+		i = -2;
+	}
+	else if ((!ft_strcmp("|", tmp[i]) && !tmp[i - 1]))
+	{
+		printf("Orphan_Managed not_before_ pipe_opt\n");
+		chk_error(PIPENDERR, NULL, 2);
+		i = -2;
+	}
+	else if ((!ft_strcmp("|", tmp[i]) && tmp[i + 1]))
+	{
+		printf("Orphan_Managed POST INSIDER\n");
+		chk_error(PIPENDERR, NULL, 2);
+		i = -2;
+	}
+	else if ((!ft_strcmp("|", tmp[i]) && !tmp[i + 1]))
+	{
+		printf("Orphan_Managed no_POST INSIDER\n");
+		chk_error(PIPENDERR, NULL, 2);
+		i = -2;
+	}
 		// if (!tmp[i - 1])
 		// {
-		// 	printf("Orphan_Managed POST INSIDER\n");
 		// 	// chk_error(PIPENDERR, NULL, 2);
 		// }
 		// else if (tmp[i - 1])
 		// {
 		// 	printf("Orphan_Managed with INSIDER{%s}\n", tmp[i]);
 		// }
-	// }
+	return(i);
 }
 /* get_node -> sub_chek quots by token */

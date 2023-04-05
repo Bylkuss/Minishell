@@ -41,11 +41,11 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 			node = get_infile1(node, a[1], i);
 		else if (a[0][*i][0] != '|')
 			node->cmd = ft_mx_ext(node->cmd, a[1][*i]);
-		else
-		{
-			chk_error(PIPENDERR, NULL, 2);
-			*i = -2;
-		}
+		// else
+		// {
+		// 	chk_error(PIPENDERR, NULL, 2);
+		// 	*i = -2;
+		// }
 		return (node);
 	}
 	chk_error(PIPENDERR, NULL, 2);
@@ -67,7 +67,6 @@ static char	**strtrim(char **args)
 		free(temp[j]);
 		temp[j] = aux;
 	}
-	// orphan_redir(temp);
 	return (temp);
 }
 
@@ -76,6 +75,7 @@ static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 	ft_lstclear(&cmdl, free_cont);
 	ft_mx_free(&tmp);
 	ft_mx_free(&tkn);
+	printf("STOP iT \n");
 	return (NULL);
 }
 
@@ -97,6 +97,7 @@ t_list	*get_node(char **tkn, int i)
 		}
 		tmp[0] = tkn;
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
+		i = orphan_redir(i , tmp[0]);
 		if (i < 0 || (tkn[i - 1] && tkn[i - 1][0] == '|'))
 				return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])

@@ -98,7 +98,7 @@ char		**edit_env(char **envp, int pos);
 /***********************************************************/
 void		handle_sigint(int sig);
 char		*q_trim(char const *s1, int squote, int dquote);
-void		orphan_redir(char **tmp);
+int 		orphan_redir(int i, char **tmp);
 char		*getprompt(t_table tab);
 char		**ms_setenv(char *var, char *value, char **envp, int n);
 char		*ms_getenv(char *var, char **envp, int n);
