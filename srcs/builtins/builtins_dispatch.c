@@ -70,7 +70,7 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 		i = 0;
 		if (aux)
 			i = ft_strlen(*aux);
-		printf("strlen [%d]\n", i);
+		// printf("strlen [%d]\n", i);
 		if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
 			g_status = ms_exit(cmdl, is_exit);
 		else if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
