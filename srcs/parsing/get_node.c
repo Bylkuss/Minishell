@@ -96,7 +96,7 @@ t_list	*get_node(char **tkn, int i)
 		}
 		tmp[0] = tkn;
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
-		if (i < 0)
+		if (i < 0  || (tkn[i - 1][0] == '|'))
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])
 			break ;

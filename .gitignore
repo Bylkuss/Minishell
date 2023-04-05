@@ -18,6 +18,7 @@ venv/
 *.ilk
 *.map
 *.exp
+*.sup
 
 # Precompiled Headers
 *.gch

@@ -70,6 +70,7 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 		i = 0;
 		if (aux)
 			i = ft_strlen(*aux);
+		printf("strlen [%d]\n", i);
 		if (aux && !ft_strncmp(*aux, "exit", i) && i == 4)
 			g_status = ms_exit(cmdl, is_exit);
 		else if (!cmdl->next && aux && !ft_strncmp(*aux, "cd", i) && i == 2)
@@ -79,7 +80,7 @@ int	builtins(t_table *tab, t_list *cmdl, int *is_exit)
 		else if (!cmdl->next && aux && !ft_strncmp(*aux, "unset", i) && i == 5)
 			g_status = ms_unset(tab);
 		else if (!cmdl->next && !aux)
-			return (g_status);
+			return (g_status); 
 		else
 			execmd_1(tab, cmdl);
 		cmdl = cmdl->next;
