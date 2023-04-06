@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 22:31:08 by gehebert          #+#    #+#             */
-/*   Updated: 2023/04/04 12:42:19 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/06 08:26:19 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,7 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 			chk_error(PIPENDERR, NULL, 2);
 			*i = -2;
 		}
-		return (node);
 	}
-	chk_error(PIPENDERR, NULL, 2);
-	*i = -2;
 	return (node);
 }
 
@@ -77,7 +74,6 @@ static char	**strtrim(char **args)
 
 static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 {
-	printf("\t...STOP... \n");
 	ft_lstclear(&cmdl, free_cont);
 	ft_mx_free(&tmp);
 	ft_mx_free(&tkn);
