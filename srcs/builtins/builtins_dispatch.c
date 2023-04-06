@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/28 13:54:28 by bylkus            #+#    #+#             */
-/*   Updated: 2023/04/04 07:55:35 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/06 10:38:13 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_builtin(t_node *t)
 	int	id;
 
 	id = 0;
-	if (!(t->cmd[0]))
+	if (!t->cmd)
 		return (0);
 	if (t->cmd && ft_strchr(*t->cmd, '/') || (t->path && ft_strchr(t->path,
 				'/')))
