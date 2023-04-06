@@ -30,7 +30,12 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
-		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
+		if (a[0][0][0] == '|')
+		{
+			chk_error(PIPENDERR, NULL, 2);
+			*i = -2;
+		}
+		else if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
@@ -72,6 +77,7 @@ static char	**strtrim(char **args)
 
 static t_list	*stop_fill(t_list *cmdl, char **tkn, char **tmp)
 {
+	printf("\t...STOP... \n");
 	ft_lstclear(&cmdl, free_cont);
 	ft_mx_free(&tmp);
 	ft_mx_free(&tkn);
