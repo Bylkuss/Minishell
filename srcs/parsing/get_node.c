@@ -30,7 +30,12 @@ static t_node	*get_params(t_node *node, char **a[2], int *i)
 {
 	if (a[0][*i])
 	{
-		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
+		if (a[0][0][0] == '|')
+		{
+			chk_error(PIPENDERR, NULL, 2);
+			*i = -2;
+		}
+		else if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
 			node = get_outfile2(node, a[1], i);
 		else if (a[0][*i][0] == '>')
 			node = get_outfile1(node, a[1], i);
@@ -96,10 +101,8 @@ t_list	*get_node(char **tkn, int i)
 			cmdl[1] = ft_lstlast(cmdl[0]);
 		}
 		tmp[0] = tkn;
-		printf("\t...get_node... i[%d]\n", i);
-		printf("\t...get_node... tmp[%s]\n", *tmp[0]);
 		cmdl[1]->content = get_params(cmdl[1]->content, tmp, &i);
-		if (i < 0 || (ft_mx_len(tkn) == 3 && i != 0))
+		if (i < 0)
 			return (stop_fill(cmdl[0], tkn, tmp[1]));
 		if (!tkn[i])
 			break ;
