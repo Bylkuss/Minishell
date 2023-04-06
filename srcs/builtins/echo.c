@@ -6,7 +6,7 @@
 /*   By: loadjou <loadjou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/08 11:38:29 by loadjou           #+#    #+#             */
-/*   Updated: 2023/03/21 15:22:27 by loadjou          ###   ########.fr       */
+/*   Updated: 2023/04/04 11:00:43 by loadjou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,13 @@ static int	multiple_n(char *str)
 	return (0);
 }
 
-static void	print_echo(char **cmd, int flag)
+static void	print_echo(char **cmd, int flag, int i)
 {
-	int	i;
 	int	j;
 
 	j = 0;
-	i = flag + 1;
 	while (cmd[i])
 	{
-		if (!ft_strcmp(cmd[i], "$?"))
-		{
-			printf("%s", cmd[i]);
-			return ;
-		}
 		j = 0;
 		while (cmd[i][j])
 		{
@@ -69,10 +62,13 @@ int	echo(char **cmd)
 		printf("\n");
 		return (1);
 	}
-	if (ft_strcmp(cmd[1], "-n") == 0 || multiple_n(cmd[1]) == 1)
+	i = 1;
+	while (cmd[i] && (ft_strcmp(cmd[i], "-n") == 0 || multiple_n(cmd[i]) == 1))
+	{
 		flag = 1;
-	if (cmd[1])
-		print_echo(cmd, flag);
+		i++;
+	}
+	print_echo(cmd, flag, i);
 	if (flag == 0)
 	{
 		printf("\n");
