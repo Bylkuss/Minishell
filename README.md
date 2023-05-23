@@ -10,6 +10,7 @@
 </p>
 
 
+
 1. [Sujet](#sujet)
 2. [Notes](#notes)
 
@@ -53,3 +54,16 @@
 - `readdir` : lit l'entrée suivante dans le fichier descriptif du dossier
 - `closedir` : referme le ficher descriptif du dossier
 - `pipe` : rempli un tableau avec deux nouveaux file descriptors qui vont être utiles pour changer l'entrée standard et la sortie standard
+
+
+***********************************************
+ <footer>
+    <p align=center style="float:left; width: 20%;">
+        &copy; Lounes Adjou, Germain Hebert, 2023
+    </p>
+    <p align=center style="float:left; width: 20%;">
+        For inquiries, please email me at: <a href="mailto:lounes.adjou@gmail.com">email</a>
+    </p>
+</footer>
+
+ ***********************************************
